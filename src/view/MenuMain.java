@@ -37,8 +37,13 @@ public class MenuMain extends GenericMenuInterface {
 	parser.getDateInput("Your birth date");
 	parser.getIntegerInput("Your age");
 	parser.getStringInput("Your password");
-	parser.confirmInput();
-    super.show("Test option ran successfully!");
+	if (parser.confirmInput()) {
+		System.out.println("Doing some processing...");
+		super.show("Test option ran successfully!");
+	} else {
+		super.show("Test Option was cancelled!");
+	}
+    
   }
   
   /**

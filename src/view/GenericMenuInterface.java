@@ -43,9 +43,11 @@ public class GenericMenuInterface {
 		if (message != "") {
 			System.out.println("["+ message + "]");
 		}
-		// show menu and listen for input
-		printSelf();
-		executeStringCommand();
+		// show menu
+		printMenu();
+		// let the user choose a menu option until a valid one has been supplied.
+		// Then, run the chosen option.
+		getMenuOptionInput().run();
 	}
 	
 	public void show() {
@@ -54,9 +56,9 @@ public class GenericMenuInterface {
 	
 
 	/**
-	 * print self
+	 * print the menu
 	 */
-	public void printSelf() {
+	private void printMenu() {
 		System.out.println("****** " + title + " ******");
 		for (HashMap.Entry<String, GenericMenuOption> entry : menuOptions.entrySet()) {
 			String command = entry.getKey();
@@ -66,29 +68,22 @@ public class GenericMenuInterface {
 	}
 
 	/**
-	 * listen and react to user input
+	 * Get
 	 */
-	public void executeStringCommand() {
+	public GenericMenuOption getMenuOptionInput() {
 		Terminal parser = Terminal.getInstance();
-
-		
-
-		GenericMenuOption foundItem = null;
-		while (foundItem == null) {
-			String choice = parser.getStringInput(">>");
-			foundItem = findMenuOption(choice);
-			if (foundItem == null) {
-				System.out.println("Please enter a valid command.");
+		GenericMenuOption menuOption = null;
+		while (true) {
+			menuOption = this.menuOptions.get(parser.getStringInput(">>"));
+			if (menuOption != null) {
+				// return breaks out of the while loop!
+				return menuOption;
+			} else {
+				System.out.println("Please choose one of the menu options");
+				// implied continue
 			}
 		}
-		foundItem.run();
 	}
 
-	/**
-	 * @param command the command a user inputs as a String
-	 * @return the menu item
-	 */
-	private GenericMenuOption findMenuOption(String command) {
-		return menuOptions.get(command);
-	}
+
 }
