@@ -16,7 +16,7 @@ public class MenuMain extends GenericMenuInterface {
     super.addMenuOption("2", new GenericMenuOption("Nested menu",
     		() -> showNestedMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
-    		() -> System.exit(0)));
+    		() -> Terminal.quit()));
   }
 
   /**
@@ -33,8 +33,10 @@ public class MenuMain extends GenericMenuInterface {
    * Show test option
    */
   private void showTestOption() {
-	Parser parser = Parser.getInstance();
+	Terminal parser = Terminal.getInstance();
 	parser.getDateInput("Your birth date");
+	parser.getIntegerInput("Your age");
+	parser.getStringInput("Your password");
 	parser.confirmInput();
     super.show("Test option ran successfully!");
   }

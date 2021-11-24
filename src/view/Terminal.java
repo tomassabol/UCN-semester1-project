@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class Parser {
-  private static Parser instance;
+public class Terminal {
+  private static Terminal instance;
   private Scanner scanner;
 
   private static final String DATE_FORMAT = "dd/MM/yyyy";
@@ -15,16 +15,16 @@ public class Parser {
   /**
    * Constructor for the Parser class.
    */
-  private Parser() {
+  private Terminal() {
     scanner = new Scanner(System.in);
   }
 
   /**
    * @return The instance of the Parser class
    */
-  public static Parser getInstance() {
+  public static Terminal getInstance() {
     if (instance == null) {
-      instance = new Parser();
+      instance = new Terminal();
     }
     return instance;
   }
@@ -128,5 +128,13 @@ public class Parser {
   public void printError(String message) {
 	  System.out.println("ERROR: " + message + "\n");
   }
+  
+	/*
+	 * Quit program
+	 */
+	public static void quit() {
+		System.out.println("Quitting...");
+		System.exit(0);
+	}
 
 }

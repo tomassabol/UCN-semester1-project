@@ -69,7 +69,7 @@ public class GenericMenuInterface {
 	 * listen and react to user input
 	 */
 	public void executeStringCommand() {
-		Parser parser = Parser.getInstance();
+		Terminal parser = Terminal.getInstance();
 
 		
 
