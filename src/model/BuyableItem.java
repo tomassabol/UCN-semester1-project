@@ -16,8 +16,8 @@ public class BuyableItem extends Item {
 	/**
 	 * 
 	 */
-	public BuyableItem(int barcode, BigDecimal costPrice, BigDecimal sellingPrice) {
-		super(barcode, costPrice);
+	public BuyableItem(int id, BigDecimal costPrice, BigDecimal sellingPrice) {
+		super(id, costPrice);
 		this.sellingPrice = sellingPrice;
 	}
 

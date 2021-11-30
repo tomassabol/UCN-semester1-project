@@ -1,5 +1,6 @@
 package model;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Order {
 	
@@ -11,14 +12,28 @@ public class Order {
 		CANCELLED
 	}
 	 
-	OrderStatus status;
-	LocalDateTime creationDate;
+	private OrderStatus status;
+	private LocalDateTime creationDate;
 	public final int ID;
+	private IFCustomer customer;
+	private ArrayList<OrderLine> orderLines;
 	
-	public Order(int id) {
-		this.status = OrderStatus.OFFERED;
+	/*
+	 * Constructor
+	 */
+	public Order(int id, Customer customer) {
 		this.ID = id;
+		this.customer = customer;
 		
+		this.status = OrderStatus.OFFERED;
+		this.creationDate = LocalDateTime.now();
+		
+	}
+	public IFCustomer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(IFCustomer customer) {
+		this.customer = customer;
 	}
 	public OrderStatus getStatus() {
 		return status;
@@ -33,7 +48,17 @@ public class Order {
 		this.creationDate = creationDate;
 	}
 	
+	public ArrayList<OrderLine> getOrderLines() {
+		return this.orderLines;
+	}
 	
+	public boolean addOrderLine(OrderLine orderLine) {
+		return this.orderLines.add(orderLine);
+	}
+	
+	public boolean removeOrderLine(OrderLine orderLine) {
+		return this.orderLines.remove(orderLine);
+	}
 	
 
 }
