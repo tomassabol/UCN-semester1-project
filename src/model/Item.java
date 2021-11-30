@@ -11,24 +11,18 @@ import java.math.BigDecimal;
  */
 public class Item {
 	
-	private int barcode;
+	// ID is the barcode for the project
+	public final int ID;
 	private BigDecimal costPrice; 
 
 	/**
 	 * 
 	 */
-	public Item(int barcode, BigDecimal costPrice) {
-		this.barcode = barcode;
+	public Item(int id, BigDecimal costPrice) {
+		this.ID = id;
 		this.costPrice = costPrice;
 	}
 
-	public int getBarcode() {
-		return barcode;
-	}
-
-	public void setBarcode(int barcode) {
-		this.barcode = barcode;
-	}
 
 	public BigDecimal getCostPrice() {
 		return costPrice;

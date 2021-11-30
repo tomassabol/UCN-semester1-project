@@ -13,11 +13,11 @@ public class Order {
 	 
 	OrderStatus status;
 	LocalDateTime creationDate;
-	final int ID;
+	public final int ID;
 	
-	public Order(int Id) {
+	public Order(int id) {
 		this.status = OrderStatus.OFFERED;
-		this.ID = Id;
+		this.ID = id;
 		
 	}
 	public OrderStatus getStatus() {
