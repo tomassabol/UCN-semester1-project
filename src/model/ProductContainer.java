@@ -1,6 +1,6 @@
 package model;
-
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @authors tomassabol, danielskenepe, tamastoth, attilabako
@@ -40,7 +40,7 @@ public class ProductContainer {
     /**
      * @return products ArrayList
      */
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return this.products;
     }
 
@@ -49,13 +49,12 @@ public class ProductContainer {
      * @return product with the given number
      */
     public Product findProductByProductId(int productId) {
-        Product returnProduct = null;
         for (Product product : products) {
-            if (productId == product.getProductID()) {
-                returnProduct = product;
+            if (product.ID == productId) {
+                return product ;
             }
         }
-        return returnProduct;
+        return null;
     }
 
     /**

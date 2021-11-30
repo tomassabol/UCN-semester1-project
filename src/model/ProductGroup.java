@@ -7,9 +7,11 @@ package model;
  */
 
 public class ProductGroup {
+    public final int ID;
     private String groupName;
 
-    private ProductGroup(String groupName) {
+    private ProductGroup(int Id, String groupName) {
+        this.ID = Id;
         this.groupName = groupName;
     }
 }

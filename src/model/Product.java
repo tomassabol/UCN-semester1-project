@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 
 public class Product {
-	private int productID;
+	public final int ID;
 	private String name;
 	private String description;
 	private int minStock;
@@ -23,21 +23,12 @@ public class Product {
 	 * @param minStock of the product
 	 * @param maxStock of the product
 	 */
-	public Product(int productID, String name, String description, int minStock, int maxStock) {
-		this.productID = productID;
+	public Product(int Id, String name, String description, int minStock, int maxStock) {
+		this.ID = Id;
 		this.name = name;
 		this.description = description;
 		this.minStock = minStock;
 		this.maxStock = maxStock;
-	}
-
-	// set/get productID
-	public int getProductID() {
-		return this.productID;
-	}
-
-	public void setProductID(int productID) {
-		this.productID = productID;
 	}
 
 	// set/get name
