@@ -12,7 +12,7 @@ public class Product {
 	private int minStock;
 	private int maxStock; 
 	/**
-	 * 
+	 * Constructor class Product
 	 */
 	public Product(int productID, String name, String description, int minStock, int maxStock) {
 		this.productID = productID;
