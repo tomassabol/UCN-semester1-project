@@ -15,6 +15,14 @@ public class Product {
 	private int maxStock; 
 	private ArrayList<Item> items;
 	
+	/**
+	 * Constructor of class Product
+	 * @param productID of the product
+	 * @param name of the product
+	 * @param description of the product
+	 * @param minStock of the product
+	 * @param maxStock of the product
+	 */
 	public Product(int productID, String name, String description, int minStock, int maxStock) {
 		this.productID = productID;
 		this.name = name;
