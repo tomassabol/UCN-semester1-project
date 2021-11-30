@@ -23,8 +23,8 @@ public class Product {
 	 * @param minStock of the product
 	 * @param maxStock of the product
 	 */
-	public Product(int Id, String name, String description, int minStock, int maxStock) {
-		this.ID = Id;
+	public Product(int id, String name, String description, int minStock, int maxStock) {
+		this.ID = id;
 		this.name = name;
 		this.description = description;
 		this.minStock = minStock;
