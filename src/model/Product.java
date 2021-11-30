@@ -1,12 +1,10 @@
-/**
- * 
- */
 package model;
 
 /**
- * @author Daniels Kanepe
- *
+ * @authors tomassabol, danielskenepe, tamastoth, attilabako
+ * @version Nov 30, 2021
  */
+
 public class Product {
 	private int productID;
 	private String name;
