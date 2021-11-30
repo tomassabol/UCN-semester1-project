@@ -17,20 +17,22 @@ public class ProductGroupLine {
         products = new ArrayList<>();
     }
 
-    /**
-     * @param product - product to be added to ArrayList
-     * @return true if product was successfully added
-     */
-    public boolean addProduct(Product product) {
-        return products.add(product);
+    // set/get product
+    public Product getProduct() {
+        return this.product;
     }
 
-    /**
-     * @param product - product to be removed from ArrayList
-     * @return true if product was successfully removed
-     */
-    public boolean removeProduct(Product product) {
-        return products.remove(product);
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    // set/get quantity
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
 }

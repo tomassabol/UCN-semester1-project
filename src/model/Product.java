@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @authors tomassabol, danielskenepe, tamastoth, attilabako
@@ -67,12 +68,23 @@ public class Product {
 		this.maxStock = maxStock;
 	}
 	
-	public ArrayList<Item> getItems() {
+	/**
+	 * @param item - item to be added to the ArrayList
+	 * @return true if successfully added
+	 */
+	public boolean addItem(Item item) {
+		return items.add(item);
+	}
+
+	/**
+	 * @return list of Items of the product
+	 */
+	public List<Item> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<Item> items) {
-		this.items = items;
+	public boolean removeItem(Item item) {
+		return items.remove(item);
 	}
 
 }
