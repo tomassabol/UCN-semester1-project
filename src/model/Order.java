@@ -1,18 +1,23 @@
 package model;
 import java.time.LocalDateTime;
 
-
-enum OrderStatus{
-	Offered,Paid,Dispatched,Delivered,Cancelled
-
-}
-
 public class Order {
+	
+	public enum OrderStatus{
+		OFFERED,
+		PAID,
+		DISPATCHED,
+		DELIVERED,
+		CANCELLED
+	}
 	 
 	OrderStatus status;
 	LocalDateTime creationDate;
-	public Order() {
-		status = OrderStatus.Offered;
+	final int ID;
+	
+	public Order(int Id) {
+		this.status = OrderStatus.OFFERED;
+		this.ID = Id;
 		
 	}
 	public OrderStatus getStatus() {
