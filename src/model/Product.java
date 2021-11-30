@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * @authors tomassabol, danielskenepe, tamastoth, attilabako
  * @version Nov 30, 2021
@@ -11,9 +13,8 @@ public class Product {
 	private String description;
 	private int minStock;
 	private int maxStock; 
-	/**
-	 * Constructor class Product
-	 */
+	private ArrayList<Item> items;
+	
 	public Product(int productID, String name, String description, int minStock, int maxStock) {
 		this.productID = productID;
 		this.name = name;
@@ -65,6 +66,14 @@ public class Product {
 
 	public void setMaxStock(int maxStock) {
 		this.maxStock = maxStock;
+	}
+	
+	public ArrayList<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(ArrayList<Item> items) {
+		this.items = items;
 	}
 
 }
