@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class ProductGroupLine {
     private Product product;
     private int quantity;
-    private ArrayList<Product> products;
 
     /**
      * Constructor class ProductGroupLine
@@ -14,7 +13,6 @@ public class ProductGroupLine {
     public ProductGroupLine(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        products = new ArrayList<>();
     }
 
     // set/get product
