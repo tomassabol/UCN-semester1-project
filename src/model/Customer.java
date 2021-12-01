@@ -13,35 +13,18 @@ implements IFCustomer {
 	private Order currentOrder = null;
 
 	public final int ID;
-	private String firstName;
-	private String secondName;
 	/**
 	 * Constructor
 	 */
-	public Customer(int id, String firstName, String secondName) {
+	public Customer(int id, String firstName, String lastName, String address, int mobil, String birthDate) {
+		super(firstName, lastName, address, mobil, birthDate);
 		this.ID = id;
-		this.firstName = firstName;
-		this.secondName = secondName;
 	}
 
 	// set/get firstname
-	public String getFirstName() {
-		return this.firstName;
-	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 
 	// set/get secondName
-	public String getSecondName() {
-		return this.secondName;
-	}
-
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
-	
 	public Order getCurrentOrder() {
 		return currentOrder;
 	}
