@@ -8,5 +8,7 @@ package model;
  *
  */
 public interface IFCustomer {
+	
+	public Order getCurrentOrder();
 
 }
