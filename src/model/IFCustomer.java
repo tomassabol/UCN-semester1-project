@@ -8,5 +8,5 @@ package model;
  *
  */
 public interface IFCustomer {
-
+    //
 }
