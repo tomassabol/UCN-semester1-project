@@ -20,19 +20,5 @@ implements IFCustomer {
 		super(firstName, lastName, address, mobil, birthDate);
 		this.ID = id;
 	}
-
-	// set/get firstname
-
-
-	// set/get secondName
-	public Order getCurrentOrder() {
-		return currentOrder;
-	}
-
-	public void setCurrentOrder(Order currentOrder) {
-		this.currentOrder = currentOrder;
-	}
 	
-	
-
 }
