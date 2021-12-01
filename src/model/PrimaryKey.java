@@ -6,7 +6,8 @@ public class PrimaryKey {
 	private static int loanID = 0;
 	private static int productID = 0;
 	private static int productGroupID = 0;
-	private static int itemID;
+	private static int itemID = 0;
+	private static int customerID = 0;
 	
 
 	public PrimaryKey() {
@@ -44,11 +45,6 @@ public class PrimaryKey {
 		productGroupID++;
 		return productGroupID;
 	}
-
-	public static int getNextCustomerID() {
-		customerID++;
-		return customerID;
-	}
 	
 	/*
 	 * Generates a primary key for Item
@@ -56,6 +52,14 @@ public class PrimaryKey {
 	public static int getNextItemGroupID() {
 		itemID++;
 		return itemID;
+	}
+
+	/**
+	 * @return next customerID
+	 */
+	public static int getNextCustomerID() {
+		customerID++;
+		return customerID;
 	}
 	
 }
