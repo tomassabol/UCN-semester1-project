@@ -9,12 +9,14 @@ package model;
  */
 public class Customer extends AbstractPerson
 implements IFCustomer {
+	
+	private Order currentOrder = null;
 
 	public final int ID;
 	private String firstName;
 	private String secondName;
 	/**
-	 * 
+	 * Constructor
 	 */
 	public Customer(int id, String firstName, String secondName) {
 		this.ID = id;
@@ -39,5 +41,15 @@ implements IFCustomer {
 	public void setSecondName(String secondName) {
 		this.secondName = secondName;
 	}
+	
+	public Order getCurrentOrder() {
+		return currentOrder;
+	}
+
+	public void setCurrentOrder(Order currentOrder) {
+		this.currentOrder = currentOrder;
+	}
+	
+	
 
 }

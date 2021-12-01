@@ -8,5 +8,11 @@ package model;
  *
  */
 public interface IFCustomer {
+<<<<<<< HEAD
     //
+=======
+	
+	public Order getCurrentOrder();
+
+>>>>>>> refs/remotes/origin/main
 }
