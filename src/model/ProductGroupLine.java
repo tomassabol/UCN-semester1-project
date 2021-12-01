@@ -1,5 +1,4 @@
 package model;
-import java.util.ArrayList;
 
 public class ProductGroupLine {
     private Product product;
