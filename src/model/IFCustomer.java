@@ -8,5 +8,6 @@ package model;
  *
  */
 public interface IFCustomer {
-    //
+	
+	public ShoppingCart getShoppingCart();
 }

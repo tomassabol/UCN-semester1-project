@@ -1,23 +1,16 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CurrentOrderContainer {
-    private HashMap<Customer, Order> orders;
-    private static CurrentOrderContainer instance;
+public class ShoppingCart {
+    private ArrayList<IFItemLine> itemLines;
 
     /*
      * Constructor
      */
-    private CurrentOrderContainer() {
-        orders = new HashMap<>();
-    }
-
-    public static CurrentOrderContainer getInstance() {
-        if (instance == null) {
-            instance = new CurrentOrderContainer();
-        }
-        return instance;
+    public ShoppingCart() {
+    	itemLines = new ArrayList<>();
     }
 
     /**
@@ -26,8 +19,33 @@ public class CurrentOrderContainer {
      * @param customer the customer
      * @return the current order
      */
-    public Order getCurrentOrder(IFCustomer customer) {
-        return this.orders.get(customer);
+    public ArrayList<IFItemLine> getItemLines(IFCustomer customer) {
+        return this.itemLines;
+    }
+    
+    /*
+     * Clear shopping cart
+     */
+    public void clear() {
+    	this.itemLines.clear();
+    }
+    
+    /**
+     * Add an ItemLine to the shopping cart
+     *
+     * @param itemLine the itemLine to add
+     */
+    public void add(IFItemLine itemLine) {
+    	this.itemLines.add(itemLine);
+    }
+    
+    /**
+     * Removes an ItemLine from the shopping cart
+     *
+     * @param itemLine the itemLine to remove
+     */
+    public void remove(IFItemLine itemLine) {
+    	this.itemLines.remove(itemLine);
     }
 
 }

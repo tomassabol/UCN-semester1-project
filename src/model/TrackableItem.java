@@ -3,6 +3,7 @@ package model;
 public class TrackableItem {
     private int serialNumber;
     private TrackableItemType trackableItemType;
+    private Product product;
 
     enum TrackableItemType {
         LOANABLE,
@@ -14,12 +15,20 @@ public class TrackableItem {
      * @param serialNumber
      * @param trackableItemType
      */
-    public TrackableItem(int serialNumber, TrackableItemType trackableItemType) {
+    public TrackableItem(int serialNumber, TrackableItemType trackableItemType, Product product) {
         this.serialNumber = serialNumber;
         this.trackableItemType = trackableItemType;
+        this.product = product;
     }
 
-    // get/set serialNumber
+    public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
     public int getSerialNumber() {
         return this.serialNumber;
     }
@@ -28,7 +37,6 @@ public class TrackableItem {
         this.serialNumber = serialNumber;
     }
 
-    // get/set trackableItemType
     public TrackableItemType getTrackableItemType() {
         return this.trackableItemType;
     }

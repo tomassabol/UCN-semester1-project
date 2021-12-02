@@ -13,24 +13,20 @@ import java.time.LocalDateTime;
 public class EmployeeCustomer extends AbstractPerson
 implements IFCustomer, IFEmployee {
 	
-	private Order currentOrder = null;
-	private final int ID;
 	private int CPRNumber;
+	private ShoppingCart shoppingCart;
 	/**
 	 *  Constructor
 	 */
 	public EmployeeCustomer(int ID, int CPRNumber, String firstName, String lastName, String address, String mobile, LocalDateTime birthDate) {
-		super(firstName, lastName, address, mobile, birthDate);
-		this.ID = ID;
+		super(ID, firstName, lastName, address, mobile, birthDate);
 		this.CPRNumber = CPRNumber;
-	}
-	
-	public void setCurrentOrder(Order currentOrder) {
-		this.currentOrder = currentOrder;
+		this.shoppingCart = new ShoppingCart();
 	}
 
-	public Order getCurrentOrder() {
-		return currentOrder;
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
 	}
+	
 
 }
