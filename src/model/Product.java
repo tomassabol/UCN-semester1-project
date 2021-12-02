@@ -15,11 +15,13 @@ public class Product {
 	private String description;
 	private int minStock;
 	private int maxStock; 
-	private int untrackableItemStock;
 	private ArrayList<SellingPrice> sellingPrices;
 	private BulkDiscount bulkDiscount;
 	private LoaningPrice loaningPrice;
+	private SupplyOffer supplyOffer;
 	private LocalDateTime dateAdded = LocalDateTime.now();
+	private ArrayList<SupplyOffer> supplyOffers;
+	private SupplyOfferContainer supplyOfferContainer;
 	
 	/**
 	 * Constructor of class Product
@@ -36,11 +38,11 @@ public class Product {
 		this.description = description;
 		this.minStock = minStock;
 		this.maxStock = maxStock;
-		this.untrackableItemStock = untrackableItemStock;
 		sellingPrices = new ArrayList<>();
 		sellingPrices.add(new SellingPrice(price, dateAdded));
 		loaningPrice = new LoaningPrice(pricePerHour, dateAdded);
 		bulkDiscount = new BulkDiscount(minQuantity, percentageDiscount);
+		supplyOfferContainer = new SupplyOfferContainer();
 	}
 
 	// set/get name
@@ -77,15 +79,6 @@ public class Product {
 
 	public void setMaxStock(int maxStock) {
 		this.maxStock = maxStock;
-	}
-
-	// set/get maxStock
-	public int getUntrackableItemStock() {
-		return this.untrackableItemStock;
-	}
-
-	public void setUntrackableItemStock(int untrackableItemStock) {
-		this.untrackableItemStock = untrackableItemStock;
 	}
 
 	/**

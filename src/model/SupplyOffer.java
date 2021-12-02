@@ -1,9 +1,9 @@
 package model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public class SupplyOffer {
+    public final int ID;
     private BigDecimal costPrice;
     private boolean active;
     private boolean isTrackable;
@@ -14,10 +14,12 @@ public class SupplyOffer {
      * @param active - true if offer is still active
      * @param isTrackable - true if supply is trackable
      */
-    private SupplyOffer(BigDecimal costPrice, boolean active, boolean isTrackable) {
+    private SupplyOffer(int id, BigDecimal costPrice, boolean active, boolean isTrackable, int contractorId) {
+        this.ID = id;
         this.costPrice = costPrice;
         this.active = active;
         this.isTrackable = isTrackable;
+        ContractorContainer.getInstance().findContractorById(contractorId);
     }
 
     // get/set costPrice

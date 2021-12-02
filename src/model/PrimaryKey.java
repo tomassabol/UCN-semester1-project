@@ -9,6 +9,7 @@ public class PrimaryKey {
 	private static int itemID = 0;
 	private static int customerID = 0;
 	private static int contractorID = 0;
+	private static int supplyOfferID = 0;
 	
 
 	public PrimaryKey() {
@@ -66,5 +67,10 @@ public class PrimaryKey {
 	public static int getNextContractorID() {
 		contractorID++;
 		return contractorID;
+	}
+
+	public static int getNextSupplyOfferID() {
+		supplyOfferID++;
+		return supplyOfferID;
 	}
 }
