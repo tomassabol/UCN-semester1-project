@@ -125,9 +125,9 @@ public class Terminal {
    * Print an error message
    * @param String The error message to print.
    */
-  public void printError(String message) {
-	  System.out.println("ERROR: " + message + "\n");
-  }
+	public static void printError(String message) {
+		System.out.println("ERROR: " + message + "\n");
+	}
   
 	/*
 	 * Quit program
@@ -135,6 +135,15 @@ public class Terminal {
 	public static void quit() {
 		System.out.println("Quitting...");
 		System.exit(0);
+	}
+	
+	/*
+	 * Clear terminal screen
+	 */
+	public static void clearScreen() {
+		for (int i = 0; i < 30; i++) {
+			System.out.println();
+		}
 	}
 
 }
