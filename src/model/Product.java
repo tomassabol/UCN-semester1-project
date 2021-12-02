@@ -14,7 +14,6 @@ public class Product {
 	private String description;
 	private int minStock;
 	private int maxStock; 
-	private ArrayList<Item> items;
 	
 	/**
 	 * Constructor of class Product
@@ -66,25 +65,6 @@ public class Product {
 
 	public void setMaxStock(int maxStock) {
 		this.maxStock = maxStock;
-	}
-	
-	/**
-	 * @param item - item to be added to the ArrayList
-	 * @return true if successfully added
-	 */
-	public boolean addItem(Item item) {
-		return items.add(item);
-	}
-
-	/**
-	 * @return list of Items of the product
-	 */
-	public List<Item> getItems() {
-		return items;
-	}
-
-	public boolean removeItem(Item item) {
-		return items.remove(item);
 	}
 
 }

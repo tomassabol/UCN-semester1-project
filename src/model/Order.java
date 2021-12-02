@@ -16,7 +16,6 @@ public class Order {
 	private LocalDateTime creationDate;
 	public final int ID;
 	private IFCustomer customer;
-	private ArrayList<OrderLine> orderLines;
 	
 	/*
 	 * Constructor
@@ -46,19 +45,6 @@ public class Order {
 	}
 	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate;
-	}
-	
-	public ArrayList<OrderLine> getOrderLines() {
-		return this.orderLines;
-	}
-	
-	public boolean addOrderLine(OrderLine orderLine) {
-		return this.orderLines.add(orderLine);
-	}
-	
-	public boolean removeOrderLine(OrderLine orderLine) {
-		return this.orderLines.remove(orderLine);
-	}
-	
+	}	
 
 }
