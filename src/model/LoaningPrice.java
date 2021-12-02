@@ -1,22 +1,23 @@
 package model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class LoaningPrice {
-    private int pricePerHour;
+    private BigDecimal pricePerHour;
     private LocalDateTime dateAdded;
 
-    public LoaningPrice(int pricePerHour, LocalDateTime dateAdded) {
+    public LoaningPrice(BigDecimal pricePerHour, LocalDateTime dateAdded) {
         this.pricePerHour = pricePerHour;
         this.dateAdded = dateAdded;
     }
 
     // get/set pricePerHour
-    public int getPricePerHour() {
+    public BigDecimal getPricePerHour() {
         return this.pricePerHour;
     }
 
-    public void setPricePerHour(int pricePerHour) {
+    public void setPricePerHour(BigDecimal pricePerHour) {
         this.pricePerHour = pricePerHour;
     }
 

@@ -17,6 +17,9 @@ public class Product {
 	private int maxStock; 
 	private int untrackableItemStock;
 	private ArrayList<SellingPrice> sellingPrices;
+	private BulkDiscount bulkDiscount;
+	private LoaningPrice loaningPrice;
+	private LocalDateTime dateAdded = LocalDateTime.now();
 	
 	/**
 	 * Constructor of class Product
@@ -27,7 +30,7 @@ public class Product {
 	 * @param maxStock of the product
 	 * @param UntrackableItemStock - if item is untrackable(does not have serial number), how many are in stock
 	 */
-	public Product(int id, String name, String description, int minStock, int maxStock, int untrackableItemStock, BigDecimal price){
+	public Product(int id, String name, String description, int minStock, int maxStock, int untrackableItemStock, BigDecimal price, int minQuantity, int percentageDiscount, BigDecimal pricePerHour) {
 		this.ID = id;
 		this.name = name;
 		this.description = description;
@@ -35,7 +38,9 @@ public class Product {
 		this.maxStock = maxStock;
 		this.untrackableItemStock = untrackableItemStock;
 		sellingPrices = new ArrayList<>();
-		sellingPrices.add(new SellingPrice(price, LocalDateTime.now()));
+		sellingPrices.add(new SellingPrice(price, dateAdded));
+		loaningPrice = new LoaningPrice(pricePerHour, dateAdded);
+		bulkDiscount = new BulkDiscount(minQuantity, percentageDiscount);
 	}
 
 	// set/get name
@@ -83,6 +88,12 @@ public class Product {
 		this.untrackableItemStock = untrackableItemStock;
 	}
 
+	/**
+	 *  this methods checks the latest price of the product. 
+	 *  You cannot change the price, only add a new one. 
+	 *  This is useful for later to generate stats
+	 * @return price of the product that was added latests
+	 */
 	public BigDecimal getLatestSellingPrice() {
 		if (this.sellingPrices.size() == 0) {
 			return null;
