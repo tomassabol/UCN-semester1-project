@@ -3,6 +3,8 @@
  */
 package model;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Daniels Kanepe
  *
@@ -16,7 +18,7 @@ implements IFCustomer {
 	/**
 	 * Constructor
 	 */
-	public Customer(int id, String firstName, String lastName, String address, int mobil, String birthDate) {
+	public Customer(int id, String firstName, String lastName, String address, String mobil, LocalDateTime birthDate) {
 		super(firstName, lastName, address, mobil, birthDate);
 		this.ID = id;
 	}
