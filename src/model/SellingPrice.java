@@ -1,22 +1,23 @@
 package model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class SellingPrice {
-    private int price;
+    private BigDecimal price;
     private LocalDateTime dateAdded;
 
-    public SellingPrice(int price, LocalDateTime dateAdded) {
+    public SellingPrice(BigDecimal price, LocalDateTime dateAdded) {
         this.price = price;
         this.dateAdded = dateAdded;
     }
 
     // get/set price
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return this.price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

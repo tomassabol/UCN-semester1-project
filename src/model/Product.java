@@ -1,5 +1,9 @@
 package model;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 /**
  * @authors tomassabol, danielskenepe, tamastoth, attilabako
  * @version Nov 30, 2021
@@ -12,6 +16,7 @@ public class Product {
 	private int minStock;
 	private int maxStock; 
 	private int untrackableItemStock;
+	private ArrayList<SellingPrice> sellingPrices;
 	
 	/**
 	 * Constructor of class Product
@@ -22,13 +27,15 @@ public class Product {
 	 * @param maxStock of the product
 	 * @param UntrackableItemStock - if item is untrackable(does not have serial number), how many are in stock
 	 */
-	public Product(int id, String name, String description, int minStock, int maxStock, int untrackableItemStock) {
+	public Product(int id, String name, String description, int minStock, int maxStock, int untrackableItemStock, BigDecimal price){
 		this.ID = id;
 		this.name = name;
 		this.description = description;
 		this.minStock = minStock;
 		this.maxStock = maxStock;
 		this.untrackableItemStock = untrackableItemStock;
+		sellingPrices = new ArrayList<>();
+		sellingPrices.add(new SellingPrice(price, LocalDateTime.now()));
 	}
 
 	// set/get name
@@ -74,6 +81,21 @@ public class Product {
 
 	public void setUntrackableItemStock(int untrackableItemStock) {
 		this.untrackableItemStock = untrackableItemStock;
+	}
+
+	public BigDecimal getLatestSellingPrice() {
+		if (this.sellingPrices.size() == 0) {
+			return null;
+		}
+		
+		SellingPrice latestSellingPrice = sellingPrices.get(0); 
+		LocalDateTime latestSellingPriceDate = latestSellingPrice.getDateAdded();
+		for(SellingPrice sellingPriceObj: this.sellingPrices) {
+			if (sellingPriceObj.getDateAdded().isAfter(latestSellingPriceDate)) {
+				latestSellingPriceDate = sellingPriceObj.getDateAdded();
+			}
+		}
+		return latestSellingPrice.getPrice();
 	}
 
 }
