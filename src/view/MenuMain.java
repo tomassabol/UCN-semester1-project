@@ -1,5 +1,7 @@
 package view;
 
+import model.Customer;
+import model.CustomerContainer;
 
 public class MenuMain extends GenericMenuInterface {
   private static MenuMain instance;
@@ -11,8 +13,8 @@ public class MenuMain extends GenericMenuInterface {
     super();
 
     super.setTitle("Main Menu");
-    super.addMenuOption("1", new GenericMenuOption("Test option",
-    		() -> showTestOption()));
+    super.addMenuOption("1", new GenericMenuOption("Create an order",
+    		() -> createOrder()));
     super.addMenuOption("2", new GenericMenuOption("Nested menu",
     		() -> showNestedMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
@@ -30,18 +32,22 @@ public class MenuMain extends GenericMenuInterface {
   }
 
   /**
-   * Show test option
+   * Create Order
    */
-  private void showTestOption() {
-	Terminal parser = Terminal.getInstance();
-	parser.getDateInput("Your birth date");
-	parser.getIntegerInput("Your age");
-	parser.getStringInput("Your password");
-	if (parser.confirmInput()) {
-		System.out.println("Doing some processing...");
-		super.show("Test option ran successfully!");
+  private void createOrder() {
+	Terminal terminal = Terminal.getInstance();
+	
+	terminal.clearScreen();
+	System.out.println("[Customers]");
+	terminal.printAllCustomers();
+	Customer customer = terminal.getCustomer();
+	System.out.println("You chose customer with ID: " + customer.ID);
+	// Create the order
+	if (terminal.confirmInput()) {
+		System.out.println("Creating an order...");
+		super.show("Successfully created a new order");
 	} else {
-		super.show("Test Option was cancelled!");
+		super.show("Order creation was cancelled!");
 	}
     
   }
