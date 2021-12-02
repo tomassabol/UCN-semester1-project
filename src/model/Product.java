@@ -1,8 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @authors tomassabol, danielskenepe, tamastoth, attilabako
  * @version Nov 30, 2021
@@ -14,6 +11,7 @@ public class Product {
 	private String description;
 	private int minStock;
 	private int maxStock; 
+	private int untrackableItemStock;
 	
 	/**
 	 * Constructor of class Product
@@ -22,13 +20,15 @@ public class Product {
 	 * @param description of the product
 	 * @param minStock of the product
 	 * @param maxStock of the product
+	 * @param UntrackableItemStock - if item is untrackable(does not have serial number), how many are in stock
 	 */
-	public Product(int id, String name, String description, int minStock, int maxStock) {
+	public Product(int id, String name, String description, int minStock, int maxStock, int untrackableItemStock) {
 		this.ID = id;
 		this.name = name;
 		this.description = description;
 		this.minStock = minStock;
 		this.maxStock = maxStock;
+		this.untrackableItemStock = untrackableItemStock;
 	}
 
 	// set/get name
@@ -65,6 +65,15 @@ public class Product {
 
 	public void setMaxStock(int maxStock) {
 		this.maxStock = maxStock;
+	}
+
+	// set/get maxStock
+	public int getUntrackableItemStock() {
+		return this.untrackableItemStock;
+	}
+
+	public void setUntrackableItemStock(int untrackableItemStock) {
+		this.untrackableItemStock = untrackableItemStock;
 	}
 
 }
