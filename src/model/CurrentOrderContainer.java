@@ -26,7 +26,7 @@ public class CurrentOrderContainer {
      * @param customer the customer
      * @return the current order
      */
-    public Order getCurrentOrder(Customer customer) {
+    public Order getCurrentOrder(IFCustomer customer) {
         return this.orders.get(customer);
     }
 
