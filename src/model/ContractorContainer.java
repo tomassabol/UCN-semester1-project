@@ -61,8 +61,4 @@ public class ContractorContainer {
         return contractors.remove(contractor);
     }
 
-    public void updateContractorCompanyName(Contractor contractor, String companyName) {
-        contractor.setCompanyName(companyName);
-    }
-
 }

@@ -37,33 +37,6 @@ public class SupplyOfferContainer {
     }
 
     /**
-     * update cost price of a specific supplyoffer
-     * @param supplyOffer - specific offer to be updated
-     * @param costPrice - costprice that will overwrite previous costprice
-     */
-    public void updateCostPrice(SupplyOffer supplyOffer, BigDecimal costPrice) {
-        supplyOffer.setCostPrice(costPrice);
-    }
-
-    /**
-     * update status(active) of a specific supplyoffer
-     * @param supplyOffer - specific offer to be updated
-     * @param active - true/false active
-     */
-    public void updateActive(SupplyOffer supplyOffer, boolean active) {
-        supplyOffer.setActive(active);
-    }
-
-    /**
-     * update Trackability(true/false) of a specific supplyoffer
-     * @param supplyOffer - specific offer to be updated
-     * @param isTrackable - true/false trackable
-     */
-    public void updateIsTrackable(SupplyOffer supplyOffer, boolean isTrackable) {
-        supplyOffer.setIsTrackable(isTrackable);
-    }
-
-    /**
      * @param id - find a supplyOffer with this specific id
      * @return supplyOffer with the specific ID if found
      */
