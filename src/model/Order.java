@@ -1,6 +1,7 @@
 package model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
 	
@@ -16,13 +17,15 @@ public class Order {
 	private LocalDateTime creationDate;
 	public final int ID;
 	private IFCustomer customer;
+	private ArrayList<IFItemLine> itemLines;
 	
 	/*
 	 * Constructor
 	 */
-	public Order(int id, Customer customer) {
+	public Order(int id, Customer customer, ArrayList<IFItemLine> itemLines) {
 		this.ID = id;
 		this.customer = customer;
+		this.itemLines = itemLines;
 		
 		this.status = OrderStatus.OFFERED;
 		this.creationDate = LocalDateTime.now();
@@ -46,5 +49,12 @@ public class Order {
 	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate;
 	}	
+	
+	public List<IFItemLine> getItemLines() {
+		return this.itemLines;
+	}
+	public void setItemLines(ArrayList<IFItemLine> itemLines) {
+		this.itemLines = itemLines;
+	}
 
 }

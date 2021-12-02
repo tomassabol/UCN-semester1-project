@@ -12,6 +12,7 @@ public class OrderContainer {
 	 * Private constructor: singleton
 	 */
 	private OrderContainer() {
+		this.orders = new ArrayList<>();
 	}
 	
     /**
@@ -41,10 +42,19 @@ public class OrderContainer {
     	return orders.remove(order);
     }
     
+    /**
+     * @return All orders
+     */
     public List<Order> getOrders() {
     	return this.orders;
     }
     
+    /**
+     * Find order by ID.
+     *
+     * @param orderID the order ID
+     * @return the order
+     */
     public Order findOrderByID(int orderID) {
     	for (Order order: orders) {
     		if (order.ID == orderID) {
@@ -52,6 +62,22 @@ public class OrderContainer {
     		}
     	}
     	return null;
+    }
+    
+    /**
+     * Gets all orders for a specific customer
+     *
+     * @param customer the customer
+     * @return the orders for the customer
+     */
+    public List<Order> getOrdersByCustomer(Customer customer) {
+    	ArrayList<Order> customerOrders = new ArrayList<>();
+    	for (Order order: this.orders) {
+    		if (order.getCustomer().equals(customer)) {
+    			customerOrders.add(order);
+    		}
+    	}
+    	return customerOrders;
     }
 
 }

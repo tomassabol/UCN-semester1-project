@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import controller.CustomerController;
+import controller.OrderController;
 import controller.ProductController;
 import model.Customer;
 import model.CustomerContainer;
@@ -14,6 +15,8 @@ import model.UntrackableItemLine;
 
 public class MenuMain extends GenericMenuInterface {
   private static MenuMain instance;
+  
+  private OrderController orderCtrl;
 
   /**
    * Constructor for MainMenuUI.
@@ -22,14 +25,14 @@ public class MenuMain extends GenericMenuInterface {
     super();
 
     super.setTitle("Main Menu");
-    super.addMenuOption("1", new GenericMenuOption("Create an order",
-    		() -> createOrder()));
-    super.addMenuOption("2", new GenericMenuOption("Generate test data",
+    super.addMenuOption("1", new GenericMenuOption("Generate test data",
     		() -> generateTestData()));
-    super.addMenuOption("3", new GenericMenuOption("Nested menu",
-    		() -> showNestedMenu()));
+    super.addMenuOption("2", new GenericMenuOption("Orders",
+    		() -> showOrdersMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		() -> Terminal.quit()));
+    
+    orderCtrl = new OrderController();
   }
 
   /**
@@ -40,35 +43,6 @@ public class MenuMain extends GenericMenuInterface {
       instance = new MenuMain();
     }
     return instance;
-  }
-
-  /**
-   * Create Order
-   */
-  private void createOrder() {
-	Terminal terminal = Terminal.getInstance();
-	
-	terminal.clearScreen();
-	System.out.println("[Customers]");
-	terminal.printAllCustomers();
-	Customer customer = terminal.getCustomer();
-	System.out.println("You chose customer with ID: " + customer.ID);
-	System.out.println("Customer: " + customer.getFirstName() + " " + customer.getLastName());
-	System.out.println("[Shopping cart]");
-	for(IFItemLine itemLine: customer.getShoppingCart().getItemLines()) {
-		System.out.println(itemLine.getQuantity() + "x: "
-				+ itemLine.getProduct().getName() 
-				+ " for " + itemLine.calculatePrice() + " DKK");
-	}
-	System.out.println("Total: " + customer.getShoppingCart().calculateTotalPrice());
-	// Create the order
-	if (terminal.confirmInput()) {
-		System.out.println("Creating an order...");
-		super.show("Successfully created a new order");
-	} else {
-		super.show("Order creation was cancelled!");
-	}
-    
   }
   
   /*
@@ -94,14 +68,17 @@ public class MenuMain extends GenericMenuInterface {
 	  // also need to use a controller here
 	  customer1.getShoppingCart().add(itemLine1);
 	  customer1.getShoppingCart().add(itemLine2);
+	  
+	  // Add orders to customer1
+	  orderCtrl.createOrder(customer1, customer1.getShoppingCart());
 	  super.show("Generated test data!");
   }
   
   /**
    * Show nested menu
    */
-  private void showNestedMenu() {
-    MenuNested.getInstance().show();
+  private void showOrdersMenu() {
+    MenuOrders.getInstance().show();
   }
   
 }
