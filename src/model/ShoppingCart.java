@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,19 +13,9 @@ public class ShoppingCart {
     public ShoppingCart() {
     	itemLines = new ArrayList<>();
     }
-
-    /**
-     * Gets a specific customer's cart aka current order
-     *
-     * @param customer the customer
-     * @return the current order
-     */
-    public ArrayList<IFItemLine> getItemLines(IFCustomer customer) {
-        return this.itemLines;
-    }
     
     /*
-     * Clear shopping cart
+     * Clear the shopping cart
      */
     public void clear() {
     	this.itemLines.clear();
@@ -47,5 +38,25 @@ public class ShoppingCart {
     public void remove(IFItemLine itemLine) {
     	this.itemLines.remove(itemLine);
     }
+    
+    public boolean isEmpty() {
+    	return this.itemLines.isEmpty();
+    }
+
+	public ArrayList<IFItemLine> getItemLines() {
+		return itemLines;
+	}
+
+	public void setItemLines(ArrayList<IFItemLine> itemLines) {
+		this.itemLines = itemLines;
+	}
+	
+	public BigDecimal calculateTotalPrice() {
+		BigDecimal totalPrice = BigDecimal.ZERO;
+		for(IFItemLine itemLine: this.itemLines) {
+			totalPrice = totalPrice.add(itemLine.calculatePrice());
+		}
+		return totalPrice;
+	}
 
 }

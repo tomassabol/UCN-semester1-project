@@ -9,8 +9,21 @@ implements IFItemLine{
 	private Product product;
 	private int quantity;
 	
+	public UntrackableItemLine(Product product, int quantity) {
+		this.product = product;
+		this.quantity = quantity;
+	}
+	
+	/**
+	 * Calculates the total price for all items in this ItemLine
+	 * @return the price as BigDecimal or null if no price is set.
+	 */
 	@Override
 	public BigDecimal calculatePrice() {
+		BigDecimal sellingPrice = product.getLatestSellingPrice();
+		if (sellingPrice == null) {
+			return null;
+		}
 		return product.getLatestSellingPrice().multiply(BigDecimal.valueOf(quantity));
 	}
 

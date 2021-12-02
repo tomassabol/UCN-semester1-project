@@ -1,5 +1,6 @@
 package controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import model.PrimaryKey;
 import model.Product;
@@ -19,10 +20,13 @@ public class ProductController {
 	 * @param description of the product to be created
 	 * @param minStock of the product to be created
 	 * @param maxStock of the product to be created
+	 * 
+	 * @return The newly created Product object
 	 */
-	public void createProduct(String name, String description, int minStock, int maxStock) {
+	public Product createProduct(String name, String description, int minStock, int maxStock) {
 		Product product = new Product(PrimaryKey.getNextProductID(), name, description, minStock, maxStock);
 		ProductContainer.getInstance().addProduct(product);
+		return product;
 	}
 
 	/**

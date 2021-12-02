@@ -55,7 +55,10 @@ public class Terminal {
   }
   
   public void printAllCustomers() {
-	  customerCtrl.getCustomers();
+	  for (Customer customer: customerCtrl.getCustomers()) {
+		  System.out.println("(" + customer.ID + ") " 
+	  + customer.getFirstName() + " " + customer.getLastName());
+	  }
   }
 
   /**

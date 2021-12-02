@@ -15,13 +15,13 @@ public class Product {
 	private String description;
 	private int minStock;
 	private int maxStock; 
-	private ArrayList<SellingPrice> sellingPrices;
-	private BulkDiscount bulkDiscount;
+	private ArrayList<SellingPrice> sellingPrices = new ArrayList<>();
+	private BulkDiscount bulkDiscount = null;
 	private LoaningPrice loaningPrice;
 	private SupplyOffer supplyOffer;
 	private LocalDateTime dateAdded = LocalDateTime.now();
 	private ArrayList<SupplyOffer> supplyOffers;
-	private SupplyOfferContainer supplyOfferContainer;
+	private SupplyOfferContainer supplyOfferContainer = new SupplyOfferContainer();
 	
 	/**
 	 * Constructor of class Product
@@ -30,19 +30,15 @@ public class Product {
 	 * @param description of the product
 	 * @param minStock of the product
 	 * @param maxStock of the product
-	 * @param UntrackableItemStock - if item is untrackable(does not have serial number), how many are in stock
+	 * TODO: Overload container with sellingPrice, loaningprice. 
+	 * TODO: add logic for if none (sellingPrice or LoaningPrice) is set.
 	 */
-	public Product(int id, String name, String description, int minStock, int maxStock, int untrackableItemStock, BigDecimal price, int minQuantity, int percentageDiscount, BigDecimal pricePerHour) {
+	public Product(int id, String name, String description, int minStock, int maxStock) {
 		this.ID = id;
 		this.name = name;
 		this.description = description;
 		this.minStock = minStock;
 		this.maxStock = maxStock;
-		sellingPrices = new ArrayList<>();
-		sellingPrices.add(new SellingPrice(price, dateAdded));
-		loaningPrice = new LoaningPrice(pricePerHour, dateAdded);
-		bulkDiscount = new BulkDiscount(minQuantity, percentageDiscount);
-		supplyOfferContainer = new SupplyOfferContainer();
 	}
 
 	// set/get name
@@ -88,7 +84,7 @@ public class Product {
 	 * @return price of the product that was added latests
 	 */
 	public BigDecimal getLatestSellingPrice() {
-		if (this.sellingPrices.size() == 0) {
+		if (this.sellingPrices.isEmpty()) {
 			return null;
 		}
 		
@@ -100,6 +96,11 @@ public class Product {
 			}
 		}
 		return latestSellingPrice.getPrice();
+	}
+	
+	// TODO: Check if not below zero or smth? do that in controller?
+	public void addSellingPrice(SellingPrice sellingPrice) {
+		this.sellingPrices.add(sellingPrice);
 	}
 
 }
