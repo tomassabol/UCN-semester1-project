@@ -35,10 +35,8 @@ public class GenericMenuInterface {
 	 * @param message (Optional) A message to show to the user above the menu
 	 */
 	public void show(String message) {
-		// clear screen
-		for (int i = 0; i < 30; i++) {
-			System.out.println();
-		}
+		Terminal terminal = Terminal.getInstance();
+		terminal.clearScreen();
 		// show message
 		if (message != "") {
 			System.out.println("["+ message + "]");
