@@ -6,9 +6,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+import controller.CustomerController;
+
+import model.Customer;
+import model.CustomerContainer;
+
 public class Terminal {
   private static Terminal instance;
   private Scanner scanner;
+  
+  CustomerController customerCtrl;
 
   private static final String DATE_FORMAT = "dd/MM/yyyy";
 
@@ -17,6 +24,8 @@ public class Terminal {
    */
   private Terminal() {
     scanner = new Scanner(System.in);
+    
+    customerCtrl = new CustomerController();
   }
 
   /**
@@ -27,6 +36,27 @@ public class Terminal {
       instance = new Terminal();
     }
     return instance;
+  }
+  
+  /**
+   * Prompt the user to identify a customer by ID
+   *
+   * @return the customer
+   * Note: Runs until valid ID is entered
+   */
+  public Customer getCustomer() {
+	  Customer customer = null;
+	  do {
+		  int id = this.getIntegerInput("Choose customer by ID");
+		  customer = customerCtrl.findCustomerByID(id);
+		  System.out.println(customer);
+	  } while (customer == null);
+	  
+	  return customer;
+  }
+  
+  public void printAllCustomers() {
+	  customerCtrl.getCustomers();
   }
 
   /**
@@ -42,6 +72,7 @@ public class Terminal {
   /**
    * @param prompt The text asking the user for input
    * @return int An integer as input from the user
+   * Note: Runs until a valid integer value is entered
    */
   public int getIntegerInput(String prompt) {
     int userInput;
@@ -63,6 +94,7 @@ public class Terminal {
   /**
    * @param prompt The text asking the user for input
    * @return LocalDate as input from the user
+   * Note: Runs until valid date is entered
    */
   public LocalDateTime getDateInput(String prompt) {
     LocalDateTime userInput;
@@ -85,6 +117,7 @@ public class Terminal {
   /**
    * @param prompt The text asking the user for input
    * @return boolean True if user confirmed input, else false
+   * Note: Runs until the user enters a valid confrmation value
    */
   public boolean confirmInput(String prompt) {
 
@@ -140,7 +173,7 @@ public class Terminal {
 	/*
 	 * Clear terminal screen
 	 */
-	public static void clearScreen() {
+	public void clearScreen() {
 		for (int i = 0; i < 30; i++) {
 			System.out.println();
 		}
