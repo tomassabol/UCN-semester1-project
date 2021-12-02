@@ -3,10 +3,12 @@ package model;
 import java.util.HashMap;
 
 public class CurrentOrderContainer {
-    // contains
     private HashMap<Customer, Order> orders;
     private static CurrentOrderContainer instance;
 
+    /*
+     * Constructor
+     */
     private CurrentOrderContainer() {
         orders = new HashMap<>();
     }
@@ -18,8 +20,14 @@ public class CurrentOrderContainer {
         return instance;
     }
 
-    public Order getCurrentOrder(Order order) {
-        return this.orders.get(order);
+    /**
+     * Gets a specific customer's cart aka current order
+     *
+     * @param customer the customer
+     * @return the current order
+     */
+    public Order getCurrentOrder(Customer customer) {
+        return this.orders.get(customer);
     }
 
 }
