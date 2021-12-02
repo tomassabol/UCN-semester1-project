@@ -1,9 +1,11 @@
 package model;
 
 public class Contractor {
+    public final int ID;
     private String companyName;
 
-    public Contractor(String companyName) {
+    public Contractor(int id, String companyName) {
+        this.ID = id;
         this.companyName = companyName;
     }
 

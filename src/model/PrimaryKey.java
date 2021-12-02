@@ -8,6 +8,7 @@ public class PrimaryKey {
 	private static int productGroupID = 0;
 	private static int itemID = 0;
 	private static int customerID = 0;
+	private static int contractorID = 0;
 	
 
 	public PrimaryKey() {
@@ -62,4 +63,8 @@ public class PrimaryKey {
 		return customerID;
 	}
 	
+	public static int getNextContractorID() {
+		contractorID++;
+		return contractorID;
+	}
 }
