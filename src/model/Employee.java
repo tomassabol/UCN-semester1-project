@@ -17,8 +17,8 @@ implements IFEmployee {
 	 */
 	private int CPRNumber;
 	
-	public Employee(int CPRNumber, String firstName, String lastName, String address, String mobil, LocalDateTime birthDate) {
-		super(firstName, lastName, address, mobil, birthDate);
+	public Employee(int ID, int CPRNumber, String firstName, String lastName, String address, String mobile, LocalDateTime birthDate) {
+		super(ID, firstName, lastName, address, mobile, birthDate);
 		this.CPRNumber = CPRNumber;
 	}
 
