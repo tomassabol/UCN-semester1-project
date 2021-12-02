@@ -49,7 +49,6 @@ public class Terminal {
 	  do {
 		  int id = this.getIntegerInput("Choose customer by ID");
 		  customer = customerCtrl.findCustomerByID(id);
-		  System.out.println(customer);
 	  } while (customer == null);
 	  
 	  return customer;
