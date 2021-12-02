@@ -7,7 +7,7 @@ public abstract class AbstractPerson {
 	/**
 	 * Fields for AbstractPerson class
 	 */
-	public int ID;
+	public final int ID;
 	private String firstName;
 	private String lastName;
 	private String address;
