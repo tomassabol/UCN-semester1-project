@@ -2,6 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TrackableItemLine
 implements IFItemLine{
@@ -26,12 +27,25 @@ implements IFItemLine{
 		return this.items.size();
 	}
 
-	public ArrayList<TrackableItem> getItems() {
+	public List<TrackableItem> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<TrackableItem> items) {
-		this.items = items;
+	/**
+	 * Adds a TrackableItem to a Line.
+	 * Restriction: Only items of same type(product) can be added.
+	 *
+	 * @param item the item to add
+	 * 
+	 */
+	public void addItem(TrackableItem item) {
+		// If trying to add an item of different type(product), do nothing
+		if (this.items.size() > 1) {
+			if (this.items.get(0).getProduct() != item.getProduct()) {
+				return;
+			}
+		}
+		this.items.add(item);
 	}
 
 }
