@@ -13,7 +13,7 @@ public class Order {
 	}
 	 
 	private OrderStatus status;
-	private LocalDateTime creationDate;
+	private final LocalDateTime CREATION_DATE;
 	public final int ID;
 	private IFCustomer customer;
 	private ArrayList<SpecificItemLine> itemLines;
@@ -27,7 +27,7 @@ public class Order {
 		this.itemLines = itemLines;
 		
 		this.status = OrderStatus.PAID;
-		this.creationDate = LocalDateTime.now();
+		this.CREATION_DATE = LocalDateTime.now();
 		
 	}
 	public IFCustomer getCustomer() {
@@ -42,22 +42,18 @@ public class Order {
 	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
-	public LocalDateTime getCreationDate() {
-		return creationDate;
-	}
-	public void setCreationDate(LocalDateTime creationDate) {
-		this.creationDate = creationDate;
-	}	
 	
-	public List<SpecificItemLine> getItemLines() {
-		return this.itemLines;
+	public LocalDateTime getCREATION_DATE() {
+		return CREATION_DATE;
+	}
+	public int getID() {
+		return ID;
 	}
 	public void setItemLines(ArrayList<SpecificItemLine> itemLines) {
 		this.itemLines = itemLines;
 	}
-	
-	public void addItemLine(SpecificItemLine itemLine) {
-		this.itemLines.add(itemLine);
+	public List<SpecificItemLine> getItemLines() {
+		return this.itemLines;
 	}
 
 }
