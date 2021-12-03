@@ -17,6 +17,7 @@ public class MenuProduct extends GenericMenuInterface{
         super.addMenuOption("1", new GenericMenuOption("Create a product", () -> createProduct()));
         super.addMenuOption("2", new GenericMenuOption("Show all Products", () -> showAllProducts()));
         super.addMenuOption("3", new GenericMenuOption("Delete a product", () -> deleteProduct()));
+        super.addMenuOption("4", new GenericMenuOption("Update a product", () -> updateProduct()));
         super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
 
         productCtrl = new ProductController();
@@ -59,9 +60,13 @@ public class MenuProduct extends GenericMenuInterface{
 
         System.out.println("[All Products in the System]");
         productCtrl.printAllProducts();
+        terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }
 
+    /**
+     * Deletes a product
+     */
     private void deleteProduct(){
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
@@ -69,5 +74,14 @@ public class MenuProduct extends GenericMenuInterface{
         int id = terminal.getIntegerInput("The id of the product you want to delete");
         productCtrl.removeProduct(id);
         super.show("The product was deleted!");
+    }
+
+    private void updateProduct() {
+        Terminal terminal = Terminal.getInstance();
+        terminal.clearScreen();
+
+        int id = terminal.getIntegerInput("The id of the product you want to update");
+        MenuUpdateProduct updateMenu = new MenuUpdateProduct(id);
+        updateMenu.show();
     }
 }
