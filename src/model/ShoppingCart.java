@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ShoppingCart {
-    private ArrayList<IFItemLine> itemLines;
+    private ArrayList<UnspecificItemLine> itemLines;
 
     /*
      * Constructor
@@ -26,7 +26,7 @@ public class ShoppingCart {
      *
      * @param itemLine the itemLine to add
      */
-    public void add(IFItemLine itemLine) {
+    public void add(UnspecificItemLine itemLine) {
     	this.itemLines.add(itemLine);
     }
     
@@ -35,7 +35,7 @@ public class ShoppingCart {
      *
      * @param itemLine the itemLine to remove
      */
-    public void remove(IFItemLine itemLine) {
+    public void remove(UnspecificItemLine itemLine) {
     	this.itemLines.remove(itemLine);
     }
     
@@ -43,18 +43,18 @@ public class ShoppingCart {
     	return this.itemLines.isEmpty();
     }
 
-	public ArrayList<IFItemLine> getItemLines() {
+	public ArrayList<UnspecificItemLine> getItemLines() {
 		return itemLines;
 	}
 
-	public void setItemLines(ArrayList<IFItemLine> itemLines) {
+	public void setItemLines(ArrayList<UnspecificItemLine> itemLines) {
 		this.itemLines = itemLines;
 	}
 	
 	public BigDecimal calculateTotalPrice() {
 		BigDecimal totalPrice = BigDecimal.ZERO;
-		for(IFItemLine itemLine: this.itemLines) {
-			totalPrice = totalPrice.add(itemLine.calculatePrice());
+		for(UnspecificItemLine itemLine: this.itemLines) {
+			totalPrice = totalPrice.add(itemLine.calculateCurrentPrice());
 		}
 		return totalPrice;
 	}
