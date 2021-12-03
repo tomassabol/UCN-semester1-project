@@ -15,7 +15,6 @@ import model.ShoppingCart;
 import model.SpecificItemLine;
 import model.UnspecificItemLine;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class OrderController.
  */

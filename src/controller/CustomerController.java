@@ -13,7 +13,7 @@ public class CustomerController {
 	}
 	
 	/**
-	 * Creates the customer.
+	 * Creates the customer
 	 *
 	 * @param ID the id
 	 * @param firstName the first name
@@ -49,6 +49,12 @@ public class CustomerController {
 		return CustomerContainer.getInstance().getCustomers();
 	}
 	
+	/**
+	 * Gets the shopping cart for a customer
+	 *
+	 * @param customer the customer
+	 * @return the shopping cart
+	 */
 	public void getShoppingCart(Customer customer) {
 		customer.getShoppingCart().getItemLines();
 	}

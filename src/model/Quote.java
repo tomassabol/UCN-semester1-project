@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Quote {
 	public final int ID;
-	private final LocalDateTime CREATION_DATE;
+	public final LocalDateTime CREATION_DATE;
 	private IFCustomer customer;
 	private IFEmployee employee;
 	private ArrayList<UnspecificItemLine> itemLines;

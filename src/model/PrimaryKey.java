@@ -1,7 +1,7 @@
 package model;
 
 public class PrimaryKey {
-	
+	// TODO: Implement with HashMap<Object, int>
 	private static int orderID = 0;
 	private static int loanID = 0;
 	private static int productID = 0;
@@ -78,7 +78,7 @@ public class PrimaryKey {
 		return storageLocationID++;
 	}
 	
-	public static int getNextStorageEmployeeID() {
+	public static int getNextEmployeeID() {
 		return employeeID++;
 	}
 	

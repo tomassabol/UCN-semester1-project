@@ -1,16 +1,19 @@
 package view;
 
+import controller.EmployeeController;
 import controller.OrderController;
 import model.Customer;
 import model.Employee;
 import model.IFEmployee;
 import model.Order;
+import model.Quote;
 import model.UnspecificItemLine;
 
 public class MenuOrders extends GenericMenuInterface {
   private static MenuOrders instance;
   
   private OrderController orderCtrl;
+  private EmployeeController employeeCtrl;
 
   /**
    * Constructor for MainMenuUI.
@@ -27,6 +30,7 @@ public class MenuOrders extends GenericMenuInterface {
     		() -> MenuMain.getInstance().show()));
     
     orderCtrl = new OrderController();
+    employeeCtrl = new EmployeeController();
   }
 
   /**
@@ -44,13 +48,16 @@ public class MenuOrders extends GenericMenuInterface {
  * Create Quote
  */
 	private void createQuote() {
+		
+		// TODO: Employee by default is id 0. Implement auth?
+		IFEmployee employee = employeeCtrl.getEmployeeByID(0);
 		Terminal terminal = Terminal.getInstance();
 		terminal.clearScreen();
 		
 		System.out.println("[Customers]");
 		terminal.printAllCustomers();
 		Customer customer = terminal.getCustomer();
-		System.out.println("You chose customer with ID: " + customer.ID);
+		terminal.clearScreen();
 		System.out.println("Customer: " + customer.getFirstName() + " " + customer.getLastName());
 		System.out.println("[Shopping cart]");
 		for(UnspecificItemLine itemLine: customer.getShoppingCart().getItemLines()) {
@@ -59,9 +66,7 @@ public class MenuOrders extends GenericMenuInterface {
 					+ " for " + itemLine.calculateCurrentPrice() + " DKK");
 		}
 		System.out.println("Total: " + customer.getShoppingCart().calculateTotalPrice() + " DKK");
-		// Create the order
-		IFEmployee employee = new Employee(0, 0, "", "", "", "", null);
-		if (terminal.confirmInput("Checkout?")) {		
+		if (terminal.confirmInput("Create a quote?")) {		
 			orderCtrl.createQuote(customer, employee, customer.getShoppingCart());
 			super.show("Successfully created a new quote");
 		} else {
@@ -75,8 +80,8 @@ public class MenuOrders extends GenericMenuInterface {
 		terminal.clearScreen();
 		
 		System.out.println("[All Quotes]");
-		for (Order order: orderCtrl.getOrders()) {
-			System.out.println("#" + order.ID + ": " + order.getStatus());
+		for (Quote quote: orderCtrl.getQuotes()) {
+			System.out.println("Quote: #" + quote.ID + " " + quote.CREATION_DATE);
 		}
 		System.out.println();
 		

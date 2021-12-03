@@ -15,9 +15,9 @@ implements IFEmployee {
 	/**
 	 * Fields for class Employee
 	 */
-	private int CPRNumber;
+	private String CPRNumber;
 	
-	public Employee(int ID, int CPRNumber, String firstName, String lastName, String address, String mobile, LocalDateTime birthDate) {
+	public Employee(int ID, String CPRNumber, String firstName, String lastName, String address, String mobile, LocalDateTime birthDate) {
 		super(ID, firstName, lastName, address, mobile, birthDate);
 		this.CPRNumber = CPRNumber;
 	}
@@ -25,7 +25,7 @@ implements IFEmployee {
 	/**
 	 * Getter for CPRnumber
 	 */
-	public int getCPRnumber(){
+	public String getCPRnumber(){
 		return CPRNumber;
 	}
 
@@ -33,7 +33,7 @@ implements IFEmployee {
 	 * Setter for CPRNumber
 	 * @param CPRNumber The new CPR number
 	 */
-	public void setCPRNumber(int CPRNumber){
+	public void setCPRNumber(String CPRNumber){
 		this.CPRNumber = CPRNumber;
 	}
 
