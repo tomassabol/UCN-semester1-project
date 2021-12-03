@@ -12,6 +12,8 @@ public class PrimaryKey {
 	private static int supplyOfferID = 0;
 	private static int shelfID = 0;
 	private static int storageLocationID = 0;
+	private static int employeeID = 0;
+	private static int quoteID = 0;
 	
 
 	public PrimaryKey() {
@@ -22,68 +24,66 @@ public class PrimaryKey {
 	 * Generates a primary key for Order
 	 */
 	public static int getNextOrderID() {
-		orderID++;
-		return orderID;
+		return orderID++;
 	}
 	
 	/*
 	 * Generates a primary key for Loan
 	 */
 	public static int getNextLoanID() {
-		loanID++;
-		return loanID;
+		return loanID++;
 	}
 
 	/*
 	 * Generates a primary key for Product
 	 */
 	public static int getNextProductID() {
-		productID++;
-		return productID;
+		return productID++;
 	}
 	
 	/*
 	 * Generates a primary key for ProductGroup
 	 */
 	public static int getNextProductGroupID() {
-		productGroupID++;
-		return productGroupID;
+		return productGroupID++;
 	}
 	
 	/*
 	 * Generates a primary key for Item
 	 */
 	public static int getNextItemGroupID() {
-		itemID++;
-		return itemID;
+		return itemID++;
 	}
 
 	/**
 	 * @return next customerID
 	 */
 	public static int getNextCustomerID() {
-		customerID++;
-		return customerID;
+		return customerID++;
 	}
 	
 	public static int getNextContractorID() {
-		contractorID++;
-		return contractorID;
+		return contractorID++;
 	}
 
 	public static int getNextSupplyOfferID() {
-		supplyOfferID++;
-		return supplyOfferID;
+		return supplyOfferID++;
 	}
 
 	public static int getNextShelfID() {
-		shelfID++;
-		return shelfID;
+		return shelfID++;
 	}
 
 	public static int getNextStorageLocationID() {
-		storageLocationID++;
-		return storageLocationID;
+		return storageLocationID++;
+	}
+	
+	public static int getNextStorageEmployeeID() {
+		return employeeID++;
+	}
+	
+	public static int getNextQuoteID() {
+		return quoteID++;
 	}
 
 }
