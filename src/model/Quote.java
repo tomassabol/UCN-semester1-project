@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Quote {
 	public final int ID;
-	private LocalDateTime creationDate;
+	private final LocalDateTime CREATION_DATE;
 	private IFCustomer customer;
 	private IFEmployee employee;
 	private ArrayList<UnspecificItemLine> itemLines;
@@ -17,15 +17,7 @@ public class Quote {
 		this.employee = employee;
 		this.itemLines = itemLines;
 		
-		this.creationDate = LocalDateTime.now();
-	}
-
-	public LocalDateTime getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(LocalDateTime creationDate) {
-		this.creationDate = creationDate;
+		this.CREATION_DATE = LocalDateTime.now();
 	}
 
 	public IFCustomer getCustomer() {
@@ -48,8 +40,13 @@ public class Quote {
 		return itemLines;
 	}
 
-	public void setItemLines(ArrayList<UnspecificItemLine> itemLines) {
-		this.itemLines = itemLines;
+	public int getID() {
+		return ID;
 	}
+
+	public LocalDateTime getCREATION_DATE() {
+		return CREATION_DATE;
+	}
+
 
 }
