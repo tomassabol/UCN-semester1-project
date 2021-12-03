@@ -29,6 +29,8 @@ public class MenuMain extends GenericMenuInterface {
     		() -> generateTestData()));
     super.addMenuOption("2", new GenericMenuOption("Orders",
     		() -> showOrdersMenu()));
+    super.addMenuOption("3", new GenericMenuOption("Products",
+        () -> showProductsMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		() -> Terminal.quit()));
     
@@ -79,6 +81,10 @@ public class MenuMain extends GenericMenuInterface {
    */
   private void showOrdersMenu() {
     MenuOrders.getInstance().show();
+  }
+
+  private void showProductsMenu() {
+    MenuProduct.getInstace().show();
   }
   
 }

@@ -90,8 +90,16 @@ public class ProductController {
 		product.setMaxStock(maxStock);
 	}
 	
+	/**
+	 * @param id of the product to be found
+	 * @return product
+	 */
 	public Product findProductByID(int id) {
 		return ProductContainer.getInstance().findProductByProductId(id);
 	}
 
+	public void printAllProducts(){
+		ProductContainer pContainer = ProductContainer.getInstance();
+		pContainer.printAllProductInfo();
+	}
 }

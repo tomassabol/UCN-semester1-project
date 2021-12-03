@@ -68,6 +68,7 @@ public class ProductContainer {
     public void printAllProductInfo() {
         for (Product product : products) {
             product.printProductInfo();
+            System.out.println();
         }
     }
 }

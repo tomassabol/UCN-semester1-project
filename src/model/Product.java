@@ -105,7 +105,7 @@ public class Product {
 	}
 
 	public void printProductInfo() {
-		System.out.println("Product ID: " + ID + "\nProduct name" + name + "\nProduct description" + description + "\nMinimal Stock" + minStock + "\nMaximal stock"+ maxStock);
+		System.out.println("Product ID: " + ID + "\nProduct name: " + name + "\nProduct description: " + description + "\nMinimal Stock: " + minStock + "\nMaximal stock: "+ maxStock);
 	}
 
 }
