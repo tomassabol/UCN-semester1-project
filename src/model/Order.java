@@ -16,19 +16,27 @@ public class Order {
 	private final LocalDateTime CREATION_DATE;
 	public final int ID;
 	private IFCustomer customer;
+	private IFEmployee employee;
 	private ArrayList<SpecificItemLine> itemLines;
 	
 	/*
 	 * Constructor
 	 */
-	public Order(int id, Customer customer, ArrayList<SpecificItemLine> itemLines) {
+	public Order(int id, IFCustomer customer, IFEmployee employee, ArrayList<SpecificItemLine> itemLines) {
 		this.ID = id;
 		this.customer = customer;
 		this.itemLines = itemLines;
+		this.employee = employee;
 		
 		this.status = OrderStatus.PAID;
 		this.CREATION_DATE = LocalDateTime.now();
 		
+	}
+	public IFEmployee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(IFEmployee employee) {
+		this.employee = employee;
 	}
 	public IFCustomer getCustomer() {
 		return customer;
