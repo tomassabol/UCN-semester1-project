@@ -6,7 +6,6 @@ import java.util.List;
 public class Order {
 	
 	public enum OrderStatus{
-		OFFERED,
 		PAID,
 		DISPATCHED,
 		DELIVERED,
@@ -17,17 +16,17 @@ public class Order {
 	private LocalDateTime creationDate;
 	public final int ID;
 	private IFCustomer customer;
-	private ArrayList<IFItemLine> itemLines;
+	private ArrayList<SpecificItemLine> itemLines;
 	
 	/*
 	 * Constructor
 	 */
-	public Order(int id, Customer customer, ArrayList<IFItemLine> itemLines) {
+	public Order(int id, Customer customer, ArrayList<SpecificItemLine> itemLines) {
 		this.ID = id;
 		this.customer = customer;
 		this.itemLines = itemLines;
 		
-		this.status = OrderStatus.OFFERED;
+		this.status = OrderStatus.PAID;
 		this.creationDate = LocalDateTime.now();
 		
 	}
@@ -50,11 +49,15 @@ public class Order {
 		this.creationDate = creationDate;
 	}	
 	
-	public List<IFItemLine> getItemLines() {
+	public List<SpecificItemLine> getItemLines() {
 		return this.itemLines;
 	}
-	public void setItemLines(ArrayList<IFItemLine> itemLines) {
+	public void setItemLines(ArrayList<SpecificItemLine> itemLines) {
 		this.itemLines = itemLines;
+	}
+	
+	public void addItemLine(SpecificItemLine itemLine) {
+		this.itemLines.add(itemLine);
 	}
 
 }

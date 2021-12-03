@@ -2,8 +2,8 @@ package view;
 
 import controller.OrderController;
 import model.Customer;
-import model.IFItemLine;
 import model.Order;
+import model.UnspecificItemLine;
 
 public class MenuOrders extends GenericMenuInterface {
   private static MenuOrders instance;
@@ -51,15 +51,15 @@ public class MenuOrders extends GenericMenuInterface {
 		System.out.println("You chose customer with ID: " + customer.ID);
 		System.out.println("Customer: " + customer.getFirstName() + " " + customer.getLastName());
 		System.out.println("[Shopping cart]");
-		for(IFItemLine itemLine: customer.getShoppingCart().getItemLines()) {
+		for(UnspecificItemLine itemLine: customer.getShoppingCart().getItemLines()) {
 			System.out.println(itemLine.getQuantity() + "x: "
-					+ itemLine.getProduct().getName() 
-					+ " for " + itemLine.calculatePrice() + " DKK");
+					+ itemLine.PRODUCT.getName() 
+					+ " for " + itemLine.calculateCurrentPrice() + " DKK");
 		}
 		System.out.println("Total: " + customer.getShoppingCart().calculateTotalPrice() + " DKK");
 		// Create the order
 		if (terminal.confirmInput("Create order?")) {
-			orderCtrl.createOrder(customer, customer.getShoppingCart());
+//			orderCtrl.createOrder(customer, customer.getShoppingCart());
 			super.show("Successfully created a new order");
 		} else {
 			super.show("Order creation was cancelled!");

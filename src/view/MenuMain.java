@@ -8,10 +8,9 @@ import controller.OrderController;
 import controller.ProductController;
 import model.Customer;
 import model.CustomerContainer;
-import model.IFItemLine;
 import model.Product;
 import model.SellingPrice;
-import model.UntrackableItemLine;
+import model.UnspecificItemLine;
 
 public class MenuMain extends GenericMenuInterface {
   private static MenuMain instance;
@@ -64,16 +63,16 @@ public class MenuMain extends GenericMenuInterface {
 	  // TODO: Implement itemController
 	  // TODO: Implement itemLineController
 	  // Note: both of them must support trackable & non-trackable items
-	  UntrackableItemLine itemLine1 = new UntrackableItemLine(product1, 4);
-	  UntrackableItemLine itemLine2 = new UntrackableItemLine(product1, 1);
+	  UnspecificItemLine itemLine1 = new UnspecificItemLine(product1, 4);
+	  UnspecificItemLine itemLine2 = new UnspecificItemLine(product1, 1);
 	  
 	  // also need to use a controller here
 	  customer1.getShoppingCart().add(itemLine1);
 	  customer1.getShoppingCart().add(itemLine2);
 	  
-	  // Add orders to customer1
-	  orderCtrl.createOrder(customer1, customer1.getShoppingCart());
-	  super.show("Generated test data!");
+//	  // Add orders to customer1
+//	  orderCtrl.createOrder(customer1, customer1.getShoppingCart());
+//	  super.show("Generated test data!");
   }
   
   /**
