@@ -65,6 +65,7 @@ public class MenuMain extends GenericMenuInterface {
 	  // Create products
 	  ProductController ctrl2 = new ProductController();
 	  Product product1 = ctrl2.createProduct("Shovel", "A big, steel shovel", 0, 100);
+	  // TODO: need a controller for price creation
 	  SellingPrice sellingPrice = new SellingPrice(BigDecimal.valueOf(95), LocalDateTime.now());
 	  product1.addSellingPrice(sellingPrice);
 	  
@@ -74,15 +75,20 @@ public class MenuMain extends GenericMenuInterface {
 	  UnspecificItemLine itemLine2 = new UnspecificItemLine(product1, 1);
 	  
 	  // TODO: also need to use a controller here
+	  System.out.println("SC: " + customer1.getShoppingCart().getItemLines());
 	  customer1.getShoppingCart().add(itemLine1);
 	  customer1.getShoppingCart().add(itemLine2);
+	  System.out.println("SC: " + customer1.getShoppingCart().getItemLines());
 	  
 	  // Create employees
 	  IFEmployee employee = employeeCtrl.createEmployee("080600-1111", "Daniels", "Kanepe", "Rundvej 8", "+45 11114567", LocalDateTime.now());
 	  
 	  // Add orders to customer1
-	  
 	  orderCtrl.createQuote(customer1, employee, customer1.getShoppingCart());
+	  
+	  customer1.getShoppingCart().add(itemLine1);
+	  
+	  
 	  super.show("Generated test data!");
   }
   
