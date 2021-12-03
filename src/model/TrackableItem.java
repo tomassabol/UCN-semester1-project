@@ -4,6 +4,7 @@ public class TrackableItem {
     private int serialNumber;
     private TrackableItemType trackableItemType;
     private Product product;
+    private Shelf shelf;
 
     enum TrackableItemType {
         LOANABLE,
@@ -12,13 +13,16 @@ public class TrackableItem {
     
     /**
      * Constructor class 
-     * @param serialNumber
-     * @param trackableItemType
+     * @param serialNumber of a TrackableItem
+     * @param trackableItemType - type of the trackable item
+     * @param product - what product is the trackableItem of
+     * @param shelf - where is it stored
      */
-    public TrackableItem(int serialNumber, TrackableItemType trackableItemType, Product product) {
+    public TrackableItem(int serialNumber, TrackableItemType trackableItemType, Product product, Shelf shelf) {
         this.serialNumber = serialNumber;
         this.trackableItemType = trackableItemType;
         this.product = product;
+        this.shelf = shelf;
     }
 
     public Product getProduct() {
@@ -43,6 +47,10 @@ public class TrackableItem {
 
     public void setTrackableItemType(TrackableItemType trackableItemType) {
         this.trackableItemType = trackableItemType;
+    }
+
+    public Shelf getShelf() {
+        return this.shelf;
     }
 
 }

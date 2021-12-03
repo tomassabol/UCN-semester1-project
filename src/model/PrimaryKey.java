@@ -10,6 +10,8 @@ public class PrimaryKey {
 	private static int customerID = 0;
 	private static int contractorID = 0;
 	private static int supplyOfferID = 0;
+	private static int shelfID = 0;
+	private static int storageLocationID = 0;
 	
 
 	public PrimaryKey() {
@@ -73,4 +75,15 @@ public class PrimaryKey {
 		supplyOfferID++;
 		return supplyOfferID;
 	}
+
+	public static int getNextShelfID() {
+		shelfID++;
+		return shelfID;
+	}
+
+	public static int getNextStorageLocationID() {
+		storageLocationID++;
+		return storageLocationID;
+	}
+
 }
