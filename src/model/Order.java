@@ -49,9 +49,7 @@ public class Order {
 	public int getID() {
 		return ID;
 	}
-	public void setItemLines(ArrayList<SpecificItemLine> itemLines) {
-		this.itemLines = itemLines;
-	}
+	
 	public List<SpecificItemLine> getItemLines() {
 		return this.itemLines;
 	}
