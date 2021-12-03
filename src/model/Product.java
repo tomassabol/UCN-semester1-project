@@ -17,7 +17,8 @@ public class Product {
 	private int maxStock; 
 	private ArrayList<SellingPrice> sellingPrices = new ArrayList<>();
 	private BulkDiscount bulkDiscount = null;
-	private LoaningPrice loaningPrice;
+	private SellingPrice sellingPrice = null;
+	private LoaningPrice loaningPrice = null;
 	private SupplyOffer supplyOffer;
 	private LocalDateTime dateAdded = LocalDateTime.now();
 	private ArrayList<SupplyOffer> supplyOffers;
@@ -101,6 +102,10 @@ public class Product {
 	// TODO: Check if not below zero or smth? do that in controller?
 	public void addSellingPrice(SellingPrice sellingPrice) {
 		this.sellingPrices.add(sellingPrice);
+	}
+
+	public void printProductInfo() {
+		System.out.println("Product ID: " + ID + "\nProduct name" + name + "\nProduct description" + description + "\nMinimal Stock" + minStock + "\nMaximal stock"+ maxStock);
 	}
 
 }

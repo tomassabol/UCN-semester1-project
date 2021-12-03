@@ -64,4 +64,10 @@ public class ProductContainer {
     public boolean removeProduct(Product product) {
         return products.remove(product);
     }
+
+    public void printAllProductInfo() {
+        for (Product product : products) {
+            product.printProductInfo();
+        }
+    }
 }
