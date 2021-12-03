@@ -70,7 +70,7 @@ public class OrderContainer {
      * @param customer the customer
      * @return the orders for the customer
      */
-    public List<Order> getOrdersByCustomer(Customer customer) {
+    public List<Order> getOrders(Customer customer) {
     	ArrayList<Order> customerOrders = new ArrayList<>();
     	for (Order order: this.orders) {
     		if (order.getCustomer().equals(customer)) {
