@@ -6,14 +6,28 @@ public class SupplyOrder {
     public final int ID;
     private LocalDateTime dateOrdered;
     private SupplyOffer supplyOffer;
+    private boolean delivered;
+    private int quantity;
 
-    public SupplyOrder(int id, LocalDateTime dateOrdered, SupplyOffer supplyOffer) {
+    public SupplyOrder(int id, LocalDateTime dateOrdered,
+    		SupplyOffer supplyOffer, int quantity) {
         this.ID = id;
         this.dateOrdered = dateOrdered;
         this.supplyOffer = supplyOffer;
+        this.quantity = quantity;
+        
+        this.delivered = false;
     }
 
-    // get/set methods for dateOrdered
+    public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	// get/set methods for dateOrdered
     public LocalDateTime getDateOrdered() {
         return this.dateOrdered;
     }
@@ -21,5 +35,27 @@ public class SupplyOrder {
     public void setDateOrdered(LocalDateTime dateOrdered) {
         this.dateOrdered = dateOrdered;
     }
+
+	public SupplyOffer getSupplyOffer() {
+		return supplyOffer;
+	}
+
+	public void setSupplyOffer(SupplyOffer supplyOffer) {
+		this.supplyOffer = supplyOffer;
+	}
+
+	public boolean isDelivered() {
+		return delivered;
+	}
+
+	public void setDelivered(boolean delivered) {
+		this.delivered = delivered;
+	}
+
+	public int getID() {
+		return ID;
+	}
+    
+    
 
 }

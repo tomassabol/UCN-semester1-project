@@ -13,6 +13,8 @@ import model.Product;
 import model.ProductContainer;
 import model.SupplyOffer;
 import model.SupplyOfferContainer;
+import model.SupplyOrder;
+import model.SupplyOrderContainer;
 
 public class SupplyController {
 
@@ -96,4 +98,13 @@ public class SupplyController {
 		
 		
 	}
+	
+	// Create supply order
+	public SupplyOrder createSupplyOrder(SupplyOffer supplyOffer, int quantity) {
+		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getNextSupplyOrderID(), LocalDateTime.now(), supplyOffer, quantity);
+		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
+		return supplyOrder;
+	}
+	
+	// TODO: method for mark supply as delivered - automatically restock
 }
