@@ -1,12 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Shelf {
     public final int ID;
     private String name;
     private StorageLocation storageLocation;
+    private HashMap<Product, ArrayList<StockBatch>> stockBatches;
 
     /**
-     * Constractor class Shelf
+     * Constructor class Shelf
      * @param id of a new shelf
      * @param name of the shelf
      * @param storageLocation of the shelf
@@ -15,6 +19,7 @@ public class Shelf {
         this.ID = id;
         this.name = name;
         this.storageLocation = storageLocation;
+        stockBatches = new HashMap<>();
     }
 
     // get/set name
@@ -28,6 +33,10 @@ public class Shelf {
 
     public StorageLocation getStorageLocation() {
         return this.storageLocation;
+    }
+
+    public boolean addStockBatch(Product product, StockBatch stockBatch) {
+        return stockBatches.get(product).add(stockBatch);
     }
 
 }
