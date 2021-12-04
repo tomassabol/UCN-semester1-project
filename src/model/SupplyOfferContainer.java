@@ -2,51 +2,85 @@ package model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SupplyOfferContainer {
-    private ArrayList<SupplyOffer> supplyOffers;
+	private static SupplyOfferContainer instance;
+    private HashMap<Product, ArrayList<SupplyOffer>> offers;
 
     /**
-     * Constructor class SupplyOfferContainer
+     * Constructor: singleton
      */
-    public SupplyOfferContainer() {
-        supplyOffers = new ArrayList<>();
+    private SupplyOfferContainer() {
+        this.offers = new HashMap<>();
+    }
+    
+    /**
+     * @return instance of SupplyOfferContainer
+     */
+    public static SupplyOfferContainer getInstance(){
+		if (instance == null) {
+            instance = new SupplyOfferContainer();
+        }
+        return instance;
+    }
+
+
+    /**
+     * Associate supply offer with a product
+     *
+     * @param product the product
+     * @param supplyOffer the supply offer
+     * @return true, if successful
+     */
+    public boolean addSupplyOffer(Product product, SupplyOffer supplyOffer) {
+        return this.offers.get(product).add(supplyOffer);
     }
 
     /**
-     * @param supplyOffer to be added to an AraryList
-     * @return true if successfully added
+     * @return a list of all supplyOffers for a product
      */
-    public boolean addSupplyOffer(SupplyOffer supplyOffer) {
-        return supplyOffers.add(supplyOffer);
+    public List<SupplyOffer> getSupplyOffers(Product product) {
+    	return this.offers.get(product);
     }
 
     /**
-     * @return a list of all supplyOffers
+     * Remove supplyOffer for a product
+     * 
+     * @return true if successfully removed
      */
-    public List<SupplyOffer> getSupplyOffers() {
-        return this.supplyOffers;
+    public boolean removeSupplyOffer(Product product, SupplyOffer supplyOffer) {
+        return this.offers.get(product).remove(supplyOffer);
     }
 
     /**
-     * @return true if successfully added
+     * @param id - find a supplyOffer for a product by index
+     * @return supplyOffer with the specific ID if found, else null
+     * Note: This is O(N), so best one.
      */
-    public boolean removeSupplyOffer(SupplyOffer supplyOffer) {
-        return supplyOffers.remove(supplyOffer);
+    public SupplyOffer findSupplyOfferById(Product product, int index) {
+    	try {
+    		return this.offers.get(product).get(index);
+    	} catch (IndexOutOfBoundsException e) {
+    		return null;
+    	}
     }
-
+    
     /**
-     * @param id - find a supplyOffer with this specific id
-     * @return supplyOffer with the specific ID if found
+     * @param id - find a supplyOffer by its ID
+     * @return supplyOffer with the specific ID if found, else null
+     * Note: This is O(n^2), so better if product is known
      */
     public SupplyOffer findSupplyOfferById(int id) {
-        for (SupplyOffer supplyOffer : supplyOffers) {
-            if (supplyOffer.ID == id) {
-                return supplyOffer ;
-            }
-        }
-        return null;
+    	for (Product product: ProductContainer.getInstance().getProducts()) {
+    		for (SupplyOffer supplyOffer: this.offers.get(product)) {
+    			if (supplyOffer.ID == id) {
+    				return supplyOffer;
+    			}
+    		}
+    	}
+    	return null;
     }
     
 }

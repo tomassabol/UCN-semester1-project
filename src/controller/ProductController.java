@@ -1,6 +1,7 @@
 package controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import model.PrimaryKey;
 import model.Product;
@@ -24,7 +25,8 @@ public class ProductController {
 	 * @return The newly created Product object
 	 */
 	public Product createProduct(String name, String description, int minStock, int maxStock) {
-		Product product = new Product(PrimaryKey.getNextProductID(), name, description, minStock, maxStock);
+		Product product = new Product(PrimaryKey.getNextProductID(), name, description,
+				minStock, maxStock, LocalDateTime.now());
 		ProductContainer.getInstance().addProduct(product);
 		return product;
 	}

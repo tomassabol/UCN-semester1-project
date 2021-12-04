@@ -22,7 +22,7 @@ public class SupplyOffer {
      * @param active whether the offer is active
      * @param dateAdded the date the offer was created
      */
-    private SupplyOffer(int Id, BigDecimal pricePerProduct,
+    public SupplyOffer(int Id, BigDecimal pricePerProduct,
     		int minQuantity, Contractor contractor,
     		boolean active, LocalDateTime dateAdded) {
         this.ID = Id;

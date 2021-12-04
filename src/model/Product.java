@@ -17,12 +17,8 @@ public class Product {
 	private int maxStock; 
 	private ArrayList<SellingPrice> sellingPrices = new ArrayList<>();
 	private BulkDiscount bulkDiscount = null;
-	private SellingPrice sellingPrice = null;
 	private LoaningPrice loaningPrice = null;
-	private SupplyOffer supplyOffer;
-	private LocalDateTime dateAdded = LocalDateTime.now();
-	private ArrayList<SupplyOffer> supplyOffers;
-	private SupplyOfferContainer supplyOfferContainer = new SupplyOfferContainer();
+	private LocalDateTime DATE_ADDED = LocalDateTime.now();
 	
 	/**
 	 * Constructor of class Product
@@ -34,12 +30,13 @@ public class Product {
 	 * TODO: Overload container with sellingPrice, loaningprice. 
 	 * TODO: add logic for if none (sellingPrice or LoaningPrice) is set.
 	 */
-	public Product(int id, String name, String description, int minStock, int maxStock) {
+	public Product(int id, String name, String description, int minStock, int maxStock, LocalDateTime dateAdded) {
 		this.ID = id;
 		this.name = name;
 		this.description = description;
 		this.minStock = minStock;
 		this.maxStock = maxStock;
+		this.DATE_ADDED = dateAdded;
 	}
 
 	// set/get name
@@ -99,9 +96,12 @@ public class Product {
 		return latestSellingPrice.getPrice();
 	}
 	
-	// TODO: Check if not below zero or smth? do that in controller?
-	public void addSellingPrice(SellingPrice sellingPrice) {
-		this.sellingPrices.add(sellingPrice);
+	public boolean addSellingPrice(SellingPrice sellingPrice) {
+		// if below 0, return False
+		if (sellingPrice.getPrice().compareTo(BigDecimal.ZERO) == -1) {
+			return false;
+		}
+		return this.sellingPrices.add(sellingPrice);
 	}
 
 	public void printProductInfo() {

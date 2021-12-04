@@ -26,10 +26,10 @@ public class ContractorContainer {
     }
 
     /**
-     * @param contractor to be added to an ArrayList
+     * @param contractor to be added to the container
      * @return true if successfully added
      */
-    public boolean addContructor(Contractor contractor) {
+    public boolean addContractor(Contractor contractor) {
         return contractors.add(contractor);
     }
 
