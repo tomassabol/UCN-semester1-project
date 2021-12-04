@@ -11,6 +11,8 @@ import model.CustomerContainer;
 import model.PrimaryKey;
 import model.Product;
 import model.ProductContainer;
+import model.Shelf;
+import model.StockBatch;
 import model.SupplyOffer;
 import model.SupplyOfferContainer;
 import model.SupplyOrder;
@@ -45,6 +47,16 @@ public class SupplyController {
 	}
 	
 
+	/**
+	 * Find supply offer by index for a specific product
+	 *
+	 * @param product the product
+	 * @param index the index
+	 * @return the supply offer
+	 */
+	public SupplyOffer findSupplyOfferByID(Product product, int index) {
+		return SupplyOfferContainer.getInstance().findSupplyOfferById(product, index);
+	}
 	
 	/**
 	 * Gets the supply offers for a product
@@ -95,18 +107,23 @@ public class SupplyController {
 		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
 		return supplyOrder;
 	}
-
-	// TODO: method for mark supply as delivered - automatically restock
-	/**
-	 * @param id of the product to be found
-	 * @return product
-	 */
-	public SupplyOffer findSupplyOfferByID(Product product, int id) {
-		return SupplyOfferContainer.getInstance().findSupplyOfferById(product, id);
+	
+	// TODO: Restock 
+	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, boolean trackable) {
+		if (trackable) {
+			Product product = SupplyOfferContainer.getInstance().getProduct(supplyOrder.getSupplyOffer());
+			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity());
+			shelf.addStockBatch(product, stockBatch);
+			// trackable items - auto generated serial Numbers
+		} else {
+			// untrackable items - 
+			
+			
+		}
 	}
-
-	public void printAllSupplyOffers(Product product){
-		SupplyOfferContainer sContainer = SupplyOfferContainer.getInstance();
-		sContainer.printAllSupplyInfo(product);
+	
+	// custom serial numbers
+	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, ArrayList<Integer> serialNumbers) {
+		// TODO: work on it
 	}
 }
