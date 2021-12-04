@@ -5,7 +5,6 @@ import model.ProductContainer;
 import controller.ProductController;
 
 public class MenuUpdateProduct extends GenericMenuInterface{
-    private static MenuUpdateProduct instance;
     private int productId;
 
     ProductController productCtrl;
@@ -28,21 +27,6 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         
         productId = id;
     }
-
-    /**
-     * @param id The id of the product to update
-     * @return The instance of MenuUpdateProduct
-     */
-    /**
-     * public static MenuUpdateProduct getInstance(int id){
-        if(instance == null){
-            ProductContainer productContainer = ProductContainer.getInstance();
-            Product product = productContainer.findProductByProductId(id);
-            instance = new MenuUpdateProduct(product);
-        }
-        return instance;
-    }
-    */
     /**
      * Updates the name of the product
      * It also changes the title of the Menu to the "Update " + new name

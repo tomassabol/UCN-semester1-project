@@ -76,12 +76,31 @@ public class MenuProduct extends GenericMenuInterface{
         super.show("The product was deleted!");
     }
 
+    /**
+     * Takes the id of a product and takes it to the MenuUpdateProduct
+     */
     private void updateProduct() {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
         int id = terminal.getIntegerInput("The id of the product you want to update");
-        MenuUpdateProduct updateMenu = new MenuUpdateProduct(id);
-        updateMenu.show();
+        if(isEmpty(id)){
+            super.show("There is no product with that id in the system");
+        }else{
+            MenuUpdateProduct updateMenu = new MenuUpdateProduct(id);
+            updateMenu.show();
+        }
+    }
+
+    /**
+     * @param id The id of a product
+     * @return true if the system can't find the product
+     */
+    private boolean isEmpty(int id){
+        if(productCtrl.findProductByID(id) == null){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
