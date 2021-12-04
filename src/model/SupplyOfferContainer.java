@@ -41,17 +41,8 @@ public class SupplyOfferContainer {
     /**
      * @return a list of all supplyOffers for a product
      */
-    public List<SupplyOffer> getSupplyOffers(Product product) {
+    public ArrayList<SupplyOffer> getSupplyOffers(Product product) {
     	return this.offers.get(product);
-    }
-
-    /**
-     * Remove supplyOffer for a product
-     * 
-     * @return true if successfully removed
-     */
-    public boolean removeSupplyOffer(Product product, SupplyOffer supplyOffer) {
-        return this.offers.get(product).remove(supplyOffer);
     }
 
     /**
