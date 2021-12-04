@@ -1,60 +1,73 @@
 package model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class SupplyOffer {
     public final int ID;
-    private BigDecimal costPrice;
+    private final BigDecimal PRICE_PER_PRODUCT;
+    private final int MIN_QUANTITY;
+    private final LocalDateTime DATE_ADDED;
+    private final Contractor CONTRACTOR;
     private boolean active;
-    private boolean isTrackable;
+
 
     /**
-     * Constructor class SupplyOffer
-     * @param costPrice - price of a supply
-     * @param active - true if offer is still active
-     * @param isTrackable - true if supply is trackable
+     * Instantiates a new supply offer.
+     *
+     * @param Id the id
+     * @param pricePerProduct the price per product
+     * @param minQuantity the minimum order quantity
+     * @param contractor The contractor supplying this offer
+     * @param active whether the offer is active
+     * @param dateAdded the date the offer was created
      */
-    private SupplyOffer(int id, BigDecimal costPrice, boolean active, boolean isTrackable, int contractorId) {
-        this.ID = id;
-        this.costPrice = costPrice;
+    private SupplyOffer(int Id, BigDecimal pricePerProduct,
+    		int minQuantity, Contractor contractor,
+    		boolean active, LocalDateTime dateAdded) {
+        this.ID = Id;
+        this.PRICE_PER_PRODUCT = pricePerProduct;
+        this.MIN_QUANTITY = minQuantity;
+        this.CONTRACTOR = contractor;
         this.active = active;
-        this.isTrackable = isTrackable;
-        ContractorContainer.getInstance().findContractorById(contractorId);
+        this.DATE_ADDED = dateAdded;
     }
 
-    // get/set costPrice
-    public BigDecimal getCostPrice() {
-        return this.costPrice;
-    }
 
-    public void setCostPrice(BigDecimal costPrice) {
-        this.costPrice = costPrice;
-    }
+	public boolean isActive() {
+		return active;
+	}
 
-    // get/set isActive
-    public boolean isActive() {
-        return this.active;
-    }
 
-    public boolean getActive() {
-        return this.active;
-    }
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 
-    // set/get isTrackable
-    public boolean isIsTrackable() {
-        return this.isTrackable;
-    }
+	public int getID() {
+		return ID;
+	}
 
-    public boolean getIsTrackable() {
-        return this.isTrackable;
-    }
 
-    public void setIsTrackable(boolean isTrackable) {
-        this.isTrackable = isTrackable;
-    }
+	public BigDecimal getPRICE_PER_PRODUCT() {
+		return PRICE_PER_PRODUCT;
+	}
+
+
+	public int getMIN_QUANTITY() {
+		return MIN_QUANTITY;
+	}
+
+
+	public LocalDateTime getDATE_ADDED() {
+		return DATE_ADDED;
+	}
+
+
+	public Contractor getCONTRACTOR() {
+		return CONTRACTOR;
+	}
+
+
 
 }
