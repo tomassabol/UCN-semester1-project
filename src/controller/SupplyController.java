@@ -11,6 +11,8 @@ import model.CustomerContainer;
 import model.PrimaryKey;
 import model.Product;
 import model.ProductContainer;
+import model.Shelf;
+import model.StockBatch;
 import model.SupplyOffer;
 import model.SupplyOfferContainer;
 import model.SupplyOrder;
@@ -106,5 +108,22 @@ public class SupplyController {
 		return supplyOrder;
 	}
 	
-	// TODO: method for mark supply as delivered - automatically restock
+	// TODO: Restock 
+	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, boolean trackable) {
+		if (trackable) {
+			Product product = SupplyOfferContainer.getInstance().getProduct(supplyOrder.getSupplyOffer());
+			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity());
+			shelf.addStockBatch(product, stockBatch);
+			// trackable items - auto generated serial Numbers
+		} else {
+			// untrackable items - 
+			
+			
+		}
+	}
+	
+	// custom serial numbers
+	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, ArrayList<Integer> serialNumbers) {
+		// TODO: work on it
+	}
 }

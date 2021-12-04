@@ -74,4 +74,23 @@ public class SupplyOfferContainer {
     	return null;
     }
     
+    
+    /**
+     * Find out the Product for a particular supplyOffer
+     * O(n^2) :( - use sparingly (or optimize?)
+     *
+     * @param supplyOffer the supply offer
+     * @return the product
+     */
+    public Product getProduct(SupplyOffer supplyOffer) {
+    	for (Product product: this.offers.keySet()) {
+    		for (SupplyOffer supplyOfferInContainer: this.offers.get(product)) {
+    			if (supplyOfferInContainer == supplyOffer) {
+    				return product;
+    			}
+    		}
+    	}
+    	return null;
+    }
+    
 }
