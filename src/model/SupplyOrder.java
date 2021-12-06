@@ -59,7 +59,7 @@ public class SupplyOrder {
 	public void printAllSupplyOrderInfo() {
 		System.out.println("ID: " + ID);
         System.out.println("Date ordered: " + dateOrdered);
-        System.out.println("Supply Offer: " + supplyOffer);
+        System.out.println("Supply Offer: " + supplyOffer.ID);
         System.out.println("Quantity: " + quantity);
         System.out.println("Delivered: " + delivered);
 	}

@@ -24,6 +24,7 @@ public class MenuSupply extends GenericMenuInterface{
         super.addMenuOption("3", new GenericMenuOption("Set status of supply offer", () -> setSupplyOfferStatus()));
         super.addMenuOption("4", new GenericMenuOption("Create a supply order", () -> createSupplyOrder()));
         super.addMenuOption("5", new GenericMenuOption("Show all supply offers", () -> showAllSupplyOrders()));
+        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
 
         supplyCtrl = new SupplyController();
     }
@@ -38,7 +39,7 @@ public class MenuSupply extends GenericMenuInterface{
     }
 
     /**
-     * TODO: If there is no product and contractor in the system the user shouldn't be able to use this method
+     * 
      */
     private void createSupplyOffer(){
         Terminal terminal = Terminal.getInstance();
@@ -91,7 +92,7 @@ public class MenuSupply extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        System.out.println("[All SupplyOffers in the System]");
+        System.out.println("[All Supply orders in the System]");
         supplyCtrl.printAllSupplyOrderInfo();
         terminal.getStringInput("Press [Enter] to go back");
         super.show();
