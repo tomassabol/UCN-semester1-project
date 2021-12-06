@@ -1,5 +1,6 @@
 package view;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,11 +12,19 @@ import controller.CustomerController;
 import model.Customer;
 import model.CustomerContainer;
 
+import model.Product;
+import controller.ProductController;
+
+import model.Contractor;
+import controller.ContractorController;
+
 public class Terminal {
   private static Terminal instance;
   private Scanner scanner;
   
   CustomerController customerCtrl;
+  ProductController productCtrl;
+  ContractorController contractorCtrl;
 
   private static final String DATE_FORMAT = "dd/MM/yyyy";
 
@@ -26,6 +35,9 @@ public class Terminal {
     scanner = new Scanner(System.in);
     
     customerCtrl = new CustomerController();
+    productCtrl = new ProductController();
+    contractorCtrl = new ContractorController();
+
   }
 
   /**
@@ -52,6 +64,26 @@ public class Terminal {
 	  } while (customer == null);
 	  
 	  return customer;
+  }
+
+  public Product getProduct() {
+	  Product product = null;
+	  do {
+		  int id = this.getIntegerInput("Choose product by ID");
+		  product = productCtrl.findProductByID(id);
+	  } while (product == null);
+	  
+	  return product;
+  }
+  
+  public Contractor getContractor() {
+	  Contractor contractor = null;
+	  do {
+		  int id = this.getIntegerInput("Choose customer by ID");
+		  contractor= contractorCtrl.findContractorByID(id);
+	  } while (contractor == null);
+	  
+	  return contractor;
   }
   
   public void printAllCustomers() {
@@ -91,6 +123,11 @@ public class Terminal {
     }
 
     return userInput;
+  }
+
+  public BigDecimal getBigDecimalInput(String prompt){
+    BigDecimal userInput = new BigDecimal(0);
+    return userInput = BigDecimal.valueOf(getIntegerInput(prompt));
   }
 
   /**

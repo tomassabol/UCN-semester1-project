@@ -38,6 +38,7 @@ public class MenuMain extends GenericMenuInterface {
             () -> showEmployeesMenu()));
     super.addMenuOption("5", new GenericMenuOption("Contractors",
             () -> showContractorMenu()));
+    super.addMenuOption("6", new GenericMenuOption("Supplies", () -> showSupplyMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		() -> Terminal.quit()));
     
@@ -119,5 +120,9 @@ public class MenuMain extends GenericMenuInterface {
    */
   private void showContractorMenu() {
 	MenuContractor.getInstace().show();
+  }
+
+  private void showSupplyMenu(){
+    MenuSupply.getInstance().show();
   }
 }

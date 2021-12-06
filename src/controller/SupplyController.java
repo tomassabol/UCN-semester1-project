@@ -23,7 +23,11 @@ import model.TrackableItem;
 
 public class SupplyController {
 
+	private ProductController productCtrl;
+	private ContractorController contractorCtrl;
+
 	public SupplyController() {
+		productCtrl = new ProductController();
 	}
 	
 	/**
@@ -49,7 +53,21 @@ public class SupplyController {
 		return supplyOffer;
 	}
 	
+	/**
+	 * @param id of a product
+	 * @return The product with the id
+	 */
+	public Product getProduct(int id){
+		return productCtrl.getProduct(id);
+	}
 
+	/**
+	 * @param id of a contractor
+	 * @return The contractort with the id
+	 */
+	public Contractor getContractor(int id){
+		return contractorCtrl.findContractorByID(id);
+	}
 	/**
 	 * Find supply offer by index for a specific product
 	 *
@@ -145,5 +163,9 @@ public class SupplyController {
 	// custom serial numbers
 	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, Set<Integer> serialNumbers) {
 		// TODO: work on it
+	}
+	public void printAllSupplyOffers(){
+		SupplyOfferContainer sContainer = SupplyOfferContainer.getInstance();
+		sContainer.printAllSupplyOfferInfo();
 	}
 }

@@ -68,6 +68,12 @@ public class SupplyOffer {
 		return CONTRACTOR;
 	}
 
-
+    public void printAllSupplyOfferInfo(){
+        System.out.println("ID: " + ID);
+        System.out.println("Price per Item: " + PRICE_PER_ITEM);
+        System.out.println("Minimum quantity: " + MIN_QUANTITY);
+        System.out.println("Date added: " + DATE_ADDED);
+        System.out.println("Contractor: " + CONTRACTOR);
+    }
 
 }
