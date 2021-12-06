@@ -133,9 +133,9 @@ public class SupplyController {
 			Product product = SupplyOfferContainer.getInstance().getProduct(supplyOrder.getSupplyOffer());
 			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity());
 			shelf.addStockBatch(product, stockBatch);
-			
-			
 		}
+		// Mark as delivered and stocked
+		supplyOrder.setDelivered(true);
 	}
 	
 	/**
