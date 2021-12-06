@@ -52,6 +52,7 @@ public class StockContainer {
     public boolean isInStock(Product product, int quantity) {
     	// Ask each storage location if in stock
 //    	for(shelf.)
+    	return false;
     }
 
 }
