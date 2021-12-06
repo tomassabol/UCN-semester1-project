@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SpecificItemLine {
+public class OrderLine {
 	
 	private HashSet<TrackableItem> items;
 	public final Product PRODUCT;
@@ -15,7 +15,7 @@ public class SpecificItemLine {
 	/*
 	 * Constructor for specific, trackable items
 	 */
-	public SpecificItemLine(Set<TrackableItem> items) {
+	public OrderLine(Set<TrackableItem> items) {
 		if (items.isEmpty()) {
 			throw new IllegalArgumentException("Must contain at least 1 item");
 		}
@@ -25,7 +25,10 @@ public class SpecificItemLine {
 		untrackableItemQuantity = 0;
 	}
 	
-	public SpecificItemLine(Product product, int quantity) {
+	/*
+	 * Constructor for non-trackable items
+	 */
+	public OrderLine(Product product, int quantity) {
 		if (quantity < 0) {
 			throw new IllegalArgumentException("Quantity cannot be less than 0!");
 		}

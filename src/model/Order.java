@@ -17,12 +17,12 @@ public class Order {
 	public final int ID;
 	private IFCustomer customer;
 	private IFEmployee employee;
-	private ArrayList<SpecificItemLine> itemLines;
+	private ArrayList<OrderLine> itemLines;
 	
 	/*
 	 * Constructor
 	 */
-	public Order(int id, IFCustomer customer, IFEmployee employee, ArrayList<SpecificItemLine> itemLines) {
+	public Order(int id, IFCustomer customer, IFEmployee employee, ArrayList<OrderLine> itemLines) {
 		this.ID = id;
 		this.customer = customer;
 		this.itemLines = itemLines;
@@ -58,7 +58,7 @@ public class Order {
 		return ID;
 	}
 	
-	public List<SpecificItemLine> getItemLines() {
+	public List<OrderLine> getItemLines() {
 		return this.itemLines;
 	}
 
