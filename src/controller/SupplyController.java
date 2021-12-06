@@ -3,7 +3,9 @@ package controller;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import model.Contractor;
 import model.Customer;
@@ -17,6 +19,7 @@ import model.SupplyOffer;
 import model.SupplyOfferContainer;
 import model.SupplyOrder;
 import model.SupplyOrderContainer;
+import model.TrackableItem;
 
 public class SupplyController {
 
@@ -110,20 +113,37 @@ public class SupplyController {
 	
 	// TODO: Restock 
 	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, boolean trackable) {
+		// For trackable items - auto generate serial number
 		if (trackable) {
+			// identify product
+			Product product = SupplyOfferContainer.getInstance().getProduct(supplyOrder.getSupplyOffer());
+			// Generate trackable items
+			Set<TrackableItem> trackableItems = new HashSet<>();
+			for (int i = 0; i < supplyOrder.getQuantity(); i++) {
+				trackableItems.add(new TrackableItem(PrimaryKey.getNextItemID(), 
+						TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE,
+						product));
+			}
+			// insert trackable items in a stockBatch
+			StockBatch stockBatch = new StockBatch(trackableItems);
+			// insert stockBatch into shelf
+			shelf.addStockBatch(product, stockBatch);
+		} else {
+			// For untrackable items
 			Product product = SupplyOfferContainer.getInstance().getProduct(supplyOrder.getSupplyOffer());
 			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity());
 			shelf.addStockBatch(product, stockBatch);
-			// trackable items - auto generated serial Numbers
-		} else {
-			// untrackable items - 
 			
 			
 		}
 	}
 	
+	/**
+	* Work in progress xd
+	* Remember to check that the serial number is unique
+	*/
 	// custom serial numbers
-	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, ArrayList<Integer> serialNumbers) {
+	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, Set<Integer> serialNumbers) {
 		// TODO: work on it
 	}
 }

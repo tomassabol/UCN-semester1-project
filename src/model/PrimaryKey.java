@@ -52,7 +52,7 @@ public class PrimaryKey {
 	/*
 	 * Generates a primary key for Item
 	 */
-	public static int getNextItemGroupID() {
+	public static int getNextItemID() {
 		return itemID++;
 	}
 
