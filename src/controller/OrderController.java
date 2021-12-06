@@ -12,7 +12,7 @@ import model.PrimaryKey;
 import model.Quote;
 import model.QuoteContainer;
 import model.ShoppingCart;
-import model.SpecificItemLine;
+import model.OrderLine;
 import model.UnspecificItemLine;
 
 /**
