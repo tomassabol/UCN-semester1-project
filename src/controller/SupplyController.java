@@ -122,6 +122,13 @@ public class SupplyController {
 		
 	}
 	
+	/**
+	 * Creates a supply order.
+	 *
+	 * @param supplyOffer the supply offer
+	 * @param quantity the quantity
+	 * @return the supply order
+	 */
 	// Create supply order
 	public SupplyOrder createSupplyOrder(SupplyOffer supplyOffer, int quantity) {
 		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getNextSupplyOrderID(), LocalDateTime.now(), supplyOffer, quantity);
@@ -129,7 +136,14 @@ public class SupplyController {
 		return supplyOrder;
 	}
 	
-	// TODO: Restock 
+	/**
+	 * Mark a supply order as delivered and put the items in stock
+	 * Note: serial numbers for trackable items are auto-generated
+	 *
+	 * @param supplyOrder the supply order
+	 * @param shelf the shelf to put the items in
+	 * @param trackable whether to add 'trackable' items or non
+	 */
 	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, boolean trackable) {
 		// For trackable items - auto generate serial number
 		if (trackable) {
@@ -146,14 +160,15 @@ public class SupplyController {
 			StockBatch stockBatch = new StockBatch(trackableItems);
 			// insert stockBatch into shelf
 			shelf.addStockBatch(product, stockBatch);
-		} else {
+			
 			// For untrackable items
+		} else {
 			Product product = SupplyOfferContainer.getInstance().getProduct(supplyOrder.getSupplyOffer());
 			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity());
 			shelf.addStockBatch(product, stockBatch);
-			
-			
 		}
+		// Mark as delivered and stocked
+		supplyOrder.setDelivered(true);
 	}
 	
 	/**
