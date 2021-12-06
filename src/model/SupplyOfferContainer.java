@@ -35,7 +35,7 @@ public class SupplyOfferContainer {
      * @return true, if successful
      */
     public void addSupplyOffer(Product product, SupplyOffer supplyOffer) {
-        System.out.println(supplyOffer);
+        this.offers.putIfAbsent(product, new ArrayList<SupplyOffer>());
         this.offers.get(product).add(supplyOffer);
     }
 

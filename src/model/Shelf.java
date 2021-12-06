@@ -71,6 +71,7 @@ public class Shelf {
      * @return true, if successful
      */
     public boolean addStockBatch(Product product, StockBatch stockBatch) {
+    	this.stockBatches.putIfAbsent(product, new ArrayList<>());
         return stockBatches.get(product).add(stockBatch);
     }
     
