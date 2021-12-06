@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class StorageContainer.
  */
-public class StorageContainer {
+public class Stock {
     
     /** The instance. */
-    private static StorageContainer instance;
+    private static Stock instance;
     
     /** The storage. */
     private Map<StorageLocation, ArrayList<Shelf>> storage;
@@ -21,7 +20,7 @@ public class StorageContainer {
     /**
      * Constructor class StorageContainer.
      */
-    private StorageContainer() {
+    private Stock() {
         storage = new HashMap<>();
     }
    
@@ -31,9 +30,9 @@ public class StorageContainer {
      *
      * @return instance of a class shelfContainer
      */
-    public static StorageContainer getInstance() {
+    public static Stock getInstance() {
         if (instance == null) {
-            instance = new StorageContainer();
+            instance = new Stock();
         }
         return instance;
     }
@@ -87,7 +86,7 @@ public class StorageContainer {
      * @param storageContainer the storage container
      * @return the shelves
      */
-    public ArrayList<Shelf> getShelves(StorageContainer storageContainer) {
+    public ArrayList<Shelf> getShelves(Stock storageContainer) {
     	return storage.get(storageContainer);
     }
     
@@ -140,19 +139,51 @@ public class StorageContainer {
     	return null;
     } 
     
+    /**
+     * remove storageLocation
+     * @param storageLocation - to be removed
+     */
+    public void removeStorageLocation(StorageLocation storageLocation) {
+        storage.remove(storageLocation);
+    }
     
-
+    /**
+     * remove specific shelf
+     * @param shelf to be removed
+     */
+    public void removeShelf(Shelf shelf) {
+        this.getShelves().remove(shelf);
+    }
     
-    public boolean removeStorageLocation(StorageLocation storageLocation) {
+    /**
+     * remove specific shelf from a specific storageLocation
+     * @param storageLocation - specific storageLocation
+     * @param shelf - specific shelf to be removed
+     */
+    public void removeShelf(StorageLocation storageLocation, Shelf shelf) {
+        storage.get(storageLocation).remove(shelf);
+    }
+    
+    /**
+     * Checks if a product and specific quantity is in stock,
+     *
+     * @param product the product
+     * @param quantity the quantity
+     * @return true, if is in stock
+     */
+    public boolean isInStock(Product product, int quantity) {
+    	int totalQuantity = 0;
+    	for(Shelf shelf: this.getShelves()) {
+    		totalQuantity = shelf.getQuantityOfProduct(product);
+    		if (totalQuantity > quantity) {
+    			return true;
+    		}
+    	}
     	return false;
     }
     
-    public boolean removeShelf(Shelf shelf) {
-    	return false;
-    }
-    
-    public boolean removeShelf(StorageLocation storageLocation, Shelf shelf) {
-    	return false;
+    public ArrayList<OrderLine> stockToOrderLine() {
+    	return null;
     }
     
 
