@@ -179,8 +179,14 @@ public class SupplyController {
 	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, Set<Integer> serialNumbers) {
 		// TODO: work on it
 	}
+
 	public void printAllSupplyOffers(){
 		SupplyOfferContainer sContainer = SupplyOfferContainer.getInstance();
 		sContainer.printAllSupplyOfferInfo();
+	}
+
+	public void printAllSupplyOrderInfo() {
+		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
+		sContainer.printAllSupplyOrderInfo();
 	}
 }

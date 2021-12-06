@@ -29,18 +29,19 @@ public class MenuMain extends GenericMenuInterface {
 
     super.setTitle("Main Menu");
     super.addMenuOption("1", new GenericMenuOption("Generate test data",
-    		() -> generateTestData()));
+    		    () -> generateTestData()));
     super.addMenuOption("2", new GenericMenuOption("Orders",
-    		() -> showOrdersMenu()));
+    		    () -> showOrdersMenu()));
     super.addMenuOption("3", new GenericMenuOption("Products",
-        () -> showProductsMenu()));
+            () -> showProductsMenu()));
     super.addMenuOption("4", new GenericMenuOption("Employees",
             () -> showEmployeesMenu()));
     super.addMenuOption("5", new GenericMenuOption("Contractors",
             () -> showContractorMenu()));
-    super.addMenuOption("6", new GenericMenuOption("Supplies", () -> showSupplyMenu()));
+    super.addMenuOption("6", new GenericMenuOption("Supplies",
+            () -> showSupplyMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
-    		() -> Terminal.quit()));
+    		    () -> Terminal.quit()));
     
     orderCtrl = new OrderController();
     employeeCtrl = new EmployeeController();
@@ -125,4 +126,5 @@ public class MenuMain extends GenericMenuInterface {
   private void showSupplyMenu(){
     MenuSupply.getInstance().show();
   }
+
 }

@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SupplyOrderContainer {
 	
@@ -36,9 +35,11 @@ public class SupplyOrderContainer {
     
     // no need for removal. left in for statistics.
     // to 'remove', change status deliveredAndStocked to true for supply order
+    /*
     private void removeSupplyOrder() {
     	//
     }
+    */
     
     /**
      * @return All undelivered supply orders
@@ -120,5 +121,10 @@ public class SupplyOrderContainer {
     	return null;
     }
     
+    public void printAllSupplyOrderInfo() {
+        for (SupplyOrder supplyOrder : supplyOrders) {
+            supplyOrder.printAllSupplyOrderInfo();
+        }
+    }
 
 }

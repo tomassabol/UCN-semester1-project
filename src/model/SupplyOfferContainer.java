@@ -34,8 +34,9 @@ public class SupplyOfferContainer {
      * @param supplyOffer the supply offer
      * @return true, if successful
      */
-    public boolean addSupplyOffer(Product product, SupplyOffer supplyOffer) {
-        return this.offers.get(product).add(supplyOffer);
+    public void addSupplyOffer(Product product, SupplyOffer supplyOffer) {
+        System.out.println(supplyOffer);
+        this.offers.get(product).add(supplyOffer);
     }
 
     /**

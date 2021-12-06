@@ -79,8 +79,8 @@ public class Terminal {
   public Contractor getContractor() {
 	  Contractor contractor = null;
 	  do {
-		  int id = this.getIntegerInput("Choose customer by ID");
-		  contractor= contractorCtrl.findContractorByID(id);
+		  int id = this.getIntegerInput("Choose contractor by ID");
+		  contractor = contractorCtrl.findContractorByID(id);
 	  } while (contractor == null);
 	  
 	  return contractor;
@@ -126,8 +126,7 @@ public class Terminal {
   }
 
   public BigDecimal getBigDecimalInput(String prompt){
-    BigDecimal userInput = new BigDecimal(0);
-    return userInput = BigDecimal.valueOf(getIntegerInput(prompt));
+    return BigDecimal.valueOf(getIntegerInput(prompt));
   }
 
   /**

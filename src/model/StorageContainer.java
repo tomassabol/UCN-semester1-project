@@ -142,17 +142,29 @@ public class StorageContainer {
     
     
 
-    
-    public boolean removeStorageLocation(StorageLocation storageLocation) {
-    	return false;
+    /**
+     * remove storageLocation
+     * @param storageLocation - to be removed
+     */
+    public void removeStorageLocation(StorageLocation storageLocation) {
+    	storage.remove(storageLocation);
     }
     
-    public boolean removeShelf(Shelf shelf) {
-    	return false;
+    /**
+     * remove specific shelf
+     * @param shelf to be removed
+     */
+    public void removeShelf(Shelf shelf) {
+        this.getShelves().remove(shelf);
     }
     
-    public boolean removeShelf(StorageLocation storageLocation, Shelf shelf) {
-    	return false;
+    /**
+     * remove specific shelf from a specific storageLocation
+     * @param storageLocation - specific storageLocation
+     * @param shelf - specific shelf to be removed
+     */
+    public void removeShelf(StorageLocation storageLocation, Shelf shelf) {
+        storage.get(storageLocation).remove(shelf);
     }
     
 

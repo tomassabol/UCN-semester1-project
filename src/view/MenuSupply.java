@@ -2,9 +2,11 @@ package view;
 
 import java.math.BigDecimal;
 
+import controller.ProductController;
 import controller.SupplyController;
 import model.Contractor;
 import model.Product;
+import model.SupplyOffer;
 
 public class MenuSupply extends GenericMenuInterface{
     private static MenuSupply instance;
@@ -20,6 +22,8 @@ public class MenuSupply extends GenericMenuInterface{
         super.addMenuOption("1", new GenericMenuOption("Create a supply offer", () -> createSupplyOffer()));
         super.addMenuOption("2", new GenericMenuOption("Show all supply offers", () -> showAllSupplyOffers()));
         super.addMenuOption("3", new GenericMenuOption("Set status of supply offer", () -> setSupplyOfferStatus()));
+        super.addMenuOption("4", new GenericMenuOption("Create a supply order", () -> createSupplyOrder()));
+        super.addMenuOption("5", new GenericMenuOption("Show all supply offers", () -> showAllSupplyOrders()));
 
         supplyCtrl = new SupplyController();
     }
@@ -39,7 +43,7 @@ public class MenuSupply extends GenericMenuInterface{
     private void createSupplyOffer(){
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
-
+        
         Product product = terminal.getProduct();
         Contractor contractor = terminal.getContractor();
         BigDecimal pricePerItem = terminal.getBigDecimalInput("Price per Item");
@@ -65,7 +69,31 @@ public class MenuSupply extends GenericMenuInterface{
     private void setSupplyOfferStatus(){
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
+    }
+
+    private void createSupplyOrder(){
+        Terminal terminal = Terminal.getInstance();
+        terminal.clearScreen();
+
+        Product product = terminal.getProduct();
+        int index = terminal.getIntegerInput("Enter the index of a supply offer");
+        SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(product, index);
+        int quantity = terminal.getIntegerInput("Enter the quantity of the product");
+        supplyCtrl.createSupplyOrder(supplyOffer, quantity);
+        super.show("The supply order was susccessfully created");
+    }
 
 
+    /**
+     * Displays all the supplyoffers
+     */
+    private void showAllSupplyOrders(){
+        Terminal terminal = Terminal.getInstance();
+        terminal.clearScreen();
+
+        System.out.println("[All SupplyOffers in the System]");
+        supplyCtrl.printAllSupplyOrderInfo();
+        terminal.getStringInput("Press [Enter] to go back");
+        super.show();
     }
 }
