@@ -1,19 +1,36 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StockBatch.
+ */
 public class StockBatch {
+    
+    /** The product. */
     private Product product;
+    
+    /** The supply order. */
     private SupplyOrder supplyOrder;
-    private int quantity;
+    
+    /** The untrackable item quantity. */
+    private int untrackableItemQuantity;
+    
+    /** The trackable items. */
     private Set<TrackableItem> trackableItems;
+    
+    /** The delivered. */
     private LocalDateTime delivered;
 
     /**
-     * Constructor class StockBatch for TrackableItem
-     * @param trackableItems
+     * Constructor class StockBatch for TrackableItem.
+     *
+     * @param trackableItems the trackable items
      */
     public StockBatch(Set<TrackableItem> trackableItems) {
         if (trackableItems.isEmpty()) {
@@ -22,11 +39,13 @@ public class StockBatch {
         this.product = trackableItems.iterator().next().getProduct();
         allItemsOfSameProduct(trackableItems);
         this.trackableItems = (HashSet<TrackableItem>) trackableItems;
-        quantity = 0;
+        untrackableItemQuantity = 0;
     }
 
     /**
-     * @param product  - untrackable product 
+     * Instantiates a new stock batch.
+     *
+     * @param product  - untrackable product
      * @param quantity - quantity of untrackableProduct
      */
     public StockBatch(Product product, int quantity) {
@@ -38,7 +57,8 @@ public class StockBatch {
 
     /**
      * Checks that all items are the same type
-     * Throws exception if not
+     * Throws exception if not.
+     *
      * @param trackableItems the trackableItems
      */
     private void allItemsOfSameProduct(Set<TrackableItem> trackableItems) {
@@ -49,49 +69,139 @@ public class StockBatch {
 		}
 	}
 
+    /**
+     * Gets the product.
+     *
+     * @return the product
+     */
     // get/set product
     public Product getProduct() {
         return this.product;
     }
 
+    /**
+     * Sets the product.
+     *
+     * @param product the new product
+     */
     public void setProduct(Product product) {
         this.product = product;
     }
 
+    /**
+     * Gets the supply order.
+     *
+     * @return the supply order
+     */
     // get/set supplyOrder
     public SupplyOrder getSupplyOrder() {
         return this.supplyOrder;
     }
 
+    /**
+     * Sets the supply order.
+     *
+     * @param supplyOrder the new supply order
+     */
     public void setSupplyOrder(SupplyOrder supplyOrder) {
         this.supplyOrder = supplyOrder;
     }
 
+    /**
+     * Gets the untrackable itemquantity.
+     *
+     * @return the untrackable itemquantity
+     */
     // get/set quantity
-    public int getquantity() {
-        return this.quantity;
+    public int getUntrackableItemquantity() {
+        return this.untrackableItemQuantity;
     }
 
-    public void setquantity(int quantity) {
-        this.quantity = quantity;
+    /**
+     * Sets the untrackable itemquantity.
+     *
+     * @param quantity the new untrackable itemquantity
+     */
+    public void setUntrackableItemquantity(int quantity) {
+        this.untrackableItemQuantity = quantity;
     }
 
+    /**
+     * Gets the trackable items.
+     *
+     * @return the trackable items
+     */
     // get/set a set of TrackableItems
     public Set<TrackableItem> getTrackableItems() {
         return this.trackableItems;
     }
 
+    /**
+     * Sets the trackable items.
+     *
+     * @param trackableItems the new trackable items
+     */
     public void setTrackableItems(Set<TrackableItem> trackableItems) {
         this.trackableItems = trackableItems;
     }
 
+    /**
+     * Gets the delivered.
+     *
+     * @return the delivered
+     */
     // get/set 
     public LocalDateTime getDelivered() {
         return this.delivered;
     }
 
+    /**
+     * Sets the delivered.
+     *
+     * @param delivered the new delivered
+     */
     public void setDelivered(LocalDateTime delivered) {
         this.delivered = delivered;
+    }
+    
+	/**
+	 * Gets the quantity.
+	 *
+	 * @return the quantity of all items in the stock batch
+	 */
+	public int getQuantity() {
+		return this.trackableItems.size() + this.untrackableItemQuantity;
+	}
+	
+	/**
+	 * Gets the trackable item quantity.
+	 *
+	 * @return the trackable item quantity
+	 */
+	public int getTrackableItemQuantity() {
+		return this.trackableItems.size();
+	}
+    
+
+    /**
+     * Pop n amount of trackable items
+     *
+     * @param quantity the quantity of items to pop
+     * @return the array list
+     */
+    public ArrayList<TrackableItem> popTrackableItems(int quantity) {
+    	
+    	ArrayList<TrackableItem> trackableItems = new ArrayList<>();
+    	int i = 0;
+    	Iterator<TrackableItem> iter = this.trackableItems.iterator();
+    	while (i < quantity  && iter.hasNext()) {
+    	 TrackableItem trackableItem = iter.next();
+    	 trackableItems.add(trackableItem);
+    	 iter.remove();
+    	 i++;
+    	}
+    	return trackableItems;
+    	
     }
 
 }

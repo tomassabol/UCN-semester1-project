@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -182,8 +184,61 @@ public class Stock {
     	return false;
     }
     
-    public ArrayList<OrderLine> stockToOrderLine() {
-    	return null;
+    /**
+     * Gets All stock batches for a particular product
+     *
+     * @param product the product
+     * @return the stock batches
+     */
+    public ArrayList<StockBatch> getStockBatches(Product product) {
+    	ArrayList<StockBatch> stockBatches = new ArrayList<>();
+    	for(Shelf shelf: this.getShelves()) {
+    		stockBatches.addAll(shelf.getStockBatches(product));
+    	}
+    	return stockBatches;
+    	
+    }
+    
+    /**
+     * takes an unspecific item line, retrieves specific items,
+     * then removes them from stock and returns an orderline
+     *
+     * @param product the product
+     * @param quantity the quantity
+     * @return the array list
+     */
+    public OrderLine removeFromstock(Product product, int quantity) {
+    	int removedUntrackableItems = 0;
+    	Set<TrackableItem> removedTrackableItems = new HashSet<>();
+    	for (Shelf shelf: this.getShelves()) {
+    		Iterator<StockBatch> shelfIt = shelf.getStockBatches(product).iterator();
+    		while (shelfIt.hasNext()) {
+    			// If Stock Batch doesn't cover the remaining quantity needed,
+    			// or is equal:
+    			// take the quantity and remove the stockBatch from shelf
+    			StockBatch stockBatch = shelfIt.next();
+    			if (stockBatch.getQuantity() <= (quantity - (removedUntrackableItems + removedTrackableItems.size()))) {
+    				removedUntrackableItems += stockBatch.getQuantity();
+    				removedTrackableItems.addAll(stockBatch.getTrackableItems());
+    			} else {
+    				// The untrackable items cover the needeed quantity
+    				if (stockBatch.getUntrackableItemquantity() >= (quantity - (removedUntrackableItems + removedTrackableItems.size()))) {
+    					removedUntrackableItems = quantity;
+    					stockBatch.setUntrackableItemquantity((quantity - (removedUntrackableItems + removedTrackableItems.size())));
+    				} else {
+    					// Untrackable items don't cover needed quantity, 
+    					// so start popping trackable items
+    					removedUntrackableItems += stockBatch.getQuantity();
+    					removedTrackableItems.addAll(stockBatch.popTrackableItems(quantity - (removedUntrackableItems + removedTrackableItems.size())));
+    					
+    				}
+    			}
+    		}
+
+    	}
+    	OrderLine orderLine = new OrderLine(product, removedUntrackableItems);
+    	orderLine.setTrackableItems(removedTrackableItems);
+    	return orderLine;
     }
     
 

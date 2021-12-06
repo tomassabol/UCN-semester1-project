@@ -94,7 +94,7 @@ public class Shelf {
     public boolean isInStock(Product product, int neededQuantity) {
     	int availableQuantity = 0;
     	for (StockBatch stockBatch: this.getStockBatches(product)) {
-    		availableQuantity += stockBatch.getquantity();
+    		availableQuantity += stockBatch.getQuantity();
     		if (availableQuantity >= neededQuantity) {
     			return true;
     		}
@@ -111,7 +111,7 @@ public class Shelf {
     public int getQuantityOfProduct(Product product) {
     	int availableQuantity = 0;
     	for (StockBatch stockBatch: this.getStockBatches(product)) {
-    		availableQuantity += stockBatch.getquantity();
+    		availableQuantity += stockBatch.getQuantity();
     	}
     	return availableQuantity;
     }

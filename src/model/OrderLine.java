@@ -8,20 +8,20 @@ import java.util.Set;
 
 public class OrderLine {
 	
-	private HashSet<TrackableItem> items;
+	private Set<TrackableItem> trackableItems;
 	public final Product PRODUCT;
 	private int untrackableItemQuantity;
 
 	/*
 	 * Constructor for specific, trackable items
 	 */
-	public OrderLine(Set<TrackableItem> items) {
-		if (items.isEmpty()) {
+	public OrderLine(Set<TrackableItem> trackableItems) {
+		if (trackableItems.isEmpty()) {
 			throw new IllegalArgumentException("Must contain at least 1 item");
 		}
-		this.PRODUCT = items.iterator().next().getProduct();
-		allItemsOfSameProduct(items);
-		this.items = (HashSet<TrackableItem>) items;
+		this.PRODUCT = trackableItems.iterator().next().getProduct();
+		allItemsOfSameProduct(trackableItems);
+		this.trackableItems = (HashSet<TrackableItem>) trackableItems;
 		untrackableItemQuantity = 0;
 	}
 	
@@ -73,11 +73,34 @@ public class OrderLine {
 	 * @return the quantity of items in this ItemLine
 	 */
 	public int getQuantity() {
-		return this.items.size() + this.untrackableItemQuantity;
+		return this.trackableItems.size() + this.untrackableItemQuantity;
 	}
 
-	public Set<TrackableItem> getItems() {
-		return items;
+	/**
+	 * Gets the trackable items.
+	 *
+	 * @return the trackable items
+	 */
+	public Set<TrackableItem> getTrackableItems() {
+		return trackableItems;
+	}
+	
+	/**
+	 * Sets the trackable items.
+	 *
+	 * @param trackableItems the new trackable items
+	 */
+	public void setTrackableItems(Set<TrackableItem> trackableItems) {
+		this.trackableItems = trackableItems;
+	}
+	
+	/**
+	 * Adds a trackable item.
+	 *
+	 * @param trackableItem the trackable item
+	 */
+	public void addTrackableItem(TrackableItem trackableItem) {
+		this.trackableItems.add(trackableItem);
 	}
 
 	/**
@@ -92,7 +115,7 @@ public class OrderLine {
 		if (this.PRODUCT != item.getProduct()) {
 			return false;
 		}
-		return this.items.add(item);
+		return this.trackableItems.add(item);
 	}
 
 	public Product getProduct() {
