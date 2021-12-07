@@ -73,6 +73,9 @@ public class MenuOrders extends GenericMenuInterface {
 	  
 	}
 
+	/**
+	 * Prints all guotes and quote info
+	 */
 	public void showAllQuotes() {
 		Terminal terminal = Terminal.getInstance();
 		terminal.clearScreen();

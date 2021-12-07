@@ -45,7 +45,7 @@ public class MenuSupply extends GenericMenuInterface{
     }
 
     /**
-     * 
+     * Creates new supply offer
      */
     private void createSupplyOffer(){
         Terminal terminal = Terminal.getInstance();
@@ -74,6 +74,9 @@ public class MenuSupply extends GenericMenuInterface{
     }
 
     
+    /**
+     * Changes specific supply offer status to not active (false)
+     */
     private void setSupplyOfferStatus(){
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
@@ -85,6 +88,9 @@ public class MenuSupply extends GenericMenuInterface{
     }
     
 
+    /**
+     * Creates a new supply offer
+     */
     private void createSupplyOrder(){
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
@@ -111,6 +117,9 @@ public class MenuSupply extends GenericMenuInterface{
         super.show();
     }
 
+    /**
+     * Prints all undelivered Supply orders
+     */
     private void showUndeliveredSupplyOrders() {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
@@ -121,6 +130,9 @@ public class MenuSupply extends GenericMenuInterface{
         super.show();
     }
 
+    /**
+     * Prints all delivered supply orders
+     */
     private void showDeliveredSupplyOrders() {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
@@ -131,6 +143,10 @@ public class MenuSupply extends GenericMenuInterface{
         super.show();
     }
 
+    /**
+     * Puts products from supply order into stock - into specific shelf 
+     * - and marks the supply order as delivere
+     */
     private void stockAndMarkDelivered() {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();

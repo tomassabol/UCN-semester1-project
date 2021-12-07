@@ -65,6 +65,10 @@ public class Terminal {
 	  return customer;
   }
 
+  /**
+   * prompt the user to identify a product by ID
+   * @return specific product with entered product ID
+   */
   public Product getProduct() {
 	  Product product = null;
 	  do {
@@ -75,6 +79,10 @@ public class Terminal {
 	  return product;
   }
   
+  /**
+   * prompt the user to identify a Contractor by ID
+   * @return contractor with entered contructor ID
+   */
   public Contractor getContractor() {
 	  Contractor contractor = null;
 	  do {
@@ -85,6 +93,9 @@ public class Terminal {
 	  return contractor;
   }
   
+  /**
+   * Prints all Customers
+   */
   public void printAllCustomers() {
 	  for (Customer customer: customerCtrl.getCustomers()) {
 		  System.out.println("(" + customer.ID + ") " 
