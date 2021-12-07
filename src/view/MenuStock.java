@@ -14,6 +14,8 @@ public class MenuStock extends GenericMenuInterface {
         super.setTitle("Stock Menu");
         super.addMenuOption("1", new GenericMenuOption("Create new Storage Location", () -> createStorageLocation()));
         super.addMenuOption("2", new GenericMenuOption("Create new Shelf", () -> createShelf()));
+        super.addMenuOption("3", new GenericMenuOption("Show all Storage Locations", () -> showAllStorageLocations()));
+        super.addMenuOption("4", new GenericMenuOption("Show all Shelves", () -> showAllShelves()));
         super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
 
         stockCtrl = new StockController();
@@ -50,6 +52,26 @@ public class MenuStock extends GenericMenuInterface {
         stockCtrl.createShelf(name, storageLocation);
         super.show("New Shelf was successfully created");
         terminal.getStringInput("Press [Enter] to go Back");
+        super.show();
+    }
+
+    private void showAllStorageLocations() {
+        Terminal terminal = Terminal.getInstance();
+        terminal.clearScreen();
+
+        System.out.println("[All Storage Locations in the System]");
+        stockCtrl.printAllStorageLocationInfo();
+        terminal.getStringInput("Press [Enter] to go back");
+        super.show();
+    }
+
+    private void showAllShelves() {
+        Terminal terminal = Terminal.getInstance();
+        terminal.clearScreen();
+
+        System.out.println("[All Shelves in the System]");
+        stockCtrl.printAllShelvesInfo();
+        terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }
 
