@@ -57,6 +57,7 @@ public class MenuSupply extends GenericMenuInterface {
         int minQuantity = terminal.getIntegerInput("The minimum quantity of the product");
         supplyCtrl.createSupplyOffer(product, contractor, pricePerItem, minQuantity);
         super.show("The offer was susccessfully created");
+        System.out.println();
         terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }
@@ -71,6 +72,7 @@ public class MenuSupply extends GenericMenuInterface {
 
         System.out.println("[All SupplyOffers in the System]");
         supplyCtrl.printAllSupplyOffers();
+        System.out.println();
         terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }
@@ -87,6 +89,8 @@ public class MenuSupply extends GenericMenuInterface {
         int supplyOfferId = terminal.getIntegerInput("Enter the Supply Offer ID");
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(supplyOfferId);
         supplyCtrl.setStatus(supplyOffer);
+        super.show("Supply offer was set to inactive");
+        System.out.println();
         terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }
@@ -105,6 +109,7 @@ public class MenuSupply extends GenericMenuInterface {
         int quantity = terminal.getIntegerInput("Enter the quantity of the product");
         supplyCtrl.createSupplyOrder(supplyOffer, quantity);
         super.show("The supply order was susccessfully created");
+        System.out.println();
         terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }
@@ -119,6 +124,7 @@ public class MenuSupply extends GenericMenuInterface {
 
         System.out.println("[All Supply orders in the System]");
         supplyCtrl.printAllSupplyOrderInfo();
+        System.out.println();
         terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }
@@ -132,6 +138,7 @@ public class MenuSupply extends GenericMenuInterface {
 
         System.out.println("[All Undelivered Supply orders in the System]");
         supplyCtrl.printUndeliveredSupplyOrders();
+        System.out.println();
         terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }
@@ -145,6 +152,7 @@ public class MenuSupply extends GenericMenuInterface {
 
         System.out.println("[All Delivered Supply orders in the System]");
         supplyCtrl.printDeliveredSupplyOrders();
+        System.out.println();
         terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }
@@ -161,10 +169,15 @@ public class MenuSupply extends GenericMenuInterface {
         int supplyOrderId = terminal.getIntegerInput("Enter the id of a supply order");
         SupplyOrder supplyOrder = supplyCtrl.findSupplyOrderById(supplyOrderId);
         stockCtrl.printAllShelvesInfo();
+
+        System.out.println();
+
         int shelfId = terminal.getIntegerInput("Enter the id of a shelf to put delivered product");
         Shelf shelf = stockCtrl.findShelfById(shelfId);
         boolean trackable = terminal.confirmInput("Does the Item have a serial number?");
         supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, trackable);
+        super.show("Success");
+        System.out.println();
         terminal.getStringInput("Press [Enter] to go back");
         super.show();
     }

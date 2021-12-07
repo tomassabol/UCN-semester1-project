@@ -248,12 +248,18 @@ public class Stock {
     	return orderLine;
     }
 
+    /**
+     * prints out all storage lcoation and its info
+     */
     public void printAllStorageLocationInfo() {
         for (StorageLocation storageLocation : this.storage.keySet()) {
             storageLocation.printStorageLocationInfo();
         }
     }
 
+    /**
+     * prints out all shelves and its info
+     */
     public void printAllShelvesInfo() {
         for (Shelf shelf : getShelves()) {
             shelf.printShelfInfo();
