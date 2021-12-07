@@ -36,5 +36,13 @@ implements IFEmployee {
 	public void setCPRNumber(String CPRNumber){
 		this.CPRNumber = CPRNumber;
 	}
+	
+	public String getHashedPassword() {
+		return "";
+	}
+	
+	public String getUsername() {
+		return "";
+	}
 
 }
