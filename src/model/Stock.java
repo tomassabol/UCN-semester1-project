@@ -245,6 +245,8 @@ public class Stock {
     	}
     	OrderLine orderLine = new OrderLine(product, removedUntrackableItems);
     	orderLine.setTrackableItems(removedTrackableItems);
+    	// set discount
+    	orderLine.setBulkDiscount(DiscountContainer.getInstance().getBestBulkDiscount(product, quantity));
     	return orderLine;
     }
 

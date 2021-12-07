@@ -1,19 +1,19 @@
 package model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class StockBatch.
  */
 public class StockBatch {
     
     /** The product. */
-    private Product product;
+    private final Product PRODUCT;
     
     /** The supply order. */
     private SupplyOrder supplyOrder;
@@ -36,7 +36,7 @@ public class StockBatch {
         if (trackableItems.isEmpty()) {
             throw new IllegalArgumentException("Must contain at least 1 product");
         }
-        this.product = trackableItems.iterator().next().getProduct();
+        this.PRODUCT = trackableItems.iterator().next().getProduct();
         allItemsOfSameProduct(trackableItems);
         this.trackableItems = (HashSet<TrackableItem>) trackableItems;
         untrackableItemQuantity = 0;
@@ -52,7 +52,7 @@ public class StockBatch {
         if (quantity < 0) {
             throw new IllegalArgumentException("Quantity cannot be less than 0");
         }
-        this.product = product;
+        this.PRODUCT = product;
     }
 
     /**
@@ -63,7 +63,7 @@ public class StockBatch {
      */
     private void allItemsOfSameProduct(Set<TrackableItem> trackableItems) {
 		for(TrackableItem trackableItem: trackableItems) {
-			if(this.product != trackableItem.getProduct()) {
+			if(this.PRODUCT != trackableItem.getProduct()) {
 				throw new IllegalArgumentException("All items must be of same type(product)");
 			}
 		}
@@ -76,16 +76,7 @@ public class StockBatch {
      */
     // get/set product
     public Product getProduct() {
-        return this.product;
-    }
-
-    /**
-     * Sets the product.
-     *
-     * @param product the new product
-     */
-    public void setProduct(Product product) {
-        this.product = product;
+        return this.PRODUCT;
     }
 
     /**
@@ -203,5 +194,25 @@ public class StockBatch {
     	return trackableItems;
     	
     }
+    
+	/**
+	 * Calculates the price for this stock batch.
+	 *
+	 * @return the price as BigDecimal
+	 *  or null if no price is set, or line's quantity is < 1
+	 */
+	public BigDecimal getTotalPrice() {
+		// if no selling price has been set, return 0
+		if (this.PRODUCT.getLatestSellingPrice() == null) {
+			return null;
+		}
+		// if quantity below 0, return null
+		int quantity = getQuantity();
+		if (quantity < 1) {
+			return null;
+		}
+		// return calculated price
+		return this.PRODUCT.getLatestSellingPrice().multiply(BigDecimal.valueOf(quantity));
+	}
 
 }
