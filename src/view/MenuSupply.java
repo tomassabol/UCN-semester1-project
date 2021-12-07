@@ -10,7 +10,7 @@ import model.Shelf;
 import model.SupplyOffer;
 import model.SupplyOrder;
 
-public class MenuSupply extends GenericMenuInterface{
+public class MenuSupply extends GenericMenuInterface {
     private static MenuSupply instance;
     
     private SupplyController supplyCtrl;
@@ -37,8 +37,8 @@ public class MenuSupply extends GenericMenuInterface{
     /**
      * @return the instance of MenuProduct
      */
-    public static MenuSupply getInstance(){
-        if(instance == null){
+    public static MenuSupply getInstance() {
+        if (instance == null){
             instance = new MenuSupply();
         }
         return instance;
@@ -57,6 +57,8 @@ public class MenuSupply extends GenericMenuInterface{
         int minQuantity = terminal.getIntegerInput("The minimum quantity of the product");
         supplyCtrl.createSupplyOffer(product, contractor, pricePerItem, minQuantity);
         super.show("The offer was susccessfully created");
+        terminal.getStringInput("Press [Enter] to go back");
+        super.show();
     }
 
 
@@ -85,6 +87,8 @@ public class MenuSupply extends GenericMenuInterface{
         int supplyOfferId = terminal.getIntegerInput("Enter the Supply Offer ID");
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(supplyOfferId);
         supplyCtrl.setStatus(supplyOffer);
+        terminal.getStringInput("Press [Enter] to go back");
+        super.show();
     }
     
 
@@ -101,6 +105,8 @@ public class MenuSupply extends GenericMenuInterface{
         int quantity = terminal.getIntegerInput("Enter the quantity of the product");
         supplyCtrl.createSupplyOrder(supplyOffer, quantity);
         super.show("The supply order was susccessfully created");
+        terminal.getStringInput("Press [Enter] to go back");
+        super.show();
     }
 
 
@@ -159,6 +165,8 @@ public class MenuSupply extends GenericMenuInterface{
         Shelf shelf = stockCtrl.findShelfById(shelfId);
         boolean trackable = terminal.confirmInput("Does the Item have a serial number?");
         supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, trackable);
+        terminal.getStringInput("Press [Enter] to go back");
+        super.show();
     }
 
 }
