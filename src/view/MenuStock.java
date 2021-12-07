@@ -8,6 +8,9 @@ public class MenuStock extends GenericMenuInterface {
 
     private StockController stockCtrl;
 
+    /**
+     * Constructor class MenuStock
+     */
     private MenuStock() {
         super();
 
@@ -21,6 +24,10 @@ public class MenuStock extends GenericMenuInterface {
         stockCtrl = new StockController();
     }
 
+    /**
+     * get instance of a class MenuStock
+     * @return instance of a class MenuStok
+     */
     public static MenuStock getInstance() {
         if (instance == null) {
             instance = new MenuStock();
@@ -28,6 +35,9 @@ public class MenuStock extends GenericMenuInterface {
         return instance;
     }
 
+    /**
+     * create a storage location within the system
+     */
     private void createStorageLocation() {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
@@ -41,6 +51,9 @@ public class MenuStock extends GenericMenuInterface {
         super.show();
     }
 
+    /**
+     * create a shelf within the System
+     */
     private void createShelf() {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
@@ -55,6 +68,9 @@ public class MenuStock extends GenericMenuInterface {
         super.show();
     }
 
+    /**
+     * prints all storage locations within the system and its information 
+     */
     private void showAllStorageLocations() {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
@@ -65,6 +81,9 @@ public class MenuStock extends GenericMenuInterface {
         super.show();
     }
 
+    /**
+     * prints all shelves within the system and its information
+     */
     private void showAllShelves() {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
