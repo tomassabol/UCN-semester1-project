@@ -1,6 +1,5 @@
 package controller;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import model.PrimaryKey;
@@ -12,9 +11,7 @@ public class ProductController {
 	/**
 	 * Constructor class ProductController
 	 */
-	public ProductController() {
-		// TODO Auto-generated constructor stub
-	}
+	public ProductController() {}
 
 	/**
 	 * @param name of the product to be created

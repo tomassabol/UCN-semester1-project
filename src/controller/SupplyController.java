@@ -4,15 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import model.Contractor;
-import model.Customer;
-import model.CustomerContainer;
 import model.PrimaryKey;
 import model.Product;
-import model.ProductContainer;
 import model.Shelf;
 import model.StockBatch;
 import model.SupplyOffer;
@@ -78,6 +74,14 @@ public class SupplyController {
 	public SupplyOffer findSupplyOfferByID(Product product, int index) {
 		return SupplyOfferContainer.getInstance().findSupplyOfferById(product, index);
 	}
+
+	public SupplyOffer findSupplyOfferByID(int id) {
+		return SupplyOfferContainer.getInstance().findSupplyOfferById(id);
+	}
+
+	public SupplyOrder findSupplyOrderById(int supplyOrderId) {
+		return SupplyOrderContainer.getInstance().findSupplyOrderByID(supplyOrderId);
+	}
 	
 	/**
 	 * Gets the supply offers for a product
@@ -89,10 +93,12 @@ public class SupplyController {
 		return SupplyOfferContainer.getInstance().getSupplyOffers(product);
 	}
 	
+	/*
 	private void removeSupplyOffer() {
 		// This is left empty for a reason!
 		// Supply offers should not be removed, only deactivated!
 	}
+	*/
 	
 	/**
 	 * Deactivate a supply offer
@@ -177,7 +183,7 @@ public class SupplyController {
 	*/
 	// custom serial numbers
 	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, Set<Integer> serialNumbers) {
-		// TODO: work on it
+		// TODO: work on it- low priority
 	}
 
 	public void printAllSupplyOffers(){
@@ -188,5 +194,15 @@ public class SupplyController {
 	public void printAllSupplyOrderInfo() {
 		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
 		sContainer.printAllSupplyOrderInfo();
+	}
+
+	public void printUndeliveredSupplyOrders() {
+		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
+		sContainer.printUndeliveredSupplyOrders();
+	}
+
+	public void printDeliveredSupplyOrders() {
+		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
+		sContainer.printDeliveredSupplyOrderInfo();
 	}
 }

@@ -10,7 +10,6 @@ import java.util.Scanner;
 import controller.CustomerController;
 
 import model.Customer;
-import model.CustomerContainer;
 
 import model.Product;
 import controller.ProductController;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,7 +37,6 @@ public class Stock {
         }
         return instance;
     }
-    
     
     /**
      * Gets the storage locations.
@@ -139,7 +137,16 @@ public class Stock {
     		}
     	}
     	return null;
-    } 
+    }
+    
+    public StorageLocation findStorageLocationById(int id) {
+        for (StorageLocation storageLocation : this.storage.keySet()) {
+            if (storageLocation.ID == id) {
+                return storageLocation;
+            }
+        }
+        return null;
+    }
     
     /**
      * remove storageLocation
@@ -239,6 +246,18 @@ public class Stock {
     	OrderLine orderLine = new OrderLine(product, removedUntrackableItems);
     	orderLine.setTrackableItems(removedTrackableItems);
     	return orderLine;
+    }
+
+    public void printAllStorageLocationInfo() {
+        for (StorageLocation storageLocation : this.storage.keySet()) {
+            storageLocation.printStorageLocationInfo();
+        }
+    }
+
+    public void printAllShelvesInfo() {
+        for (Shelf shelf : getShelves()) {
+            shelf.printShelfInfo();
+        }
     }
     
 

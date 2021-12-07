@@ -8,8 +8,6 @@ import controller.EmployeeController;
 import controller.OrderController;
 import controller.ProductController;
 import model.Customer;
-import model.CustomerContainer;
-import model.Employee;
 import model.IFEmployee;
 import model.Product;
 import model.SellingPrice;

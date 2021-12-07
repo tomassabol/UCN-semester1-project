@@ -1,12 +1,7 @@
 package view;
 
 import controller.EmployeeController;
-import controller.OrderController;
-import model.Customer;
 import model.Employee;
-import model.IFEmployee;
-import model.Order;
-import model.UnspecificItemLine;
 
 public class MenuEmployee extends GenericMenuInterface {
   private static MenuEmployee instance;
