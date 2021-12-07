@@ -3,6 +3,7 @@ package model;
 public class BulkDiscount {
     private int minQuantity;
     private int percentageDiscount;
+    private boolean active;
 
     /**
      * Constructor class BulkDiscount
@@ -12,9 +13,18 @@ public class BulkDiscount {
     public BulkDiscount(int minQuantity, int percentageDiscount) {
         this.minQuantity = minQuantity;
         this.percentageDiscount = percentageDiscount;
+        this.active = true;
     }
     
-    // get/set minQuantity
+    public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	// get/set minQuantity
     public int getMinQuantity() {
         return this.minQuantity;
     }
