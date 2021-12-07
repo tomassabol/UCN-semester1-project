@@ -186,21 +186,33 @@ public class SupplyController {
 		// TODO: work on it- low priority
 	}
 
+	/**
+	 * Prints all supplyOffers
+	 */
 	public void printAllSupplyOffers(){
 		SupplyOfferContainer sContainer = SupplyOfferContainer.getInstance();
 		sContainer.printAllSupplyOfferInfo();
 	}
 
+	/**
+	 * Prints all SupplyOrders
+	 */
 	public void printAllSupplyOrderInfo() {
 		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
 		sContainer.printAllSupplyOrderInfo();
 	}
 
+	/**
+	 * Prints all Undelivered Supply Orders
+	 */
 	public void printUndeliveredSupplyOrders() {
 		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
 		sContainer.printUndeliveredSupplyOrders();
 	}
 
+	/**
+	 * Prints all delivered supply orders
+	 */
 	public void printDeliveredSupplyOrders() {
 		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
 		sContainer.printDeliveredSupplyOrderInfo();

@@ -97,6 +97,9 @@ public class ProductController {
 		return ProductContainer.getInstance().findProductByProductId(id);
 	}
 
+	/**
+	 * Print all products
+	 */
 	public void printAllProducts(){
 		ProductContainer pContainer = ProductContainer.getInstance();
 		pContainer.printAllProductInfo();

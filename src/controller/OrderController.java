@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Customer;
 import model.IFCustomer;
 import model.IFEmployee;
 import model.Order;
@@ -12,7 +11,6 @@ import model.PrimaryKey;
 import model.Quote;
 import model.QuoteContainer;
 import model.ShoppingCart;
-import model.OrderLine;
 import model.UnspecificItemLine;
 
 /**
