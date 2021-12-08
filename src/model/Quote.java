@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Quote {
 	public final int ID;
@@ -15,9 +16,11 @@ public class Quote {
 		this.ID = Id;
 		this.customer = customer;
 		this.employee = employee;
-		this.itemLines = itemLines;
 		
 		this.CREATION_DATE = LocalDateTime.now();
+		
+		this.itemLines = itemLines;
+		
 	}
 
 	public IFCustomer getCustomer() {
@@ -36,8 +39,18 @@ public class Quote {
 		this.employee = employee;
 	}
 
+	/**
+	 * Gets the item lines.
+	 *
+	 * @return the item lines as a map, with BulkDiscount or null as key
+	 */
 	public ArrayList<UnspecificItemLine> getItemLines() {
 		return itemLines;
+	}
+	
+	// Note: quotes cannot be changed, so do not use this method!
+	private void setItemLines() {
+		//
 	}
 
 	public int getID() {

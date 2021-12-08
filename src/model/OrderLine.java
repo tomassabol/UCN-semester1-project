@@ -9,95 +9,53 @@ public class OrderLine {
 	private Set<TrackableItem> trackableItems;
 	public final Product PRODUCT;
 	private int untrackableItemQuantity;
-	private BigDecimal pricePerItem;
+	private BigDecimal fixedProductPrice;
 	private BulkDiscount bulkDiscount = null;
 
-	public BigDecimal getPricePerItem() {
-		return pricePerItem;
-	}
-
-	public void setPricePerItem(BigDecimal pricePerItem) {
-		this.pricePerItem = pricePerItem;
-	}
-
-	public BulkDiscount getBulkDiscount() {
-		return bulkDiscount;
-	}
-
-	public void setBulkDiscount(BulkDiscount bulkDiscount) {
-		this.bulkDiscount = bulkDiscount;
-	}
-
-	/*
-	 * Constructor for specific, trackable items
-	 */
-	public OrderLine(Set<TrackableItem> trackableItems, BulkDiscount bulkDiscount) {
-		if (trackableItems.isEmpty()) {
-			throw new IllegalArgumentException("The orderline must contain at least 1 item");
-		}
-		this.PRODUCT = trackableItems.iterator().next().getProduct();
-		allItemsOfSameProduct(trackableItems);
-		this.trackableItems = (HashSet<TrackableItem>) trackableItems;
-		untrackableItemQuantity = 0;
-		
-		// set price per item
-		if (PRODUCT.getLatestSellingPrice() == null) {
-			throw new IllegalArgumentException("Product must have a price before it can be ordered");
-		}
-		this.pricePerItem = PRODUCT.getLatestSellingPrice();
-		
-		}
-	
-	/*
-	 * Constructor for non-trackable items
-	 */
-	public OrderLine(Product product, int quantity) {
-		if (quantity < 0) {
-			throw new IllegalArgumentException("Quantity cannot be less than 0!");
-		}
+	public OrderLine(Product product, int untrackableItemQuantity,
+			Set<TrackableItem> trackableItems, BigDecimal productPrice, 
+			BulkDiscount bulkDiscount) {
+		// set the product
 		this.PRODUCT = product;
-		
-		if (quantity < 1) {
+		// check that quantity is not below zero
+		if (untrackableItemQuantity < 1) {
 			throw new IllegalArgumentException("The orderline must contain at least 1 item");
 		}
-		this.untrackableItemQuantity = quantity;
+		this.untrackableItemQuantity = untrackableItemQuantity;
 		
-		// set price per item
-		if (PRODUCT.getLatestSellingPrice() == null) {
-			throw new IllegalArgumentException("Product must have a price before it can be ordered");
-		}
-		this.pricePerItem = PRODUCT.getLatestSellingPrice();
-		
-		}
-	
-	/**
-	 * Checks that all items are of the same type,
-	 * else throws an exception
-	 *
-	 * @param items the items
-	 */
-	private void allItemsOfSameProduct(Set<TrackableItem> items) {
-		for(TrackableItem item: items) {
+		// check that all trackable items are of same product
+		for(TrackableItem item: trackableItems) {
 			if(this.PRODUCT != item.getProduct()) {
 				throw new IllegalArgumentException("All items must be of same type(product)");
 			}
 		}
+		this.trackableItems = trackableItems;
+		
+		// If product price < 0, throw exception
+		if (productPrice.compareTo(BigDecimal.ZERO) > 0) {
+			throw new IllegalArgumentException("Product price cannot be below zero!");
+		}
+		
+		// An orderline must contain at least one item
+		if (trackableItems.size() == 0 && untrackableItemQuantity == 0) {
+			throw new IllegalArgumentException("An orderline must contain at least one item!");
+		}
+		
+		// set the bulk discount
+		this.bulkDiscount = bulkDiscount;
+		
 	}
 	
+	
 	/**
-	 * Calculates the total price for all items in this ItemLine.
+	 * Calculates the total price for all items in this ItemLine
+	 * without applying the bulk discount (if exists)
 	 *
 	 * @return the price as BigDecimal
-	 *  or null if no price is set, or line's quantity is < 1
 	 */
-	public BigDecimal getTotalPriceWithoutDiscounts() {
-		// if quantity below 0, return null
-		int quantity = getQuantity();
-		if (quantity < 1) {
-			return null;
-		}
-		// return calculated price
-		return this.pricePerItem.multiply(BigDecimal.valueOf(quantity));
+	public BigDecimal getTotalPriceWithoutBulkDiscount() {
+
+		return this.fixedProductPrice.multiply(BigDecimal.valueOf(untrackableItemQuantity));
 	}
 
 	/**
@@ -118,6 +76,7 @@ public class OrderLine {
 	
 	/**
 	 * Sets the trackable items.
+	 * BEWARE: It does not update the bulk discount.
 	 *
 	 * @param trackableItems the new trackable items
 	 */
@@ -126,29 +85,58 @@ public class OrderLine {
 	
 	/**
 	 * Adds a trackable item.
+	 * BEWARE: It does not update the bulk discount.
 	 *
 	 * @param trackableItem the trackable item
 	 */
 	public void addTrackableItem(TrackableItem trackableItem) {
 		this.trackableItems.add(trackableItem);}
 
-	/**
-	 * Adds a TrackableItem to the Line.
-	 * Restriction: Only items of same type(product) can be added.
-	 *
-	 * @param item the item to add
-	 * 
-	 */
-	public boolean addItem(TrackableItem item) {
-		// If trying to add an item of different type(product), do nothing
-		if (this.PRODUCT != item.getProduct()) {
-			return false;
-		}
-		return this.trackableItems.add(item);
-	}
-
 	public Product getProduct() {
 		return this.PRODUCT;
 	}
+
+
+	public int getUntrackableItemQuantity() {
+		return untrackableItemQuantity;
+	}
+
+
+	public void setUntrackableItemQuantity(int untrackableItemQuantity) {
+		this.untrackableItemQuantity = untrackableItemQuantity;
+	}
+
+
+	public BigDecimal getFixedProductPrice() {
+		return fixedProductPrice;
+	}
+
+
+	/**
+	 * Sets the product price
+	 * BEWARE: It does not update the bulk discount..
+	 *
+	 * @param fixedProductPrice the new fixed product price
+	 */
+	public void setFixedProductPrice(BigDecimal fixedProductPrice) {
+		this.fixedProductPrice = fixedProductPrice;
+	}
+
+
+	public BulkDiscount getBulkDiscount() {
+		return bulkDiscount;
+	}
+
+
+	public void setBulkDiscount(BulkDiscount bulkDiscount) {
+		this.bulkDiscount = bulkDiscount;
+	}
+
+
+	public Product getPRODUCT() {
+		return PRODUCT;
+	}
+	
+	
 
 }
