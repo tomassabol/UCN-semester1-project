@@ -36,7 +36,7 @@ public class ShoppingItemLine {
 		if (this.getBulkDiscount() == null) {
 			return rawPrice;
 		}
-		return rawPrice.multiply(BigDecimal.valueOf((100 - this.getBulkDiscount().getDiscountPercentage()) / 100));
+		return rawPrice.multiply(BigDecimal.valueOf((100 - this.getBulkDiscount().getDiscountPercentage()) / 100.0));
 	}
 	
 	public BulkDiscount getBulkDiscount() {

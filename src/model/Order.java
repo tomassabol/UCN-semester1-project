@@ -80,7 +80,7 @@ public class Order {
 			totalPrice = totalPrice.add(itemLine.getTotalPriceWithBulkDiscount());
 		}
 		// Apply customer type discount
-		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100));
+		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100.0));
 		
 		return totalPrice;
 	}

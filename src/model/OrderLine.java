@@ -79,7 +79,7 @@ public class OrderLine {
 		if (this.getBulkDiscount() == null) {
 			return rawPrice;
 		}
-		return rawPrice.multiply(BigDecimal.valueOf((100 - FIXED_BULK_DISCOUNT.getDiscountPercentage() / 100)));
+		return rawPrice.multiply(BigDecimal.valueOf((100 - FIXED_BULK_DISCOUNT.getDiscountPercentage() / 100.0)));
 	}
 
 	/**

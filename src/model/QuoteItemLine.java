@@ -44,7 +44,7 @@ public class QuoteItemLine {
 		if (this.getBulkDiscount() == null) {
 			return rawPrice;
 		}
-		return rawPrice.multiply(BigDecimal.valueOf((100 - this.FIXED_BULK_DISCOUNT.getDiscountPercentage() / 100)));
+		return rawPrice.multiply(BigDecimal.valueOf((100 - this.FIXED_BULK_DISCOUNT.getDiscountPercentage() / 100.0)));
 	
 	}
 	

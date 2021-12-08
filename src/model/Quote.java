@@ -72,7 +72,7 @@ public class Quote {
 			totalPrice = totalPrice.add(itemLine.getFixedPriceWithBulkDiscount());
 		}
 		// Apply customer type discount
-		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100));
+		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100.0));
 		
 		return totalPrice;
 	}
