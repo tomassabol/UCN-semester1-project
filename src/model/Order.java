@@ -15,35 +15,34 @@ public class Order {
 	private OrderStatus status;
 	private final LocalDateTime CREATION_DATE;
 	public final int ID;
-	private IFCustomer customer;
-	private IFEmployee employee;
-	private ArrayList<OrderLine> itemLines;
+	private final IFCustomer CUSTOMER;
+	private final IFEmployee EMPLOYEE;
+	private final ArrayList<OrderLine> ITEM_LINES;
+	private final String CUSTOMER_TYPE;
+	private final int CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
 	
 	/*
 	 * Constructor
 	 */
 	public Order(int id, IFCustomer customer, IFEmployee employee, ArrayList<OrderLine> itemLines) {
 		this.ID = id;
-		this.customer = customer;
-		this.itemLines = itemLines;
-		this.employee = employee;
+		this.CUSTOMER = customer;
+		this.ITEM_LINES = itemLines;
+		this.EMPLOYEE = employee;
 		
 		this.status = OrderStatus.PAID;
 		this.CREATION_DATE = LocalDateTime.now();
+		this.CUSTOMER_TYPE = customer.getCustomerType().getName();
+		this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE = customer.getCustomerType().getDiscountPercentage();
 		
 	}
 	public IFEmployee getEmployee() {
-		return employee;
-	}
-	public void setEmployee(IFEmployee employee) {
-		this.employee = employee;
+		return EMPLOYEE;
 	}
 	public IFCustomer getCustomer() {
-		return customer;
+		return CUSTOMER;
 	}
-	public void setCustomer(IFCustomer customer) {
-		this.customer = customer;
-	}
+
 	public OrderStatus getStatus() {
 		return status;
 	}
@@ -58,8 +57,14 @@ public class Order {
 		return ID;
 	}
 	
+	public String getCUSTOMER_TYPE() {
+		return CUSTOMER_TYPE;
+	}
+	public int getCUSTOMER_TYPE_DISCOUNT_PERCENTAGE() {
+		return CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
+	}
 	public List<OrderLine> getItemLines() {
-		return this.itemLines;
+		return this.ITEM_LINES;
 	}
 
 }
