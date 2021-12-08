@@ -66,7 +66,7 @@ public class MenuMain extends GenericMenuInterface {
 	  
 	  // Create customer type
 	  // TODO: NEED A CUSTOMER TYPE CONTROLLER
-	  CustomerType customerType = new CustomerType("Normal", 0);
+	  CustomerType customerType = new CustomerType("Normal", 5);
 	  // Create customers
 	  CustomerController ctrl = new CustomerController();
 	  Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", customerType, LocalDateTime.now());

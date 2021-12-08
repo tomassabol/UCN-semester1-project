@@ -16,9 +16,8 @@ public class Product {
 	private int minStock;
 	private int maxStock; 
 	private ArrayList<SellingPrice> sellingPrices = new ArrayList<>();
-	private BulkDiscount bulkDiscount = null;
 	private ArrayList<LoaningPrice> loaningPrices = new ArrayList<>();
-	private LocalDateTime DATE_ADDED = LocalDateTime.now();
+	private LocalDateTime DATE_ADDED;
 	
 	/**
 	 * Constructor of class Product

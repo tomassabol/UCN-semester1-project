@@ -80,14 +80,15 @@ public class Stock {
     }
     
     
+
     /**
-     * Gets the shelves for a storage location.
+     * Gets the shelves.
      *
-     * @param storageContainer the storage container
+     * @param storageLocation the storage location
      * @return the shelves
      */
-    public ArrayList<Shelf> getShelves(Stock storageContainer) {
-    	return storage.get(storageContainer);
+    public ArrayList<Shelf> getShelves(StorageLocation storageLocation) {
+    	return storage.get(storageLocation);
     }
     
     /**
