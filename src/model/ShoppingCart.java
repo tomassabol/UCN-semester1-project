@@ -70,7 +70,7 @@ public class ShoppingCart {
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		// Count total price with bulk discounts applied
 		for(ShoppingItemLine itemLine: this.itemLines) {
-			totalPrice = totalPrice.add(itemLine.getCurrentPriceWithoutBulkDiscount());
+			totalPrice = totalPrice.add(itemLine.getCurrentPriceWithBulkDiscount());
 		}
 		// Apply customer type discount
 		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100));

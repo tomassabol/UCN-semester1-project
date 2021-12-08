@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
@@ -58,6 +59,23 @@ public class Quote {
 
 	public LocalDateTime getCreationDate() {
 		return CREATION_DATE;
+	}
+	
+	/**
+	 * Calculate the total price with bulk discounts & customer type discount applied
+	 *
+	 * @return BigDecimal the calculated price
+	 */
+	public BigDecimal calculateTotalPriceWithDiscountsApplied() {
+		BigDecimal totalPrice = BigDecimal.ZERO;
+		// Count total price with bulk discounts applied
+		for(QuoteItemLine itemLine: this.ITEM_LINES) {
+			totalPrice = totalPrice.add(itemLine.getFixedPriceWithBulkDiscount());
+		}
+		// Apply customer type discount
+		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100));
+		
+		return totalPrice;
 	}
 
 
