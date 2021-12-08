@@ -90,7 +90,7 @@ public class MenuStock extends GenericMenuInterface {
 
         System.out.println("[All Shelves in the System]");
         stockCtrl.printAllShelvesInfo();
-        terminal.emptyStringInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 

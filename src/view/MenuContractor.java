@@ -55,7 +55,7 @@ private void showAllContractors(){
 
     System.out.println("[All Contractors in the System]");
     contractorCtrl.printAllContractors();
-    terminal.emptyStringInput("Press [Enter] to go back");
+    terminal.getAnyKeyInput("Press [Enter] to go back");
     super.show();
 }
 

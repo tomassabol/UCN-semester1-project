@@ -76,7 +76,7 @@ public class MenuEmployee extends GenericMenuInterface {
 		}
 		System.out.println();
 		
-		terminal.emptyStringInput("Press [Enter] to go back");
+		terminal.getAnyKeyInput("Press [Enter] to go back");
 		super.show();
 	}
 }

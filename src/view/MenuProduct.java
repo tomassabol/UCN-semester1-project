@@ -65,7 +65,7 @@ public class MenuProduct extends GenericMenuInterface{
 
         System.out.println("[All Products in the System]");
         productCtrl.printAllProducts();
-        terminal.emptyStringInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 

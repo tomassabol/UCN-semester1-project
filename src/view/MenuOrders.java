@@ -94,7 +94,7 @@ public class MenuOrders extends GenericMenuInterface {
 		}
 		System.out.println();
 		
-		terminal.emptyStringInput("Press [Enter] to go back");
+		terminal.getAnyKeyInput("Press [Enter] to go back");
 		super.show();
 	}
 }

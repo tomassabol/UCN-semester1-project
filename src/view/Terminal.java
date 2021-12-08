@@ -139,10 +139,10 @@ public class Terminal {
     return userInput;
   }
 
-  public String emptyStringInput(String prompt){
+  public void getAnyKeyInput(String prompt){
     System.out.print(prompt + ": ");
     String userInput = scanner.nextLine();
-    return userInput.trim();
+    return;
   }
 
   public BigDecimal getBigDecimalInput(String prompt){
