@@ -17,7 +17,7 @@ public class Product {
 	private int maxStock; 
 	private ArrayList<SellingPrice> sellingPrices = new ArrayList<>();
 	private BulkDiscount bulkDiscount = null;
-	private LoaningPrice loaningPrice = null;
+	private ArrayList<LoaningPrice> loaningPrices = new ArrayList<>();
 	private LocalDateTime DATE_ADDED = LocalDateTime.now();
 	
 	/**
@@ -96,12 +96,47 @@ public class Product {
 		return latestSellingPrice.getPrice();
 	}
 	
+	/**
+	 * adds selling price to an arraylist and the selling price is the latest one (current selling price)
+	 * @param sellingPrice to be added to Arraylist
+	 * @return true if successfully added
+	 */
 	public boolean addSellingPrice(SellingPrice sellingPrice) {
 		// if below 0, return False
 		if (sellingPrice.getPrice().compareTo(BigDecimal.ZERO) == -1) {
 			return false;
 		}
 		return this.sellingPrices.add(sellingPrice);
+	}
+
+	/**
+	 * @return the latest loaning price per hour
+	 */
+	public BigDecimal getLatestLoaningPrice() {
+		if (this.loaningPrices.isEmpty()) {
+			return null;
+		}
+
+		LoaningPrice latestLoaningPrice = loaningPrices.get(0);
+		LocalDateTime latestLoaningPriceDate = latestLoaningPrice.getDateAdded();
+		for (LoaningPrice loaningPrice : this.loaningPrices) {
+			if (loaningPrice.getDateAdded().isAfter(latestLoaningPriceDate)) {
+				latestLoaningPriceDate = loaningPrice.getDateAdded();
+			}
+		}
+		return latestLoaningPrice.getPricePerHour();
+	}
+	/**
+	 * adds loaning price to an arraylist, which becomes the latest (current) selling price
+	 * @param loaningPrice to be added to an arraylist
+	 * @return true if successfully added
+	 */
+	public boolean addLoaningPrice(LoaningPrice loaningPrice) {
+		// If below 0, return false
+		if (loaningPrice.getPricePerHour().compareTo(BigDecimal.ZERO) == -1) {
+			return false;
+		}
+		return this.loaningPrices.add(loaningPrice);
 	}
 
 	public void printProductInfo() {

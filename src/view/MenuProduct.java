@@ -96,6 +96,11 @@ public class MenuProduct extends GenericMenuInterface{
         }
     }
 
+    /**
+     * Finds the product by id
+     * Takes the price entered by user
+     * Creates a new selling price
+     */
     private void addSellingPrice() {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
