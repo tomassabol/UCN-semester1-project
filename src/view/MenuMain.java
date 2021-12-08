@@ -8,6 +8,7 @@ import controller.EmployeeController;
 import controller.OrderController;
 import controller.ProductController;
 import model.Customer;
+import model.CustomerType;
 import model.IFEmployee;
 import model.Product;
 import model.SellingPrice;
@@ -62,9 +63,13 @@ public class MenuMain extends GenericMenuInterface {
    * TODO: MOVE THE LOGIC TO CONTROLLER
    */
   public void generateTestData() {
+	  
+	  // Create customer type
+	  // TODO: NEED A CUSTOMER TYPE CONTROLLER
+	  CustomerType customerType = new CustomerType("Normal", 0);
 	  // Create customers
 	  CustomerController ctrl = new CustomerController();
-	  Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", LocalDateTime.now());
+	  Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", customerType, LocalDateTime.now());
 	  System.out.println("Generated customer data!");
 	  // Create products
 	  ProductController ctrl2 = new ProductController();

@@ -67,7 +67,7 @@ public class MenuOrders extends GenericMenuInterface {
 			itemLine.getCurrentPriceWithBulkDiscount() + " DKK");
 			}
 		}
-		System.out.println("Total: " + customer.getShoppingCart().calculateTotalPriceWithBulkDiscounts()+ " DKK");
+		System.out.println("Total: " + customer.getShoppingCart().calculateTotalPriceWithDiscountsApplied()+ " DKK");
 		if (terminal.confirmInput("Create a quote?")) {		
 			orderCtrl.createQuote(customer, employee, customer.getShoppingCart());
 			super.show("Successfully created a new quote");

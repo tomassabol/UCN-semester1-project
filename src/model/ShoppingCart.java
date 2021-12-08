@@ -5,12 +5,18 @@ import java.util.ArrayList;
 
 public class ShoppingCart {
     private ArrayList<ShoppingItemLine> itemLines;
+    private final IFCustomer CUSTOMER;
 
-    /*
+    public IFCustomer getCUSTOMER() {
+		return CUSTOMER;
+	}
+
+	/*
      * Constructor
      */
-    public ShoppingCart() {
-    	itemLines = new ArrayList<>();
+    public ShoppingCart(IFCustomer customer) {
+    	this.itemLines = new ArrayList<>();
+    	this.CUSTOMER = customer;
     }
     
     /*
@@ -56,16 +62,19 @@ public class ShoppingCart {
 	}
 	
 	/**
-	 * Calculate the total price with bulk discounts, 
-	 * but without any other discounts (e.g. customer type discount)
+	 * Calculate the total price with bulk discounts & customer type discount applied
 	 *
-	 * @return the big decimal
+	 * @return BigDecimal the calculated price
 	 */
-	public BigDecimal calculateTotalPriceWithBulkDiscounts() {
+	public BigDecimal calculateTotalPriceWithDiscountsApplied() {
 		BigDecimal totalPrice = BigDecimal.ZERO;
+		// Count total price with bulk discounts applied
 		for(ShoppingItemLine itemLine: this.itemLines) {
 			totalPrice = totalPrice.add(itemLine.getCurrentPriceWithoutBulkDiscount());
 		}
+		// Apply customer type discount
+		totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100));
+		
 		return totalPrice;
 	}
 

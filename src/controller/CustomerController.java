@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Customer;
 import model.CustomerContainer;
+import model.CustomerType;
 import model.PrimaryKey;
 
 public class CustomerController {
@@ -23,8 +24,8 @@ public class CustomerController {
 	 * @param birthDate the birth date
 	 * @return the newly created Customer object
 	 */
-	public Customer createCustomer(String firstName, String lastName, String address, String mobile, LocalDateTime birthDate) {
-		Customer customer = new Customer(PrimaryKey.getNextCustomerID(), firstName, lastName, address, mobile, birthDate);
+	public Customer createCustomer(String firstName, String lastName, String address, String mobile, CustomerType customerType, LocalDateTime birthDate) {
+		Customer customer = new Customer(PrimaryKey.getNextCustomerID(), firstName, lastName, address, mobile, customerType, birthDate);
 		CustomerContainer.getInstance().addCustomer(customer);
 		return customer;
 	}
