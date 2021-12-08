@@ -1,6 +1,9 @@
 package view;
 
+import java.math.BigDecimal;
+
 import controller.ProductController;
+import model.Product;
 
 public class MenuProduct extends GenericMenuInterface{
     private static MenuProduct instance;
@@ -18,6 +21,7 @@ public class MenuProduct extends GenericMenuInterface{
         super.addMenuOption("2", new GenericMenuOption("Show all Products", () -> showAllProducts()));
         super.addMenuOption("3", new GenericMenuOption("Delete a product", () -> deleteProduct()));
         super.addMenuOption("4", new GenericMenuOption("Update a product", () -> updateProduct()));
+        super.addMenuOption("5", new GenericMenuOption("Add selling price", () -> addSellingPrice()));
         super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
 
         productCtrl = new ProductController();
@@ -90,6 +94,18 @@ public class MenuProduct extends GenericMenuInterface{
             MenuUpdateProduct updateMenu = new MenuUpdateProduct(id);
             updateMenu.show();
         }
+    }
+
+    private void addSellingPrice() {
+        Terminal terminal = Terminal.getInstance();
+        terminal.clearScreen();
+
+        productCtrl.printAllProducts();
+        int id = terminal.getIntegerInput("Enter the ID of the product for which you want to change the price");
+        Product product = productCtrl.findProductByID(id);
+        product.printProductInfo();
+        BigDecimal price = terminal.getBigDecimalInput("Enter the new price");
+        productCtrl.createSellingPrice(price, product);
     }
 
     /**

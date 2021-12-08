@@ -1,10 +1,12 @@
 package controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import model.PrimaryKey;
 import model.Product;
 import model.ProductContainer;
+import model.SellingPrice;
 
 public class ProductController {
 
@@ -95,6 +97,18 @@ public class ProductController {
 	 */
 	public Product findProductByID(int id) {
 		return ProductContainer.getInstance().findProductByProductId(id);
+	}
+
+	/**
+	 * creates a selling price, which is also the latest selling price
+	 * @param price - new price entered by user
+	 * @param product - product for which is this new price set
+	 * @return selling price entered by user
+	 */
+	public SellingPrice createSellingPrice(BigDecimal price, Product product) {
+		SellingPrice sellingPrice = new SellingPrice(price, LocalDateTime.now());
+		product.addSellingPrice(sellingPrice);
+		return sellingPrice;
 	}
 
 	/**

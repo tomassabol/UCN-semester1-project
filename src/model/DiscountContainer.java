@@ -117,7 +117,7 @@ public class DiscountContainer {
 				if (bestBulkDiscount == null) {
 					bestBulkDiscount = bulkDiscount;
 				} else {
-					if (bulkDiscount.getPercentageDiscount() > bestBulkDiscount.getPercentageDiscount()) {
+					if (bulkDiscount.getDiscountPercentage() > bestBulkDiscount.getDiscountPercentage()) {
 						bestBulkDiscount = bulkDiscount;
 					}
 				}
