@@ -73,7 +73,7 @@ public class ShoppingCart {
 			totalPrice = totalPrice.add(itemLine.getCurrentPriceWithoutBulkDiscount());
 		}
 		// Apply customer type discount
-		totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100));
+		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100));
 		
 		return totalPrice;
 	}

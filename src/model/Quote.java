@@ -7,36 +7,41 @@ import java.util.Map;
 public class Quote {
 	public final int ID;
 	public final LocalDateTime CREATION_DATE;
-	private IFCustomer customer;
-	private IFEmployee employee;
-	private ArrayList<QuoteItemLine> itemLines;
+	private final IFCustomer CUSTOMER;
+	private final IFEmployee EMPLOYEE;
+	private final ArrayList<QuoteItemLine> ITEM_LINES;
+	private final String CUSTOMER_TYPE;
+	private final int CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
 
 	public Quote(int Id, IFCustomer customer,
 			IFEmployee employee, ArrayList<QuoteItemLine> itemLines) {
 		this.ID = Id;
-		this.customer = customer;
-		this.employee = employee;
+		this.CUSTOMER = customer;
+		this.EMPLOYEE = employee;
+		this.ITEM_LINES = itemLines;
 		
 		this.CREATION_DATE = LocalDateTime.now();
+		this.CUSTOMER_TYPE = customer.getCustomerType().getName();
+		this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE = customer.getCustomerType().getDiscountPercentage();
 		
-		this.itemLines = itemLines;
-		
+	}
+
+	public String getCUSTOMER_TYPE() {
+		return CUSTOMER_TYPE;
+	}
+
+	public int getCUSTOMER_TYPE_DISCOUNT_PERCENTAGE() {
+		return CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
 	}
 
 	public IFCustomer getCustomer() {
-		return customer;
+		return CUSTOMER;
 	}
-
-	// quotes cannot be changed!
-	public void setCustomer(IFCustomer customer) {}
 
 	public IFEmployee getEmployee() {
-		return employee;
+		return EMPLOYEE;
 	}
 
-	public void setEmployee(IFEmployee employee) {
-		this.employee = employee;
-	}
 
 	/**
 	 * Gets the item lines.
@@ -44,17 +49,14 @@ public class Quote {
 	 * @return the item lines as a map, with BulkDiscount or null as key
 	 */
 	public ArrayList<QuoteItemLine> getItemLines() {
-		return itemLines;
+		return ITEM_LINES;
 	}
 	
-	// Note: quotes cannot be changed, so do not use this method!
-	private void setItemLines() {}
-
 	public int getID() {
 		return ID;
 	}
 
-	public LocalDateTime getCREATION_DATE() {
+	public LocalDateTime getCreationDate() {
 		return CREATION_DATE;
 	}
 
