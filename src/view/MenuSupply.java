@@ -125,7 +125,7 @@ public class MenuSupply extends GenericMenuInterface {
         System.out.println("[All Supply orders in the System]");
         supplyCtrl.printAllSupplyOrderInfo();
         System.out.println();
-        terminal.getStringInput("Press [Enter] to go back");
+        terminal.emptyStringInput("Press [Enter] to go back");
         super.show();
     }
 

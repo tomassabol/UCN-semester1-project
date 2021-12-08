@@ -110,6 +110,10 @@ public class Terminal {
   public String getStringInput(String prompt) {
     System.out.print(prompt + ": ");
     String userInput = scanner.nextLine();
+    while(userInput.isEmpty()){
+      System.out.println("Insert valid input");
+      userInput = scanner.nextLine();
+    }
     return userInput.trim();
   }
 
@@ -133,6 +137,12 @@ public class Terminal {
     }
 
     return userInput;
+  }
+
+  public String emptyStringInput(String prompt){
+    System.out.print(prompt + ": ");
+    String userInput = scanner.nextLine();
+    return userInput.trim();
   }
 
   public BigDecimal getBigDecimalInput(String prompt){
