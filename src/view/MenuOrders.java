@@ -63,13 +63,13 @@ public class MenuOrders extends GenericMenuInterface {
 					+ itemLine.PRODUCT.getName() 
 					+ "\t" + itemLine.getCurrentPriceWithoutBulkDiscount() + " DKK");
 			if (itemLine.getBulkDiscount() != null) {
-				System.out.println("Bulk discount (" + itemLine.getBulkDiscount().getDiscountPercentage() + "): " + 
+				System.out.println("Bulk discount (" + itemLine.getBulkDiscount().getDiscountPercentage() + "%): " + 
 			itemLine.getCurrentPriceWithBulkDiscount() + " DKK");
 			}
 		}
 		System.out.println("-----");
 		if (customer.getCustomerType().getDiscountPercentage() != 0) {
-			System.out.println("Customer discount of " + customer.getCustomerType().getDiscountPercentage() + " was applied.");
+			System.out.println("-" + customer.getCustomerType().getDiscountPercentage() + "% customer discount");
 		}
 		System.out.println("Total: " + customer.getShoppingCart().calculateTotalPriceWithDiscountsApplied()+ " DKK");
 		if (terminal.confirmInput("Create a quote?")) {		

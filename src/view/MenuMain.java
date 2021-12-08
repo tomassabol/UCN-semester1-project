@@ -7,8 +7,10 @@ import controller.CustomerController;
 import controller.EmployeeController;
 import controller.OrderController;
 import controller.ProductController;
+import model.BulkDiscount;
 import model.Customer;
 import model.CustomerType;
+import model.DiscountContainer;
 import model.IFEmployee;
 import model.Product;
 import model.SellingPrice;
@@ -63,7 +65,8 @@ public class MenuMain extends GenericMenuInterface {
    * TODO: MOVE THE LOGIC TO CONTROLLER
    */
   public void generateTestData() {
-	  
+	  // TODO: need a bulk discount controller
+	  BulkDiscount bulkDiscount = new BulkDiscount(2, 20);
 	  // Create customer type
 	  // TODO: NEED A CUSTOMER TYPE CONTROLLER
 	  CustomerType customerType = new CustomerType("Normal", 5);
@@ -74,6 +77,7 @@ public class MenuMain extends GenericMenuInterface {
 	  // Create products
 	  ProductController ctrl2 = new ProductController();
 	  Product product1 = ctrl2.createProduct("Shovel", "A big, steel shovel", 0, 100);
+	  DiscountContainer.getInstance().addBulkDiscount(product1, bulkDiscount);
 	  // TODO: need a controller for price creation
 	  SellingPrice sellingPrice = new SellingPrice(BigDecimal.valueOf(95), LocalDateTime.now());
 	  product1.addSellingPrice(sellingPrice);
