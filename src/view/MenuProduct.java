@@ -22,6 +22,7 @@ public class MenuProduct extends GenericMenuInterface{
         super.addMenuOption("3", new GenericMenuOption("Delete a product", () -> deleteProduct()));
         super.addMenuOption("4", new GenericMenuOption("Update a product", () -> updateProduct()));
         super.addMenuOption("5", new GenericMenuOption("Add selling price", () -> addSellingPrice()));
+        super.addMenuOption("6", new GenericMenuOption("Add loaning price", () -> addLoaningPrice()));
         super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
 
         productCtrl = new ProductController();
@@ -110,6 +111,17 @@ public class MenuProduct extends GenericMenuInterface{
         Product product = productCtrl.findProductByID(id);
         product.printProductInfo();
         BigDecimal price = terminal.getBigDecimalInput("Enter the new price");
+        productCtrl.createSellingPrice(price, product);
+    }
+
+    private void addLoaningPrice() {
+        Terminal terminal = Terminal.getInstance();
+        terminal.clearScreen();
+
+        productCtrl.printAllProducts();
+        int id = terminal.getIntegerInput("Enter the ID of the product for which you want to change loaning price");
+        Product product = productCtrl.findProductByID(id);
+        BigDecimal price = terminal.getBigDecimalInput("Enter the new Price");
         productCtrl.createSellingPrice(price, product);
     }
 
