@@ -1,35 +1,42 @@
 package model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 public class OrderLine {
 	
-	private Set<TrackableItem> trackableItems;
+	private final Set<TrackableItem> TRACKABLE_ITEMS;
 	public final Product PRODUCT;
-	private int untrackableItemQuantity;
-	private BigDecimal fixedProductPrice;
-	private BulkDiscount bulkDiscount = null;
+	private final int UNTRACKABLE_ITEM_QUANTITY;
+	private final BigDecimal FIXED_PRODUCT_PRICE;
+	private final BulkDiscount FIXED_BULK_DISCOUNT;
+	private final LocalDateTime CREATION_DATE;
 
 	public OrderLine(Product product, int untrackableItemQuantity,
 			Set<TrackableItem> trackableItems, BigDecimal productPrice, 
 			BulkDiscount bulkDiscount) {
-		// set the product
-		this.PRODUCT = product;
+		
 		// check that quantity is not below zero
 		if (untrackableItemQuantity < 1) {
 			throw new IllegalArgumentException("The orderline must contain at least 1 item");
 		}
-		this.untrackableItemQuantity = untrackableItemQuantity;
+		
 		
 		// check that all trackable items are of same product
 		for(TrackableItem item: trackableItems) {
-			if(this.PRODUCT != item.getProduct()) {
+			if(product != item.getProduct()) {
 				throw new IllegalArgumentException("All items must be of same type(product)");
 			}
 		}
-		this.trackableItems = trackableItems;
+		
+		
+		// product price must not be null
+		if (productPrice == null) {
+			throw new IllegalArgumentException("Selling price cannot be null!");
+		}
+		
 		
 		// If product price < 0, throw exception
 		if (productPrice.compareTo(BigDecimal.ZERO) > 0) {
@@ -41,8 +48,12 @@ public class OrderLine {
 			throw new IllegalArgumentException("An orderline must contain at least one item!");
 		}
 		
-		// set the bulk discount
-		this.bulkDiscount = bulkDiscount;
+		this.PRODUCT = product;
+		this.UNTRACKABLE_ITEM_QUANTITY = untrackableItemQuantity;
+		this.TRACKABLE_ITEMS = trackableItems;
+		this.FIXED_BULK_DISCOUNT = bulkDiscount;
+		this.FIXED_PRODUCT_PRICE = productPrice;
+		this.CREATION_DATE = LocalDateTime.now();
 		
 	}
 	
@@ -55,14 +66,24 @@ public class OrderLine {
 	 */
 	public BigDecimal getTotalPriceWithoutBulkDiscount() {
 
-		return this.fixedProductPrice.multiply(BigDecimal.valueOf(untrackableItemQuantity));
+		return this.FIXED_PRODUCT_PRICE.multiply(BigDecimal.valueOf(UNTRACKABLE_ITEM_QUANTITY));
+	}
+	
+	/**
+	 * Gets the total price with bulk discount for all items in this ItemLine
+	 *
+	 * @return the total price with bulk discount
+	 */
+	public BigDecimal getTotalPriceWithBulkDiscount() {
+		BigDecimal rawPrice = this.getTotalPriceWithoutBulkDiscount();
+		return rawPrice.multiply(BigDecimal.valueOf((100 - FIXED_BULK_DISCOUNT.getDiscountPercentage() / 100)));
 	}
 
 	/**
 	 * @return the quantity of items in this ItemLine
 	 */
 	public int getQuantity() {
-		return this.trackableItems.size() + this.untrackableItemQuantity;
+		return this.TRACKABLE_ITEMS.size() + this.UNTRACKABLE_ITEM_QUANTITY;
 	}
 
 	/**
@@ -71,26 +92,8 @@ public class OrderLine {
 	 * @return the trackable items
 	 */
 	public Set<TrackableItem> getTrackableItems() {
-		return trackableItems;
+		return TRACKABLE_ITEMS;
 	}
-	
-	/**
-	 * Sets the trackable items.
-	 * BEWARE: It does not update the bulk discount.
-	 *
-	 * @param trackableItems the new trackable items
-	 */
-	public void setTrackableItems(Set<TrackableItem> trackableItems) {
-		this.trackableItems = trackableItems;}
-	
-	/**
-	 * Adds a trackable item.
-	 * BEWARE: It does not update the bulk discount.
-	 *
-	 * @param trackableItem the trackable item
-	 */
-	public void addTrackableItem(TrackableItem trackableItem) {
-		this.trackableItems.add(trackableItem);}
 
 	public Product getProduct() {
 		return this.PRODUCT;
@@ -98,44 +101,48 @@ public class OrderLine {
 
 
 	public int getUntrackableItemQuantity() {
-		return untrackableItemQuantity;
-	}
-
-
-	public void setUntrackableItemQuantity(int untrackableItemQuantity) {
-		this.untrackableItemQuantity = untrackableItemQuantity;
+		return UNTRACKABLE_ITEM_QUANTITY;
 	}
 
 
 	public BigDecimal getFixedProductPrice() {
-		return fixedProductPrice;
-	}
-
-
-	/**
-	 * Sets the product price
-	 * BEWARE: It does not update the bulk discount..
-	 *
-	 * @param fixedProductPrice the new fixed product price
-	 */
-	public void setFixedProductPrice(BigDecimal fixedProductPrice) {
-		this.fixedProductPrice = fixedProductPrice;
+		return FIXED_PRODUCT_PRICE;
 	}
 
 
 	public BulkDiscount getBulkDiscount() {
-		return bulkDiscount;
+		return FIXED_BULK_DISCOUNT;
 	}
-
-
-	public void setBulkDiscount(BulkDiscount bulkDiscount) {
-		this.bulkDiscount = bulkDiscount;
-	}
-
 
 	public Product getPRODUCT() {
 		return PRODUCT;
 	}
+
+
+	public Set<TrackableItem> getTRACKABLE_ITEMS() {
+		return TRACKABLE_ITEMS;
+	}
+
+
+	public int getUNTRACKABLE_ITEM_QUANTITY() {
+		return UNTRACKABLE_ITEM_QUANTITY;
+	}
+
+
+	public BigDecimal getFIXED_PRODUCT_PRICE() {
+		return FIXED_PRODUCT_PRICE;
+	}
+
+
+	public BulkDiscount getFIXED_BULK_DISCOUNT() {
+		return FIXED_BULK_DISCOUNT;
+	}
+
+
+	public LocalDateTime getCREATION_DATE() {
+		return CREATION_DATE;
+	}
+	
 	
 	
 

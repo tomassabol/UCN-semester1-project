@@ -5,7 +5,7 @@ import controller.OrderController;
 import model.Customer;
 import model.IFEmployee;
 import model.Quote;
-import model.UnspecificItemLine;
+import model.ShoppingItemLine;
 
 public class MenuOrders extends GenericMenuInterface {
   private static MenuOrders instance;
@@ -58,12 +58,16 @@ public class MenuOrders extends GenericMenuInterface {
 		terminal.clearScreen();
 		System.out.println("Customer: " + customer.getFirstName() + " " + customer.getLastName());
 		System.out.println("[Shopping cart]");
-		for(UnspecificItemLine itemLine: customer.getShoppingCart().getItemLines()) {
+		for(ShoppingItemLine itemLine: customer.getShoppingCart().getItemLines()) {
 			System.out.println(itemLine.getQuantity() + "x: "
 					+ itemLine.PRODUCT.getName() 
-					+ " for " + itemLine.calculateCurrentPrice() + " DKK");
+					+ "\t" + itemLine.getCurrentPriceWithoutBulkDiscount() + " DKK");
+			if (itemLine.getBulkDiscount() != null) {
+				System.out.println("Bulk discount (" + itemLine.getBulkDiscount().getDiscountPercentage() + "): " + 
+			itemLine.getCurrentPriceWithBulkDiscount() + " DKK");
+			}
 		}
-		System.out.println("Total: " + customer.getShoppingCart().calculateTotalPrice() + " DKK");
+		System.out.println("Total: " + customer.getShoppingCart().calculateTotalPriceWithBulkDiscounts()+ " DKK");
 		if (terminal.confirmInput("Create a quote?")) {		
 			orderCtrl.createQuote(customer, employee, customer.getShoppingCart());
 			super.show("Successfully created a new quote");

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class ShoppingCart {
-    private ArrayList<UnspecificItemLine> itemLines;
+    private ArrayList<ShoppingItemLine> itemLines;
 
     /*
      * Constructor
@@ -24,8 +24,13 @@ public class ShoppingCart {
      * Add an ItemLine to the shopping cart
      *
      * @param itemLine the itemLine to add
+     * 
+     * @exception IllegalArgumentException when adding an item that doesn't have a buy price
      */
-    public void add(UnspecificItemLine itemLine) {
+    public void add(ShoppingItemLine itemLine) {
+    	if (itemLine.PRODUCT.getLatestSellingPrice() == null) {
+    		throw new IllegalArgumentException("Cannot add itemLine to a shopping cart which doesn't have a buy price!");
+    	}
     	this.itemLines.add(itemLine);
     }
     
@@ -34,7 +39,7 @@ public class ShoppingCart {
      *
      * @param itemLine the itemLine to remove
      */
-    public void remove(UnspecificItemLine itemLine) {
+    public void remove(ShoppingItemLine itemLine) {
     	this.itemLines.remove(itemLine);
     }
     
@@ -42,18 +47,24 @@ public class ShoppingCart {
     	return this.itemLines.isEmpty();
     }
 
-	public ArrayList<UnspecificItemLine> getItemLines() {
+	public ArrayList<ShoppingItemLine> getItemLines() {
 		return itemLines;
 	}
 
-	public void setItemLines(ArrayList<UnspecificItemLine> itemLines) {
+	public void setItemLines(ArrayList<ShoppingItemLine> itemLines) {
 		this.itemLines = itemLines;
 	}
 	
-	public BigDecimal calculateTotalPrice() {
+	/**
+	 * Calculate the total price with bulk discounts, 
+	 * but without any other discounts (e.g. customer type discount)
+	 *
+	 * @return the big decimal
+	 */
+	public BigDecimal calculateTotalPriceWithBulkDiscounts() {
 		BigDecimal totalPrice = BigDecimal.ZERO;
-		for(UnspecificItemLine itemLine: this.itemLines) {
-			totalPrice = totalPrice.add(itemLine.calculateCurrentPrice());
+		for(ShoppingItemLine itemLine: this.itemLines) {
+			totalPrice = totalPrice.add(itemLine.getCurrentPriceWithoutBulkDiscount());
 		}
 		return totalPrice;
 	}

@@ -9,10 +9,10 @@ public class Quote {
 	public final LocalDateTime CREATION_DATE;
 	private IFCustomer customer;
 	private IFEmployee employee;
-	private ArrayList<UnspecificItemLine> itemLines;
+	private ArrayList<QuoteItemLine> itemLines;
 
 	public Quote(int Id, IFCustomer customer,
-			IFEmployee employee, ArrayList<UnspecificItemLine> itemLines) {
+			IFEmployee employee, ArrayList<QuoteItemLine> itemLines) {
 		this.ID = Id;
 		this.customer = customer;
 		this.employee = employee;
@@ -27,9 +27,8 @@ public class Quote {
 		return customer;
 	}
 
-	public void setCustomer(IFCustomer customer) {
-		this.customer = customer;
-	}
+	// quotes cannot be changed!
+	public void setCustomer(IFCustomer customer) {}
 
 	public IFEmployee getEmployee() {
 		return employee;
@@ -44,14 +43,12 @@ public class Quote {
 	 *
 	 * @return the item lines as a map, with BulkDiscount or null as key
 	 */
-	public ArrayList<UnspecificItemLine> getItemLines() {
+	public ArrayList<QuoteItemLine> getItemLines() {
 		return itemLines;
 	}
 	
 	// Note: quotes cannot be changed, so do not use this method!
-	private void setItemLines() {
-		//
-	}
+	private void setItemLines() {}
 
 	public int getID() {
 		return ID;

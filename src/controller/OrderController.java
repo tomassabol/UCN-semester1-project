@@ -10,8 +10,9 @@ import model.OrderContainer;
 import model.PrimaryKey;
 import model.Quote;
 import model.QuoteContainer;
+import model.QuoteItemLine;
 import model.ShoppingCart;
-import model.UnspecificItemLine;
+import model.ShoppingItemLine;
 
 /**
  * The Class OrderController.
@@ -46,31 +47,37 @@ public class OrderController {
 
     /**
      * Creates a quote and adds it to container.
+     * BEWARE: This method does not clear the shopping cart!
      *
      * @param customer the customer
      * @param employee the employee
-     * @param itemLines the unspecific item lines
+     * @param itemLines the shopping item lines
      * @return true, if successful
      */
-    public boolean createQuote(IFCustomer customer, IFEmployee employee, ArrayList<UnspecificItemLine> itemLines) {
-    	Quote quote = new Quote(PrimaryKey.getNextOrderID(), customer, employee, itemLines);
+    public boolean createQuote(IFCustomer customer, IFEmployee employee, ArrayList<ShoppingItemLine> itemLines) {
+    	// Convert shopping item lines to quote item lines (fixed price & bulk discount)
+    	ArrayList<QuoteItemLine> quoteItemLines = new ArrayList<>();
+    	for (ShoppingItemLine shopItemLine: itemLines) {
+    		quoteItemLines.add(new QuoteItemLine(shopItemLine.PRODUCT, shopItemLine.getQuantity()));
+    	}
+    	// Create the quote and add to container
+    	Quote quote = new Quote(PrimaryKey.getNextOrderID(), customer, employee, quoteItemLines);
     	return QuoteContainer.getInstance().addQuote(quote);
     }
     
 
     /**
-     * Creates a quote from a shopping cart,
-     *  adds it to container,
-     *  clears the shopping cart
+     * Creates a quote from a shopping cart & adds it to container
+     *  NOTE: Clears the shopping cart
      *
      * @param customer the customer
      * @param employee the employee
-     * @param itemLines the unspecific item lines
+     * @param itemLines the shopping item lines
      * @return true, if successful
      */
     public boolean createQuote(IFCustomer customer, IFEmployee employee, ShoppingCart shoppingCart) {
     	// get itemLines
-    	ArrayList<UnspecificItemLine> itemLines = shoppingCart.getItemLines();
+    	ArrayList<ShoppingItemLine> itemLines = shoppingCart.getItemLines();
     	// clear shopping cart
     	shoppingCart.clear();
     	return createQuote(customer, employee, itemLines);

@@ -15,6 +15,7 @@ implements IFCustomer, IFEmployee {
 	
 	private String CPRNumber;
 	private ShoppingCart shoppingCart;
+	
 	/**
 	 *  Constructor
 	 */

@@ -11,7 +11,7 @@ import model.Customer;
 import model.IFEmployee;
 import model.Product;
 import model.SellingPrice;
-import model.UnspecificItemLine;
+import model.ShoppingItemLine;
 
 public class MenuMain extends GenericMenuInterface {
   private static MenuMain instance;
@@ -75,8 +75,8 @@ public class MenuMain extends GenericMenuInterface {
 	  
 	  // Create items
 	  // TODO: Implement itemController, itemLineController...
-	  UnspecificItemLine itemLine1 = new UnspecificItemLine(product1, 4);
-	  UnspecificItemLine itemLine2 = new UnspecificItemLine(product1, 1);
+	  ShoppingItemLine itemLine1 = new ShoppingItemLine(product1, 4);
+	  ShoppingItemLine itemLine2 = new ShoppingItemLine(product1, 1);
 	  
 	  // TODO: also need to use a controller here
 	  System.out.println("SC: " + customer1.getShoppingCart().getItemLines());
