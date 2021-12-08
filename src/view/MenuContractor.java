@@ -68,7 +68,7 @@ private void deleteContractor(){
 
     int id = terminal.getIntegerInput("The id of the contractor you want to delete");
     contractorCtrl.removeContractor(id);
-    super.show("The product was deleted!");
+    super.show("The contractor was deleted!");
 }
 
 
