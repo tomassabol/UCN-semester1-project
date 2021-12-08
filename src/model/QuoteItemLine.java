@@ -35,12 +35,15 @@ public class QuoteItemLine {
 	}
 	
 	/**
-	 * Gets the fixed price with bulk discount applied
+	 * Gets the fixed price with bulk discount applied (if bulk discount applies)
 	 *
 	 * @return the fixed price with bulk discount applied
 	 */
 	public BigDecimal getFixedPriceWithBulkDiscount() {
 		BigDecimal rawPrice = this.getFixedPriceWithoutBulkDiscount();
+		if (this.getBulkDiscount() == null) {
+			return rawPrice;
+		}
 		return rawPrice.multiply(BigDecimal.valueOf((100 - this.FIXED_BULK_DISCOUNT.getDiscountPercentage() / 100)));
 	
 	}

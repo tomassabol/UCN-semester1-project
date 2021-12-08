@@ -71,11 +71,15 @@ public class OrderLine {
 	
 	/**
 	 * Gets the total price with bulk discount for all items in this ItemLine
+	 * If no bulk discount is set, normal price is returned
 	 *
 	 * @return the total price with bulk discount
 	 */
 	public BigDecimal getTotalPriceWithBulkDiscount() {
 		BigDecimal rawPrice = this.getTotalPriceWithoutBulkDiscount();
+		if (this.getBulkDiscount() == null) {
+			return rawPrice;
+		}
 		return rawPrice.multiply(BigDecimal.valueOf((100 - FIXED_BULK_DISCOUNT.getDiscountPercentage() / 100)));
 	}
 

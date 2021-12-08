@@ -26,13 +26,17 @@ public class ShoppingItemLine {
 	}
 	
 	/**
-	 * Gets the current price with bulk discount.
+	 * Gets the current price with bulk discount
+	 * If no bulk discount applies, returns normal price
 	 *
 	 * @return the price as BigDecimal or null if no price is set.
 	 */
 	public BigDecimal getCurrentPriceWithBulkDiscount() {
 		BigDecimal rawPrice = this.getCurrentPriceWithoutBulkDiscount();
-		return rawPrice.multiply(BigDecimal.valueOf((100 - this.getBulkDiscount().getDiscountPercentage() / 100)));
+		if (this.getBulkDiscount() == null) {
+			return rawPrice;
+		}
+		return rawPrice.multiply(BigDecimal.valueOf((100 - this.getBulkDiscount().getDiscountPercentage()) / 100));
 	}
 	
 	public BulkDiscount getBulkDiscount() {
