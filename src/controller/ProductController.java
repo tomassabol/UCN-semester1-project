@@ -3,6 +3,8 @@ package controller;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import model.LoaningPrice;
 import model.PrimaryKey;
 import model.Product;
 import model.ProductContainer;
@@ -109,6 +111,18 @@ public class ProductController {
 		SellingPrice sellingPrice = new SellingPrice(price, LocalDateTime.now());
 		product.addSellingPrice(sellingPrice);
 		return sellingPrice;
+	}
+
+	/**
+	 * creates new loaning price, which becomes the latest loaning price for the product
+	 * @param price new price entered by user
+	 * @param product - for which is this new price set
+	 * @return loaning price created by user
+	 */
+	public LoaningPrice createLoaningPrice(BigDecimal price, Product product) {
+		LoaningPrice loaningPrice = new LoaningPrice(price, LocalDateTime.now());
+		product.addLoaningPrice(loaningPrice);
+		return loaningPrice;
 	}
 
 	/**
