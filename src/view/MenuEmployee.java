@@ -36,9 +36,10 @@ public class MenuEmployee extends GenericMenuInterface {
   }
   
 
-///**
-// * Create Employee
-// */
+  // TODO: needs to adapt to QuoteItemLine (currently it is to unspecific item line)
+/**
+* Create Employee
+*/
 //	private void createEmployee() {
 //		Terminal terminal = Terminal.getInstance();
 //		terminal.clearScreen();

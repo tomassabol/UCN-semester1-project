@@ -38,6 +38,8 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         productCtrl.updateProductName(productId, name);
         super.setTitle("Update " + name);
         super.show("The product name was successfully updated to: " + name);
+        terminal.getAnyKeyInput("Press [Enter] to go back");
+		super.show();
     }
 
     /**
@@ -50,6 +52,8 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         String description = terminal.getStringInput("The new description of the product");
         productCtrl.updateProductDescription(productId, description);
         super.show("The product description was successfully updated to: " + description);
+        terminal.getAnyKeyInput("Press [Enter] to go back");
+		super.show();
     }
 
     /**
@@ -62,6 +66,8 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         int minStock = terminal.getIntegerInput("The new minimum stock of the product");
         productCtrl.updateProductMinStock(productId, minStock);
         super.show("The minimum stock of the product was successfully updated to: " + minStock);
+        terminal.getAnyKeyInput("Press [Enter] to go back");
+		super.show();
     }
 
     /**
@@ -74,5 +80,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         int maxStock = terminal.getIntegerInput("The new maximum stock of the product");
         productCtrl.updateProductMaxStock(productId, maxStock);
         super.show("The maximum stock of the product was successfully updated to: " + maxStock);
+        terminal.getAnyKeyInput("Press [Enter] to go back");
+		super.show();
     }
 }

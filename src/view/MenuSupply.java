@@ -58,7 +58,7 @@ public class MenuSupply extends GenericMenuInterface {
         supplyCtrl.createSupplyOffer(product, contractor, pricePerItem, minQuantity);
         super.show("The offer was susccessfully created");
         System.out.println();
-        terminal.getStringInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 
@@ -73,7 +73,7 @@ public class MenuSupply extends GenericMenuInterface {
         System.out.println("[All SupplyOffers in the System]");
         supplyCtrl.printAllSupplyOffers();
         System.out.println();
-        terminal.getStringInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 
@@ -91,7 +91,7 @@ public class MenuSupply extends GenericMenuInterface {
         supplyCtrl.setStatus(supplyOffer);
         super.show("Supply offer was set to inactive");
         System.out.println();
-        terminal.getStringInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
     
@@ -110,7 +110,7 @@ public class MenuSupply extends GenericMenuInterface {
         supplyCtrl.createSupplyOrder(supplyOffer, quantity);
         super.show("The supply order was susccessfully created");
         System.out.println();
-        terminal.getStringInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 
@@ -139,7 +139,7 @@ public class MenuSupply extends GenericMenuInterface {
         System.out.println("[All Undelivered Supply orders in the System]");
         supplyCtrl.printUndeliveredSupplyOrders();
         System.out.println();
-        terminal.getStringInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 
@@ -153,7 +153,7 @@ public class MenuSupply extends GenericMenuInterface {
         System.out.println("[All Delivered Supply orders in the System]");
         supplyCtrl.printDeliveredSupplyOrders();
         System.out.println();
-        terminal.getStringInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 
@@ -178,7 +178,7 @@ public class MenuSupply extends GenericMenuInterface {
         supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, trackable);
         super.show("Success");
         System.out.println();
-        terminal.getStringInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 
