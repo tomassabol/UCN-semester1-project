@@ -128,8 +128,10 @@ public class ProductController {
 	/**
 	 * Print all products
 	 */
-	public void printAllProducts(){
+	public void getProductInfo(){
 		ProductContainer pContainer = ProductContainer.getInstance();
-		pContainer.printAllProductInfo();
+		for (Product product : pContainer.getProducts()) {
+			product.getProductInfo();
+		}
 	}
 }

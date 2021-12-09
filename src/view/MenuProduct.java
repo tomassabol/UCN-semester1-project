@@ -64,7 +64,7 @@ public class MenuProduct extends GenericMenuInterface{
         terminal.clearScreen();
 
         System.out.println("[All Products in the System]");
-        productCtrl.printAllProducts();
+        terminal.printAllProducts();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
@@ -109,9 +109,8 @@ public class MenuProduct extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        productCtrl.printAllProducts();
+        terminal.printAllProducts();
         Product product = terminal.getProduct();
-        product.printProductInfo();
         BigDecimal price = terminal.getBigDecimalInput("Enter the new price");
         productCtrl.createSellingPrice(price, product);
         terminal.getAnyKeyInput("Press [Enter] to go back");
@@ -122,7 +121,7 @@ public class MenuProduct extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        productCtrl.printAllProducts();
+        terminal.printAllProducts();
         Product product = terminal.getProduct();
         BigDecimal price = terminal.getBigDecimalInput("Enter the new Price");
         productCtrl.createSellingPrice(price, product);
