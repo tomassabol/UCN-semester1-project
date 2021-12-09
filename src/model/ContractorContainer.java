@@ -60,11 +60,5 @@ public class ContractorContainer {
     public boolean removeContractor(Contractor contractor) {
         return contractors.remove(contractor);
     }
-    public void printAllContractorInfo() {
-        for (Contractor contractor : contractors) {
-            contractor.printContractorInfo();
-            System.out.println();
-        }
-    }
 
 }

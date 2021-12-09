@@ -234,74 +234,11 @@ public class Terminal {
 		System.exit(0);
 	}
 
-  public void printAllProducts() {
-    for (Product product : productCtrl.getProducts()) {
-      System.out.println("Product ID: " + String.format("(%d)",product.ID));
-      System.out.println("Name: " + String.format("%s",product.getName()));
-      System.out.println("Description: " + String.format("%s",product.getDescription()));
-      System.out.println("Max Stock: " + String.format("%d",product.getMaxStock()));
-      System.out.println("Min Stock: " + String.format("%d",product.getMinStock()));
-      System.out.println("Date added: " + String.format("%s)",product.getDateAdded()));
-      System.out.println("Selling price: " + String.format("%.2f",product.getLatestSellingPrice()));
-      System.out.println("Loaning price: " + String.format("%.2f",product.getLatestLoaningPrice()));
-      System.out.println();
-    }
-  }
-
-  public void printAllStorageLocations() {
-    for (StorageLocation storageLocation : stockCtrl.getStorageLocations()) {
-      System.out.println("Storage Location ID: " + String.format(("%d"), storageLocation.ID));
-      System.out.println("Name: " + String.format(("%s"), storageLocation.getName()));
-      System.out.println("Address: " + String.format(("%s"), storageLocation.getAddress()));
-      System.out.println("Store: " + String.format(("%s"), storageLocation.getIsAStore()));
-      System.out.println();
-    }
-  }
-
   public void printAllShelves() {
     for (Shelf shelf : stockCtrl.getShelves()) {
       System.out.println("Shelf ID: " + String.format(("%d"), shelf.ID));
       System.out.println("Name: " + String.format(("%s"), shelf.getName()));
       System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
-      System.out.println();
-    }
-  }
-
-
-  public void printSupplyOrder(SupplyOrder supplyOrder) {
-    System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
-    System.out.println("Date Ordered: " + String.format(("s"), supplyOrder.getDateOrdered()));
-    System.out.println("Supply Offer: " + String.format(("s"), supplyOrder.getSupplyOffer().ID));
-    System.out.println("Delivered: " + String.format(("s"), supplyOrder.isDelivered()));
-    System.out.println("Quantity: " + String.format(("d"), supplyOrder.getQuantity()));
-    System.out.println();
-  }
-  public void printAllSupplyOrders() {
-    for (SupplyOrder supplyOrder : supplyCtrl.getSupplyOrders()) {
-      printSupplyOrder(supplyOrder);  
-    }
-  }
-
-  public void printUndeliveredSupplyOrders() {
-    for (SupplyOrder supplyOrder : supplyCtrl.getUndeliveredSupplyOrders()) {
-      printSupplyOrder(supplyOrder);
-    }
-  }
-
-  public void printDeliveredSupplyOrders() {
-    for (SupplyOrder supplyOrder : supplyCtrl.getDeliveredSupplyOrders()) {
-      printSupplyOrder(supplyOrder);
-    }
-  }
-
-  
-  public void printSuplyOffers(Product product) {
-    for (SupplyOffer supplyOffer : supplyCtrl.getSupplyOffers(product)) {
-      System.out.println("Supply Offer ID: " + String.format(("%d"), supplyOffer.ID));
-      System.out.println("Price per Item: " + String.format((".2f"), supplyOffer.getPRICE_PER_PRODUCT()));
-      System.out.println("Min Quantity: " + String.format(("d"), supplyOffer.MIN_QUANTITY));
-      System.out.println("Date added: " + String.format(("s"), supplyOffer.DATE_ADDED));
-      System.out.println("Quantity: " + String.format(("d"), supplyOffer.CONTRACTOR));
       System.out.println();
     }
   }

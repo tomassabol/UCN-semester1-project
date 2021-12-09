@@ -72,7 +72,7 @@ public class MenuSupply extends GenericMenuInterface {
 
         Product product = terminal.getProduct();
         System.out.println("[All SupplyOffers in the System]");
-        terminal.printSuplyOffers(product);
+        printSuplyOffers(product);
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -88,7 +88,7 @@ public class MenuSupply extends GenericMenuInterface {
 
         Product product = terminal.getProduct();
         System.out.println("All Supply offers in the System");
-        terminal.printSuplyOffers(product);
+        printSuplyOffers(product);
         int supplyOfferId = terminal.getIntegerInput("Enter the Supply Offer ID");
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(supplyOfferId);
         supplyCtrl.setStatus(supplyOffer);
@@ -107,7 +107,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-        terminal.printSuplyOffers(product);
+        printSuplyOffers(product);
         int id = terminal.getIntegerInput("Enter the ID of a supply offer");
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(id);
         int quantity = terminal.getIntegerInput("Enter the quantity of the product");
@@ -127,7 +127,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Supply orders in the System]");
-        terminal.printAllSupplyOrders();
+        printAllSupplyOrders();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -141,7 +141,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Undelivered Supply orders in the System]");
-        terminal.printUndeliveredSupplyOrders();
+        printUndeliveredSupplyOrders();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -155,7 +155,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Delivered Supply orders in the System]");
-        terminal.printDeliveredSupplyOrders();
+        printDeliveredSupplyOrders();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -169,7 +169,7 @@ public class MenuSupply extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        terminal.printAllSupplyOrders();
+        printAllSupplyOrders();
         int supplyOrderId = terminal.getIntegerInput("Enter the id of a supply order");
         SupplyOrder supplyOrder = supplyCtrl.findSupplyOrderById(supplyOrderId);
         terminal.printAllShelves();
@@ -186,4 +186,42 @@ public class MenuSupply extends GenericMenuInterface {
         super.show();
     }
 
+
+    private void printSupplyOrder(SupplyOrder supplyOrder) {
+        System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
+        System.out.println("Date Ordered: " + String.format(("s"), supplyOrder.getDateOrdered()));
+        System.out.println("Supply Offer: " + String.format(("s"), supplyOrder.getSupplyOffer().ID));
+        System.out.println("Delivered: " + String.format(("s"), supplyOrder.isDelivered()));
+        System.out.println("Quantity: " + String.format(("d"), supplyOrder.getQuantity()));
+        System.out.println();
+      }
+      private void printAllSupplyOrders() {
+        for (SupplyOrder supplyOrder : supplyCtrl.getSupplyOrders()) {
+          printSupplyOrder(supplyOrder);  
+        }
+      }
+    
+      private void printUndeliveredSupplyOrders() {
+        for (SupplyOrder supplyOrder : supplyCtrl.getUndeliveredSupplyOrders()) {
+          printSupplyOrder(supplyOrder);
+        }
+      }
+    
+      private void printDeliveredSupplyOrders() {
+        for (SupplyOrder supplyOrder : supplyCtrl.getDeliveredSupplyOrders()) {
+          printSupplyOrder(supplyOrder);
+        }
+      }
+    
+      
+      private void printSuplyOffers(Product product) {
+        for (SupplyOffer supplyOffer : supplyCtrl.getSupplyOffers(product)) {
+          System.out.println("Supply Offer ID: " + String.format(("%d"), supplyOffer.ID));
+          System.out.println("Price per Item: " + String.format((".2f"), supplyOffer.getPRICE_PER_PRODUCT()));
+          System.out.println("Min Quantity: " + String.format(("d"), supplyOffer.MIN_QUANTITY));
+          System.out.println("Date added: " + String.format(("s"), supplyOffer.DATE_ADDED));
+          System.out.println("Quantity: " + String.format(("d"), supplyOffer.CONTRACTOR));
+          System.out.println();
+        }
+      }
 }

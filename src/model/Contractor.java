@@ -17,7 +17,4 @@ public class Contractor {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
-    public void printContractorInfo() {
-		System.out.println("Contractor ID: " + ID + "\nContractor name: " + companyName);
-	}
 }
