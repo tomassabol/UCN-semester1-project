@@ -59,7 +59,7 @@ public class MenuStock extends GenericMenuInterface {
         terminal.clearScreen();
 
         String name = terminal.getStringInput("Enter name of a new Shelf");
-        stockCtrl.printAllStorageLocationInfo();
+        printAllStorageLocations();
         int storageLocationId = terminal.getIntegerInput("Enter the id of a Storage Location, where the shelf will be lcoated");
         StorageLocation storageLocation = stockCtrl.findStorageLocationById(storageLocationId);
         stockCtrl.createShelf(name, storageLocation);
@@ -76,7 +76,7 @@ public class MenuStock extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Storage Locations in the System]");
-        stockCtrl.printAllStorageLocationInfo();
+        printAllStorageLocations();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -90,9 +90,19 @@ public class MenuStock extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Shelves in the System]");
-        stockCtrl.printAllShelvesInfo();
+        terminal.printAllShelves();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
+
+    private void printAllStorageLocations() {
+        for (StorageLocation storageLocation : stockCtrl.getStorageLocations()) {
+          System.out.println("Storage Location ID: " + String.format(("%d"), storageLocation.ID));
+          System.out.println("Name: " + String.format(("%s"), storageLocation.getName()));
+          System.out.println("Address: " + String.format(("%s"), storageLocation.getAddress()));
+          System.out.println("Store: " + String.format(("%s"), storageLocation.getIsAStore()));
+          System.out.println();
+        }
+      }
 
 }

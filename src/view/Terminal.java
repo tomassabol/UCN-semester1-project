@@ -8,12 +8,12 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import controller.CustomerController;
-
 import model.Customer;
-
 import model.Product;
+import model.Shelf;
 import controller.ProductController;
-
+import controller.StockController;
+import controller.SupplyController;
 import model.Contractor;
 import controller.ContractorController;
 
@@ -24,6 +24,8 @@ public class Terminal {
   CustomerController customerCtrl;
   ProductController productCtrl;
   ContractorController contractorCtrl;
+  StockController stockCtrl;
+  SupplyController supplyCtrl;
 
   private static final String DATE_FORMAT = "dd/MM/yyyy";
 
@@ -36,7 +38,8 @@ public class Terminal {
     customerCtrl = new CustomerController();
     productCtrl = new ProductController();
     contractorCtrl = new ContractorController();
-
+    stockCtrl = new StockController();
+    supplyCtrl = new SupplyController();
   }
 
   /**
@@ -227,6 +230,15 @@ public class Terminal {
 		System.out.println("Quitting...");
 		System.exit(0);
 	}
+
+  public void printAllShelves() {
+    for (Shelf shelf : stockCtrl.getShelves()) {
+      System.out.println("Shelf ID: " + String.format(("%d"), shelf.ID));
+      System.out.println("Name: " + String.format(("%s"), shelf.getName()));
+      System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
+      System.out.println();
+    }
+  }
 	
 	/*
 	 * Clear terminal screen

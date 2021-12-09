@@ -74,6 +74,10 @@ public class Product {
 		this.maxStock = maxStock;
 	}
 
+	public LocalDateTime getDateAdded() {
+		return this.DATE_ADDED;
+	}
+
 	/**
 	 *  this methods checks the latest price of the product. 
 	 *  You cannot change the price, only add a new one. 
@@ -138,8 +142,14 @@ public class Product {
 		return this.loaningPrices.add(loaningPrice);
 	}
 
-	public void printProductInfo() {
-		System.out.println("Product ID: " + ID + "\nProduct name: " + name + "\nProduct description: " + description + "\nMinimal Stock: " + minStock + "\nMaximal stock: "+ maxStock);
+	public void getProductInfo() {
+		this.getName();
+        this.getDescription();
+        this.getMinStock();
+        this.getMaxStock();
+        this.getDateAdded();
+        this.getLatestSellingPrice();
+        this.getLatestLoaningPrice();
 	}
 
 }

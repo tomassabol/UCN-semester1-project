@@ -64,7 +64,7 @@ public class MenuProduct extends GenericMenuInterface{
         terminal.clearScreen();
 
         System.out.println("[All Products in the System]");
-        productCtrl.printAllProducts();
+        printAllProducts();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
@@ -109,9 +109,8 @@ public class MenuProduct extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        productCtrl.printAllProducts();
+        printAllProducts();
         Product product = terminal.getProduct();
-        product.printProductInfo();
         BigDecimal price = terminal.getBigDecimalInput("Enter the new price");
         productCtrl.createSellingPrice(price, product);
         terminal.getAnyKeyInput("Press [Enter] to go back");
@@ -122,7 +121,7 @@ public class MenuProduct extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        productCtrl.printAllProducts();
+        printAllProducts();
         Product product = terminal.getProduct();
         BigDecimal price = terminal.getBigDecimalInput("Enter the new Price");
         productCtrl.createSellingPrice(price, product);
@@ -141,4 +140,18 @@ public class MenuProduct extends GenericMenuInterface{
             return false;
         }
     }
+
+    private void printAllProducts() {
+        for (Product product : productCtrl.getProducts()) {
+          System.out.println("Product ID: " + String.format("(%d)",product.ID));
+          System.out.println("Name: " + String.format("%s",product.getName()));
+          System.out.println("Description: " + String.format("%s",product.getDescription()));
+          System.out.println("Max Stock: " + String.format("%d",product.getMaxStock()));
+          System.out.println("Min Stock: " + String.format("%d",product.getMinStock()));
+          System.out.println("Date added: " + String.format("%s)",product.getDateAdded()));
+          System.out.println("Selling price: " + String.format("%.2f",product.getLatestSellingPrice()));
+          System.out.println("Loaning price: " + String.format("%.2f",product.getLatestLoaningPrice()));
+          System.out.println();
+        }
+      }
 }

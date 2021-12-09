@@ -22,8 +22,7 @@ public class OrderController {
 	/**
 	 * Instantiates a new order controller.
 	 */
-	public OrderController() {
-	}
+	public OrderController() {}
 
 	
 	/**

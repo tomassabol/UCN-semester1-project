@@ -18,8 +18,7 @@ public class ContractorController {
 		/**
 		 * Instantiates a new order controller.
 		 */
-		public ContractorController() {
-		}	
+		public ContractorController() {}	
 	
 	
 		
@@ -50,7 +49,7 @@ public class ContractorController {
 		 *
 		 * @return A list of the contractor
 		 */
-		public List<Contractor> getContractor() {
+		public List<Contractor> getContractors() {
 			return ContractorContainer.getInstance().getContractors();
 		}
 			
@@ -61,10 +60,6 @@ public class ContractorController {
 				Contractor contractor = findContractorByID(id);
 				ContractorContainer.getInstance().removeContractor(contractor);
 			}
-		
-		public void printAllContractors(){
-			ContractorContainer pContainer = ContractorContainer.getInstance();
-			pContainer.printAllContractorInfo();
-		}
+			
 }	
 	

@@ -3,7 +3,6 @@ package model;
 import java.time.LocalDateTime;
 
 import controller.EmployeeController;
-import jbcrypt.BCrypt;
 
 public class Authentication {
 	
