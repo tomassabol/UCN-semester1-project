@@ -12,7 +12,7 @@ public class GenericMenuInterface {
 	 * @param MenuOptions the menu items
 	 */
 	public GenericMenuInterface() {
-		this.title = "";
+		this.title = null;
 		this.menuOptions = new LinkedHashMap<>();
 	}
 
@@ -57,7 +57,9 @@ public class GenericMenuInterface {
 	 * print the menu
 	 */
 	private void printMenu() {
-		System.out.println("****** " + title + " ******");
+		if (title != null) {
+			System.out.println("****** " + title + " ******");
+		}
 		for (HashMap.Entry<String, GenericMenuOption> entry : menuOptions.entrySet()) {
 			String command = entry.getKey();
 			GenericMenuOption menuOption = entry.getValue();
