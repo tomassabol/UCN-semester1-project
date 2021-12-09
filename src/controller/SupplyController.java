@@ -207,9 +207,5 @@ public class SupplyController {
 	/**
 	 * Prints all supplyOffers
 	 */
-	public void printAllSupplyOffers(){
-		SupplyOfferContainer sContainer = SupplyOfferContainer.getInstance();
-		sContainer.printAllSupplyOfferInfo();
-	}
 	
 }

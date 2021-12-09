@@ -92,18 +92,4 @@ public class SupplyOfferContainer {
     	return null;
     }
 
-    public void printAllSupplyOfferInfo() {
-        /* for (Product product : offers.keySet()) {
-            product.printProductInfo();
-            System.out.println();
-            offers.values();
-            // */
-        for (Product product : this.offers.keySet()) {
-            for (SupplyOffer supplyOffer : this.offers.get(product)) {
-                supplyOffer.printAllSupplyOfferInfo();
-                System.out.println();
-            }
-        }
-             
-    }
 }

@@ -12,6 +12,7 @@ import model.Customer;
 import model.Product;
 import model.Shelf;
 import model.StorageLocation;
+import model.SupplyOffer;
 import model.SupplyOrder;
 import controller.ProductController;
 import controller.StockController;
@@ -266,6 +267,7 @@ public class Terminal {
     }
   }
 
+
   public void printSupplyOrder(SupplyOrder supplyOrder) {
     System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
     System.out.println("Date Ordered: " + String.format(("s"), supplyOrder.getDateOrdered()));
@@ -289,6 +291,18 @@ public class Terminal {
   public void printDeliveredSupplyOrders() {
     for (SupplyOrder supplyOrder : supplyCtrl.getDeliveredSupplyOrders()) {
       printSupplyOrder(supplyOrder);
+    }
+  }
+
+  
+  public void printSuplyOffers(Product product) {
+    for (SupplyOffer supplyOffer : supplyCtrl.getSupplyOffers(product)) {
+      System.out.println("Supply Offer ID: " + String.format(("%d"), supplyOffer.ID));
+      System.out.println("Price per Item: " + String.format((".2f"), supplyOffer.getPRICE_PER_PRODUCT()));
+      System.out.println("Min Quantity: " + String.format(("d"), supplyOffer.MIN_QUANTITY));
+      System.out.println("Date added: " + String.format(("s"), supplyOffer.DATE_ADDED));
+      System.out.println("Quantity: " + String.format(("d"), supplyOffer.CONTRACTOR));
+      System.out.println();
     }
   }
 	

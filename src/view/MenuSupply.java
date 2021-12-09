@@ -70,8 +70,9 @@ public class MenuSupply extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
+        Product product = terminal.getProduct();
         System.out.println("[All SupplyOffers in the System]");
-        supplyCtrl.printAllSupplyOffers();
+        terminal.printSuplyOffers(product);
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -85,8 +86,9 @@ public class MenuSupply extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
+        Product product = terminal.getProduct();
         System.out.println("All Supply offers in the System");
-        supplyCtrl.printAllSupplyOffers();
+        terminal.printSuplyOffers(product);
         int supplyOfferId = terminal.getIntegerInput("Enter the Supply Offer ID");
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(supplyOfferId);
         supplyCtrl.setStatus(supplyOffer);
@@ -104,7 +106,8 @@ public class MenuSupply extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        supplyCtrl.printAllSupplyOffers();
+        Product product = terminal.getProduct();
+        terminal.printSuplyOffers(product);
         int id = terminal.getIntegerInput("Enter the ID of a supply offer");
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(id);
         int quantity = terminal.getIntegerInput("Enter the quantity of the product");
