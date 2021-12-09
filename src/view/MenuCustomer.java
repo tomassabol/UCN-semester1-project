@@ -1,9 +1,9 @@
 package view;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import controller.CustomerController;
+import model.Customer;
 import model.CustomerType;
 
 public class MenuCustomer extends GenericMenuInterface{
@@ -49,12 +49,15 @@ public class MenuCustomer extends GenericMenuInterface{
         super.show("Customer was succsesfully created!");
     }
 
+    // may be needed in the future
+    /*
     private String getCustomerTypeNames() {
         for (CustomerType customerType : customerCtrl.getCustomerTypes()) {
             customerType.getName();
         }
         return null;
     }
+    */
 
     /**
      * Prints out all the customers informations
@@ -63,12 +66,15 @@ public class MenuCustomer extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        System.out.println("[All Products in the System]");
-        customerCtrl.printAllCustomerInfo();
+        System.out.println("[All Customers in the System]");
+        printCustomers();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 
+    /**
+     * Updates customer info
+     */
     private void updateCustomerInfo(){
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
@@ -113,4 +119,18 @@ public class MenuCustomer extends GenericMenuInterface{
             return false;
         }
     }
+
+    private void printCustomers() {
+        for (Customer customer  : customerCtrl.getCustomers()) {
+            System.out.println("Customer ID: " + String.format("(%d)",customer.ID));
+            System.out.println("First name: " + String.format("%s", customer.getFirstName()));
+            System.out.println("Last Name: " + String.format("%s", customer.getLastName()));
+            System.out.println("Address: " + String.format("%s", customer.getAddress()));
+            System.out.println("Phone Number: " + String.format("%s", customer.getMobile()));
+            System.out.println("Customer type: " + String.format("%s", customer.getCustomerType().getName()));
+            System.out.println("Birthdate: " + String.format("%s", customer.getBirthDate()));
+            System.out.println();
+        }
+    }
+
 }
