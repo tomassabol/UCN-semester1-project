@@ -6,7 +6,7 @@ import controller.ProductController;
 public class MenuUpdateProduct extends GenericMenuInterface{
     private int productId;
 
-    ProductController productCtrl;
+    private ProductController productCtrl;
 
     /**
      * Constructor for MenuUpdateProduct

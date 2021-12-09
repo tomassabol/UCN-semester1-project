@@ -12,6 +12,7 @@ import model.Customer;
 import model.CustomerType;
 import model.DiscountContainer;
 import model.IFEmployee;
+import model.PrimaryKey;
 import model.Product;
 import model.SellingPrice;
 import model.ShoppingItemLine;
@@ -43,6 +44,7 @@ public class MenuMain extends GenericMenuInterface {
             () -> showSupplyMenu()));
     super.addMenuOption("7", new GenericMenuOption("Stock",
             () -> showStockMenu()));
+    super.addMenuOption("8", new GenericMenuOption("Customers", () -> showCustomerMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		    () -> Terminal.quit()));
     
@@ -69,7 +71,7 @@ public class MenuMain extends GenericMenuInterface {
 	  BulkDiscount bulkDiscount = new BulkDiscount(2, 20);
 	  // Create customer type
 	  // TODO: NEED A CUSTOMER TYPE CONTROLLER
-	  CustomerType customerType = new CustomerType("Normal", 5);
+	  CustomerType customerType = new CustomerType(PrimaryKey.getNextCustomerTypeID(), "Normal", 5);
 	  // Create customers
 	  CustomerController ctrl = new CustomerController();
 	  Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", customerType, LocalDateTime.now());
@@ -131,13 +133,23 @@ public class MenuMain extends GenericMenuInterface {
   private void showContractorMenu() {
 	MenuContractor.getInstace().show();
   }
-
+  /**
+   * Show supply menu.
+   */
   private void showSupplyMenu(){
     MenuSupply.getInstance().show();
   }
-
+  /**
+   * Show stock menu.
+   */
   private void showStockMenu() {
     MenuStock.getInstance().show();
+  }
+  /**
+   * Show customer menu.
+   */
+  private void showCustomerMenu(){
+    MenuCustomer.getInstance().show();
   }
 
 }

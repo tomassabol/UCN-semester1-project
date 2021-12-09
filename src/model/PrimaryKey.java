@@ -15,6 +15,7 @@ public class PrimaryKey {
 	private static int employeeID = 0;
 	private static int quoteID = 0;
 	private static int supplyOrder = 0;
+	private static int customerTypeID = 0;
 	
 
 	public PrimaryKey() {
@@ -89,6 +90,10 @@ public class PrimaryKey {
 
 	public static int getNextSupplyOrderID() {
 		return supplyOrder++;
+	}
+
+	public static int getNextCustomerTypeID(){
+		return customerTypeID++;
 	}
 
 }

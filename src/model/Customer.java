@@ -40,4 +40,16 @@ implements IFCustomer {
 		this.customerType = customerType;
 	}
 	
+	/**
+	 * Prints out all the information about a customer
+	 */
+	public void printAllCustomerInfo(){
+		System.out.println("ID: " + super.ID);
+		System.out.println("First name: " + super.getFirstName());
+		System.out.println("Last name: " + super.getLastName());
+		System.out.println("Address: " + super.getAddress());
+		System.out.println("Phone number: " + super.getMobile());
+		System.out.println("Customer Type: " + customerType);
+		System.out.println("Date of birth: " + super.getBirthDate());
+	}
 }
