@@ -31,7 +31,7 @@ public class MenuProduct extends GenericMenuInterface{
     /**
      * @return the instance of MenuProduct
      */
-    public static MenuProduct getInstace() {
+    public static MenuProduct getInstance() {
         if(instance == null){
             instance = new MenuProduct();
         }

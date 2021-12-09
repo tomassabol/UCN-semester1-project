@@ -22,8 +22,8 @@ public class MenuQuotes extends GenericMenuInterface {
     super.setTitle("Quotes");
     super.addMenuOption("1", new GenericMenuOption("Create a quote",
     		() -> createQuote()));
-    super.addMenuOption("2", new GenericMenuOption("Show all quotes",
-    		() -> showAllQuotes()));
+    super.addMenuOption("2", new GenericMenuOption("Show quotes",
+    		() -> showQuotes()));
     super.addMenuOption("0", new GenericMenuOption("Go back to main menu",
     		() -> MenuMain.getInstance().show()));
     
@@ -63,8 +63,8 @@ public class MenuQuotes extends GenericMenuInterface {
 	public void showAllQuotes() {
 		Terminal terminal = Terminal.getInstance();
 		terminal.clearScreen();
-		
-		System.out.println("[All Quotes]");
+		Customer customer = Terminal.getInstance().getCustomer();
+		System.out.println(String.format("[Quotes for %s %s]", customer.getFirstName(), customer.getLastName()));
 		for (Quote quote: quoteCtrl.getQuotes()) {
 			System.out.println("Quote: #" + quote.ID + " " + quote.CREATION_DATE);
 		}

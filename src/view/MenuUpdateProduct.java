@@ -22,7 +22,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         super.addMenuOption("2", new GenericMenuOption("Update product description", () -> updateDescription()));
         super.addMenuOption("3", new GenericMenuOption("Update product minimum stock", () -> updateMinStock()));
         super.addMenuOption("4", new GenericMenuOption("Update product maximum stock", () -> updateMaxStock()));
-        super.addMenuOption("0", new GenericMenuOption("Return to Product Menu", () -> MenuProduct.getInstace().show()));
+        super.addMenuOption("0", new GenericMenuOption("Return to Product Menu", () -> MenuProduct.getInstance().show()));
         
         productId = id;
     }

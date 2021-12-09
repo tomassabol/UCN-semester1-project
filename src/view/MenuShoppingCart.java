@@ -1,10 +1,12 @@
 package view;
 
+import model.Authentication;
 import model.Customer;
 import model.Product;
 import model.ShoppingCart;
 import model.ShoppingItemLine;
 import controller.ProductController;
+import controller.QuoteController;
 import controller.ShoppingCartController;
 
 public class MenuShoppingCart extends GenericMenuInterface{
@@ -13,6 +15,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
 
     private ProductController productCtrl;
     private ShoppingCartController shoppingCartCtrl;
+    private QuoteController quoteCtrl;
 
     /**
      * Constructor for MenuUpdateProduct
@@ -24,13 +27,15 @@ public class MenuShoppingCart extends GenericMenuInterface{
         
         productCtrl = new ProductController();
         shoppingCartCtrl = new ShoppingCartController();
+        quoteCtrl = new QuoteController();
+        
         this.customer = customer;
         
         this.setTitle("Shopping Cart Options");
         super.addMenuOption("1", new GenericMenuOption("Add item", () -> addItemToCart(customer.getShoppingCart())));
         super.addMenuOption("2", new GenericMenuOption("Create a quote from current shopping cart", () -> createQuoteFromCart()));
         super.addMenuOption("3", new GenericMenuOption("Clear shopping cart", () -> clearShoppingCart()));
-        super.addMenuOption("0", new GenericMenuOption("Return to Product Menu", () -> MenuProduct.getInstace().show()));
+        super.addMenuOption("0", new GenericMenuOption("Return to Quotes Menu", () -> MenuQuotes.getInstance().show()));
         
     }
     
@@ -72,7 +77,16 @@ public class MenuShoppingCart extends GenericMenuInterface{
     }
     
     public void createQuoteFromCart() {
+    	if (Terminal.getInstance().confirmInput("Are you sure you want to create a quote for Attila?")) {
+        	quoteCtrl.createQuote(customer,
+        			Authentication.getInstance().getLoggedInUser(),
+        			customer.getShoppingCart());
+        	// TODO: Show the quote in detail here. Create a method for it?
+        	Terminal.getInstance().getAnyKeyInput("The quote was successfully created. \nPress [Enter] to go back.");
+    	}
+
     	
+    	this.show();
     }
     
     public void printShoppingCart(ShoppingCart shoppingCart) {

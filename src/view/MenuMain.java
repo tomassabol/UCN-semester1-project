@@ -123,7 +123,7 @@ public class MenuMain extends GenericMenuInterface {
    * Show products menu.
    */
   private void showProductsMenu() {
-    MenuProduct.getInstace().show();
+    MenuProduct.getInstance().show();
   }
   
   /**
