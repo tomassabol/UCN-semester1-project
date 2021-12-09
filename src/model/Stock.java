@@ -174,28 +174,35 @@ public class Stock {
         storage.get(storageLocation).remove(shelf);
     }
     
+    // need this for buyable and loanable separately!
+//    /**
+//     * Checks if a product and specific quantity is in stock,
+//     *
+//     * @param product the product
+//     * @param quantity the quantity
+//     * @return true, if is in stock
+//     */
+//    public boolean isInStock(Product product, int quantity) {
+//    	int totalQuantity = 0;
+//    	for(Shelf shelf: this.getShelves()) {
+//    		totalQuantity += shelf.getQuantityOfProduct(product);
+//    		if (totalQuantity > quantity) {
+//    			return true;
+//    		}
+//    	}
+//    	return false;
+//    }
+    
     /**
-     * Checks if a product and specific quantity is in stock,
+     * Gets the quantity of a product in stock.
      *
      * @param product the product
-     * @param quantity the quantity
-     * @return true, if is in stock
+     * @return the quantity in stock
      */
-    public boolean isInStock(Product product, int quantity) {
-    	int totalQuantity = 0;
-    	for(Shelf shelf: this.getShelves()) {
-    		totalQuantity += shelf.getQuantityOfProduct(product);
-    		if (totalQuantity > quantity) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-    
-    public int quantityInStock(Product product) {
+    public int getBuyableQuantityInStock(Product product) {
     	int quantityInStock = 0;
     	for(Shelf shelf: this.getShelves()) {
-    		quantityInStock += shelf.getQuantityOfProduct(product);
+    		quantityInStock += shelf.getBuyableQuantity(product);
     	}
     	return quantityInStock;
     }
@@ -233,18 +240,18 @@ public class Stock {
     			// or is equal:
     			// take the quantity and remove the stockBatch from shelf
     			StockBatch stockBatch = shelfIt.next();
-    			if (stockBatch.getQuantity() <= (quantity - (removedUntrackableItemQuantity + removedTrackableItems.size()))) {
-    				removedUntrackableItemQuantity += stockBatch.getQuantity();
+    			if (stockBatch.getTotalQuantity() <= (quantity - (removedUntrackableItemQuantity + removedTrackableItems.size()))) {
+    				removedUntrackableItemQuantity += stockBatch.getTotalQuantity();
     				removedTrackableItems.addAll(stockBatch.getTrackableItems());
     			} else {
     				// The untrackable items cover the needeed quantity
-    				if (stockBatch.getUntrackableItemquantity() >= (quantity - (removedUntrackableItemQuantity + removedTrackableItems.size()))) {
+    				if (stockBatch.getUntrackableItemQuantity() >= (quantity - (removedUntrackableItemQuantity + removedTrackableItems.size()))) {
     					removedUntrackableItemQuantity = quantity;
-    					stockBatch.setUntrackableItemquantity((quantity - (removedUntrackableItemQuantity + removedTrackableItems.size())));
+    					stockBatch.setUntrackableItemQuantity((quantity - (removedUntrackableItemQuantity + removedTrackableItems.size())));
     				} else {
     					// Untrackable items don't cover needed quantity, 
     					// so start popping trackable items
-    					removedUntrackableItemQuantity += stockBatch.getQuantity();
+    					removedUntrackableItemQuantity += stockBatch.getTotalQuantity();
     					removedTrackableItems.addAll(stockBatch.popTrackableItems(quantity - (removedUntrackableItemQuantity + removedTrackableItems.size())));
     					
     				}

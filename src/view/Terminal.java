@@ -77,14 +77,18 @@ public class Terminal {
    * prompt the user to identify a product by ID
    * @return specific product with entered product ID
    */
-  public Product getProduct() {
+  public Product getProduct(String prompt) {
 	  Product product = null;
 	  do {
-		  int id = this.getIntegerInput("Choose product by ID");
+		  int id = this.getIntegerInput(prompt);
 		  product = productCtrl.findProductByID(id);
 	  } while (product == null);
 	  
 	  return product;
+  }
+  
+  public Product getProduct() {
+	  return getProduct("Choose product:");
   }
   
   /**
@@ -108,6 +112,17 @@ public class Terminal {
 	  for (Customer customer: customerCtrl.getCustomers()) {
 		  System.out.println("(" + customer.ID + ") " 
 	  + customer.getFirstName() + " " + customer.getLastName());
+	  }
+  }
+  
+  public void printBuyableProducts() {
+	  for (Product product: productCtrl.getBuyableProducts()) {
+		  System.out.println("[" + product.getName() + "]");
+		  System.out.println("ID: " + product.ID);
+		  System.out.println("Description: " + product.getDescription());
+		  System.out.println("In stock: " + "Unknown");
+		  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
+		  System.out.println();
 	  }
   }
 

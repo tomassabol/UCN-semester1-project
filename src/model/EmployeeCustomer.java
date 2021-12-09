@@ -3,7 +3,7 @@
  */
 package model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author Daniels Kanepe
@@ -19,7 +19,7 @@ implements IFCustomer, IFEmployee {
 	/**
 	 *  Constructor
 	 */
-	public EmployeeCustomer(int ID, String CPRNumber, String firstName, String lastName, String address, String mobile, CustomerType customertype, LocalDateTime birthDate) {
+	public EmployeeCustomer(int ID, String CPRNumber, String firstName, String lastName, String address, String mobile, CustomerType customertype, LocalDate birthDate) {
 		super(ID, firstName, lastName, address, mobile, birthDate);
 		this.CPRNumber = CPRNumber;
 		this.shoppingCart = new ShoppingCart(this);

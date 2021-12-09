@@ -3,7 +3,7 @@
  */
 package model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author Daniels Kanepe
@@ -17,7 +17,7 @@ implements IFEmployee {
 	 */
 	private String CPRNumber;
 	
-	public Employee(int ID, String CPRNumber, String firstName, String lastName, String address, String mobile, LocalDateTime birthDate) {
+	public Employee(int ID, String CPRNumber, String firstName, String lastName, String address, String mobile, LocalDate birthDate) {
 		super(ID, firstName, lastName, address, mobile, birthDate);
 		this.CPRNumber = CPRNumber;
 	}

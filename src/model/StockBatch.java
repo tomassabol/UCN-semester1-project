@@ -104,7 +104,7 @@ public class StockBatch {
      * @return the untrackable itemquantity
      */
     // get/set quantity
-    public int getUntrackableItemquantity() {
+    public int getUntrackableItemQuantity() {
         return this.untrackableItemQuantity;
     }
 
@@ -113,7 +113,7 @@ public class StockBatch {
      *
      * @param quantity the new untrackable itemquantity
      */
-    public void setUntrackableItemquantity(int quantity) {
+    public void setUntrackableItemQuantity(int quantity) {
         this.untrackableItemQuantity = quantity;
     }
 
@@ -156,12 +156,32 @@ public class StockBatch {
     }
     
 	/**
-	 * Gets the quantity.
+	 * Gets the quantity of buyable & loanable items
 	 *
 	 * @return the quantity of all items in the stock batch
 	 */
-	public int getQuantity() {
+	public int getTotalQuantity() {
 		return this.trackableItems.size() + this.untrackableItemQuantity;
+	}
+	
+	public int getBuyableItemQuantity() {
+		int buyableItemQuantity = 0;
+		for (TrackableItem trackableItem: this.trackableItems) {
+			if (trackableItem.getTrackableItemType() == TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE) {
+				buyableItemQuantity += 1;
+			}
+		}
+		return buyableItemQuantity + this.untrackableItemQuantity;
+	}
+	
+	public int getLoanableItemQuantity() {
+		int loanableItemQuantity = 0;
+		for (TrackableItem trackableItem: this.trackableItems) {
+			if (trackableItem.getTrackableItemType() == TrackableItem.TRACKABLE_ITEM_TYPE.LOANABLE) {
+				loanableItemQuantity += 1;
+			}
+		}
+		return loanableItemQuantity;
 	}
 	
 	/**
@@ -169,7 +189,7 @@ public class StockBatch {
 	 *
 	 * @return the trackable item quantity
 	 */
-	public int getTrackableItemQuantity() {
+	private int getTrackableItemQuantity() {
 		return this.trackableItems.size();
 	}
     
@@ -207,7 +227,7 @@ public class StockBatch {
 			return null;
 		}
 		// if quantity below 0, return null
-		int quantity = getQuantity();
+		int quantity = getTotalQuantity();
 		if (quantity < 1) {
 			return null;
 		}

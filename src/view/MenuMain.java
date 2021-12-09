@@ -1,6 +1,7 @@
 package view;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import controller.CustomerController;
@@ -34,7 +35,7 @@ public class MenuMain extends GenericMenuInterface {
     super.setTitle("Main Menu");
     super.addMenuOption("1", new GenericMenuOption("Generate test data",
     		    () -> generateTestData()));
-    super.addMenuOption("2", new GenericMenuOption("Orders",
+    super.addMenuOption("2", new GenericMenuOption("Quotes",
     		    () -> showOrdersMenu()));
     super.addMenuOption("3", new GenericMenuOption("Products",
             () -> showProductsMenu()));
@@ -76,7 +77,7 @@ public class MenuMain extends GenericMenuInterface {
 	  CustomerType customerType = new CustomerType(PrimaryKey.getNextCustomerTypeID(), "Normal", 5);
 	  // Create customers
 	  CustomerController ctrl = new CustomerController();
-	  Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", customerType, LocalDateTime.now());
+	  Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", customerType, LocalDate.now());
 	  System.out.println("Generated customer data!");
 	  // Create products
 	  ProductController ctrl2 = new ProductController();
@@ -100,7 +101,7 @@ public class MenuMain extends GenericMenuInterface {
 	  System.out.println("SC: " + customer1.getShoppingCart().getItemLines());
 	  
 	  // Create employees
-	  IFEmployee employee = employeeCtrl.createEmployee("080600-1111", "Daniels", "Kanepe", "Rundvej 8", "+45 11114567", LocalDateTime.now());
+	  IFEmployee employee = employeeCtrl.createEmployee("080600-1111", "Daniels", "Kanepe", "Rundvej 8", "+45 11114567", LocalDate.now());
 	  
 	  // Add orders to customer1
 	  orderCtrl.createQuote(customer1, employee, customer1.getShoppingCart());

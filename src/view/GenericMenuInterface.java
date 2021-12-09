@@ -34,12 +34,14 @@ public class GenericMenuInterface {
 	 * Show menu and listen for input
 	 * @param message (Optional) A message to show to the user above the menu
 	 */
-	public void show(String message) {
+	public void show(String message, boolean clearScreen) {
 		Terminal terminal = Terminal.getInstance();
-		terminal.clearScreen();
+		if (clearScreen) {
+			terminal.clearScreen();
+		}
 		// show message
-		if (message != "") {
-			System.out.println(""+ message + "");
+		if (message != null) {
+			System.out.println("["+ message + "]");
 		}
 		// show menu
 		printMenu();
@@ -49,8 +51,17 @@ public class GenericMenuInterface {
 	}
 	
 	public void show() {
-		show("");
+		show(null, true);
 	}
+	
+	public void show(String message) {
+		show(message, true);
+	}
+	
+	public void show(boolean clearScreen) {
+		show(null, clearScreen);
+	}
+	
 	
 
 	/**
