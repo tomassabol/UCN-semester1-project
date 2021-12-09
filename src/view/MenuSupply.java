@@ -26,7 +26,7 @@ public class MenuSupply extends GenericMenuInterface {
         super.addMenuOption("2", new GenericMenuOption("Show all supply offers", () -> showAllSupplyOffers()));
         super.addMenuOption("3", new GenericMenuOption("Set status of supply offer", () -> setSupplyOfferStatus()));
         super.addMenuOption("4", new GenericMenuOption("Create a supply order", () -> createSupplyOrder()));
-        super.addMenuOption("5", new GenericMenuOption("Show all supply offers", () -> showAllSupplyOrders()));
+        super.addMenuOption("5", new GenericMenuOption("Show all supply orders", () -> showAllSupplyOrders()));
         super.addMenuOption("6", new GenericMenuOption("Show undelivered supply orders", () -> showUndeliveredSupplyOrders()));
         super.addMenuOption("7", new GenericMenuOption("Show delivered supply orders", () -> showDeliveredSupplyOrders()));
         super.addMenuOption("8", new GenericMenuOption("Stock and mark Supply Order as delivered", () -> stockAndMarkDelivered()));
@@ -86,10 +86,11 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("All Supply offers in the System");
+        supplyCtrl.printAllSupplyOffers();
         int supplyOfferId = terminal.getIntegerInput("Enter the Supply Offer ID");
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(supplyOfferId);
         supplyCtrl.setStatus(supplyOffer);
-        super.show("Supply offer was set to inactive");
+        super.show("Supply offer was set to " + supplyOffer.isActive());
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -103,9 +104,9 @@ public class MenuSupply extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        Product product = terminal.getProduct();
-        int index = terminal.getIntegerInput("Enter the index of a supply offer");
-        SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(product, index);
+        supplyCtrl.printAllSupplyOffers();
+        int id = terminal.getIntegerInput("Enter the ID of a supply offer");
+        SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(id);
         int quantity = terminal.getIntegerInput("Enter the quantity of the product");
         supplyCtrl.createSupplyOrder(supplyOffer, quantity);
         super.show("The supply order was susccessfully created");

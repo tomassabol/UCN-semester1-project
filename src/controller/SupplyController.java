@@ -106,7 +106,13 @@ public class SupplyController {
 	 * @param supplyOffer The supply offer
 	 */
 	public void setStatus(SupplyOffer supplyOffer) {
-		supplyOffer.setActive(false);
+		//supplyOffer.setActive(false);
+		if (supplyOffer.isActive() == true) {
+			supplyOffer.setActive(false);
+		}
+		else {
+			supplyOffer.setActive(true);
+		}
 	}
 	
 	/**

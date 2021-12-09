@@ -73,6 +73,6 @@ private void deleteContractor() {
     super.show("The contractor was deleted!");
     terminal.getAnyKeyInput("Press [Enter] to go back");
     super.show();
-}
+    }
 
 }

@@ -101,6 +101,7 @@ public class SupplyOfferContainer {
         for (Product product : this.offers.keySet()) {
             for (SupplyOffer supplyOffer : this.offers.get(product)) {
                 supplyOffer.printAllSupplyOfferInfo();
+                System.out.println();
             }
         }
              

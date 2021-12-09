@@ -8,6 +8,8 @@ import controller.EmployeeController;
 import controller.OrderController;
 import controller.ProductController;
 import model.BulkDiscount;
+import model.Contractor;
+import model.ContractorContainer;
 import model.Customer;
 import model.CustomerType;
 import model.DiscountContainer;
@@ -86,6 +88,8 @@ public class MenuMain extends GenericMenuInterface {
 	  // TODO: Implement itemController, itemLineController...
 	  ShoppingItemLine itemLine1 = new ShoppingItemLine(product1, 4);
 	  ShoppingItemLine itemLine2 = new ShoppingItemLine(product1, 1);
+    Contractor contractor = new Contractor(0, "TestSupplyCompany");
+    ContractorContainer.getInstance().addContractor(contractor);
 	  
 	  // TODO: also need to use a controller here
 	  System.out.println("SC: " + customer1.getShoppingCart().getItemLines());
