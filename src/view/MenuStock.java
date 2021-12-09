@@ -47,7 +47,7 @@ public class MenuStock extends GenericMenuInterface {
         boolean isAStore = terminal.confirmInput("Is this Storage Location a store?");
         stockCtrl.createStorageLocation(name, address, isAStore);
         super.show("New storage location was successfully created");
-        terminal.getStringInput("Press [Enter] to go Back");
+        terminal.getAnyKeyInput("Press [Enter] to go Back");
         super.show();
     }
 
@@ -64,7 +64,7 @@ public class MenuStock extends GenericMenuInterface {
         StorageLocation storageLocation = stockCtrl.findStorageLocationById(storageLocationId);
         stockCtrl.createShelf(name, storageLocation);
         super.show("New Shelf was successfully created");
-        terminal.getStringInput("Press [Enter] to go Back");
+        terminal.getAnyKeyInput("Press [Enter] to go Back");
         super.show();
     }
 
@@ -77,7 +77,8 @@ public class MenuStock extends GenericMenuInterface {
 
         System.out.println("[All Storage Locations in the System]");
         stockCtrl.printAllStorageLocationInfo();
-        terminal.getStringInput("Press [Enter] to go back");
+        System.out.println();
+        terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 

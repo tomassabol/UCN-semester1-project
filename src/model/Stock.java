@@ -256,6 +256,7 @@ public class Stock {
     public void printAllStorageLocationInfo() {
         for (StorageLocation storageLocation : this.storage.keySet()) {
             storageLocation.printStorageLocationInfo();
+            System.out.println();
         }
     }
 

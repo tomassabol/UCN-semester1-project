@@ -78,6 +78,8 @@ public class MenuOrders extends GenericMenuInterface {
 		} else {
 			super.show("Quote creation was cancelled!");
 		}
+		terminal.getAnyKeyInput("Press [Enter] to go back");
+		super.show();
 	  
 	}
 

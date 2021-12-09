@@ -9,7 +9,7 @@ private ContractorController contractorCtrl;
 /**
  * Constructor for MenuProduct
  */
-private MenuContractor(){
+private MenuContractor() {
     super();
 
     super.setTitle("Contractor Menu");
@@ -44,6 +44,8 @@ private void createContractor(){
     }else{
         super.show("New contractor creation was discarded!");
     }
+    terminal.getAnyKeyInput("Press [Enter] to go back");
+    super.show();
 }
 
 /**
@@ -62,16 +64,15 @@ private void showAllContractors(){
 /**
  * Deletes a contractor
  */
-private void deleteContractor(){
+private void deleteContractor() {
     Terminal terminal = Terminal.getInstance();
     terminal.clearScreen();
 
     int id = terminal.getIntegerInput("The id of the contractor you want to delete");
     contractorCtrl.removeContractor(id);
     super.show("The contractor was deleted!");
+    terminal.getAnyKeyInput("Press [Enter] to go back");
+    super.show();
 }
-
-
-
 
 }
