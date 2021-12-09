@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Customer;
 import model.IFCustomer;
 import model.IFEmployee;
 import model.PrimaryKey;
@@ -26,12 +27,21 @@ public class QuoteController {
 	
 
 	/**
-	 * Gets the quotes.
+	 * Gets the quotes (for everyone!)
 	 *
 	 * @return all quotes
 	 */
 	public List<Quote> getQuotes() {
 		return QuoteContainer.getInstance().getQuotes();
+	}
+	
+	/**
+	 * Gets the quotes for a specific customer
+	 *
+	 * @return the quotes
+	 */
+	public List<Quote> getQuotes(Customer customer) {
+		return QuoteContainer.getInstance().getQuotes(customer);
 	}
 	
 

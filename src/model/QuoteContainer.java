@@ -43,11 +43,12 @@ public class QuoteContainer {
     }
     
     /**
-     * @return All quotes
+     * @return All quotes, for everyone
      */
     public List<Quote> getQuotes() {
     	return this.quotes;
     }
+    
     
     /**
      * Find quote by ID.

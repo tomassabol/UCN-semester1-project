@@ -60,14 +60,14 @@ public class MenuQuotes extends GenericMenuInterface {
 	/**
 	 * Prints all guotes and quote info
 	 */
-	public void showAllQuotes() {
+	public void showQuotes() {
 		Terminal terminal = Terminal.getInstance();
 		terminal.clearScreen();
+		System.out.println("[Customers]");
+		terminal.printAllCustomers();
 		Customer customer = Terminal.getInstance().getCustomer();
-		System.out.println(String.format("[Quotes for %s %s]", customer.getFirstName(), customer.getLastName()));
-		for (Quote quote: quoteCtrl.getQuotes()) {
-			System.out.println("Quote: #" + quote.ID + " " + quote.CREATION_DATE);
-		}
+		terminal.clearScreen();
+		terminal.printQuotes(customer);
 		System.out.println();
 		
 		terminal.getAnyKeyInput("Press [Enter] to go back");

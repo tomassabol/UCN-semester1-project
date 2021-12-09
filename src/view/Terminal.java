@@ -15,8 +15,10 @@ import model.Customer;
 import model.CustomerType;
 import model.CustomerTypeContainer;
 import model.Product;
+import model.Quote;
 import model.Shelf;
 import controller.ProductController;
+import controller.QuoteController;
 import controller.StockController;
 import controller.SupplyController;
 import model.Contractor;
@@ -31,6 +33,7 @@ public class Terminal {
   ContractorController contractorCtrl;
   StockController stockCtrl;
   SupplyController supplyCtrl;
+  QuoteController quoteCtrl;
 
   private static final String DATE_FORMAT = "dd/MM/yyyy";
 
@@ -45,6 +48,7 @@ public class Terminal {
     contractorCtrl = new ContractorController();
     stockCtrl = new StockController();
     supplyCtrl = new SupplyController();
+    quoteCtrl = new QuoteController();
   }
 
   /**
@@ -124,6 +128,13 @@ public class Terminal {
 		  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
 		  System.out.println();
 	  }
+  }
+  
+  public void printQuotes(Customer customer) {
+		System.out.println(String.format("[Quotes for %s %s]", customer.getFirstName(), customer.getLastName()));
+		for (Quote quote: quoteCtrl.getQuotes(customer)) {
+			System.out.println("Quote: #" + quote.ID + " " + quote.CREATION_DATE);
+		}
   }
 
   /**
