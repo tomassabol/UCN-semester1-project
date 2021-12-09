@@ -41,7 +41,8 @@ public class MenuCustomer extends GenericMenuInterface{
         String lastName = terminal.getStringInput("Last name of the new customer");
         String address = terminal.getStringInput("Address of the new customer");
         String mobile = terminal.getStringInput("Phone number of the new customer");
-        CustomerType customerType = customerCtrl.findCustomerTypeById(terminal.getIntegerInput("The id of the customer type"));
+        terminal.printCustumerTypes();
+        CustomerType customerType = terminal.getCustomerType("The customer type");
         LocalDateTime birthDate = terminal.getDateInput("Birth date of the new customer");
 
         customerCtrl.createCustomer(firstName, lastName, address, mobile, customerType, birthDate);

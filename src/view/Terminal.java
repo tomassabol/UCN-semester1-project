@@ -5,10 +5,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
+
+import javax.lang.model.type.NullType;
 
 import controller.CustomerController;
 import model.Customer;
+import model.CustomerType;
+import model.CustomerTypeContainer;
 import model.Product;
 import model.Shelf;
 import controller.ProductController;
@@ -140,6 +145,24 @@ public class Terminal {
     }
 
     return userInput;
+  }
+
+  public CustomerType getCustomerType(String prompt){
+    CustomerType customerType;
+    do {
+      int id = getIntegerInput(prompt);
+      customerType = customerCtrl.findCustomerTypeById(id);
+    } while (customerType == null);
+    return customerType;
+  }
+
+  public void printCustumerTypes(){
+    List<CustomerType> customerTypes = customerCtrl.getCustomerTypes();
+    System.out.println("[Customer types]");
+    for(CustomerType customerType : customerTypes){
+      System.out.println("Customer type name: " + customerType.getName() + "\nCustomer type's discount: " + customerType.getDiscountPercentage() + "\nCustomer type id: " + customerType.ID);
+      System.out.println();
+    }
   }
 
   public void getAnyKeyInput(String prompt){

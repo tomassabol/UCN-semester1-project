@@ -51,7 +51,7 @@ public class MenuCustomerType extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        
+
     }
 
     private void updateCustomerTypeName(){
@@ -80,6 +80,6 @@ public class MenuCustomerType extends GenericMenuInterface{
 
         int id = terminal.getIntegerInput("The id of the customer type to be updated");
         customerCtrl.deleteCustomerType(id);
-        super.show("The customer type was successfully deleted");
+        super.show("The customer type was deleted");
     }
 }
