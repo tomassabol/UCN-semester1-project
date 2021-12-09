@@ -45,9 +45,5 @@ public class StorageLocation {
         this.isAStore = isAStore;
     }
 
-    public void printStorageLocationInfo() {
-        System.out.println("Storage Location ID: " + this.ID + "\nName: " + name + "\nAddress: " + address + "\nStore: " + isAStore);
-    }
-
 
 }
