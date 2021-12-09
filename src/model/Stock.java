@@ -184,12 +184,20 @@ public class Stock {
     public boolean isInStock(Product product, int quantity) {
     	int totalQuantity = 0;
     	for(Shelf shelf: this.getShelves()) {
-    		totalQuantity = shelf.getQuantityOfProduct(product);
+    		totalQuantity += shelf.getQuantityOfProduct(product);
     		if (totalQuantity > quantity) {
     			return true;
     		}
     	}
     	return false;
+    }
+    
+    public int quantityInStock(Product product) {
+    	int quantityInStock = 0;
+    	for(Shelf shelf: this.getShelves()) {
+    		quantityInStock += shelf.getQuantityOfProduct(product);
+    	}
+    	return quantityInStock;
     }
     
     /**
