@@ -1,25 +1,25 @@
 package view;
 
 import controller.EmployeeController;
-import controller.OrderController;
+import controller.QuoteController;
 import model.Customer;
 import model.IFEmployee;
 import model.Quote;
 import model.ShoppingItemLine;
 
-public class MenuOrders extends GenericMenuInterface {
-  private static MenuOrders instance;
+public class MenuQuotes extends GenericMenuInterface {
+  private static MenuQuotes instance;
   
-  private OrderController orderCtrl;
+  private QuoteController quoteCtrl;
   private EmployeeController employeeCtrl;
 
   /**
    * Constructor for MainMenuUI.
    */
-  private MenuOrders() {
+  private MenuQuotes() {
     super();
 
-    super.setTitle("Orders");
+    super.setTitle("Quotes");
     super.addMenuOption("1", new GenericMenuOption("Create a quote",
     		() -> createQuote()));
     super.addMenuOption("2", new GenericMenuOption("Show all quotes",
@@ -27,16 +27,16 @@ public class MenuOrders extends GenericMenuInterface {
     super.addMenuOption("0", new GenericMenuOption("Go back to main menu",
     		() -> MenuMain.getInstance().show()));
     
-    orderCtrl = new OrderController();
+    quoteCtrl = new QuoteController();
     employeeCtrl = new EmployeeController();
   }
 
   /**
    * @return the instance of MainMenuUI
    */
-  public static MenuOrders getInstance() {
+  public static MenuQuotes getInstance() {
     if (instance == null) {
-      instance = new MenuOrders();
+      instance = new MenuQuotes();
     }
     return instance;
   }
@@ -73,7 +73,7 @@ public class MenuOrders extends GenericMenuInterface {
 		}
 		System.out.println("Total: " + customer.getShoppingCart().calculateTotalPriceWithDiscountsApplied()+ " DKK");
 		if (terminal.confirmInput("Create a quote?")) {		
-			orderCtrl.createQuote(customer, employee, customer.getShoppingCart());
+			quoteCtrl.createQuote(customer, employee, customer.getShoppingCart());
 			super.show("Successfully created a new quote");
 		} else {
 			super.show("Quote creation was cancelled!");
@@ -91,7 +91,7 @@ public class MenuOrders extends GenericMenuInterface {
 		terminal.clearScreen();
 		
 		System.out.println("[All Quotes]");
-		for (Quote quote: orderCtrl.getQuotes()) {
+		for (Quote quote: quoteCtrl.getQuotes()) {
 			System.out.println("Quote: #" + quote.ID + " " + quote.CREATION_DATE);
 		}
 		System.out.println();

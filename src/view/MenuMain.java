@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import controller.CustomerController;
 import controller.EmployeeController;
-import controller.OrderController;
+import controller.QuoteController;
 import controller.ProductController;
 import model.BulkDiscount;
 import model.Contractor;
@@ -22,7 +22,7 @@ import model.ShoppingItemLine;
 public class MenuMain extends GenericMenuInterface {
   private static MenuMain instance;
   
-  private OrderController orderCtrl;
+  private QuoteController orderCtrl;
   private EmployeeController employeeCtrl;
 
   /**
@@ -50,7 +50,7 @@ public class MenuMain extends GenericMenuInterface {
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		    () -> Terminal.quit()));
     
-    orderCtrl = new OrderController();
+    orderCtrl = new QuoteController();
     employeeCtrl = new EmployeeController();
   }
 
@@ -115,7 +115,7 @@ public class MenuMain extends GenericMenuInterface {
    * Show orders menu.
    */
   private void showOrdersMenu() {
-    MenuOrders.getInstance().show();
+    MenuQuotes.getInstance().show();
   }
 
   /**

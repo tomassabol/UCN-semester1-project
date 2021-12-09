@@ -39,7 +39,7 @@ public class GenericMenuInterface {
 		terminal.clearScreen();
 		// show message
 		if (message != "") {
-			System.out.println("["+ message + "]");
+			System.out.println(""+ message + "");
 		}
 		// show menu
 		printMenu();
