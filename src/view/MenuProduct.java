@@ -76,9 +76,10 @@ public class MenuProduct extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        int id = terminal.getIntegerInput("The id of the product you want to delete");
-        productCtrl.removeProduct(id);
+        terminal.getProduct();
         super.show("The product was deleted!");
+        terminal.getAnyKeyInput("Press [Enter] to go back");
+        super.show();
     }
 
     /**
@@ -95,6 +96,8 @@ public class MenuProduct extends GenericMenuInterface{
             MenuUpdateProduct updateMenu = new MenuUpdateProduct(id);
             updateMenu.show();
         }
+        terminal.getAnyKeyInput("Press [Enter] to go back");
+        super.show();
     }
 
     /**
@@ -107,11 +110,12 @@ public class MenuProduct extends GenericMenuInterface{
         terminal.clearScreen();
 
         productCtrl.printAllProducts();
-        int id = terminal.getIntegerInput("Enter the ID of the product for which you want to change the price");
-        Product product = productCtrl.findProductByID(id);
+        Product product = terminal.getProduct();
         product.printProductInfo();
         BigDecimal price = terminal.getBigDecimalInput("Enter the new price");
         productCtrl.createSellingPrice(price, product);
+        terminal.getAnyKeyInput("Press [Enter] to go back");
+        super.show();
     }
 
     private void addLoaningPrice() {
@@ -119,10 +123,11 @@ public class MenuProduct extends GenericMenuInterface{
         terminal.clearScreen();
 
         productCtrl.printAllProducts();
-        int id = terminal.getIntegerInput("Enter the ID of the product for which you want to change loaning price");
-        Product product = productCtrl.findProductByID(id);
+        Product product = terminal.getProduct();
         BigDecimal price = terminal.getBigDecimalInput("Enter the new Price");
         productCtrl.createSellingPrice(price, product);
+        terminal.getAnyKeyInput("Press [Enter] to go back");
+        super.show();
     }
 
     /**
