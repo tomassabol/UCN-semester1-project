@@ -1,11 +1,7 @@
 package view;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import controller.CustomerController;
 import model.CustomerType;
-import model.CustomerTypeContainer;
 
 public class MenuCustomerType extends GenericMenuInterface{
     
@@ -51,7 +47,8 @@ public class MenuCustomerType extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        
+        printCustomerTypes();
+        super.show();        
     }
 
     private void updateCustomerTypeName(){
@@ -81,5 +78,14 @@ public class MenuCustomerType extends GenericMenuInterface{
         int id = terminal.getIntegerInput("The id of the customer type to be updated");
         customerCtrl.deleteCustomerType(id);
         super.show("The customer type was successfully deleted");
+    }
+
+    private void printCustomerTypes() {
+        for (CustomerType customerType : customerCtrl.getCustomerTypes()) {
+            System.out.println("Customer type ID: " + String.format("(%d)",customerType.ID));
+            System.out.println("Name: " + String.format("%s",customerType.getName()));
+            System.out.println("Discount Percentage: " + String.format("%d",customerType.getDiscountPercentage()));
+            System.out.println();
+        }
     }
 }

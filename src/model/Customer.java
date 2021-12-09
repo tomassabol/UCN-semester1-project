@@ -39,7 +39,26 @@ implements IFCustomer {
 	public void setCustomerType(CustomerType customerType) {
 		this.customerType = customerType;
 	}
-	
+
+	public String getFirstName() {
+		return super.getFirstName();
+	}
+
+	public String getLastName() {
+		return super.getLastName();
+	}
+
+	public String getAddress() {
+		return super.getAddress();
+	}
+
+	public String getMobile() {
+		return super.getMobile();
+	}
+
+	public LocalDateTime getBirthDate() {
+		return super.getBirthDate();
+	}
 	/**
 	 * Prints out all the information about a customer
 	 */
@@ -52,4 +71,5 @@ implements IFCustomer {
 		System.out.println("Customer Type: " + customerType);
 		System.out.println("Date of birth: " + super.getBirthDate());
 	}
+	
 }
