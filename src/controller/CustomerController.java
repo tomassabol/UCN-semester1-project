@@ -164,7 +164,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param birthDate - the new birth date the birth date to be updated to
 	 */
-	public void updateBirthDate(int id, LocalDateTime birthDate){
+	public void updateBirthDate(int id, LocalDate birthDate){
 		Customer customer = findCustomerByID(id);
 		customer.setBirthDate(birthDate);
 	}

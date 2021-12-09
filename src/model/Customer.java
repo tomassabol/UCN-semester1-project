@@ -56,7 +56,7 @@ implements IFCustomer {
 		return super.getMobile();
 	}
 
-	public LocalDateTime getBirthDate() {
+	public LocalDate getBirthDate() {
 		return super.getBirthDate();
 	}
 	/**

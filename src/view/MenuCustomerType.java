@@ -46,13 +46,8 @@ public class MenuCustomerType extends GenericMenuInterface{
     private void showAllCustomerTypes(){
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
-
-<<<<<<< HEAD
-
-=======
         printCustomerTypes();
         super.show();        
->>>>>>> 1b10207936be75d750d8144288d1bab69db70b47
     }
 
     private void updateCustomerTypeName(){
