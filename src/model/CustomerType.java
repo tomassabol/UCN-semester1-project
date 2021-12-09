@@ -28,6 +28,9 @@ public class CustomerType {
 	}
 
 	public void setDiscountPercentage(int discountPercentage) {
+		if (discountPercentage < 0 || discountPercentage > 100) {
+			throw new IllegalArgumentException("Customer's discount percentage must be between 0 and 100");
+		}
 		this.discountPercentage = discountPercentage;
 	}
 	
