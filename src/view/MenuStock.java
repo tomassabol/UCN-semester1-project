@@ -59,7 +59,7 @@ public class MenuStock extends GenericMenuInterface {
         terminal.clearScreen();
 
         String name = terminal.getStringInput("Enter name of a new Shelf");
-        stockCtrl.printAllStorageLocationInfo();
+        terminal.printAllStorageLocations();
         int storageLocationId = terminal.getIntegerInput("Enter the id of a Storage Location, where the shelf will be lcoated");
         StorageLocation storageLocation = stockCtrl.findStorageLocationById(storageLocationId);
         stockCtrl.createShelf(name, storageLocation);
@@ -76,7 +76,7 @@ public class MenuStock extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Storage Locations in the System]");
-        stockCtrl.printAllStorageLocationInfo();
+        terminal.printAllStorageLocations();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -90,7 +90,7 @@ public class MenuStock extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Shelves in the System]");
-        stockCtrl.printAllShelvesInfo();
+        terminal.printAllShelves();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }

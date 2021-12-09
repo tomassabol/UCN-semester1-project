@@ -253,14 +253,6 @@ public class Stock {
     }
 
     // TODO: Remove these. don't print in model layer!
-    public void printAllStorageLocationInfo() {
-        for (StorageLocation storageLocation : this.storage.keySet()) {
-            storageLocation.printStorageLocationInfo();
-            System.out.println();
-        }
-    }
-
-    // TODO: Remove these. don't print in model layer!
     public void printAllShelvesInfo() {
         for (Shelf shelf : getShelves()) {
             shelf.printShelfInfo();

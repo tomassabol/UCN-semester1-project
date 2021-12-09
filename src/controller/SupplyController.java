@@ -92,6 +92,18 @@ public class SupplyController {
 	public ArrayList<SupplyOffer> getSupplyOffers(Product product) {
 		return SupplyOfferContainer.getInstance().getSupplyOffers(product);
 	}
+
+	public ArrayList<SupplyOrder> getSupplyOrders() {
+		return SupplyOrderContainer.getInstance().getSupplyOrders();
+	}
+
+	public ArrayList<SupplyOrder> getUndeliveredSupplyOrders() {
+		return SupplyOrderContainer.getInstance().getUndeliveredSupplyOrders();
+	}
+
+	public ArrayList<SupplyOrder> getDeliveredSupplyOrders() {
+		return SupplyOrderContainer.getInstance().getDeliveredSupplyOrders();
+	}
 	
 	/*
 	private void removeSupplyOffer() {
@@ -199,28 +211,5 @@ public class SupplyController {
 		SupplyOfferContainer sContainer = SupplyOfferContainer.getInstance();
 		sContainer.printAllSupplyOfferInfo();
 	}
-
-	/**
-	 * Prints all SupplyOrders
-	 */
-	public void printAllSupplyOrderInfo() {
-		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
-		sContainer.printAllSupplyOrderInfo();
-	}
-
-	/**
-	 * Prints all Undelivered Supply Orders
-	 */
-	public void printUndeliveredSupplyOrders() {
-		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
-		sContainer.printUndeliveredSupplyOrders();
-	}
-
-	/**
-	 * Prints all delivered supply orders
-	 */
-	public void printDeliveredSupplyOrders() {
-		SupplyOrderContainer sContainer = SupplyOrderContainer.getInstance();
-		sContainer.printDeliveredSupplyOrderInfo();
-	}
+	
 }

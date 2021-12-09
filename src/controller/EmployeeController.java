@@ -9,8 +9,7 @@ import model.PrimaryKey;
 
 public class EmployeeController {
 
-	public EmployeeController() {
-	}
+	public EmployeeController() {}
 	
 
 	/**

@@ -124,7 +124,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Supply orders in the System]");
-        supplyCtrl.printAllSupplyOrderInfo();
+        terminal.printAllSupplyOrders();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -138,7 +138,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Undelivered Supply orders in the System]");
-        supplyCtrl.printUndeliveredSupplyOrders();
+        terminal.printUndeliveredSupplyOrders();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -152,7 +152,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         System.out.println("[All Delivered Supply orders in the System]");
-        supplyCtrl.printDeliveredSupplyOrders();
+        terminal.printDeliveredSupplyOrders();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -166,10 +166,10 @@ public class MenuSupply extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        supplyCtrl.printAllSupplyOrderInfo();
+        terminal.printAllSupplyOrders();
         int supplyOrderId = terminal.getIntegerInput("Enter the id of a supply order");
         SupplyOrder supplyOrder = supplyCtrl.findSupplyOrderById(supplyOrderId);
-        stockCtrl.printAllShelvesInfo();
+        terminal.printAllShelves();
 
         System.out.println();
 

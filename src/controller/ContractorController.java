@@ -18,8 +18,7 @@ public class ContractorController {
 		/**
 		 * Instantiates a new order controller.
 		 */
-		public ContractorController() {
-		}	
+		public ContractorController() {}	
 	
 	
 		

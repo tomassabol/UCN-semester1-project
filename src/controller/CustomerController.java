@@ -10,8 +10,7 @@ import model.PrimaryKey;
 
 public class CustomerController {
 
-	public CustomerController() {
-	}
+	public CustomerController() {}
 	
 	/**
 	 * Creates the customer

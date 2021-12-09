@@ -8,12 +8,14 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import controller.CustomerController;
-
 import model.Customer;
-
 import model.Product;
+import model.Shelf;
+import model.StorageLocation;
+import model.SupplyOrder;
 import controller.ProductController;
-
+import controller.StockController;
+import controller.SupplyController;
 import model.Contractor;
 import controller.ContractorController;
 
@@ -24,6 +26,8 @@ public class Terminal {
   CustomerController customerCtrl;
   ProductController productCtrl;
   ContractorController contractorCtrl;
+  StockController stockCtrl;
+  SupplyController supplyCtrl;
 
   private static final String DATE_FORMAT = "dd/MM/yyyy";
 
@@ -36,7 +40,8 @@ public class Terminal {
     customerCtrl = new CustomerController();
     productCtrl = new ProductController();
     contractorCtrl = new ContractorController();
-
+    stockCtrl = new StockController();
+    supplyCtrl = new SupplyController();
   }
 
   /**
@@ -229,8 +234,8 @@ public class Terminal {
 	}
 
   public void printAllProducts() {
-    for (Product product: productCtrl.getProducts()) {
-      System.out.println("Product ID: " + String.format("(%d)",product.ID,("%s")));
+    for (Product product : productCtrl.getProducts()) {
+      System.out.println("Product ID: " + String.format("(%d)",product.ID));
       System.out.println("Name: " + String.format("%s",product.getName()));
       System.out.println("Description: " + String.format("%s",product.getDescription()));
       System.out.println("Max Stock: " + String.format("%d",product.getMaxStock()));
@@ -239,7 +244,51 @@ public class Terminal {
       System.out.println("Selling price: " + String.format("%.2f",product.getLatestSellingPrice()));
       System.out.println("Loaning price: " + String.format("%.2f",product.getLatestLoaningPrice()));
       System.out.println();
+    }
+  }
 
+  public void printAllStorageLocations() {
+    for (StorageLocation storageLocation : stockCtrl.getStorageLocations()) {
+      System.out.println("Storage Location ID: " + String.format(("%d"), storageLocation.ID));
+      System.out.println("Name: " + String.format(("%s"), storageLocation.getName()));
+      System.out.println("Address: " + String.format(("%s"), storageLocation.getAddress()));
+      System.out.println("Store: " + String.format(("%s"), storageLocation.getIsAStore()));
+      System.out.println();
+    }
+  }
+
+  public void printAllShelves() {
+    for (Shelf shelf : stockCtrl.getShelves()) {
+      System.out.println("Shelf ID: " + String.format(("%d"), shelf.ID));
+      System.out.println("Name: " + String.format(("%s"), shelf.getName()));
+      System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
+      System.out.println();
+    }
+  }
+
+  public void printSupplyOrder(SupplyOrder supplyOrder) {
+    System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
+    System.out.println("Date Ordered: " + String.format(("s"), supplyOrder.getDateOrdered()));
+    System.out.println("Supply Offer: " + String.format(("s"), supplyOrder.getSupplyOffer().ID));
+    System.out.println("Delivered: " + String.format(("s"), supplyOrder.isDelivered()));
+    System.out.println("Quantity: " + String.format(("d"), supplyOrder.getQuantity()));
+    System.out.println();
+  }
+  public void printAllSupplyOrders() {
+    for (SupplyOrder supplyOrder : supplyCtrl.getSupplyOrders()) {
+      printSupplyOrder(supplyOrder);  
+    }
+  }
+
+  public void printUndeliveredSupplyOrders() {
+    for (SupplyOrder supplyOrder : supplyCtrl.getUndeliveredSupplyOrders()) {
+      printSupplyOrder(supplyOrder);
+    }
+  }
+
+  public void printDeliveredSupplyOrders() {
+    for (SupplyOrder supplyOrder : supplyCtrl.getDeliveredSupplyOrders()) {
+      printSupplyOrder(supplyOrder);
     }
   }
 	

@@ -1,10 +1,14 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import model.PrimaryKey;
 import model.Shelf;
 import model.Stock;
 import model.StorageLocation;
 
+// TODO: add javadoc
 public class StockController {
     public StockController() {}
 
@@ -38,11 +42,11 @@ public class StockController {
         return Stock.getInstance().findShelfByID(id);
     }
 
-    public void printAllStorageLocationInfo() {
-        Stock.getInstance().printAllStorageLocationInfo();
+    public Set<StorageLocation> getStorageLocations() {
+        return Stock.getInstance().getStorageLocations();
     }
 
-    public void printAllShelvesInfo() {
-        Stock.getInstance().printAllShelvesInfo();
+    public ArrayList<Shelf> getShelves() {
+        return Stock.getInstance().getShelves();
     }
 }

@@ -55,18 +55,11 @@ public class SupplyOrderContainer {
     	}
     	return undeliveredOrders;
     }
-
-    public void printUndeliveredSupplyOrders() {
-        for (SupplyOrder supplyOrder : getUndeliveredSupplyOrders()) {
-            supplyOrder.printAllSupplyOrderInfo();
-        }
-    }
     
     /**
      * @return All delivered supply orders
      */
-    // TODO: implement in view
-    public ArrayList<SupplyOrder> getdeliveredSupplyOrders() {
+    public ArrayList<SupplyOrder> getDeliveredSupplyOrders() {
     	ArrayList<SupplyOrder> deliveredOrders = new ArrayList<>();
     	for (SupplyOrder supplyOrder: this.supplyOrders) {
     		// if delivered
@@ -75,12 +68,6 @@ public class SupplyOrderContainer {
     		}
     	}
     	return deliveredOrders;
-    }
-
-    public void printDeliveredSupplyOrderInfo() {
-        for (SupplyOrder supplyOrder : getdeliveredSupplyOrders()) {
-            supplyOrder.printAllSupplyOrderInfo();
-        }
     }
     
     /**
@@ -133,12 +120,6 @@ public class SupplyOrderContainer {
     		}
     	}
     	return null;
-    }
-    
-    public void printAllSupplyOrderInfo() {
-        for (SupplyOrder supplyOrder : supplyOrders) {
-            supplyOrder.printAllSupplyOrderInfo();
-        }
     }
 
 }
