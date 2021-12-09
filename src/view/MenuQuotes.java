@@ -47,7 +47,6 @@ public class MenuQuotes extends GenericMenuInterface {
  */
 	private void createQuote() {
 		
-		IFEmployee employee = Authentication.getInstance().getLoggedInUser();
 		Terminal terminal = Terminal.getInstance();
 		terminal.clearScreen();
 		System.out.println("[Customers]");

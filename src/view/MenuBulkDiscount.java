@@ -13,7 +13,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         super.setTitle("Manage Bulk Discount");
         super.addMenuOption("1", new GenericMenuOption("Create a bulk discount", () -> createBulkDiscount()));
 
-        super.addMenuOption("0", new GenericMenuOption("Go back to product menu", () -> MenuProduct.getInstace().show()));
+        super.addMenuOption("0", new GenericMenuOption("Go back to product menu", () -> MenuProduct.getInstance().show()));
     }
 
     public static MenuBulkDiscount getInstance() {
