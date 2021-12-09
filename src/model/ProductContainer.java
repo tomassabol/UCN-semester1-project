@@ -37,10 +37,30 @@ public class ProductContainer {
         return products.add(product);
     }
 
+
     /**
-     * @return products ArrayList
+     * Gets all of the products.
+     *
+     * @return the products
      */
     public List<Product> getProducts() {
+        return this.products;
+    }
+    
+
+    /**
+     * Gets all of the buyable products
+     * Buyable = selling price is set & quantity in stock > 0
+     *
+     * @return the buyable products
+     */
+    public List<Product> getBuyableProducts() {
+    	ArrayList<Product> buyableProducts = new ArrayList<>();
+    	for (Product product: this.products) {
+    		if (product.getLatestSellingPrice() != null && Stock.getInstance().getBuyableQuantityInStock(product) > 0) {
+    			buyableProducts.add(product);
+    		}
+    	}
         return this.products;
     }
 

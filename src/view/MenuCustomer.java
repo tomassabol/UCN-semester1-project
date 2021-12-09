@@ -1,5 +1,6 @@
 package view;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import controller.CustomerController;
@@ -43,7 +44,7 @@ public class MenuCustomer extends GenericMenuInterface{
         String mobile = terminal.getStringInput("Phone number of the new customer");
         terminal.printCustumerTypes();
         CustomerType customerType = terminal.getCustomerType("The customer type");
-        LocalDateTime birthDate = terminal.getDateInput("Birth date of the new customer");
+        LocalDate birthDate = terminal.getDateInput("Birth date of the new customer");
 
         customerCtrl.createCustomer(firstName, lastName, address, mobile, customerType, birthDate);
         super.show("Customer was succsesfully created!");

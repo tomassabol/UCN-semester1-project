@@ -8,6 +8,10 @@ public class LoaningPrice {
     private LocalDateTime dateAdded;
 
     public LoaningPrice(BigDecimal pricePerHour, LocalDateTime dateAdded) {
+    	// Check that price per hour is not below zero
+    	if (pricePerHour.compareTo(BigDecimal.ZERO) > 0) {
+    		throw new IllegalArgumentException("Price per hour shouldn't be below 0");
+    	}
         this.pricePerHour = pricePerHour;
         this.dateAdded = dateAdded;
     }

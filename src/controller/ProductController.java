@@ -55,6 +55,13 @@ public class ProductController {
 	public List<Product> getProducts() {
 		return ProductContainer.getInstance().getProducts();
 	}
+	
+	/**
+	 * @return list of all buyable products that have a selling price set.
+	 */
+	public List<Product> getBuyableProducts() {
+		return ProductContainer.getInstance().getBuyableProducts();
+	}
 
 	// Update product methods
 	/**

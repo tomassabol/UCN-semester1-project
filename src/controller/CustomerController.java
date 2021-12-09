@@ -1,6 +1,6 @@
 package controller;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import model.Customer;
@@ -28,7 +28,7 @@ public class CustomerController {
 	 * @param birthDate the birth date
 	 * @return the newly created Customer object
 	 */
-	public Customer createCustomer(String firstName, String lastName, String address, String mobile, CustomerType customerType, LocalDateTime birthDate) {
+	public Customer createCustomer(String firstName, String lastName, String address, String mobile, CustomerType customerType, LocalDate birthDate) {
 		Customer customer = new Customer(PrimaryKey.getNextCustomerID(), firstName, lastName, address, mobile, customerType, birthDate);
 		CustomerContainer.getInstance().addCustomer(customer);
 		return customer;
@@ -164,7 +164,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param birthDate - the new birth date the birth date to be updated to
 	 */
-	public void updateBirthDate(int id, LocalDateTime birthDate){
+	public void updateBirthDate(int id, LocalDate birthDate){
 		Customer customer = findCustomerByID(id);
 		customer.setBirthDate(birthDate);
 	}

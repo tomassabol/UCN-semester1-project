@@ -77,14 +77,18 @@ public class Terminal {
    * prompt the user to identify a product by ID
    * @return specific product with entered product ID
    */
-  public Product getProduct() {
+  public Product getProduct(String prompt) {
 	  Product product = null;
 	  do {
-		  int id = this.getIntegerInput("Choose product by ID");
+		  int id = this.getIntegerInput(prompt);
 		  product = productCtrl.findProductByID(id);
 	  } while (product == null);
 	  
 	  return product;
+  }
+  
+  public Product getProduct() {
+	  return getProduct("Choose product:");
   }
   
   /**
@@ -108,6 +112,17 @@ public class Terminal {
 	  for (Customer customer: customerCtrl.getCustomers()) {
 		  System.out.println("(" + customer.ID + ") " 
 	  + customer.getFirstName() + " " + customer.getLastName());
+	  }
+  }
+  
+  public void printBuyableProducts() {
+	  for (Product product: productCtrl.getBuyableProducts()) {
+		  System.out.println("[" + product.getName() + "]");
+		  System.out.println("ID: " + product.ID);
+		  System.out.println("Description: " + product.getDescription());
+		  System.out.println("In stock: " + "Unknown");
+		  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
+		  System.out.println();
 	  }
   }
 
@@ -176,11 +191,34 @@ public class Terminal {
 
   /**
    * @param prompt The text asking the user for input
+   * @return LocalDateTime as input from the user
+   * Note: Runs until valid dateTime is entered
+   */
+  public LocalDateTime getDateTimeInput(String prompt) {
+    LocalDateTime userInput;
+    
+    while (true) {
+      try {
+        String dateString = getStringInput(prompt + " (" + DATE_FORMAT.toLowerCase() + ")");
+        userInput = convertStringToDateTime(dateString);
+        // success. So, valid input & breaking out.
+        break;
+      } catch (DateTimeParseException e) {
+        printError("Please enter a valid date in the format of " + DATE_FORMAT.toLowerCase());
+        // No continue required.
+      }
+    }
+    
+    return userInput;
+  }
+  
+  /**
+   * @param prompt The text asking the user for input
    * @return LocalDate as input from the user
    * Note: Runs until valid date is entered
    */
-  public LocalDateTime getDateInput(String prompt) {
-    LocalDateTime userInput;
+  public LocalDate getDateInput(String prompt) {
+    LocalDate userInput;
     
     while (true) {
       try {
@@ -231,10 +269,19 @@ public class Terminal {
   /**
    * @return localDateTime converted from String using the given format
    */
-  private LocalDateTime convertStringToDate(String dateString) {
+  private LocalDateTime convertStringToDateTime(String dateString) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
     LocalDateTime localDateTime = LocalDate.parse(dateString, formatter).atStartOfDay();
     return localDateTime;
+  }
+  
+  /**
+   * @return localDate converted from String using the given format
+   */
+  private LocalDate convertStringToDate(String dateString) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    LocalDate localDate = LocalDate.parse(dateString, formatter);
+    return localDate;
   }
   
   /*

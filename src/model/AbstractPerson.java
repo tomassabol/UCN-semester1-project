@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public abstract class AbstractPerson {
 	/**
@@ -11,12 +11,12 @@ public abstract class AbstractPerson {
 	private String lastName;
 	private String address;
 	private String mobile;
-	private LocalDateTime birthDate;
+	private LocalDate birthDate;
 
 	/*
 	 * Constructor
 	 */
-	protected AbstractPerson(int ID, String firstName, String lastName, String address, String mobile, LocalDateTime birthDate){
+	protected AbstractPerson(int ID, String firstName, String lastName, String address, String mobile, LocalDate birthDate){
 		this.ID = ID;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -57,11 +57,11 @@ public abstract class AbstractPerson {
 		this.mobile = mobile;
 	}
 
-	public LocalDateTime getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDateTime birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 	

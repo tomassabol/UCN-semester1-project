@@ -3,7 +3,7 @@
  */
 package model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author Daniels Kanepe
@@ -18,7 +18,7 @@ implements IFCustomer {
 	/**
 	 * Constructor
 	 */
-	public Customer(int ID, String firstName, String lastName, String address, String mobile, CustomerType customerType, LocalDateTime birthDate) {
+	public Customer(int ID, String firstName, String lastName, String address, String mobile, CustomerType customerType, LocalDate birthDate) {
 		super(ID, firstName, lastName, address, mobile, birthDate);
 		this.shoppingCart = new ShoppingCart(this);
 		this.customerType = customerType;
@@ -56,7 +56,7 @@ implements IFCustomer {
 		return super.getMobile();
 	}
 
-	public LocalDateTime getBirthDate() {
+	public LocalDate getBirthDate() {
 		return super.getBirthDate();
 	}
 	/**

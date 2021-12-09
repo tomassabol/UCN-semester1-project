@@ -1,5 +1,6 @@
 package view;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import controller.CustomerController;
@@ -95,7 +96,7 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        LocalDateTime birthDate = terminal.getDateInput("The new birth date");
+        LocalDate birthDate = terminal.getDateInput("The new birth date");
         customerCtrl.updateBirthDate(customerId, birthDate);
         super.show("The birth date was successfully updated");
     }

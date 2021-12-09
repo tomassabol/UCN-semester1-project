@@ -1,7 +1,6 @@
 package model;
 
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 import controller.EmployeeController;
 
 public class Authentication {
@@ -17,7 +16,7 @@ public class Authentication {
 			instance = new Authentication();
 			// default admin user
 			EmployeeController employeeCtrl = new EmployeeController();
-			IFEmployee employee = employeeCtrl.createEmployee("12323", "Admin", "Admin", "Admin street 4", "991", LocalDateTime.now());
+			IFEmployee employee = employeeCtrl.createEmployee("12323", "Admin", "Admin", "Admin street 4", "991", LocalDate.now());
 			instance.login(employee);
 		}
 		return instance;

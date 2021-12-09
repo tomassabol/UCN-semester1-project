@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import model.PrimaryKey;
+import model.Product;
 import model.Shelf;
 import model.Stock;
 import model.StorageLocation;
@@ -48,5 +49,13 @@ public class StockController {
 
     public ArrayList<Shelf> getShelves() {
         return Stock.getInstance().getShelves();
+    }
+    
+    public int buyableItemQuantityInStock(Product product) {
+    	return Stock.getInstance().getBuyableQuantityInStock(product);
+    }
+    
+    public boolean buyableItemIsInStock(Product product) {
+    	return buyableItemQuantityInStock(product) > 0;
     }
 }

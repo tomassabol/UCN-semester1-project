@@ -1,6 +1,6 @@
 package controller;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import model.Employee;
@@ -24,7 +24,7 @@ public class EmployeeController {
 	 * @param birthDate the birth date
 	 * @return the employee
 	 */
-	public Employee createEmployee(String CPRNumber, String firstName, String lastName, String address, String mobile, LocalDateTime birthDate) {
+	public Employee createEmployee(String CPRNumber, String firstName, String lastName, String address, String mobile, LocalDate birthDate) {
 		Employee employee = new Employee(PrimaryKey.getNextEmployeeID(), CPRNumber, firstName, lastName, address, mobile, birthDate);
 		EmployeeContainer.getInstance().addEmployee(employee);
 		return employee;

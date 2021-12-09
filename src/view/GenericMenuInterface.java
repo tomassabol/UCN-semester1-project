@@ -12,7 +12,7 @@ public class GenericMenuInterface {
 	 * @param MenuOptions the menu items
 	 */
 	public GenericMenuInterface() {
-		this.title = "";
+		this.title = null;
 		this.menuOptions = new LinkedHashMap<>();
 	}
 
@@ -34,11 +34,13 @@ public class GenericMenuInterface {
 	 * Show menu and listen for input
 	 * @param message (Optional) A message to show to the user above the menu
 	 */
-	public void show(String message) {
+	public void show(String message, boolean clearScreen) {
 		Terminal terminal = Terminal.getInstance();
-		terminal.clearScreen();
+		if (clearScreen) {
+			terminal.clearScreen();
+		}
 		// show message
-		if (message != "") {
+		if (message != null) {
 			System.out.println("["+ message + "]");
 		}
 		// show menu
@@ -49,15 +51,26 @@ public class GenericMenuInterface {
 	}
 	
 	public void show() {
-		show("");
+		show(null, true);
 	}
+	
+	public void show(String message) {
+		show(message, true);
+	}
+	
+	public void show(boolean clearScreen) {
+		show(null, clearScreen);
+	}
+	
 	
 
 	/**
 	 * print the menu
 	 */
 	private void printMenu() {
-		System.out.println("****** " + title + " ******");
+		if (title != null) {
+			System.out.println("****** " + title + " ******");
+		}
 		for (HashMap.Entry<String, GenericMenuOption> entry : menuOptions.entrySet()) {
 			String command = entry.getKey();
 			GenericMenuOption menuOption = entry.getValue();
