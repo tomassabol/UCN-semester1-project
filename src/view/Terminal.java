@@ -173,10 +173,9 @@ public class Terminal {
 
   public void printCustumerTypes(){
     List<CustomerType> customerTypes = customerCtrl.getCustomerTypes();
-    System.out.println("[Customer types]");
     for(CustomerType customerType : customerTypes){
-      System.out.println("Customer type name: " + customerType.getName() + "\nCustomer type's discount: " + customerType.getDiscountPercentage() + "\nCustomer type id: " + customerType.ID);
-      System.out.println();
+      System.out.println("Customer type name: " + customerType.getName() + "\nCustomer type discount percantage: " +customerType.getDiscountPercentage() + "\nCustomer type id: " + customerType.ID);
+      System.out.println("");
     }
   }
 
@@ -318,5 +317,8 @@ public class Terminal {
 			System.out.println();
 		}
 	}
+
+  public void printCustomerType() {
+  }
 
 }
