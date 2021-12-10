@@ -70,7 +70,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
     }
     
     public void createQuoteFromCart() {
-    	if (Terminal.getInstance().confirmInput("Are you sure you want to create a quote for Attila?")) {
+    	if (Terminal.getInstance().confirmInput("Are you sure you want to create a quote for "+ customer.getFirstName() +"?")) {
         	quoteCtrl.createQuote(customer,
         			getAuth().getLoggedInUser(),
         			customer.getShoppingCart());

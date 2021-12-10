@@ -69,8 +69,8 @@ public class MenuContractor extends GenericMenuInterface{
 
     public void printContractors() {
         for (Contractor contractor : contractorCtrl.getContractors()) {
-          System.out.println("Supply Offer ID: " + String.format(("%d"), contractor.ID));
-          System.out.println("Price per Item: " + String.format(("s"), contractor.getCompanyName()));
+          System.out.println("Contractor ID: " + String.format(("%d"), contractor.ID));
+          System.out.println("Contractor Company name: " + String.format(("%d"), contractor.getCompanyName()));
           System.out.println();
         }
       }
