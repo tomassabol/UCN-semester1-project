@@ -155,7 +155,12 @@ public class SupplyController {
 	 */
 	// Create supply order
 	public SupplyOrder createSupplyOrder(SupplyOffer supplyOffer, int quantity) {
-		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getNextSupplyOrderID(), LocalDateTime.now(), supplyOffer, quantity);
+		Product product = SupplyOfferContainer.getInstance().getProduct(supplyOffer);
+		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getNextSupplyOrderID(),
+				LocalDateTime.now(),
+				product,
+				quantity,
+				product.getLatestSellingPrice());
 		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
 		return supplyOrder;
 	}
@@ -172,7 +177,8 @@ public class SupplyController {
 		// For trackable items - auto generate serial number
 		if (trackable) {
 			// identify product
-			Product product = SupplyOfferContainer.getInstance().getProduct(supplyOrder.getSupplyOffer());
+			Product product = supplyOrder.getProduct();
+			
 			// Generate trackable items
 			Set<TrackableItem> trackableItems = new HashSet<>();
 			for (int i = 0; i < supplyOrder.getQuantity(); i++) {
@@ -187,7 +193,7 @@ public class SupplyController {
 			
 			// For untrackable items
 		} else {
-			Product product = SupplyOfferContainer.getInstance().getProduct(supplyOrder.getSupplyOffer());
+			Product product = supplyOrder.getProduct();
 			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity());
 			shelf.addStockBatch(product, stockBatch);
 		}

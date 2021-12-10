@@ -182,8 +182,14 @@ public class MenuSupply extends GenericMenuInterface {
 
     private void printSupplyOrder(SupplyOrder supplyOrder) {
         System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
+<<<<<<< HEAD
         System.out.println("Date Ordered: " + String.format(("%s"), supplyOrder.getDateOrdered()));
         System.out.println("Supply Offer: " + String.format(("%s"), supplyOrder.getSupplyOffer().ID));
+=======
+        System.out.println("Product: " + String.format(("%s"), supplyOrder.getProduct().getName()));
+        System.out.println("Price per item: " + String.format(("%.2f"), supplyOrder.getPricePerItem()));
+        System.out.println("Date Ordered: " + String.format(("%s"), supplyOrder.getDateOrdered()));
+>>>>>>> 4d16888 (Untied supply orders from supply offers)
         System.out.println("Delivered: " + String.format(("%s"), supplyOrder.isDelivered()));
         System.out.println("Quantity: " + String.format(("%d"), supplyOrder.getQuantity()));
         System.out.println();
@@ -213,7 +219,11 @@ public class MenuSupply extends GenericMenuInterface {
           System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
           System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
           System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
+<<<<<<< HEAD
           System.out.println("Quantity: " + String.format(("%s"), supplyOffer.getMIN_QUANTITY()));
+=======
+          System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.getMIN_QUANTITY()));
+>>>>>>> 4d16888 (Untied supply orders from supply offers)
           System.out.println();
         }
       }

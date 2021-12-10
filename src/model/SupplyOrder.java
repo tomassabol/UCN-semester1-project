@@ -1,21 +1,23 @@
 package model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class SupplyOrder {
     public final int ID;
     private LocalDateTime dateOrdered;
-    private SupplyOffer supplyOffer;
     private boolean delivered;
     private int quantity;
+    private Product product;
+    private BigDecimal pricePerITem;
 
     public SupplyOrder(int id, LocalDateTime dateOrdered,
-    		SupplyOffer supplyOffer, int quantity) {
+    		Product product, int quantity, BigDecimal pricePerItem) {
         this.ID = id;
         this.dateOrdered = dateOrdered;
-        this.supplyOffer = supplyOffer;
+        this.product = product;
+        this.pricePerITem = pricePerItem;
         this.quantity = quantity;
-        
         this.delivered = false;
     }
 
@@ -36,12 +38,20 @@ public class SupplyOrder {
         this.dateOrdered = dateOrdered;
     }
 
-	public SupplyOffer getSupplyOffer() {
-		return supplyOffer;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setSupplyOffer(SupplyOffer supplyOffer) {
-		this.supplyOffer = supplyOffer;
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public BigDecimal getPricePerItem() {
+		return pricePerITem;
+	}
+
+	public void setPricePerITem(BigDecimal pricePerITem) {
+		this.pricePerITem = pricePerITem;
 	}
 
 	public boolean isDelivered() {
