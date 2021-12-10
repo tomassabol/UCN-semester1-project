@@ -189,10 +189,10 @@ public class MenuSupply extends GenericMenuInterface {
 
     private void printSupplyOrder(SupplyOrder supplyOrder) {
         System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
-        System.out.println("Date Ordered: " + String.format(("s"), supplyOrder.getDateOrdered()));
-        System.out.println("Supply Offer: " + String.format(("s"), supplyOrder.getSupplyOffer().ID));
-        System.out.println("Delivered: " + String.format(("s"), supplyOrder.isDelivered()));
-        System.out.println("Quantity: " + String.format(("d"), supplyOrder.getQuantity()));
+        System.out.println("Date Ordered: " + String.format(("%s"), supplyOrder.getDateOrdered()));
+        System.out.println("Supply Offer: " + String.format(("%s"), supplyOrder.getSupplyOffer().ID));
+        System.out.println("Delivered: " + String.format(("%s"), supplyOrder.isDelivered()));
+        System.out.println("Quantity: " + String.format(("%d"), supplyOrder.getQuantity()));
         System.out.println();
       }
       private void printAllSupplyOrders() {
@@ -217,10 +217,10 @@ public class MenuSupply extends GenericMenuInterface {
       private void printSuplyOffers(Product product) {
         for (SupplyOffer supplyOffer : supplyCtrl.getSupplyOffers(product)) {
           System.out.println("Supply Offer ID: " + String.format(("%d"), supplyOffer.ID));
-          System.out.println("Price per Item: " + String.format((".2f"), supplyOffer.getPRICE_PER_PRODUCT()));
-          System.out.println("Min Quantity: " + String.format(("d"), supplyOffer.MIN_QUANTITY));
-          System.out.println("Date added: " + String.format(("s"), supplyOffer.DATE_ADDED));
-          System.out.println("Quantity: " + String.format(("d"), supplyOffer.CONTRACTOR));
+          System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
+          System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
+          System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
+          System.out.println("Quantity: " + String.format(("%d"), supplyOffer.CONTRACTOR));
           System.out.println();
         }
       }
