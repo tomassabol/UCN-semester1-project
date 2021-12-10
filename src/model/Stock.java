@@ -266,13 +266,4 @@ public class Stock {
 
  
     }
-
-    // TODO: Remove these. don't print in model layer!
-    public void printAllShelvesInfo() {
-        for (Shelf shelf : getShelves()) {
-            shelf.printShelfInfo();
-        }
-    }
-    
-
 }

@@ -141,15 +141,4 @@ public class Product {
 		}
 		return this.loaningPrices.add(loaningPrice);
 	}
-
-	public void getProductInfo() {
-		this.getName();
-        this.getDescription();
-        this.getMinStock();
-        this.getMaxStock();
-        this.getDateAdded();
-        this.getLatestSellingPrice();
-        this.getLatestLoaningPrice();
-	}
-
 }

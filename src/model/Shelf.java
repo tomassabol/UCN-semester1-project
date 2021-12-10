@@ -110,8 +110,4 @@ public class Shelf {
 		}
 		return availableQuantity;
     }
-
-    public void printShelfInfo() {
-        System.out.println("Shelf ID: " + this.ID + "\nName: " + name + "\nStorage Location: " + storageLocation.getName());
-    }
 }
