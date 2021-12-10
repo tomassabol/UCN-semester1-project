@@ -23,6 +23,7 @@ public class MenuProduct extends GenericMenuInterface{
         super.addMenuOption("4", new GenericMenuOption("Update a product", () -> updateProduct()));
         super.addMenuOption("5", new GenericMenuOption("Add selling price", () -> addSellingPrice()));
         super.addMenuOption("6", new GenericMenuOption("Add loaning price", () -> addLoaningPrice()));
+        super.addMenuOption("7", new GenericMenuOption("Manage Bulk discount", () -> showBulkDisocuntMenu()));
         super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
 
         productCtrl = new ProductController();
@@ -153,5 +154,9 @@ public class MenuProduct extends GenericMenuInterface{
           System.out.println("Loaning price: " + String.format("%.2f",product.getLatestLoaningPrice()));
           System.out.println();
         }
+      }
+
+      private void showBulkDisocuntMenu(){
+          MenuBulkDiscount.getInstance().show();
       }
 }

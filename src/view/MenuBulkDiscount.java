@@ -42,4 +42,8 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         DiscountContainer.getInstance().addBulkDiscount(product, bulkDiscount);
     }
 
+    private void showAllBulkDiscount(){
+        
+    }
+
 }
