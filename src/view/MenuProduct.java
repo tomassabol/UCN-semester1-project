@@ -23,7 +23,7 @@ public class MenuProduct extends GenericMenuInterface{
         super.addMenuOption("5", new GenericMenuOption("Add selling price", () -> addSellingPrice()));
         super.addMenuOption("6", new GenericMenuOption("Add loaning price", () -> addLoaningPrice()));
         super.addMenuOption("7", new GenericMenuOption("Manage Bulk discount", () -> showBulkDisocuntMenu()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> this.goToPreviousMenu()));
+        super.addMenuOptionGoBack("0");
 
         productCtrl = new ProductController();
     }

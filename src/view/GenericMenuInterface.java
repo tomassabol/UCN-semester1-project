@@ -120,7 +120,12 @@ public class GenericMenuInterface {
 	}
 	
 	public void goToPreviousMenu() {
-		breadcrumbs.pop().show();
+		GenericMenuInterface previousInterface = breadcrumbs.pop();
+		if (breadcrumbs == null) {
+			System.out.println("Error: There are no more preivous menus");
+		} else {
+			previousInterface.show();
+		}
 	}
 	
 	public Stack<GenericMenuInterface> getBreadcrumbs() {
@@ -129,6 +134,10 @@ public class GenericMenuInterface {
 	
 	public AuthenticationController getAuth() {
 		return this.auth;
+	}
+	
+	public void addMenuOptionGoBack(String key) {
+		this.addMenuOption(key, new GenericMenuOption("<-- Go back", () -> this.goToPreviousMenu()));
 	}
 
 

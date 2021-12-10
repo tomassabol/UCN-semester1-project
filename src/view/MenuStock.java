@@ -18,7 +18,7 @@ public class MenuStock extends GenericMenuInterface {
         super.addMenuOption("2", new GenericMenuOption("Create new Shelf", () -> createShelf()));
         super.addMenuOption("3", new GenericMenuOption("Show all Storage Locations", () -> showAllStorageLocations()));
         super.addMenuOption("4", new GenericMenuOption("Show all Shelves", () -> showAllShelves()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> this.goToPreviousMenu()));
+        super.addMenuOptionGoBack("0");
 
         stockCtrl = new StockController();
     }

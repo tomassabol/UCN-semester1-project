@@ -15,7 +15,7 @@ public class MenuCustomerType extends GenericMenuInterface{
         super.addMenuOption("3", new GenericMenuOption("Update customer type name", () -> updateCustomerTypeName()));
         super.addMenuOption("4", new GenericMenuOption("Update customer type discount percantage", () -> updateCustomerTypeDiscountPercantage()));
         super.addMenuOption("5", new GenericMenuOption("Delete customer type", () -> deleteCustomerType()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to customer menu", () -> this.goToPreviousMenu()));
+        super.addMenuOptionGoBack("0");
 
         customerCtrl = new CustomerController();
     }

@@ -35,7 +35,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
         super.addMenuOption("1", new GenericMenuOption("Add item", () -> addItemToCart(customer.getShoppingCart())));
         super.addMenuOption("2", new GenericMenuOption("Create a quote from current shopping cart", () -> createQuoteFromCart()));
         super.addMenuOption("3", new GenericMenuOption("Clear shopping cart", () -> clearShoppingCart()));
-        super.addMenuOption("0", new GenericMenuOption("Return to Quotes Menu", () -> this.goToPreviousMenu()));
+        super.addMenuOptionGoBack("0");
         
     }
     

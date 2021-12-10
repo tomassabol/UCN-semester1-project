@@ -23,8 +23,7 @@ public class MenuQuotes extends GenericMenuInterface {
     		() -> createQuote()));
     super.addMenuOption("2", new GenericMenuOption("Show quotes",
     		() -> showQuotes()));
-    super.addMenuOption("0", new GenericMenuOption("Go back to main menu",
-    		() -> this.goToPreviousMenu()));
+    super.addMenuOptionGoBack("0");
     
     quoteCtrl = new QuoteController();
     employeeCtrl = new EmployeeController();

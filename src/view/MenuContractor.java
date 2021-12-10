@@ -17,7 +17,7 @@ public class MenuContractor extends GenericMenuInterface{
         super.addMenuOption("1", new GenericMenuOption("Create a Contractor", () -> createContractor()));
         super.addMenuOption("2", new GenericMenuOption("Show all Contractor", () -> showAllContractors()));
         super.addMenuOption("3", new GenericMenuOption("Delete a Contractor", () -> deleteContractor()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> this.goToPreviousMenu()));
+        super.addMenuOptionGoBack("0");
 
         contractorCtrl = new ContractorController();
     }
