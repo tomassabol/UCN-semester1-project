@@ -2,34 +2,43 @@ package view;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Stack;
+
+import controller.AuthenticationController;
+import model.Authentication;
 
 public class GenericMenuInterface {
+	private Stack<GenericMenuInterface> breadcrumbs;
+	private AuthenticationController auth;
 	private String title;
 	private LinkedHashMap<String, GenericMenuOption> menuOptions;
 
 	/**
 	 * @param title The title of the menu.
 	 * @param MenuOptions the menu items
+	 * 
+	 * @exception IllegalArgumentException When previousInterface is null
 	 */
-	public GenericMenuInterface() {
+	public GenericMenuInterface(GenericMenuInterface previousInterface) {
+		if (previousInterface == null) {
+			throw new IllegalArgumentException("Previous interface cannot be null!");
+		}
+		this.breadcrumbs = previousInterface.breadcrumbs;
+		this.breadcrumbs.add(previousInterface);
+		this.auth = previousInterface.auth;
+		
 		this.title = null;
 		this.menuOptions = new LinkedHashMap<>();
 	}
-
-	/**
-	 * @param title Set the title of the menu
-	 */
-	public void setTitle(String title) {
-		this.title = title;
+	
+	// This constructor creates new breadcrumbs & auth!
+	public GenericMenuInterface() {
+		this.breadcrumbs = new Stack<>();
+		this.auth = new AuthenticationController();
+		this.title = null;
+		this.menuOptions = new LinkedHashMap<>();
 	}
-
-	/**
-	 * @param MenuOption the menu item
-	 */
-	public void addMenuOption(String command, GenericMenuOption MenuOption) {
-		menuOptions.put(command, MenuOption);
-	}
-
+	
 	/**
 	 * Show menu and listen for input
 	 * @param message (Optional) A message to show to the user above the menu
@@ -49,18 +58,32 @@ public class GenericMenuInterface {
 		// Then, run the chosen option.
 		getMenuOptionInput().run();
 	}
-	
 	public void show() {
 		show(null, true);
 	}
-	
 	public void show(String message) {
 		show(message, true);
 	}
-	
 	public void show(boolean clearScreen) {
 		show(null, clearScreen);
 	}
+
+	
+	/**
+	 * @param title Set the title of the menu
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @param MenuOption the menu item
+	 */
+	public void addMenuOption(String command, GenericMenuOption MenuOption) {
+		menuOptions.put(command, MenuOption);
+	}
+
+
 	
 	
 
@@ -94,6 +117,18 @@ public class GenericMenuInterface {
 				// implied continue
 			}
 		}
+	}
+	
+	public void goToPreviousMenu() {
+		breadcrumbs.pop().show();
+	}
+	
+	public Stack<GenericMenuInterface> getBreadcrumbs() {
+		return this.breadcrumbs;
+	}
+	
+	public AuthenticationController getAuth() {
+		return this.auth;
 	}
 
 

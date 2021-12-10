@@ -4,22 +4,14 @@ import model.BulkDiscount;
 import model.Product;
 
 public class MenuBulkDiscount extends GenericMenuInterface {
-    private static MenuBulkDiscount instance;
 
-    private MenuBulkDiscount() {
-        super();
+    public MenuBulkDiscount(GenericMenuInterface previousInterface) {
+        super(previousInterface);
 
         super.setTitle("Manage Bulk Discount");
         super.addMenuOption("1", new GenericMenuOption("Create a bulk discount", () -> createBulkDiscount()));
 
-        super.addMenuOption("0", new GenericMenuOption("Go back to product menu", () -> MenuProduct.getInstance().show()));
-    }
-
-    public static MenuBulkDiscount getInstance() {
-        if(instance == null){
-            instance = new MenuBulkDiscount();
-        }
-        return instance;
+        super.addMenuOption("0", new GenericMenuOption("Go back to product menu", () -> this.goToPreviousMenu()));
     }
 
     /**

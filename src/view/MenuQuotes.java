@@ -8,7 +8,6 @@ import model.IFEmployee;
 import model.Quote;
 
 public class MenuQuotes extends GenericMenuInterface {
-  private static MenuQuotes instance;
   
   private QuoteController quoteCtrl;
   private EmployeeController employeeCtrl;
@@ -16,8 +15,8 @@ public class MenuQuotes extends GenericMenuInterface {
   /**
    * Constructor for MainMenuUI.
    */
-  private MenuQuotes() {
-    super();
+  public MenuQuotes(GenericMenuInterface previousInterface) {
+    super(previousInterface);
 
     super.setTitle("Quotes");
     super.addMenuOption("1", new GenericMenuOption("Create a quote",
@@ -25,22 +24,11 @@ public class MenuQuotes extends GenericMenuInterface {
     super.addMenuOption("2", new GenericMenuOption("Show quotes",
     		() -> showQuotes()));
     super.addMenuOption("0", new GenericMenuOption("Go back to main menu",
-    		() -> MenuMain.getInstance().show()));
+    		() -> this.goToPreviousMenu()));
     
     quoteCtrl = new QuoteController();
     employeeCtrl = new EmployeeController();
   }
-
-  /**
-   * @return the instance of MainMenuUI
-   */
-  public static MenuQuotes getInstance() {
-    if (instance == null) {
-      instance = new MenuQuotes();
-    }
-    return instance;
-  }
-  
 
 /**
  * Create Quote
@@ -52,7 +40,7 @@ public class MenuQuotes extends GenericMenuInterface {
 		System.out.println("[Customers]");
 		terminal.printAllCustomers();
 		Customer customer = terminal.getCustomer();
-		MenuShoppingCart.getInstance(customer).show();
+		new MenuShoppingCart(this, customer).show();
 	  
 	}
 
