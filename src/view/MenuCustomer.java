@@ -7,13 +7,11 @@ import model.Customer;
 import model.CustomerType;
 
 public class MenuCustomer extends GenericMenuInterface{
-    
-    private static MenuCustomer instance;
 
     private CustomerController customerCtrl;
 
-    private MenuCustomer(){
-        super();
+    public MenuCustomer(GenericMenuInterface previousInterface){
+        super(previousInterface);
 
         super.setTitle("Customer menu");
         super.addMenuOption("1", new GenericMenuOption("Add new Customer", () -> createCustomer()));
@@ -21,16 +19,9 @@ public class MenuCustomer extends GenericMenuInterface{
         super.addMenuOption("3", new GenericMenuOption("Update customer information", () -> updateCustomerInfo()));
         super.addMenuOption("4", new GenericMenuOption("Delete Customer from the system", () -> deleteCustomer()));
         super.addMenuOption("5", new GenericMenuOption("Handle Cusotmer Types", () -> showMenuCustomerType()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
+        super.addMenuOptionGoBack("0");
 
         customerCtrl = new CustomerController();
-    }
-
-    public static MenuCustomer getInstance(){
-        if(instance == null){
-            instance = new MenuCustomer();
-        }
-        return instance;
     }
 
     private void createCustomer(){
@@ -83,7 +74,7 @@ public class MenuCustomer extends GenericMenuInterface{
         if(isEmpty(id)){
             super.show("There is no Customer with that id in the system");
         }else{
-            MenuUpdateCustomer updateMenu = new MenuUpdateCustomer(id);
+            MenuUpdateCustomer updateMenu = new MenuUpdateCustomer(this, id);
             updateMenu.show();
         }
         terminal.getAnyKeyInput("Press [Enter] to go back");
@@ -105,7 +96,7 @@ public class MenuCustomer extends GenericMenuInterface{
     * Show CustomerType menu.
     */
     private void showMenuCustomerType(){
-        MenuCustomerType.getInstance().show();
+    	new MenuCustomerType(this).show();
     }
 
     /**

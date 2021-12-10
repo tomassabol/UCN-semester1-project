@@ -6,15 +6,14 @@ import controller.ProductController;
 import model.Product;
 
 public class MenuProduct extends GenericMenuInterface{
-    private static MenuProduct instance;
 
     private ProductController productCtrl;
 
     /**
      * Constructor for MenuProduct
      */
-    private MenuProduct(){
-        super();
+    public MenuProduct(GenericMenuInterface previousInterface){
+        super(previousInterface);
 
         super.setTitle("Products Menu");
         super.addMenuOption("1", new GenericMenuOption("Create a product", () -> createProduct()));
@@ -24,19 +23,9 @@ public class MenuProduct extends GenericMenuInterface{
         super.addMenuOption("5", new GenericMenuOption("Add selling price", () -> addSellingPrice()));
         super.addMenuOption("6", new GenericMenuOption("Add loaning price", () -> addLoaningPrice()));
         super.addMenuOption("7", new GenericMenuOption("Manage Bulk discount", () -> showBulkDisocuntMenu()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
+        super.addMenuOptionGoBack("0");
 
         productCtrl = new ProductController();
-    }
-
-    /**
-     * @return the instance of MenuProduct
-     */
-    public static MenuProduct getInstance() {
-        if(instance == null){
-            instance = new MenuProduct();
-        }
-        return instance;
     }
 
     /**
@@ -94,7 +83,7 @@ public class MenuProduct extends GenericMenuInterface{
         if(isEmpty(id)){
             super.show("There is no product with that id in the system");
         }else{
-            MenuUpdateProduct updateMenu = new MenuUpdateProduct(id);
+            MenuUpdateProduct updateMenu = new MenuUpdateProduct(this, id);
             updateMenu.show();
         }
         terminal.getAnyKeyInput("Press [Enter] to go back");
@@ -157,6 +146,6 @@ public class MenuProduct extends GenericMenuInterface{
       }
 
       private void showBulkDisocuntMenu(){
-          MenuBulkDiscount.getInstance().show();
+    	  new MenuBulkDiscount(this).show();
       }
 }

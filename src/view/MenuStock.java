@@ -4,35 +4,23 @@ import controller.StockController;
 import model.StorageLocation;
 
 public class MenuStock extends GenericMenuInterface {
-    private static MenuStock instance;
 
     private StockController stockCtrl;
 
     /**
      * Constructor class MenuStock
      */
-    private MenuStock() {
-        super();
+    public MenuStock(GenericMenuInterface previousInterface) {
+        super(previousInterface);
 
         super.setTitle("Stock Menu");
         super.addMenuOption("1", new GenericMenuOption("Create new Storage Location", () -> createStorageLocation()));
         super.addMenuOption("2", new GenericMenuOption("Create new Shelf", () -> createShelf()));
         super.addMenuOption("3", new GenericMenuOption("Show all Storage Locations", () -> showAllStorageLocations()));
         super.addMenuOption("4", new GenericMenuOption("Show all Shelves", () -> showAllShelves()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
+        super.addMenuOptionGoBack("0");
 
         stockCtrl = new StockController();
-    }
-
-    /**
-     * get instance of a class MenuStock
-     * @return instance of a class MenuStok
-     */
-    public static MenuStock getInstance() {
-        if (instance == null) {
-            instance = new MenuStock();
-        }
-        return instance;
     }
 
     /**

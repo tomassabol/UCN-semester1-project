@@ -5,32 +5,21 @@ import model.Contractor;
 
 public class MenuContractor extends GenericMenuInterface{
 
-    private static MenuContractor instance;
-
     private ContractorController contractorCtrl;
+    
     /**
      * Constructor for MenuProduct
      */
-    private MenuContractor() {
-        super();
+    public MenuContractor(GenericMenuInterface previousInterface) {
+        super(previousInterface);
 
         super.setTitle("Contractor Menu");
         super.addMenuOption("1", new GenericMenuOption("Create a Contractor", () -> createContractor()));
         super.addMenuOption("2", new GenericMenuOption("Show all Contractor", () -> showAllContractors()));
         super.addMenuOption("3", new GenericMenuOption("Delete a Contractor", () -> deleteContractor()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
+        super.addMenuOptionGoBack("0");
 
         contractorCtrl = new ContractorController();
-    }
-
-    /**
-     * @return the instance of MenuContractor
-     */
-    public static MenuContractor getInstace() {
-        if(instance == null){
-            instance = new MenuContractor();
-        }
-        return instance;
     }
 
     /**

@@ -5,11 +5,10 @@ import model.CustomerType;
 
 public class MenuCustomerType extends GenericMenuInterface{
     
-    private static MenuCustomerType instance;
     private CustomerController customerCtrl;
 
-    private MenuCustomerType(){
-        super();
+    public MenuCustomerType(GenericMenuInterface previousInterface){
+        super(previousInterface);
 
         super.setTitle("Customer Type menu");
         super.addMenuOption("1", new GenericMenuOption("Add customer type", () -> createCustomerType()));
@@ -17,18 +16,10 @@ public class MenuCustomerType extends GenericMenuInterface{
         super.addMenuOption("3", new GenericMenuOption("Update customer type name", () -> updateCustomerTypeName()));
         super.addMenuOption("4", new GenericMenuOption("Update customer type discount percantage", () -> updateCustomerTypeDiscountPercantage()));
         super.addMenuOption("5", new GenericMenuOption("Delete customer type", () -> deleteCustomerType()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuCustomer.getInstance().show()));
+        super.addMenuOptionGoBack("0");
 
         customerCtrl = new CustomerController();
     }
-
-    public static MenuCustomerType getInstance(){
-        if(instance == null){
-            instance = new MenuCustomerType();
-        }
-        return instance;
-    }
-
 
     /**
      * Creates a new customer type

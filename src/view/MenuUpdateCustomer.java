@@ -11,8 +11,9 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
     private int customerId;
     private CustomerController customerCtrl;
 
-    public MenuUpdateCustomer(int id){
-        super();
+    public MenuUpdateCustomer(GenericMenuInterface previousInterface,
+    		int id){
+        super(previousInterface);
 
         customerCtrl = new CustomerController();
         Customer customer = customerCtrl.findCustomerByID(id);
@@ -25,7 +26,7 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
         super.addMenuOption("4", new GenericMenuOption("Udpate phone number", () -> updateMobile()));
         super.addMenuOption("5", new GenericMenuOption("Update customer type", () -> updateCustomerType()));
         super.addMenuOption("6", new GenericMenuOption("Update birth date", () -> updateBirthDate()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to Customer Menu", () -> MenuCustomer.getInstance().show()));
+        super.addMenuOptionGoBack("0");
     }
 
     /**
