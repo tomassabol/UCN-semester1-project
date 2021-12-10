@@ -40,7 +40,7 @@ public class ShoppingItemLine {
 	}
 	
 	public BulkDiscount getBulkDiscount() {
-		return DiscountContainer.getInstance().getBestBulkDiscount(PRODUCT, quantity);
+		return PRODUCT.getBestBulkDiscount(quantity);
 	}
 
 	public int getQuantity() {

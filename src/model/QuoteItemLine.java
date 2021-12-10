@@ -20,7 +20,7 @@ public class QuoteItemLine {
 		this.QUANTITY = quantity;
 		
 		// fix the price & bulk discount
-		FIXED_BULK_DISCOUNT = DiscountContainer.getInstance().getBestBulkDiscount(PRODUCT, quantity);
+		FIXED_BULK_DISCOUNT = PRODUCT.getBestBulkDiscount(quantity);
 		FIXED_PRODUCT_PRICE = PRODUCT.getLatestSellingPrice();
 	}
 	

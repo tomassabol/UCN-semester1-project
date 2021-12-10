@@ -101,14 +101,7 @@ public class CustomerController {
 	public CustomerType findCustomerTypeById(int id){
 		return customerTypeContainer.findCustomerTypeById(id);
 	}
-
-	/**
-	 * Prints out all the customers informations
-	 */
-	public void printAllCustomerInfo(){
-		CustomerContainer.getInstance().printAllCustomerInfo();
-	}
-
+	
 	/**
 	 * 
 	 * @param id - The id of the customer whose first name is to be updated

@@ -131,14 +131,4 @@ public class ProductController {
 		product.addLoaningPrice(loaningPrice);
 		return loaningPrice;
 	}
-
-	/**
-	 * Print all products
-	 */
-	public void getProductInfo(){
-		ProductContainer pContainer = ProductContainer.getInstance();
-		for (Product product : pContainer.getProducts()) {
-			product.getProductInfo();
-		}
-	}
 }

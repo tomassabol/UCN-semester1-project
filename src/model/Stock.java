@@ -262,17 +262,9 @@ public class Stock {
     	// Create an orderline from the removed stock items and return it
     	return new OrderLine(product, removedUntrackableItemQuantity, 
     			removedTrackableItems, product.getLatestSellingPrice(), 
-    			DiscountContainer.getInstance().getBestBulkDiscount(product, quantity));
+    			product.getBestBulkDiscount(quantity));
+    	
 
  
     }
-
-    // TODO: Remove these. don't print in model layer!
-    public void printAllShelvesInfo() {
-        for (Shelf shelf : getShelves()) {
-            shelf.printShelfInfo();
-        }
-    }
-    
-
 }

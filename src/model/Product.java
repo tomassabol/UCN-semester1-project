@@ -17,6 +17,7 @@ public class Product {
 	private int maxStock; 
 	private ArrayList<SellingPrice> sellingPrices = new ArrayList<>();
 	private ArrayList<LoaningPrice> loaningPrices = new ArrayList<>();
+	private ArrayList<BulkDiscount> bulkDiscounts = new ArrayList<>();
 	private LocalDateTime DATE_ADDED;
 	
 	/**
@@ -142,14 +143,49 @@ public class Product {
 		return this.loaningPrices.add(loaningPrice);
 	}
 
-	public void getProductInfo() {
-		this.getName();
-        this.getDescription();
-        this.getMinStock();
-        this.getMaxStock();
-        this.getDateAdded();
-        this.getLatestSellingPrice();
-        this.getLatestLoaningPrice();
+	public void addBulkDiscount(BulkDiscount bulkDiscount) {
+		this.bulkDiscounts.add(bulkDiscount);
 	}
 
+	public ArrayList<BulkDiscount> getBulkDiscounts() {
+		return this.bulkDiscounts;
+	}
+	
+	public ArrayList<BulkDiscount> getActiveBulkDiscounts() {
+    	ArrayList<BulkDiscount> activeBulkDiscounts = new ArrayList<>();
+    	for (BulkDiscount bulkDiscount: this.getBulkDiscounts()) {
+    		if (bulkDiscount.isActive()) {
+    			activeBulkDiscounts.add(bulkDiscount);
+    		}
+    	}
+    	return activeBulkDiscounts;
+		
+	}
+	
+	public ArrayList<BulkDiscount> getInactiveBulkDiscounts() {
+    	ArrayList<BulkDiscount> inactiveBulkDiscounts = new ArrayList<>();
+    	for (BulkDiscount bulkDiscount: this.getBulkDiscounts()) {
+    		if (!bulkDiscount.isActive()) {
+    			inactiveBulkDiscounts.add(bulkDiscount);
+    		}
+    	}
+    	return inactiveBulkDiscounts;
+	}
+	
+	public BulkDiscount getBestBulkDiscount(int quantity) {
+    	BulkDiscount bestBulkDiscount = null;
+		for (BulkDiscount bulkDiscount: this.getActiveBulkDiscounts()) {
+			if (quantity >= bulkDiscount.getMinQuantity()) {
+				if (bestBulkDiscount == null) {
+					bestBulkDiscount = bulkDiscount;
+				} else {
+					if (bulkDiscount.getDiscountPercentage() > bestBulkDiscount.getDiscountPercentage()) {
+						bestBulkDiscount = bulkDiscount;
+					}
+				}
+			}
+		}
+    	return bestBulkDiscount;
+		
+	}
 }

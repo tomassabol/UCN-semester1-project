@@ -1,7 +1,6 @@
 package view;
 
 import model.BulkDiscount;
-import model.DiscountContainer;
 import model.Product;
 
 public class MenuBulkDiscount extends GenericMenuInterface {
@@ -39,7 +38,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
 
         BulkDiscount bulkDiscount = new BulkDiscount(minQuantity, discountPercentage);
 
-        DiscountContainer.getInstance().addBulkDiscount(product, bulkDiscount);
+        product.addBulkDiscount(bulkDiscount);
     }
 
     private void showAllBulkDiscount(){

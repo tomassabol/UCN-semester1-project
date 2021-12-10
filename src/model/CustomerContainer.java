@@ -59,14 +59,4 @@ public class CustomerContainer {
         }
         return null;
     }
-
-    /**
-     * Prints out all the customers informations
-     * No need for this once it gets pushed, it will be replaced
-     */
-    public void printAllCustomerInfo(){
-        for(Customer customer: customers){
-            customer.printAllCustomerInfo();
-        }
-    }
 }
