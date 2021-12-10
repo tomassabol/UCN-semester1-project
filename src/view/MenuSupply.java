@@ -32,6 +32,7 @@ public class MenuSupply extends GenericMenuInterface {
         super.addMenuOptionGoBack("0");
 
         supplyCtrl = new SupplyController();
+        stockCtrl = new StockController();
     }
 
     /**
@@ -40,8 +41,10 @@ public class MenuSupply extends GenericMenuInterface {
     private void createSupplyOffer(){
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
-        
+
+        terminal.printProductInfos();
         Product product = terminal.getProduct();
+        terminal.printContractorInfo();
         Contractor contractor = terminal.getContractor();
         BigDecimal pricePerItem = terminal.getBigDecimalInput("Price per Item");
         int minQuantity = terminal.getIntegerInput("The minimum quantity of the product");
@@ -84,7 +87,7 @@ public class MenuSupply extends GenericMenuInterface {
         supplyCtrl.setStatus(supplyOffer);
         super.show("Supply offer was set to " + supplyOffer.isActive());
         System.out.println();
-        terminal.getAnyKeyInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput("Press [Enter] to go back"); // Doesn't work for some reason
         super.show();
     }
     
@@ -210,7 +213,7 @@ public class MenuSupply extends GenericMenuInterface {
           System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
           System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
           System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
-          System.out.println("Quantity: " + String.format(("%d"), supplyOffer.CONTRACTOR));
+          System.out.println("Quantity: " + String.format(("%s"), supplyOffer.getMIN_QUANTITY()));
           System.out.println();
         }
       }

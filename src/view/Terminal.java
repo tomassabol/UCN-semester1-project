@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,11 +18,15 @@ import model.CustomerTypeContainer;
 import model.Product;
 import model.Quote;
 import model.Shelf;
+import model.SupplyOffer;
+import model.SupplyOrder;
+import model.SupplyOrderContainer;
 import controller.ProductController;
 import controller.QuoteController;
 import controller.StockController;
 import controller.SupplyController;
 import model.Contractor;
+import model.ContractorContainer;
 import controller.ContractorController;
 
 public class Terminal {
@@ -92,7 +97,7 @@ public class Terminal {
   }
   
   public Product getProduct() {
-	  return getProduct("Choose product:");
+	  return getProduct("Choose product");
   }
   
   /**
@@ -121,6 +126,7 @@ public class Terminal {
   
   public void printBuyableProducts() {
 	  for (Product product: productCtrl.getBuyableProducts()) {
+      System.out.println();
 		  System.out.println("[" + product.getName() + "]");
 		  System.out.println("ID: " + product.ID);
 		  System.out.println("Description: " + product.getDescription());
@@ -128,6 +134,18 @@ public class Terminal {
 		  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
 		  System.out.println();
 	  }
+  }
+
+  public void printProductInfos(){
+    for (Product product : productCtrl.getProducts()){
+      System.out.println();
+		  System.out.println("[" + product.getName() + "]");
+		  System.out.println("ID: " + product.ID);
+		  System.out.println("Description: " + product.getDescription());
+		  System.out.println("In stock: " + "Unknown");
+		  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
+		  System.out.println();
+    }
   }
   
   public void printQuotes(Customer customer) {
@@ -188,6 +206,25 @@ public class Terminal {
       System.out.println("Customer type name: " + customerType.getName() + "\nCustomer type discount percantage: " +customerType.getDiscountPercentage() + "\nCustomer type id: " + customerType.ID);
       System.out.println("");
     }
+  }
+
+  public void printContractorInfo() {
+    List<Contractor> contractors = contractorCtrl.getContractors();
+    for(Contractor contractor : contractors){
+      System.out.println();
+      System.out.println("Contractor's ID: " + contractor.ID);
+      System.out.println("Contractor's company's name: " + contractor.getCompanyName());
+      System.out.println("");
+    }
+  }
+
+  public SupplyOrder getSupplyOrder(String prompt){
+    SupplyOrder supplyOrder;
+    do {
+      int id = getIntegerInput(prompt);
+      supplyOrder = supplyCtrl.findSupplyOrderById(id);
+    } while (supplyOrder == null);
+    return supplyOrder;
   }
 
   public void getAnyKeyInput(String prompt){
