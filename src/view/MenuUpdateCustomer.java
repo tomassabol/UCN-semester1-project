@@ -27,7 +27,7 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
         super.addMenuOption("4", new GenericMenuOption("Udpate phone number", () -> updateMobile()));
         super.addMenuOption("5", new GenericMenuOption("Update customer type", () -> updateCustomerType()));
         super.addMenuOption("6", new GenericMenuOption("Update birth date", () -> updateBirthDate()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to Customer Menu", () -> this.goToPreviousMenu()));
+        super.addMenuOptionGoBack("0");
     }
 
     /**

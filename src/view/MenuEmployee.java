@@ -18,8 +18,7 @@ public class MenuEmployee extends GenericMenuInterface {
 //    		() -> createEmployee()));
     super.addMenuOption("2", new GenericMenuOption("Show all employees",
     		() -> showAllEmployees()));
-    super.addMenuOption("0", new GenericMenuOption("Go back to main menu",
-    		() -> this.goToPreviousMenu()));
+    super.addMenuOptionGoBack("0");
     
     employeeCtrl = new EmployeeController();
   }

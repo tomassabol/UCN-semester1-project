@@ -29,7 +29,7 @@ public class MenuSupply extends GenericMenuInterface {
         super.addMenuOption("6", new GenericMenuOption("Show undelivered supply orders", () -> showUndeliveredSupplyOrders()));
         super.addMenuOption("7", new GenericMenuOption("Show delivered supply orders", () -> showDeliveredSupplyOrders()));
         super.addMenuOption("8", new GenericMenuOption("Stock and mark Supply Order as delivered", () -> stockAndMarkDelivered()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> this.goToPreviousMenu()));
+        super.addMenuOptionGoBack("0");
 
         supplyCtrl = new SupplyController();
     }
