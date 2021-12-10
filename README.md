@@ -1,18 +1,33 @@
-## Getting Started
+<h1 align="center">Welcome to 1st Semester Project - UCN Computer Science 👋</h1>
+<p>🚧 Work in progress 🚧</p>
+<p>Business plan, Design and Development of a basic system for Vestbjerg Byggecenter.</p>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://henkyfen.github.io/dmai0919-1SP/" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>  
+</p>
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+### 🏠 [Homepage](https://github.com/tomassabol/UCN-semester1-project)
 
-## Folder Structure
+## Usage
 
-The workspace contains two folders by default, where:
+```
+Will be added once it's finished
+```
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Author
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+👤 **UCN Computer Science AP 2021 - Group 3**
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 
-## Dependency Management
+### Group members
+* Tomas Sabol
+* Daniels Kanepe
+* Tamas Toth
+* Attila Bako
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+## Show your support
+
+Give this project a ⭐️ if you like it !
