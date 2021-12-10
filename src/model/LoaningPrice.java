@@ -9,7 +9,7 @@ public class LoaningPrice {
 
     public LoaningPrice(BigDecimal pricePerHour, LocalDateTime dateAdded) {
     	// Check that price per hour is not below zero
-    	if (pricePerHour.compareTo(BigDecimal.ZERO) > 0) {
+    	if (pricePerHour.compareTo(BigDecimal.ZERO) < 0) {
     		throw new IllegalArgumentException("Price per hour shouldn't be below 0");
     	}
         this.pricePerHour = pricePerHour;
