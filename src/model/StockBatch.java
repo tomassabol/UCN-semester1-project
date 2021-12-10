@@ -52,6 +52,7 @@ public class StockBatch {
         if (quantity < 0) {
             throw new IllegalArgumentException("Quantity cannot be less than 0");
         }
+        this.untrackableItemQuantity = quantity;
         this.PRODUCT = product;
     }
 
@@ -114,6 +115,9 @@ public class StockBatch {
      * @param quantity the new untrackable itemquantity
      */
     public void setUntrackableItemQuantity(int quantity) {
+    	if (quantity < 0) {
+    		throw new IllegalArgumentException("Untrackable item quanity cannot be < 0");
+    	}
         this.untrackableItemQuantity = quantity;
     }
 

@@ -27,8 +27,8 @@ public class Product {
 	 * @param description of the product
 	 * @param minStock of the product
 	 * @param maxStock of the product
-	 * TODO: Overload container with sellingPrice, loaningprice. 
-	 * TODO: add logic for if none (sellingPrice or LoaningPrice) is set.
+	 * 
+	 * @exception IllegalArgumentException Min stock cannot be below zero!
 	 */
 	public Product(int id, String name, String description, int minStock, int maxStock, LocalDateTime dateAdded) {
 		this.ID = id;
@@ -62,7 +62,17 @@ public class Product {
 		return this.minStock;
 	}
 
+	/**
+	 * Sets the min stock.
+	 *
+	 * @param minStock the new min stock
+	 * 
+	 * @exception IllegalArgumentException Min stock cannot be below zero!
+	 */
 	public void setMinStock(int minStock) {
+		if (minStock < 0) {
+			throw new IllegalArgumentException("Min stock cannot be below zero!");
+		}
 		this.minStock = minStock;
 	}
 
