@@ -32,8 +32,10 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         product.addBulkDiscount(bulkDiscount);
     }
 
+    /*
     private void showAllBulkDiscount(){
-        
+        //
     }
+    */
 
 }

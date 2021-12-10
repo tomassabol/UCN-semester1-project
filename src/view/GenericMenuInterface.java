@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.Stack;
 
 import controller.AuthenticationController;
-import model.Authentication;
 
 public class GenericMenuInterface {
 	private Stack<GenericMenuInterface> breadcrumbs;

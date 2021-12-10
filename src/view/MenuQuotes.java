@@ -1,16 +1,8 @@
 package view;
 
-import controller.EmployeeController;
-import controller.QuoteController;
-import model.Authentication;
-import model.Customer;
-import model.IFEmployee;
-import model.Quote;
+import model.*;
 
 public class MenuQuotes extends GenericMenuInterface {
-  
-  private QuoteController quoteCtrl;
-  private EmployeeController employeeCtrl;
 
   /**
    * Constructor for MainMenuUI.
@@ -24,9 +16,7 @@ public class MenuQuotes extends GenericMenuInterface {
     super.addMenuOption("2", new GenericMenuOption("Show quotes",
     		() -> showQuotes()));
     super.addMenuOptionGoBack("0");
-    
-    quoteCtrl = new QuoteController();
-    employeeCtrl = new EmployeeController();
+
   }
 
 /**

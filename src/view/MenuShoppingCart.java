@@ -1,18 +1,11 @@
 package view;
 
-import model.Authentication;
-import model.Customer;
-import model.Product;
-import model.ShoppingCart;
-import model.ShoppingItemLine;
-import controller.ProductController;
-import controller.QuoteController;
-import controller.ShoppingCartController;
+import model.*;
+import controller.*;
 
 public class MenuShoppingCart extends GenericMenuInterface{
     private Customer customer;
 
-    private ProductController productCtrl;
     private ShoppingCartController shoppingCartCtrl;
     private QuoteController quoteCtrl;
 
@@ -25,7 +18,6 @@ public class MenuShoppingCart extends GenericMenuInterface{
     	
         super(previousInterface);
         
-        productCtrl = new ProductController();
         shoppingCartCtrl = new ShoppingCartController();
         quoteCtrl = new QuoteController();
         

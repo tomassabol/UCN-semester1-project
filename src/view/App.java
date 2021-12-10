@@ -1,11 +1,8 @@
 package view;
 
 import java.time.LocalDate;
-import java.util.Stack;
 
-import controller.AuthenticationController;
 import controller.EmployeeController;
-import model.Authentication;
 import model.IFEmployee;
 
 public class App {

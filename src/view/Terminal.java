@@ -5,26 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import controller.CustomerController;
-import model.Customer;
-import model.CustomerType;
-import model.Product;
-import model.Quote;
-import model.Shelf;
-import model.SupplyOffer;
-import model.SupplyOrder;
-import model.SupplyOrderContainer;
-import controller.ProductController;
-import controller.QuoteController;
-import controller.StockController;
-import controller.SupplyController;
-import model.Contractor;
-import model.ContractorContainer;
-import controller.ContractorController;
+import controller.*;
+import model.*;
 
 public class Terminal {
   private static Terminal instance;

@@ -2,13 +2,8 @@ package view;
 
 import java.math.BigDecimal;
 
-import controller.StockController;
-import controller.SupplyController;
-import model.Contractor;
-import model.Product;
-import model.Shelf;
-import model.SupplyOffer;
-import model.SupplyOrder;
+import controller.*;
+import model.*;
 
 public class MenuSupply extends GenericMenuInterface {
     
