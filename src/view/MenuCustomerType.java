@@ -1,6 +1,7 @@
 package view;
 
 import controller.CustomerController;
+import model.CustomerType;
 
 public class MenuCustomerType extends GenericMenuInterface{
     
@@ -16,7 +17,7 @@ public class MenuCustomerType extends GenericMenuInterface{
         super.addMenuOption("3", new GenericMenuOption("Update customer type name", () -> updateCustomerTypeName()));
         super.addMenuOption("4", new GenericMenuOption("Update customer type discount percantage", () -> updateCustomerTypeDiscountPercantage()));
         super.addMenuOption("5", new GenericMenuOption("Delete customer type", () -> deleteCustomerType()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to customer menu", () -> MenuCustomer.getInstance().show()));
+        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuCustomer.getInstance().show()));
 
         customerCtrl = new CustomerController();
     }
@@ -45,9 +46,10 @@ public class MenuCustomerType extends GenericMenuInterface{
     private void showAllCustomerTypes(){
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
-        terminal.printCustumerTypes();
-        terminal.getAnyKeyInput("Press [Enter] to go back");
-        super.show();     
+
+        printCustomerTypes();
+        super.show();
+
     }
 
     private void updateCustomerTypeName(){
@@ -77,5 +79,14 @@ public class MenuCustomerType extends GenericMenuInterface{
         int id = terminal.getIntegerInput("The id of the customer type to be updated");
         customerCtrl.deleteCustomerType(id);
         super.show("The customer type was deleted");
+    }
+
+    private void printCustomerTypes() {
+        for (CustomerType customerType : customerCtrl.getCustomerTypes()) {
+            System.out.println("Customer type ID: " + String.format("(%d)",customerType.ID));
+            System.out.println("Name: " + String.format("%s",customerType.getName()));
+            System.out.println("Discount Percentage: " + String.format("%d",customerType.getDiscountPercentage()));
+            System.out.println();
+        }
     }
 }
