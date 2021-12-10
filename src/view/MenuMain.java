@@ -3,7 +3,9 @@ package view;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Stack;
 
+import controller.AuthenticationController;
 import controller.CustomerController;
 import controller.EmployeeController;
 import controller.QuoteController;
@@ -20,7 +22,6 @@ import model.SellingPrice;
 import model.ShoppingItemLine;
 
 public class MenuMain extends GenericMenuInterface {
-  private static MenuMain instance;
   
   private QuoteController orderCtrl;
   private EmployeeController employeeCtrl;
@@ -28,9 +29,8 @@ public class MenuMain extends GenericMenuInterface {
   /**
    * Constructor for MainMenuUI.
    */
-  private MenuMain() {
-    super();
-
+  public MenuMain() {
+	  super();
     super.setTitle("Main Menu");
     super.addMenuOption("1", new GenericMenuOption("Generate test data",
     		    () -> generateTestData()));
@@ -52,16 +52,6 @@ public class MenuMain extends GenericMenuInterface {
     
     orderCtrl = new QuoteController();
     employeeCtrl = new EmployeeController();
-  }
-
-  /**
-   * @return the instance of MainMenuUI
-   */
-  public static MenuMain getInstance() {
-    if (instance == null) {
-      instance = new MenuMain();
-    }
-    return instance;
   }
   
   /*
@@ -113,45 +103,45 @@ public class MenuMain extends GenericMenuInterface {
    * Show orders menu.
    */
   private void showOrdersMenu() {
-    MenuQuotes.getInstance().show();
+	  new MenuQuotes(this).show();
   }
 
   /**
    * Show products menu.
    */
   private void showProductsMenu() {
-    MenuProduct.getInstance().show();
+	  new MenuProduct(this).show();
   }
   
   /**
    * Show employees menu.
    */
   private void showEmployeesMenu() {
-    MenuEmployee.getInstance().show();
+	  new MenuEmployee(this).show();
   }
   /**
    * Show contractor menu.
    */
   private void showContractorMenu() {
-	MenuContractor.getInstace().show();
+	  new MenuContractor(this).show();
   }
   /**
    * Show supply menu.
    */
   private void showSupplyMenu(){
-    MenuSupply.getInstance().show();
+	  new MenuSupply(this).show();
   }
   /**
    * Show stock menu.
    */
   private void showStockMenu() {
-    MenuStock.getInstance().show();
+	  new MenuStock(this).show();
   }
   /**
    * Show customer menu.
    */
   private void showCustomerMenu(){
-    MenuCustomer.getInstance().show();
+	  new MenuCustomer(this).show();
   }
 
 }

@@ -4,15 +4,14 @@ import controller.EmployeeController;
 import model.Employee;
 
 public class MenuEmployee extends GenericMenuInterface {
-  private static MenuEmployee instance;
   
   private EmployeeController employeeCtrl;
 
   /**
    * Constructor for MainMenuUI.
    */
-  private MenuEmployee() {
-    super();
+  public MenuEmployee(GenericMenuInterface previousInterface) {
+    super(previousInterface);
 
     super.setTitle("Employees");
 //    super.addMenuOption("1", new GenericMenuOption("Create an employee",
@@ -20,21 +19,10 @@ public class MenuEmployee extends GenericMenuInterface {
     super.addMenuOption("2", new GenericMenuOption("Show all employees",
     		() -> showAllEmployees()));
     super.addMenuOption("0", new GenericMenuOption("Go back to main menu",
-    		() -> MenuMain.getInstance().show()));
+    		() -> this.goToPreviousMenu()));
     
     employeeCtrl = new EmployeeController();
   }
-
-  /**
-   * @return the instance of MainMenuUI
-   */
-  public static MenuEmployee getInstance() {
-    if (instance == null) {
-      instance = new MenuEmployee();
-    }
-    return instance;
-  }
-  
 
   // TODO: needs to adapt to QuoteItemLine (currently it is to unspecific item line)
 /**

@@ -11,15 +11,14 @@ import model.SupplyOffer;
 import model.SupplyOrder;
 
 public class MenuSupply extends GenericMenuInterface {
-    private static MenuSupply instance;
     
     private SupplyController supplyCtrl;
     private StockController stockCtrl;
     /**
      * Constructor for MenuProduct
      */
-    private MenuSupply(){
-        super();
+    public MenuSupply(GenericMenuInterface previousInterface){
+        super(previousInterface);
 
         super.setTitle("Supply Menu");
         super.addMenuOption("1", new GenericMenuOption("Create a supply offer", () -> createSupplyOffer()));
@@ -30,18 +29,9 @@ public class MenuSupply extends GenericMenuInterface {
         super.addMenuOption("6", new GenericMenuOption("Show undelivered supply orders", () -> showUndeliveredSupplyOrders()));
         super.addMenuOption("7", new GenericMenuOption("Show delivered supply orders", () -> showDeliveredSupplyOrders()));
         super.addMenuOption("8", new GenericMenuOption("Stock and mark Supply Order as delivered", () -> stockAndMarkDelivered()));
-        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> MenuMain.getInstance().show()));
+        super.addMenuOption("0", new GenericMenuOption("Go back to main menu", () -> this.goToPreviousMenu()));
 
         supplyCtrl = new SupplyController();
-    }
-    /**
-     * @return the instance of MenuProduct
-     */
-    public static MenuSupply getInstance() {
-        if (instance == null){
-            instance = new MenuSupply();
-        }
-        return instance;
     }
 
     /**

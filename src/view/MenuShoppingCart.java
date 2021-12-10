@@ -10,7 +10,6 @@ import controller.QuoteController;
 import controller.ShoppingCartController;
 
 public class MenuShoppingCart extends GenericMenuInterface{
-	private static MenuShoppingCart instance;
     private Customer customer;
 
     private ProductController productCtrl;
@@ -18,12 +17,13 @@ public class MenuShoppingCart extends GenericMenuInterface{
     private QuoteController quoteCtrl;
 
     /**
-     * Constructor for MenuUpdateProduct
+     * Constructor for MenuShoppingCart
      * @param product The product to update
      */
-    private MenuShoppingCart(Customer customer) {
+    public MenuShoppingCart(GenericMenuInterface previousInterface, 
+    		Customer customer) {
     	
-        super();
+        super(previousInterface);
         
         productCtrl = new ProductController();
         shoppingCartCtrl = new ShoppingCartController();
@@ -35,15 +35,8 @@ public class MenuShoppingCart extends GenericMenuInterface{
         super.addMenuOption("1", new GenericMenuOption("Add item", () -> addItemToCart(customer.getShoppingCart())));
         super.addMenuOption("2", new GenericMenuOption("Create a quote from current shopping cart", () -> createQuoteFromCart()));
         super.addMenuOption("3", new GenericMenuOption("Clear shopping cart", () -> clearShoppingCart()));
-        super.addMenuOption("0", new GenericMenuOption("Return to Quotes Menu", () -> MenuQuotes.getInstance().show()));
+        super.addMenuOption("0", new GenericMenuOption("Return to Quotes Menu", () -> this.goToPreviousMenu()));
         
-    }
-    
-    public static MenuShoppingCart getInstance(Customer customer) {
-    	if (instance == null) {
-    		instance = new MenuShoppingCart(customer);
-    	}
-    	return instance;
     }
     
     @Override
@@ -79,7 +72,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
     public void createQuoteFromCart() {
     	if (Terminal.getInstance().confirmInput("Are you sure you want to create a quote for Attila?")) {
         	quoteCtrl.createQuote(customer,
-        			Authentication.getInstance().getLoggedInUser(),
+        			getAuth().getLoggedInUser(),
         			customer.getShoppingCart());
         	// TODO: Show the quote in detail here. Create a method for it?
         	Terminal.getInstance().getAnyKeyInput("The quote was successfully created. \nPress [Enter] to go back.");
