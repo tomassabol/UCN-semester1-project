@@ -5,14 +5,12 @@ import java.util.HashMap;
 public class DiscountContainer {
 
     private static DiscountContainer instance;
-    private HashMap<CustomerType, Integer> customerTypeDiscounts;
     private HashMap<Product, ArrayList<BulkDiscount>> bulkDiscounts;
 
     /**
      * Constructor class DiscountContainer
      */
     private DiscountContainer() {
-    	customerTypeDiscounts = new HashMap<>();
     	bulkDiscounts = new HashMap<>();
     }
 
@@ -25,27 +23,7 @@ public class DiscountContainer {
         }
         return instance;
     }
-    
-    /**
-     * Sets a discount percentage for a specific customer type
-     *
-     * @param customerType the customer type
-     * @param discountPercentage the discount percentage
-     */
-    public void setCustomerTypeDiscount(CustomerType customerType, int discountPercentage) {
-    	customerTypeDiscounts.put(customerType, discountPercentage);
-    }
-    
-    /**
-     * Gets the discount for customerType
-     *
-     * @param customerType the customer type
-     * @return the customer type discount
-     */
-    public int getCustomerTypeDiscount(CustomerType customerType) {
-    	return customerTypeDiscounts.get(customerType);
-    }
-    
+        
     /**
      * Adds a bulk discount for a product
      *
