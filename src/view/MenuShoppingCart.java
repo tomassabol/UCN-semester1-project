@@ -74,8 +74,12 @@ public class MenuShoppingCart extends GenericMenuInterface{
         	quoteCtrl.createQuote(customer,
         			getAuth().getLoggedInUser(),
         			customer.getShoppingCart());
-        	// TODO: Show the quote in detail here. Create a method for it?
-        	Terminal.getInstance().getAnyKeyInput("The quote was successfully created. \nPress [Enter] to go back.");
+        	Terminal.getInstance().clearScreen();
+        	System.out.println("The quote was successfully created.");
+        	System.out.println();
+        	Terminal.getInstance().printQuotes(customer);
+        	System.out.println();
+        	Terminal.getInstance().getAnyKeyInput("Press [Enter] to go back");
     	}
 
     	
