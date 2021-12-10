@@ -1,30 +1,11 @@
 package view;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Stack;
 
-import controller.AuthenticationController;
-import controller.CustomerController;
-import controller.EmployeeController;
-import controller.QuoteController;
-import controller.ProductController;
-import model.BulkDiscount;
-import model.Contractor;
-import model.ContractorContainer;
-import model.Customer;
-import model.CustomerType;
-import model.IFEmployee;
-import model.PrimaryKey;
-import model.Product;
-import model.SellingPrice;
-import model.ShoppingItemLine;
+import controller.*;
 
 public class MenuMain extends GenericMenuInterface {
   
-  private QuoteController orderCtrl;
-  private EmployeeController employeeCtrl;
+  private GenerateDataController generateCtrl;
 
   /**
    * Constructor for MainMenuUI.
@@ -49,9 +30,8 @@ public class MenuMain extends GenericMenuInterface {
     super.addMenuOption("8", new GenericMenuOption("Customers", () -> showCustomerMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		    () -> Terminal.quit()));
-    
-    orderCtrl = new QuoteController();
-    employeeCtrl = new EmployeeController();
+
+    generateCtrl = new GenerateDataController();
   }
   
   /*
@@ -59,44 +39,8 @@ public class MenuMain extends GenericMenuInterface {
    * TODO: MOVE THE LOGIC TO CONTROLLER
    */
   public void generateTestData() {
-	  // TODO: need a bulk discount controller
-	  BulkDiscount bulkDiscount = new BulkDiscount(2, 20);
-	  // Create customer type
-	  // TODO: NEED A CUSTOMER TYPE CONTROLLER
-	  CustomerType customerType = new CustomerType(PrimaryKey.getNextCustomerTypeID(), "Normal", 5);
-	  // Create customers
-	  CustomerController ctrl = new CustomerController();
-	  Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", customerType, LocalDate.now());
-	  System.out.println("Generated customer data!");
-	  // Create products
-	  ProductController ctrl2 = new ProductController();
-	  Product product1 = ctrl2.createProduct("Shovel", "A big, steel shovel", 0, 100);
-	  product1.addBulkDiscount(bulkDiscount);
-	  // TODO: need a controller for price creation
-	  SellingPrice sellingPrice = new SellingPrice(BigDecimal.valueOf(95), LocalDateTime.now());
-	  product1.addSellingPrice(sellingPrice);
-	  
-	  // Create items
-	  // TODO: Implement itemController, itemLineController...
-	  ShoppingItemLine itemLine1 = new ShoppingItemLine(product1, 4);
-	  ShoppingItemLine itemLine2 = new ShoppingItemLine(product1, 1);
-    Contractor contractor = new Contractor(0, "TestSupplyCompany");
-    ContractorContainer.getInstance().addContractor(contractor);
-	  
-	  // TODO: also need to use a controller here
-	  customer1.getShoppingCart().add(itemLine1);
-	  customer1.getShoppingCart().add(itemLine2);
-	  
-	  // Create employees
-	  IFEmployee employee = employeeCtrl.createEmployee("080600-1111", "Daniels", "Kanepe", "Rundvej 8", "+45 11114567", LocalDate.now());
-	  
-	  // Add orders to customer1
-	  orderCtrl.createQuote(customer1, employee, customer1.getShoppingCart());
-	  
-	  customer1.getShoppingCart().add(itemLine1);
-	  
-	  
-	  super.show("Generated test data!");
+          generateCtrl.generateData();
+          super.show("Data Generated");
   }
   
   /**

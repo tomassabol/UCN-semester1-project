@@ -8,12 +8,9 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.lang.model.type.NullType;
-
 import controller.CustomerController;
 import model.Customer;
 import model.CustomerType;
-import model.CustomerTypeContainer;
 import model.Product;
 import model.Quote;
 import model.Shelf;
