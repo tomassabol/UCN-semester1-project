@@ -3,7 +3,7 @@
 <p>Business plan, Design and Development of a basic system for Vestbjerg Byggecenter.</p>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://henkyfen.github.io/dmai0919-1SP/" target="_blank">
+  <a href="" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>  
 </p>
