@@ -38,7 +38,6 @@ public class StockController {
         return shelf;
     }
 
-<<<<<<< HEAD
 
 
     /**
@@ -51,14 +50,6 @@ public class StockController {
         return Stock.getInstance().findStorageLocationById(id);
     }
 
-=======
-    /**
-     * Find shelf by id.
-     *
-     * @param id the id
-     * @return the shelf
-     */
->>>>>>> e62620d0b990663fb78c76539516c27bce212c5e
     public Shelf findShelfById(int id) {
         return Stock.getInstance().findShelfByID(id);
     }
