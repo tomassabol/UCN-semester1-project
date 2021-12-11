@@ -250,4 +250,13 @@ public class Stock {
 
  
     }
+    
+    public boolean quoteIsInStock(Quote quote) {
+    	for(QuoteItemLine itemLine: quote.getItemLines()) {
+    		if (this.getBuyableQuantityInStock(itemLine.getPRODUCT()) < itemLine.getQuantity()) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 }

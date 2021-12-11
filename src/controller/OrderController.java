@@ -1,10 +1,17 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Customer;
+import model.IFCustomer;
+import model.IFEmployee;
 import model.Order;
 import model.OrderContainer;
+import model.OrderLine;
+import model.PrimaryKey;
+import model.Quote;
+import model.Stock;
 
 /**
  * The Class OrderController.
@@ -28,6 +35,31 @@ public class OrderController {
 
 	public List<Order> getOrders(Customer customer) {
 		return OrderContainer.getInstance().getOrders(customer);
+	}
+	
+	/**
+	 * Find order, but restrict it to a specific customer
+	 *
+	 * @return the order
+	 */
+	public Order findOrderByIdForCustomer(int orderID, Customer customer) {
+		Order order = OrderContainer.getInstance().findOrderByID(orderID);
+		// if belong sto customer, return
+		if (order != null && order.getCustomer() == customer) {
+			return order;
+		}
+		return null;
+	}
+	
+	public void payForQuote(Quote quote) {
+		IFCustomer customer = quote.getCustomer();
+		IFEmployee employee = quote.getEmployee();
+		ArrayList<OrderLine> orderLines = new ArrayList<>();
+		for (model.QuoteItemLine itemLine: quote.getItemLines()) {
+			orderLines.add(Stock.getInstance().stockToOrderlineBuyable(itemLine.getPRODUCT(), itemLine.getQuantity()));
+		}
+		Order order = new Order(PrimaryKey.getNextOrderID(), 
+				customer, employee, orderLines);
 	}
 	
 }

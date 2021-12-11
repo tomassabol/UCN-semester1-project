@@ -22,6 +22,7 @@ public class Terminal {
   StockController stockCtrl;
   SupplyController supplyCtrl;
   QuoteController quoteCtrl;
+  OrderController orderCtrl;
 
   private static final String DATE_FORMAT = "dd/MM/yyyy";
 
@@ -37,6 +38,7 @@ public class Terminal {
     stockCtrl = new StockController();
     supplyCtrl = new SupplyController();
     quoteCtrl = new QuoteController();
+    orderCtrl = new OrderController();
   }
 
   /**
@@ -55,15 +57,20 @@ public class Terminal {
    * @return the customer
    * Note: Runs until valid ID is entered
    */
-  public Customer getCustomer() {
+  public Customer getCustomer(String prompt) {
 	  Customer customer = null;
 	  do {
-		  int id = this.getIntegerInput("Choose customer by ID");
+		  int id = this.getIntegerInput(prompt);
 		  customer = customerCtrl.findCustomerByID(id);
 	  } while (customer == null);
 	  
 	  return customer;
   }
+  public Customer getCustomer() {
+	  return this.getCustomer("Choose a customer by ID");
+  }
+  
+  
 
   /**
    * prompt the user to identify a product by ID
@@ -77,6 +84,28 @@ public class Terminal {
 	  } while (product == null);
 	  
 	  return product;
+  }
+  
+  /**
+   * prompt the user to identify a customer, and then a quote
+   * @return Quote The found quote belonging to the customer
+   */
+  public Quote getQuote(String customerPrompt, String quotePrompt) {
+	  Customer customer = this.getCustomer("Choose a customer to show the quotes for");
+	  this.clearScreen();
+	  System.out.println("[Quotes]");
+	  this.printQuotes(customer);
+	  Quote quote = null;
+	  do {
+		  int quoteId = this.getIntegerInput(quotePrompt);
+		  quote = quoteCtrl.findOrderByIdForCustomer(quoteId, customer);
+	  } while (quote == null);
+	  
+	  return quote;
+  }
+  public Quote getQuote() {
+	  return this.getQuote("Choose a customer to show the quotes for",
+			  "Choose the quote");
   }
   
   public Product getProduct() {
@@ -158,7 +187,14 @@ public class Terminal {
   public void printQuotes(Customer customer) {
 		System.out.println(String.format("[Quotes for %s %s]", customer.getFirstName(), customer.getLastName()));
 		for (Quote quote: quoteCtrl.getQuotes(customer)) {
-			System.out.println("Quote: #" + quote.ID + " " + quote.CREATION_DATE);
+			System.out.println("\tQuote: #" + quote.ID + " " + quote.CREATION_DATE);
+		}
+  }
+  
+  public void printOrders(Customer customer) {
+		System.out.println(String.format("[Orders for %s %s]", customer.getFirstName(), customer.getLastName()));
+		for (Order order: orderCtrl.getOrders(customer)) {
+			System.out.println("\torder: #" + order.ID + " " + order.CREATION_DATE);
 		}
   }
 

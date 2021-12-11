@@ -5,6 +5,7 @@ import java.util.Set;
 
 import model.PrimaryKey;
 import model.Product;
+import model.Quote;
 import model.Shelf;
 import model.Stock;
 import model.StorageLocation;
@@ -91,4 +92,9 @@ public class StockController {
     public boolean buyableItemIsInStock(Product product) {
     	return buyableItemQuantityInStock(product) > 0;
     }
+    
+    public boolean quoteIsInStock(Quote quote) {
+    	return Stock.getInstance().quoteIsInStock(quote);
+    }
+    
 }

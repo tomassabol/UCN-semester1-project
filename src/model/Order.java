@@ -14,13 +14,13 @@ public class Order {
 	}
 	 
 	private OrderStatus status;
-	private final LocalDateTime CREATION_DATE;
+	public final LocalDateTime CREATION_DATE;
 	public final int ID;
-	private final IFCustomer CUSTOMER;
-	private final IFEmployee EMPLOYEE;
-	private final ArrayList<OrderLine> ITEM_LINES;
-	private final String CUSTOMER_TYPE;
-	private final int CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
+	public final IFCustomer CUSTOMER;
+	public final IFEmployee EMPLOYEE;
+	public final ArrayList<OrderLine> ITEM_LINES;
+	public final String CUSTOMER_TYPE;
+	public final int CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
 	
 	/*
 	 * Constructor
