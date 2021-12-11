@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -186,7 +187,7 @@ public class Terminal {
     List<CustomerType> customerTypes = customerCtrl.getCustomerTypes();
     for(CustomerType customerType : customerTypes){
       System.out.println("Customer type name: " + customerType.getName() + "\nCustomer type discount percantage: " +customerType.getDiscountPercentage() + "\nCustomer type id: " + customerType.ID);
-      System.out.println("");
+      System.out.println();
     }
   }
 
@@ -196,8 +197,53 @@ public class Terminal {
       System.out.println();
       System.out.println("Contractor's ID: " + contractor.ID);
       System.out.println("Contractor's company's name: " + contractor.getCompanyName());
-      System.out.println("");
+      System.out.println();
     }
+  }
+
+  public void printArrayBulkDiscount(ArrayList<BulkDiscount> bulkDiscounts) {
+      for (BulkDiscount bulkDiscount : bulkDiscounts) {
+        System.out.println();
+        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
+        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
+        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
+        System.out.println();
+      }
+  }
+
+  public void printBulkDiscount(Product product){
+      ArrayList<BulkDiscount> bulkDiscounts = product.getBulkDiscounts();
+      for(BulkDiscount bulkDiscount : bulkDiscounts) {
+        System.out.println();
+        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
+        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
+        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
+        System.out.println("Active: " + bulkDiscount.isActive());
+        System.out.println();
+      }
+  }
+
+  public void printAllBullkDiscount() {
+    for (Product product : productCtrl.getProducts()) {
+      ArrayList<BulkDiscount> bulkDiscounts = product.getBulkDiscounts();
+      for (BulkDiscount bulkDiscount : bulkDiscounts) {
+        System.out.println();
+        System.out.println("For ["+ product.getName() +"] product");
+        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
+        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
+        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
+        System.out.println("Active: " + bulkDiscount.isActive());
+        System.out.println();
+      }
+    }
+  }
+
+  public void printBulkDiscount(Product product, BulkDiscount bulkDiscount) {
+        System.out.println();
+        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
+        System.out.println("Minimum quantity" + bulkDiscount.getMinQuantity());
+        System.out.println("Active: " + bulkDiscount.isActive());
+        System.out.println();
   }
 
   public SupplyOrder getSupplyOrder(String prompt){

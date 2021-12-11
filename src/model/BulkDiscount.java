@@ -15,6 +15,12 @@ public class BulkDiscount {
      * @exception discountPercentage > 100
      */
     public BulkDiscount(int minQuantity, int discountPercentage) {
+        if (discountPercentage < 0 || discountPercentage > 20) {
+    		throw new IllegalArgumentException("Discount percentage must be between 0 and 20");
+    	}
+        if (minQuantity < 0) {
+            throw new IllegalArgumentException("Bulk discount's quantity cannot be below 0");
+        }
         this.minQuantity = minQuantity;
         this.discountPercentage = discountPercentage;
         this.active = true;
@@ -43,7 +49,7 @@ public class BulkDiscount {
      */
     public void setMinQuantity(int minQuantity) {
     	if (minQuantity < 0) {
-    		throw new IllegalArgumentException("Bulk discount's minimum quantity cannot be below 0");
+    		throw new IllegalArgumentException("Bulk discount's quantity cannot be below 0");
     	}
         this.minQuantity = minQuantity;
     }
@@ -62,8 +68,8 @@ public class BulkDiscount {
      * @exception discountPercentage > 100
      */
     public void setDiscountPercentage(int discountPercentage) {
-    	if (discountPercentage < 0 || discountPercentage > 100) {
-    		throw new IllegalArgumentException("Discount percentage must be between 0 and 100");
+    	if (discountPercentage < 0 || discountPercentage > 20) {
+    		throw new IllegalArgumentException("Discount percentage must be between 0 and 20");
     	}
         this.discountPercentage = discountPercentage;
     }

@@ -3,6 +3,7 @@ package model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @authors tomassabol, danielskenepe, tamastoth, attilabako
@@ -197,5 +198,21 @@ public class Product {
 		}
     	return bestBulkDiscount;
 		
+	}
+
+	public BulkDiscount getBulkDiscountByIndex(int index) {
+		BulkDiscount bulkDiscountWithId = null;
+		Iterator<BulkDiscount> it = this.getBulkDiscounts().iterator();
+		while(it.hasNext()){
+			BulkDiscount bulkDiscount = it.next();
+			if(this.getBulkDiscounts().indexOf(bulkDiscount) == index) {
+				bulkDiscountWithId = bulkDiscount;
+			}
+		}
+		return bulkDiscountWithId;
+	}
+
+	public void setStatus(BulkDiscount bulkDiscount) {
+		bulkDiscount.setActive(!bulkDiscount.isActive());
 	}
 }
