@@ -13,28 +13,41 @@ import model.StorageLocation;
 public class StockController {
     public StockController() {}
 
+    /**
+     * Creates the storage location and adds it to the singleton container
+     *
+     * @param name the name
+     * @param address the address
+     * @param isAStore the is A store
+     * @return the storage location
+     */
     public StorageLocation createStorageLocation(String name, String address, boolean isAStore) {
         StorageLocation storageLocation = new StorageLocation(PrimaryKey.getNextStorageLocationID(), name, address, isAStore);
         Stock.getInstance().addStorageLocation(storageLocation);
         return storageLocation;
     }
 
+    /**
+     * Creates the shelf  and adds it to the singleton container
+     *
+     * @param name the name
+     * @param storageLocation the storage location
+     * @return the shelf
+     */
     public Shelf createShelf(String name, StorageLocation storageLocation) {
         Shelf shelf = new Shelf(PrimaryKey.getNextShelfID(), name, storageLocation);
         Stock.getInstance().addShelf(storageLocation, shelf);
         return shelf;
     }
 
-    public void removeStorageLocation(int id) {
-        StorageLocation storageLocation = findStorageLocationById(id);
-        Stock.getInstance().removeStorageLocation(storageLocation);
-    }
 
-    public void removeShelf(int id) {
-        Shelf shelf = findShelfById(id);
-        Stock.getInstance().removeShelf(shelf);
-    }
 
+    /**
+     * Finds the storage location by ID
+     *
+     * @param id the id
+     * @return the storage location, or null
+     */
     public StorageLocation findStorageLocationById(int id) {
         return Stock.getInstance().findStorageLocationById(id);
     }

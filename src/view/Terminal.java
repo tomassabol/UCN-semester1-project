@@ -8,8 +8,28 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
+<<<<<<< HEAD
 import controller.*;
 import model.*;
+=======
+import controller.CustomerController;
+import model.Customer;
+import model.CustomerType;
+import model.Product;
+import model.Quote;
+import model.Shelf;
+import model.Stock;
+import model.SupplyOffer;
+import model.SupplyOrder;
+import model.SupplyOrderContainer;
+import controller.ProductController;
+import controller.QuoteController;
+import controller.StockController;
+import controller.SupplyController;
+import model.Contractor;
+import model.ContractorContainer;
+import controller.ContractorController;
+>>>>>>> 679a8d6 (Shows items in stock)
 
 public class Terminal {
   private static Terminal instance;
@@ -130,11 +150,14 @@ public class Terminal {
   public void printBuyableProducts() {
 	  for (Product product: productCtrl.getBuyableProducts()) {
       System.out.println();
-		  System.out.println("[" + product.getName() + "]");
-		  System.out.println("ID: " + product.ID);
+		  System.out.println(String.format("(%s) %s",
+				  product.ID,
+				  product.getName()));
+		  System.out.println(String.format("In stock: %d", 
+				  Stock.getInstance().getBuyableQuantityInStock(product)));
+		  System.out.println(String.format("Price: %.2f DKK",
+				  product.getLatestSellingPrice()));
 		  System.out.println("Description: " + product.getDescription());
-		  System.out.println("In stock: " + "Unknown");
-		  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
 		  System.out.println();
 	  }
   }

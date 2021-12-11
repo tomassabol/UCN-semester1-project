@@ -57,11 +57,11 @@ public class ProductContainer {
     public List<Product> getBuyableProducts() {
     	ArrayList<Product> buyableProducts = new ArrayList<>();
     	for (Product product: this.products) {
-    		if (product.getLatestSellingPrice() != null && Stock.getInstance().getBuyableQuantityInStock(product) > 0) {
+    		if (product.getLatestSellingPrice() != null) {
     			buyableProducts.add(product);
     		}
     	}
-        return this.products;
+        return buyableProducts;
     }
 
     /**
