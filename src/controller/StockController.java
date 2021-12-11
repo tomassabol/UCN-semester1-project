@@ -9,9 +9,7 @@ import model.Shelf;
 import model.Stock;
 import model.StorageLocation;
 
-// TODO: add javadoc
 public class StockController {
-    public StockController() {}
 
     /**
      * Creates the storage location and adds it to the singleton container
@@ -40,6 +38,7 @@ public class StockController {
         return shelf;
     }
 
+<<<<<<< HEAD
 
 
     /**
@@ -52,22 +51,52 @@ public class StockController {
         return Stock.getInstance().findStorageLocationById(id);
     }
 
+=======
+    /**
+     * Find shelf by id.
+     *
+     * @param id the id
+     * @return the shelf
+     */
+>>>>>>> e62620d0b990663fb78c76539516c27bce212c5e
     public Shelf findShelfById(int id) {
         return Stock.getInstance().findShelfByID(id);
     }
 
+    /**
+     * Gets the storage locations.
+     *
+     * @return the storage locations
+     */
     public Set<StorageLocation> getStorageLocations() {
         return Stock.getInstance().getStorageLocations();
     }
 
+    /**
+     * Gets all of the shelves.
+     *
+     * @return the shelves
+     */
     public ArrayList<Shelf> getShelves() {
         return Stock.getInstance().getShelves();
     }
     
+    /**
+     * Returns the buyable item quantity for a product
+     *
+     * @param product the product
+     * @return int the buyable item quantity
+     */
     public int buyableItemQuantityInStock(Product product) {
     	return Stock.getInstance().getBuyableQuantityInStock(product);
     }
     
+    /**
+     * Checks that a product is in stock (buyable)
+     *
+     * @param product the product
+     * @return true, if in stock
+     */
     public boolean buyableItemIsInStock(Product product) {
     	return buyableItemQuantityInStock(product) > 0;
     }

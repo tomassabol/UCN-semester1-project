@@ -8,10 +8,6 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-<<<<<<< HEAD
-import controller.*;
-import model.*;
-=======
 import controller.CustomerController;
 import model.Customer;
 import model.CustomerType;
@@ -19,6 +15,7 @@ import model.Product;
 import model.Quote;
 import model.Shelf;
 import model.Stock;
+import model.StorageLocation;
 import model.SupplyOffer;
 import model.SupplyOrder;
 import model.SupplyOrderContainer;
@@ -29,7 +26,6 @@ import controller.SupplyController;
 import model.Contractor;
 import model.ContractorContainer;
 import controller.ContractorController;
->>>>>>> 679a8d6 (Shows items in stock)
 
 public class Terminal {
   private static Terminal instance;
