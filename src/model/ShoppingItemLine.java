@@ -7,9 +7,17 @@ public class ShoppingItemLine {
 	public final Product PRODUCT;
 	private int quantity;
 	
+	/**
+	 * Instantiates a new shopping item line.
+	 *
+	 * @param product the product
+	 * @param quantity the quantity
+	 * 
+	 * @exception IllegalArgumentException When quantity <= 0
+	 */
 	public ShoppingItemLine(Product product, int quantity) {
-		if (quantity < 0) {
-			throw new IllegalArgumentException("Quantity cannot be less than 0!");
+		if (quantity <= 0) {
+			throw new IllegalArgumentException("Quantity cannot be less than or equal to 0!");
 		}
 		this.PRODUCT = product;
 		this.quantity = quantity;

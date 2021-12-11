@@ -2,12 +2,23 @@ package view;
 
 import model.*;
 import controller.*;
+import model.Authentication;
+import model.Customer;
+import model.Product;
+import model.ShoppingCart;
+import model.ShoppingItemLine;
+import controller.ProductController;
+import controller.QuoteController;
+import controller.ShoppingCartController;
+import controller.StockController;
 
+import model.OutOfStockException;
 public class MenuShoppingCart extends GenericMenuInterface{
     private Customer customer;
 
     private ShoppingCartController shoppingCartCtrl;
     private QuoteController quoteCtrl;
+    private StockController stockCtrl;
 
     /**
      * Constructor for MenuShoppingCart
@@ -20,6 +31,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
         
         shoppingCartCtrl = new ShoppingCartController();
         quoteCtrl = new QuoteController();
+        stockCtrl = new StockController();
         
         this.customer = customer;
         
@@ -48,16 +60,19 @@ public class MenuShoppingCart extends GenericMenuInterface{
     	super.show(false);
     }
     
-    public void addItemToCart(ShoppingCart shoppingCart) {
+    public void addItemToCart(ShoppingCart shoppingCart){
     	Terminal.getInstance().clearScreen();
     	System.out.println("*** Products ***");
     	Terminal.getInstance().printBuyableProducts();
-    	// TODO: need to create something like getBuyableProduct()
     	Product product = Terminal.getInstance().getProduct("Choose product by ID to add to cart");
     	int quantity = Terminal.getInstance().getIntegerInput("Quantity");
-    	if (!shoppingCartCtrl.addProduct(shoppingCart, product, quantity)) {
-    		System.out.println("The product could not be added to the cart!");
+    	try { 
+    		shoppingCartCtrl.addProduct(shoppingCart, product, quantity);
+    	} catch (IllegalArgumentException | OutOfStockException e){
+    		System.out.println(e.getLocalizedMessage());
     	}
+
+    	Terminal.getInstance().getAnyKeyInput("Press [Enter] to go back...");
     	this.show();
     }
     
