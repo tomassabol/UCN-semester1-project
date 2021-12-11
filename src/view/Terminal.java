@@ -95,6 +95,27 @@ public class Terminal {
 	  
 	  return contractor;
   }
+
+  public StorageLocation getStorageLocation() {
+	  StorageLocation storageLocation = null;
+	  do {
+		  int id = this.getIntegerInput("Choose Storage Location by ID");
+		  storageLocation = stockCtrl.findStorageLocationById(id);
+	  } while (storageLocation == null);
+	  
+	  return storageLocation;
+  }
+
+  
+  public Shelf getShelf() {
+	  Shelf shelf = null;
+	  do {
+		  int id = this.getIntegerInput("Choose Shelf by ID");
+		  shelf = stockCtrl.findShelfById(id);
+	  } while (shelf == null);
+	  
+	  return shelf;
+  }
   
   /**
    * Prints all Customers
@@ -350,5 +371,15 @@ public class Terminal {
 
   public void printCustomerType() {
   }
+
+  public void printAllStorageLocations() {
+      for (StorageLocation storageLocation : stockCtrl.getStorageLocations()) {
+        System.out.println("Storage Location ID: " + String.format(("%d"), storageLocation.ID));
+        System.out.println("Name: " + String.format(("%s"), storageLocation.getName()));
+        System.out.println("Address: " + String.format(("%s"), storageLocation.getAddress()));
+        System.out.println("Store: " + String.format(("%s"), storageLocation.getIsAStore()));
+        System.out.println();
+      }
+    }
 
 }

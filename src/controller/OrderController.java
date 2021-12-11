@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import model.Customer;
 import model.Order;
 import model.OrderContainer;
 
@@ -24,6 +25,9 @@ public class OrderController {
 	public List<Order> getOrders() {
 		return OrderContainer.getInstance().getOrders();
 	}
-    
+
+	public List<Order> getOrders(Customer customer) {
+		return OrderContainer.getInstance().getOrders(customer);
+	}
 	
 }

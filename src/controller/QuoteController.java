@@ -82,5 +82,13 @@ public class QuoteController {
     	shoppingCart.clear();
     	return createQuote(customer, employee, itemLines);
     }
+
+	public boolean removeQuote(Quote quote) {
+		return QuoteContainer.getInstance().removeQuote(quote);
+	}
+
+	public Quote findQuoteById(int id) {
+		return QuoteContainer.getInstance().findQuoteByID(id);
+	}
 	
 }
