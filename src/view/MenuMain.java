@@ -17,17 +17,19 @@ public class MenuMain extends GenericMenuInterface {
     		    () -> generateTestData()));
     super.addMenuOption("2", new GenericMenuOption("Quotes",
     		    () -> showOrdersMenu()));
-    super.addMenuOption("3", new GenericMenuOption("Products",
+    super.addMenuOption("3", new GenericMenuOption("Advanced Quote Menu",
+    		    () -> showAdvancedQuotes()));
+    super.addMenuOption("4", new GenericMenuOption("Products",
             () -> showProductsMenu()));
-    super.addMenuOption("4", new GenericMenuOption("Employees",
+    super.addMenuOption("5", new GenericMenuOption("Employees",
             () -> showEmployeesMenu()));
-    super.addMenuOption("5", new GenericMenuOption("Contractors",
+    super.addMenuOption("6", new GenericMenuOption("Contractors",
             () -> showContractorMenu()));
-    super.addMenuOption("6", new GenericMenuOption("Supplies",
+    super.addMenuOption("7", new GenericMenuOption("Supplies",
             () -> showSupplyMenu()));
-    super.addMenuOption("7", new GenericMenuOption("Stock",
+    super.addMenuOption("8", new GenericMenuOption("Stock",
             () -> showStockMenu()));
-    super.addMenuOption("8", new GenericMenuOption("Customers", () -> showCustomerMenu()));
+    super.addMenuOption("9", new GenericMenuOption("Customers", () -> showCustomerMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		    () -> Terminal.quit()));
 
@@ -49,6 +51,10 @@ public class MenuMain extends GenericMenuInterface {
   private void showOrdersMenu() {
 	  new MenuQuotes(this).show();
   }
+
+  private void showAdvancedQuotes() {
+        new MenuQuotesAdvanced(this).show();
+}
 
   /**
    * Show products menu.

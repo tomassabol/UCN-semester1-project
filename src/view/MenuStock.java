@@ -47,9 +47,9 @@ public class MenuStock extends GenericMenuInterface {
         terminal.clearScreen();
 
         String name = terminal.getStringInput("Enter name of a new Shelf");
-        printAllStorageLocations();
+        terminal.printAllStorageLocations();
         int storageLocationId = terminal.getIntegerInput("Enter the id of a Storage Location, where the shelf will be lcoated");
-        StorageLocation storageLocation = stockCtrl.findStorageLocationById(storageLocationId);
+        StorageLocation storageLocation = terminal.getStorageLocation();
         stockCtrl.createShelf(name, storageLocation);
         super.show("New Shelf was successfully created");
         terminal.getAnyKeyInput("Press [Enter] to go Back");
@@ -63,8 +63,8 @@ public class MenuStock extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        System.out.println("[All Storage Locations in the System]");
-        printAllStorageLocations();
+        System.out.println("[All Storage Locations]");
+        terminal.printAllStorageLocations();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -77,20 +77,10 @@ public class MenuStock extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        System.out.println("[All Shelves in the System]");
+        System.out.println("[All Shelves]");
         terminal.printAllShelves();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
-
-    private void printAllStorageLocations() {
-        for (StorageLocation storageLocation : stockCtrl.getStorageLocations()) {
-          System.out.println("Storage Location ID: " + String.format(("%d"), storageLocation.ID));
-          System.out.println("Name: " + String.format(("%s"), storageLocation.getName()));
-          System.out.println("Address: " + String.format(("%s"), storageLocation.getAddress()));
-          System.out.println("Store: " + String.format(("%s"), storageLocation.getIsAStore()));
-          System.out.println();
-        }
-      }
 
 }

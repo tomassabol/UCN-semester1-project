@@ -13,8 +13,10 @@ public class MenuQuotes extends GenericMenuInterface {
     super.setTitle("Quotes");
     super.addMenuOption("1", new GenericMenuOption("Create a quote",
     		() -> createQuote()));
-    super.addMenuOption("2", new GenericMenuOption("Show quotes",
+    super.addMenuOption("2", new GenericMenuOption("Show quotes by customer",
     		() -> showQuotes()));
+	super.addMenuOption("3", new GenericMenuOption("Create order from Quote",
+    		() -> createOrder()));
     super.addMenuOptionGoBack("0");
 
   }
@@ -30,7 +32,6 @@ public class MenuQuotes extends GenericMenuInterface {
 		terminal.printAllCustomers();
 		Customer customer = terminal.getCustomer();
 		new MenuShoppingCart(this, customer).show();
-	  
 	}
 
 	/**
@@ -49,4 +50,7 @@ public class MenuQuotes extends GenericMenuInterface {
 		terminal.getAnyKeyInput("Press [Enter] to go back");
 		super.show();
 	}
+
+	// TODO: Finish after MENU ORDER is done
+	public void createOrder() {}
 }

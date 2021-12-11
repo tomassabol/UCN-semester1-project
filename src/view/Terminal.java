@@ -9,8 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import controller.*;
-import model.*;
+import controller.CustomerController;
+import model.Customer;
+import model.CustomerType;
+import model.Product;
+import model.Quote;
+import model.Shelf;
+import model.Stock;
+import model.StorageLocation;
+import model.SupplyOffer;
+import model.SupplyOrder;
+import model.SupplyOrderContainer;
+import controller.ProductController;
+import controller.QuoteController;
+import controller.StockController;
+import controller.SupplyController;
+import model.Contractor;
+import model.ContractorContainer;
+import controller.ContractorController;
 
 public class Terminal {
   private static Terminal instance;
@@ -96,6 +112,27 @@ public class Terminal {
 	  
 	  return contractor;
   }
+
+  public StorageLocation getStorageLocation() {
+	  StorageLocation storageLocation = null;
+	  do {
+		  int id = this.getIntegerInput("Choose Storage Location by ID");
+		  storageLocation = stockCtrl.findStorageLocationById(id);
+	  } while (storageLocation == null);
+	  
+	  return storageLocation;
+  }
+
+  
+  public Shelf getShelf() {
+	  Shelf shelf = null;
+	  do {
+		  int id = this.getIntegerInput("Choose Shelf by ID");
+		  shelf = stockCtrl.findShelfById(id);
+	  } while (shelf == null);
+	  
+	  return shelf;
+  }
   
   /**
    * Prints all Customers
@@ -110,11 +147,14 @@ public class Terminal {
   public void printBuyableProducts() {
 	  for (Product product: productCtrl.getBuyableProducts()) {
       System.out.println();
-		  System.out.println("[" + product.getName() + "]");
-		  System.out.println("ID: " + product.ID);
+		  System.out.println(String.format("(%s) %s",
+				  product.ID,
+				  product.getName()));
+		  System.out.println(String.format("In stock: %d", 
+				  Stock.getInstance().getBuyableQuantityInStock(product)));
+		  System.out.println(String.format("Price: %.2f DKK",
+				  product.getLatestSellingPrice()));
 		  System.out.println("Description: " + product.getDescription());
-		  System.out.println("In stock: " + "Unknown");
-		  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
 		  System.out.println();
 	  }
   }
@@ -396,5 +436,15 @@ public class Terminal {
 
   public void printCustomerType() {
   }
+
+  public void printAllStorageLocations() {
+      for (StorageLocation storageLocation : stockCtrl.getStorageLocations()) {
+        System.out.println("Storage Location ID: " + String.format(("%d"), storageLocation.ID));
+        System.out.println("Name: " + String.format(("%s"), storageLocation.getName()));
+        System.out.println("Address: " + String.format(("%s"), storageLocation.getAddress()));
+        System.out.println("Store: " + String.format(("%s"), storageLocation.getIsAStore()));
+        System.out.println();
+      }
+    }
 
 }
