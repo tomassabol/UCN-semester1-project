@@ -14,22 +14,24 @@ public class MenuMain extends GenericMenuInterface {
 	  super();
     super.setTitle("Main Menu");
     super.addMenuOption("1", new GenericMenuOption("Generate test data",
-    		    () -> generateTestData()));
-    super.addMenuOption("2", new GenericMenuOption("Quotes",
+    () -> generateTestData()));
+    super.addMenuOption("2", new GenericMenuOption("Orders",
     		    () -> showOrdersMenu()));
-    super.addMenuOption("3", new GenericMenuOption("Advanced Quote Menu",
+    super.addMenuOption("3", new GenericMenuOption("Quotes",
+    		    () -> showQuotesMenu()));
+    super.addMenuOption("4", new GenericMenuOption("Advanced Quote Menu",
     		    () -> showAdvancedQuotes()));
-    super.addMenuOption("4", new GenericMenuOption("Products",
+    super.addMenuOption("5", new GenericMenuOption("Products",
             () -> showProductsMenu()));
-    super.addMenuOption("5", new GenericMenuOption("Employees",
+    super.addMenuOption("6", new GenericMenuOption("Employees",
             () -> showEmployeesMenu()));
-    super.addMenuOption("6", new GenericMenuOption("Contractors",
+    super.addMenuOption("7", new GenericMenuOption("Contractors",
             () -> showContractorMenu()));
-    super.addMenuOption("7", new GenericMenuOption("Supplies",
+    super.addMenuOption("8", new GenericMenuOption("Supplies",
             () -> showSupplyMenu()));
-    super.addMenuOption("8", new GenericMenuOption("Stock",
+    super.addMenuOption("9", new GenericMenuOption("Stock",
             () -> showStockMenu()));
-    super.addMenuOption("9", new GenericMenuOption("Customers", () -> showCustomerMenu()));
+    super.addMenuOption("10", new GenericMenuOption("Customers", () -> showCustomerMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		    () -> Terminal.quit()));
 
@@ -38,7 +40,6 @@ public class MenuMain extends GenericMenuInterface {
   
   /*
    * Generate test data
-   * TODO: MOVE THE LOGIC TO CONTROLLER
    */
   public void generateTestData() {
           generateCtrl.generateData();
@@ -49,8 +50,15 @@ public class MenuMain extends GenericMenuInterface {
    * Show orders menu.
    */
   private void showOrdersMenu() {
-	  new MenuQuotes(this).show();
+	  new MenuOrders(this).show();
   }
+
+  /**
+   * Show quotes menu.
+   */
+  private void showQuotesMenu() {
+        new MenuQuotes(this).show();
+}
 
   private void showAdvancedQuotes() {
         new MenuQuotesAdvanced(this).show();
