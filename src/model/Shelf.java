@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * The Class Shelf.
@@ -32,6 +33,18 @@ public class Shelf {
         this.name = name;
         this.storageLocation = storageLocation;
         stockBatches = new HashMap<>();
+    }
+    
+    public boolean removeStockBatch(Product product, StockBatch removableStockBatch) {
+    	Iterator<StockBatch> stockBatchIt = this.getStockBatches(product).iterator();
+    	while (stockBatchIt.hasNext()) {
+    		StockBatch stockBatch = stockBatchIt.next();
+    		if (stockBatch == removableStockBatch) {
+    			stockBatchIt.remove();
+    			return true;
+    		}
+    	}
+    	return false;
     }
 
     /**
@@ -81,7 +94,9 @@ public class Shelf {
      * @return the stock batches
      */
     public ArrayList<StockBatch> getStockBatches(Product product) {
-    	return this.stockBatches.get(product);
+    	if (stockBatches.containsKey(product))
+    		return this.stockBatches.get(product);
+    	return new ArrayList<StockBatch>();
     }
     
     /**

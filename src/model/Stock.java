@@ -174,25 +174,6 @@ public class Stock {
         storage.get(storageLocation).remove(shelf);
     }
     
-    // need this for buyable and loanable separately!
-//    /**
-//     * Checks if a product and specific quantity is in stock,
-//     *
-//     * @param product the product
-//     * @param quantity the quantity
-//     * @return true, if is in stock
-//     */
-//    public boolean isInStock(Product product, int quantity) {
-//    	int totalQuantity = 0;
-//    	for(Shelf shelf: this.getShelves()) {
-//    		totalQuantity += shelf.getQuantityOfProduct(product);
-//    		if (totalQuantity > quantity) {
-//    			return true;
-//    		}
-//    	}
-//    	return false;
-//    }
-    
     /**
      * Gets the quantity of a product in stock.
      *
@@ -228,40 +209,42 @@ public class Stock {
      *
      * @param product the product
      * @param quantity the quantity
-     * @return the array list
+     * @return OrderLine the order line with the removed items
      */
-    public OrderLine removeFromstock(Product product, int quantity) {
+    public OrderLine stockToOrderlineBuyable(Product product, int quantity) {
     	int removedUntrackableItemQuantity = 0;
-    	Set<TrackableItem> removedTrackableItems = new HashSet<>();
+    	Set<TrackableItem> removedTrackableBuyableItems = new HashSet<>();
+    	int removedTotalquantity = 0;
+    	
     	for (Shelf shelf: this.getShelves()) {
     		Iterator<StockBatch> shelfIt = shelf.getStockBatches(product).iterator();
     		while (shelfIt.hasNext()) {
-    			// If Stock Batch doesn't cover the remaining quantity needed,
-    			// or is equal:
-    			// take the quantity and remove the stockBatch from shelf
     			StockBatch stockBatch = shelfIt.next();
-    			if (stockBatch.getTotalQuantity() <= (quantity - (removedUntrackableItemQuantity + removedTrackableItems.size()))) {
-    				removedUntrackableItemQuantity += stockBatch.getTotalQuantity();
-    				removedTrackableItems.addAll(stockBatch.getTrackableItems());
-    			} else {
-    				// The untrackable items cover the needeed quantity
-    				if (stockBatch.getUntrackableItemQuantity() >= (quantity - (removedUntrackableItemQuantity + removedTrackableItems.size()))) {
-    					removedUntrackableItemQuantity = quantity;
-    					stockBatch.setUntrackableItemQuantity((quantity - (removedUntrackableItemQuantity + removedTrackableItems.size())));
-    				} else {
-    					// Untrackable items don't cover needed quantity, 
-    					// so start popping trackable items
-    					removedUntrackableItemQuantity += stockBatch.getTotalQuantity();
-    					removedTrackableItems.addAll(stockBatch.popTrackableItems(quantity - (removedUntrackableItemQuantity + removedTrackableItems.size())));
-    					
-    				}
+    			
+    			// remove untrackable, buable
+    			if (removedTotalquantity < quantity) {
+    				stockBatch.popUntrackableBuyableItems(quantity - removedTotalquantity);
+    				// update the removed total quantity
+    				removedTotalquantity = removedUntrackableItemQuantity + removedTrackableBuyableItems.size();
+    			}
+    			
+    			// remove trackable, buyable
+    			if (removedTotalquantity < quantity) {
+    				stockBatch.popTrackableBuyableItems(quantity - removedTotalquantity);
+    				// update the removed total quantity
+    				removedTotalquantity = removedUntrackableItemQuantity + removedTrackableBuyableItems.size();
+    			}
+    			
+    			// remove stock batch if empty
+    			if (stockBatch.getTotalQuantity() == 0) {
+    				shelf.removeStockBatch(product, stockBatch);
     			}
     		}
 
     	}
     	// Create an orderline from the removed stock items and return it
     	return new OrderLine(product, removedUntrackableItemQuantity, 
-    			removedTrackableItems, product.getLatestSellingPrice(), 
+    			removedTrackableBuyableItems, product.getLatestSellingPrice(), 
     			product.getBestBulkDiscount(quantity));
     	
 

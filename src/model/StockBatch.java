@@ -199,24 +199,42 @@ public class StockBatch {
     
 
     /**
-     * Pop n amount of trackable items
+     * Pop n amount of trackable, buyable items
+     * NOTE: if poppable quantity > quantity in stock batch, stock batch quantity of items will be popped
      *
      * @param quantity the quantity of items to pop
-     * @return the array list
+     * @return the items
      */
-    public ArrayList<TrackableItem> popTrackableItems(int quantity) {
+    public ArrayList<TrackableItem> popTrackableBuyableItems(int quantity) {
     	
     	ArrayList<TrackableItem> trackableItems = new ArrayList<>();
     	int i = 0;
     	Iterator<TrackableItem> iter = this.trackableItems.iterator();
     	while (i < quantity  && iter.hasNext()) {
     	 TrackableItem trackableItem = iter.next();
-    	 trackableItems.add(trackableItem);
-    	 iter.remove();
-    	 i++;
+    	 if (trackableItem.getTrackableItemType() == TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE) {
+        	 trackableItems.add(trackableItem);
+        	 iter.remove();
+        	 i++;
+    	 }
     	}
     	return trackableItems;
-    	
+    }
+    
+    /**
+     * Pop n amount of untrackable, buyable items
+     * NOTE: if poppable quantity > quantity in stock batch, stock batch quantity of items will be popped
+     *
+     * @param quantity the quantity of items to pop
+     * @return the items
+     */
+    public int popUntrackableBuyableItems(int quantity) {
+    	if (quantity < this.untrackableItemQuantity) {
+    		this.setUntrackableItemQuantity(this.untrackableItemQuantity - quantity);
+    		return quantity;
+    	} else {
+    		return this.untrackableItemQuantity;
+    	}
     }
     
 	/**
