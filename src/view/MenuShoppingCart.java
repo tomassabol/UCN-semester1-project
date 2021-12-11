@@ -2,15 +2,6 @@ package view;
 
 import model.*;
 import controller.*;
-import model.Authentication;
-import model.Customer;
-import model.Product;
-import model.ShoppingCart;
-import model.ShoppingItemLine;
-import controller.ProductController;
-import controller.QuoteController;
-import controller.ShoppingCartController;
-import controller.StockController;
 
 import model.OutOfStockException;
 public class MenuShoppingCart extends GenericMenuInterface{
@@ -18,7 +9,6 @@ public class MenuShoppingCart extends GenericMenuInterface{
 
     private ShoppingCartController shoppingCartCtrl;
     private QuoteController quoteCtrl;
-    private StockController stockCtrl;
 
     /**
      * Constructor for MenuShoppingCart
@@ -31,7 +21,6 @@ public class MenuShoppingCart extends GenericMenuInterface{
         
         shoppingCartCtrl = new ShoppingCartController();
         quoteCtrl = new QuoteController();
-        stockCtrl = new StockController();
         
         this.customer = customer;
         
