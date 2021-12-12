@@ -35,8 +35,7 @@ public class ProductController {
 	/**
 	 * @param id of the product to be removed
 	 */
-	public void removeProduct(int id) {
-		Product product = findProductByID(id);
+	public void removeProduct(Product product) {
 		ProductContainer.getInstance().removeProduct(product);
 	}
 
@@ -130,5 +129,19 @@ public class ProductController {
 		LoaningPrice loaningPrice = new LoaningPrice(price, LocalDateTime.now());
 		product.addLoaningPrice(loaningPrice);
 		return loaningPrice;
+	}
+
+	/**
+	 * 
+	 * @param product The product whose stock gets checked
+	 * @return the quantity that is in stock
+	 */
+	public int getStock(Product product) {
+		StockController stockController = new StockController();
+		int quantity = 0;
+		if(stockController.buyableItemQuantityInStock(product) != 0) {
+			quantity = stockController.buyableItemQuantityInStock(product);
+		}
+		return quantity;
 	}
 }

@@ -48,7 +48,6 @@ public class MenuStock extends GenericMenuInterface {
 
         String name = terminal.getStringInput("Enter name of a new Shelf");
         terminal.printAllStorageLocations();
-        int storageLocationId = terminal.getIntegerInput("Enter the id of a Storage Location, where the shelf will be lcoated");
         StorageLocation storageLocation = terminal.getStorageLocation();
         stockCtrl.createShelf(name, storageLocation);
         super.show("New Shelf was successfully created");

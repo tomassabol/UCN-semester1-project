@@ -178,7 +178,7 @@ public class Terminal {
 		  System.out.println("[" + product.getName() + "]");
 		  System.out.println("ID: " + product.ID);
 		  System.out.println("Description: " + product.getDescription());
-		  System.out.println("In stock: " + "Unknown");
+		  System.out.println("In stock: " + productCtrl.getStock(product));
 		  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
 		  System.out.println();
     }
