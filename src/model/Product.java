@@ -105,7 +105,7 @@ public class Product {
 		LocalDateTime latestSellingPriceDate = latestSellingPrice.getDateAdded();
 		for(SellingPrice sellingPriceObj: this.sellingPrices) {
 			if (sellingPriceObj.getDateAdded().isAfter(latestSellingPriceDate)) {
-				latestSellingPriceDate = sellingPriceObj.getDateAdded();
+				latestSellingPrice = sellingPriceObj;
 			}
 		}
 		return latestSellingPrice.getPrice();
@@ -139,7 +139,7 @@ public class Product {
 		LocalDateTime latestLoaningPriceDate = latestLoaningPrice.getDateAdded();
 		for (LoaningPrice loaningPrice : this.loaningPrices) {
 			if (loaningPrice.getDateAdded().isAfter(latestLoaningPriceDate)) {
-				latestLoaningPriceDate = loaningPrice.getDateAdded();
+				latestLoaningPrice = loaningPrice;
 			}
 		}
 		return latestLoaningPrice.getPricePerHour();

@@ -100,7 +100,6 @@ public class MenuProduct extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        terminal.printProductsInDetail(productCtrl.getProducts());
         Product product = terminal.getProduct();
         BigDecimal price = terminal.getBigDecimalInput("Enter the new price", 0, Integer.MAX_VALUE);
         terminal.clearScreen();
@@ -115,7 +114,6 @@ public class MenuProduct extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        terminal.printProductsInDetail(productCtrl.getProducts());
         Product product = terminal.getProduct();
         terminal.clearScreen();
         
