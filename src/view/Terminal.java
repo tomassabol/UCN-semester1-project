@@ -12,7 +12,6 @@ import java.util.Scanner;
 import controller.*;
 import model.*;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Terminal.
  */
@@ -77,6 +76,8 @@ public class Terminal {
    * Note: Runs until valid ID is entered
    */
   public Customer getCustomer(String prompt) {
+	  this.printAllCustomers(customerCtrl.getCustomers());
+	  System.out.println();
 	  Customer customer = null;
 	  do {
 		  int id = this.getIntegerInput(prompt);
@@ -85,14 +86,24 @@ public class Terminal {
 	  
 	  return customer;
   }
-  
-  /**
-   * Gets the customer.
-   *
-   * @return the customer
-   */
   public Customer getCustomer() {
-	  return this.getCustomer("Choose a customer by ID");
+	  return this.getCustomer("Choose a customer");
+  }
+  /**
+   * Prints all Customers.
+   */
+  public void printAllCustomers(List<Customer> customers) {
+	  //for (Customer customer: customerCtrl.getCustomers()) {
+	  System.out.println("*** Customers ***");
+	  System.out.println();
+	  for (Customer customer: customers) {
+		  String printLine = "(%d) %s %s %s";
+		  System.out.println(String.format(printLine, 
+				  customer.ID,
+				  customer.getFirstName(),
+				  customer.getLastName(),
+				  customer.getBirthDate()));
+	  }
   }
   
   
@@ -174,10 +185,9 @@ public class Terminal {
    * @param quotePrompt the quote prompt
    * @return Quote The found quote belonging to the customer
    */
-  public Quote getQuote(String customerPrompt, String quotePrompt) {
-	  Customer customer = this.getCustomer("Choose a customer to show the quotes for");
+  public Quote getQuote(String quotePrompt) {
+	  Customer customer = this.getCustomer();
 	  this.clearScreen();
-	  System.out.println("[Quotes]");
 	  this.printQuotes(customer);
 	  Quote quote = null;
 	  do {
@@ -194,8 +204,7 @@ public class Terminal {
    * @return the quote
    */
   public Quote getQuote() {
-	  return this.getQuote("Choose a customer to show the quotes for",
-			  "Choose the quote");
+	  return this.getQuote("Choose the quote");
   }
   
   /**
@@ -254,16 +263,6 @@ public class Terminal {
   }
   
   /**
-   * Prints all Customers.
-   */
-  public void printAllCustomers() {
-	  for (Customer customer: customerCtrl.getCustomers()) {
-		  System.out.println("(" + customer.ID + ") " 
-	  + customer.getFirstName() + " " + customer.getLastName());
-	  }
-  }
-  
-  /**
    * print all products marked as buyable
    */
   public void printBuyableProducts() {
@@ -311,7 +310,6 @@ public class Terminal {
    * Prints the quotes.
    *
    * @param customer the customer
->>>>>>> 5d62cd4 (Refactoring view)
    */
   public void printQuotes(Customer customer) {
 		System.out.println(String.format("[Quotes for %s %s]", customer.getFirstName(), customer.getLastName()));

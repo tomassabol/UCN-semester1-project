@@ -37,8 +37,6 @@ public class MenuQuotes extends GenericMenuInterface {
 	private void createQuote() {
 		Terminal terminal = getTerminal();
 		terminal.clearScreen();
-		System.out.println("[Customers]");
-		terminal.printAllCustomers();
 		Customer customer = terminal.getCustomer();
 		new MenuShoppingCart(this, customer).show();
 	}
@@ -73,8 +71,6 @@ public class MenuQuotes extends GenericMenuInterface {
 	public void showOrders() {
 		Terminal terminal = getTerminal();
 		terminal.clearScreen();
-		System.out.println("[Customers]");
-		terminal.printAllCustomers();
 		Customer customer = terminal.getCustomer();
 		terminal.clearScreen();
 		terminal.printOrders(customer);
