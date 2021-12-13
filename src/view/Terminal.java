@@ -44,8 +44,12 @@ public class Terminal {
   /** The order ctrl. */
   OrderController orderCtrl;
   
+  /** The employee ctrl. */
+  EmployeeController employeeCtrl;
+  
   /** The current interface. */
   GenericMenuInterface currentInterface;
+  
 
   /** The Constant DATE_FORMAT. */
   private static final String DATE_FORMAT = "dd/MM/yyyy";
@@ -66,6 +70,7 @@ public class Terminal {
     supplyCtrl = new SupplyController();
     quoteCtrl = new QuoteController();
     orderCtrl = new OrderController();
+    employeeCtrl = new EmployeeController();
   }
   
   /**
@@ -105,7 +110,6 @@ public class Terminal {
 				  customer.getBirthDate()));
 	  }
   }
-  
   
 
   /**
@@ -179,6 +183,39 @@ public class Terminal {
 				  product.getLatestSellingPrice()));
 		  System.out.println("Description: " + product.getDescription());
 		  System.out.println();
+	  }
+  }
+  
+  /**
+   * Prints all employees and prompts the user to identify an employee by ID.
+   *
+   * @param prompt the prompt
+   * @return the employee
+   */
+  public Employee getEmployee(String prompt) {
+	  printEmployees(employeeCtrl.getEmployees());
+	  Employee employee = null;
+	  do {
+		  int id = this.getIntegerInput(prompt);
+		  employee = employeeCtrl.getEmployeeByID(id);
+	  } while (employee == null);
+	  
+	  return employee;
+  }
+  
+  /**
+   * Prints all employees
+   */
+  public void printEmployees(List<Employee> employees) {
+	  System.out.println("*** Employees ***");
+	  System.out.println();
+	  for (Employee employee: employees) {
+		  String printLine = "(%d) %s %s %s";
+		  System.out.println(String.format(printLine, 
+				  employee.ID,
+				  employee.getFirstName(),
+				  employee.getLastName(),
+				  employee.getBirthDate()));
 	  }
   }
   
