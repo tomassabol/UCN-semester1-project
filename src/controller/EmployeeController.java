@@ -51,4 +51,33 @@ public class EmployeeController {
 		return EmployeeContainer.getInstance().getEmployees();
 	}
 
+	public void updateFirstName(int id, String firstName) {
+		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+		employee.setFirstName(firstName);
+	}
+
+	public void updateLastName(int id, String lastName) {
+		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+		employee.setLastName(lastName);
+	}
+
+	public void updateAddress(int id, String address) {
+		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+		employee.setAddress(address);
+	}
+
+	public void updataBirthDate(int id, LocalDate birthDate) {
+		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+		employee.setBirthDate(birthDate);
+	}
+
+	public void updateCPRNumber(int id, String CPRNumber) {
+		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+		employee.setCPRNumber(CPRNumber);
+	}
+
+	public void removeEmployee(Employee employee) {
+		EmployeeContainer.getInstance().removeEmployee(employee);
+	}
+
 }

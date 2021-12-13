@@ -40,7 +40,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-        terminal.printContractorInfo();
+        terminal.printContractors(terminal.getContractors());
         Contractor contractor = terminal.getContractor();
         BigDecimal pricePerItem = terminal.getBigDecimalInput("Price per Item", 0, Integer.MAX_VALUE);
         int minQuantity = terminal.getIntegerInput("The minimum quantity of the product", 0, Integer.MAX_VALUE);

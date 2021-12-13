@@ -209,12 +209,14 @@ public class Terminal {
 	  System.out.println("*** Employees ***");
 	  System.out.println();
 	  for (Employee employee: employees) {
-		  String printLine = "(%d) %s %s %s";
+		  String printLine = "(%d) %s %s %s %s %s";
 		  System.out.println(String.format(printLine, 
 				  employee.ID,
 				  employee.getFirstName(),
 				  employee.getLastName(),
-				  employee.getBirthDate()));
+          employee.getBirthDate(),
+          employee.getAddress(),
+          employee.getCPRnumber()));
 	  }
   }
   
@@ -235,6 +237,9 @@ public class Terminal {
 	  return contractor;
   }
   
+  public List<Contractor> getContractors() {
+    return contractorCtrl.getContractors();
+  }
   /**
    * Prints the contractors.
    */
