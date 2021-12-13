@@ -202,7 +202,6 @@ public class Terminal {
 	  
 	  return employee;
   }
-  
   /**
    * Prints all employees
    */
@@ -218,6 +217,33 @@ public class Terminal {
 				  employee.getBirthDate()));
 	  }
   }
+  
+  /**
+   * prompt the user to identify a Contractor by ID.
+   *
+   * @return contractor with entered contractor ID
+   */
+  public Contractor getContractor() {
+	  this.printContractors(contractorCtrl.getContractors());
+	  System.out.println();
+	  Contractor contractor = null;
+	  do {
+		  int id = this.getIntegerInput("Choose contractor by");
+		  contractor = contractorCtrl.findContractorByID(id);
+	  } while (contractor == null);
+	  
+	  return contractor;
+  }
+  
+  /**
+   * Prints the contractors.
+   */
+  public void printContractors(List<Contractor> contractors) {
+	  System.out.println("*** Contractors ***");
+      for (Contractor contractor : contractors) {
+    	System.out.println(String.format("(%d) %s", contractor.ID, contractor.getCompanyName()));
+      }
+    }
   
   /**
    * prompt the user to identify a customer, and then a quote.
@@ -270,20 +296,7 @@ public class Terminal {
 	  return getProduct("Choose product");
   }
   
-  /**
-   * prompt the user to identify a Contractor by ID.
-   *
-   * @return contractor with entered contructor ID
-   */
-  public Contractor getContractor() {
-	  Contractor contractor = null;
-	  do {
-		  int id = this.getIntegerInput("Choose contractor by ID");
-		  contractor = contractorCtrl.findContractorByID(id);
-	  } while (contractor == null);
-	  
-	  return contractor;
-  }
+
 
   /**
    * Gets the storage location.
@@ -435,20 +448,6 @@ public class Terminal {
     List<CustomerType> customerTypes = customerCtrl.getCustomerTypes();
     for(CustomerType customerType : customerTypes){
       System.out.println("Customer type name: " + customerType.getName() + "\nCustomer type discount percantage: " +customerType.getDiscountPercentage() + "\nCustomer type id: " + customerType.ID);
-      System.out.println();
-    }
-  }
-
-  /**
-   * prints all contractors and its information
-   * Prints the contractor info.
-   */
-  public void printContractorInfo() {
-    List<Contractor> contractors = contractorCtrl.getContractors();
-    for(Contractor contractor : contractors){
-      System.out.println();
-      System.out.println("Contractor's ID: " + contractor.ID);
-      System.out.println("Contractor's company's name: " + contractor.getCompanyName());
       System.out.println();
     }
   }
