@@ -22,7 +22,7 @@ public class MenuStock extends GenericMenuInterface {
         super.addMenuOption("2", new GenericMenuOption("Create new Shelf", () -> createShelf()));
         super.addMenuOption("3", new GenericMenuOption("Show all Storage Locations", () -> showAllStorageLocations()));
         super.addMenuOption("4", new GenericMenuOption("Show all Shelves", () -> showAllShelves()));
-        super.addMenuOption("8", new GenericMenuOption("Add items to stock", () -> stockAndMarkDelivered()));
+        super.addMenuOption("5", new GenericMenuOption("Add items to stock", () -> stockAndMarkDelivered()));
         super.addMenuOptionGoBack("0");
 
         stockCtrl = new StockController();
