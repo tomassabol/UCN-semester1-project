@@ -197,6 +197,19 @@ public class Terminal {
 	  
 	  return quote;
   }
+
+  public SupplyOffer getSupplyOffer() {
+    SupplyOffer supplyOffer = null;
+    do {
+      int id = getIntegerInput("Id of the supply offer");
+      supplyOffer = supplyCtrl.findSupplyOfferByID(id);
+      if(supplyOffer.isActive() == false) {
+        supplyOffer = null;
+        System.out.println("This supply offer is inactive");
+      }
+    }while (supplyOffer == null);
+    return supplyOffer;
+  }
   
   /**
    * Gets the quote.

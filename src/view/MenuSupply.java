@@ -82,7 +82,7 @@ public class MenuSupply extends GenericMenuInterface {
         int supplyOfferId = terminal.getIntegerInput("Enter the Supply Offer ID");
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(supplyOfferId);
         supplyCtrl.setStatus(supplyOffer);
-        super.show("Supply offer was set to " + supplyOffer.isActive());
+        super.show("Supply offer status was set to " + supplyOffer.isActive());
         
         
     }
@@ -98,8 +98,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.printProductInfos();
         Product product = terminal.getProduct();
         printSuplyOffers(product);
-        int id = terminal.getIntegerInput("Enter the ID of a supply offer", 0, Integer.MAX_VALUE);
-        SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(id);
+        SupplyOffer supplyOffer = terminal.getSupplyOffer();
         int quantity = terminal.getIntegerInput("Enter the quantity of the product");
         supplyCtrl.createSupplyOrder(supplyOffer, quantity);
         super.show("The supply order was susccessfully created");
@@ -215,6 +214,7 @@ public class MenuSupply extends GenericMenuInterface {
             System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
             System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
             System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.getMIN_QUANTITY()));
+            System.out.println("Supply offer status active: " + String.format(("%s"), supplyOffer.isActive()));
             System.out.println();
           }
         }else {
