@@ -13,6 +13,7 @@ import controller.*;
 import model.*;
 
 public class Terminal {
+	private final String GO_BACK_CMD = "-back";
   private Scanner scanner;
   
   CustomerController customerCtrl;
@@ -210,16 +211,15 @@ public class Terminal {
    */
   public String getStringInput(String prompt) {
     System.out.print(prompt + ": ");
-    String userInput = scanner.nextLine();
-    if (userInput.toLowerCase().contentEquals("-back")) {
+    String userInput = scanner.nextLine().trim();
+    if (userInput.toLowerCase().contentEquals(GO_BACK_CMD.toLowerCase())) {
     	this.currentInterface.goToPreviousMenu();
-    	System.out.println("wtf");
     }
     while(userInput.isEmpty()){
-      System.out.println("Error: please enter the requested data");
+      System.out.println("Please enter the requested info or type '"+ GO_BACK_CMD + "' to go back");
       userInput = scanner.nextLine();
     }
-    return userInput.trim();
+    return userInput;
   }
 
   /**
@@ -236,7 +236,7 @@ public class Terminal {
         // If no errors, it means input is a valid int, so break.
         break;
       } catch (NumberFormatException e) {
-        printError("Please enter a valid integer number");
+        printError("Please enter a valid integer number or type " + GO_BACK_CMD + " to go back");
         // Not a valid integer input. No continue required.
       }
     }
