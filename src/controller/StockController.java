@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import model.PrimaryKey;
@@ -54,6 +55,10 @@ public class StockController {
     public Shelf findShelfById(int id) {
         return Stock.getInstance().findShelfByID(id);
     }
+    
+    public Shelf findShelfByIndex(StorageLocation storageLocation, int index) {
+    	return Stock.getInstance().findShelfByIndex(storageLocation, index);
+    }
 
     /**
      * Gets the storage locations.
@@ -71,6 +76,16 @@ public class StockController {
      */
     public ArrayList<Shelf> getShelves() {
         return Stock.getInstance().getShelves();
+    }
+    
+    /**
+     * Gets the shelves.
+     *
+     * @param storageLocation the storage location
+     * @return the shelves
+     */
+    public List<Shelf> getShelves(StorageLocation storageLocation) {
+    	return Stock.getInstance().getShelves(storageLocation);
     }
     
     /**

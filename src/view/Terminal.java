@@ -298,6 +298,7 @@ public class Terminal {
    * @return the storage location
    */
   public StorageLocation getStorageLocation() {
+	  this.printStorageLocations();
 	  StorageLocation storageLocation = null;
 	  do {
 		  int id = this.getIntegerInput("Choose Storage Location by ID");
@@ -306,18 +307,54 @@ public class Terminal {
 	  
 	  return storageLocation;
   }
+  
+  /**
+   * Prints the all shelves.
+   */
+  public void printShelf(Shelf shelf) {
+      System.out.println("Shelf ID: " + String.format(("%d"), shelf.ID));
+      System.out.println("Name: " + String.format(("%s"), shelf.getName()));
+      System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
+  }
 
-
+  /**
+   * Prints the all shelves.
+   */
+  public void printAllShelves() {
+	  System.out.println("[Shelves]");
+    for (Shelf shelf : stockCtrl.getShelves()) {
+      this.printShelf(shelf);
+      System.out.println();
+    }
+  }
+  
+  /**
+   * Prints the all shelves.
+   */
+  public void printShelves(StorageLocation storageLocation) {
+	  System.out.println("[Shelves for " + storageLocation.getName() +"]");
+	  List<Shelf> shelves = stockCtrl.getShelves(storageLocation);
+    for (int i = 0; i < shelves.size(); i++) {
+    	Shelf shelf = shelves.get(i);
+      System.out.println("(%d)" + String.format(("%d"), i));
+      System.out.println("Name: " + String.format(("%s"), shelf.getName()));
+      System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
+      System.out.println();
+    }
+  }
+  
   /**
    * Gets the shelf.
    *
    * @return the shelf
    */
-  public Shelf getShelf() {
+  public Shelf getShelf(StorageLocation storageLocation) {
+	  
+	  this.printShelves(storageLocation);
 	  Shelf shelf = null;
 	  do {
-		  int id = this.getIntegerInput("Choose Shelf by ID");
-		  shelf = stockCtrl.findShelfById(id);
+		  int index = this.getIntegerInput("Choose Shelf by ID");
+		  shelf = stockCtrl.findShelfByIndex(storageLocation, index);
 	  } while (shelf == null);
 	  
 	  return shelf;
@@ -550,12 +587,23 @@ public class Terminal {
    * @return the supply order
    */
   public SupplyOrder getSupplyOrder(String prompt){
+	this.printSupplyOrders();
     SupplyOrder supplyOrder;
     do {
       int id = getIntegerInput(prompt);
       supplyOrder = supplyCtrl.findSupplyOrderById(id);
     } while (supplyOrder == null);
     return supplyOrder;
+  }
+  public SupplyOrder getSupplyOrder() {
+	  return getSupplyOrder("Choose supply order");
+  }
+  
+  public void printSupplyOrders() {
+	  System.out.println("[Supply Orders[");
+	  for(SupplyOrder supplyOrder: supplyCtrl.getSupplyOrders()) {
+		  this.printSupplyOrder(supplyOrder);
+	  }
   }
 
   /**
@@ -707,18 +755,6 @@ public class Terminal {
 	public void printError(String message) {
 		System.out.println("[ERROR]: " + message + "\n");
 	}
-
-  /**
-   * Prints the all shelves.
-   */
-  public void printAllShelves() {
-    for (Shelf shelf : stockCtrl.getShelves()) {
-      System.out.println("Shelf ID: " + String.format(("%d"), shelf.ID));
-      System.out.println("Name: " + String.format(("%s"), shelf.getName()));
-      System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
-      System.out.println();
-    }
-  }
 	
 	/**
 	 * Clear screen.
@@ -735,7 +771,8 @@ public class Terminal {
   /**
    * Prints the all storage locations.
    */
-  public void printAllStorageLocations() {
+  public void printStorageLocations() {
+	  System.out.println("[Storage locations]");
 	  if (stockCtrl.getStorageLocations().isEmpty()) {
 		  System.out.println("There are no storage locations...");
 		  return;
