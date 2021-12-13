@@ -40,16 +40,6 @@ public class MenuCustomer extends GenericMenuInterface{
         super.show("Customer was succsesfully created!");
     }
 
-    // may be needed in the future
-    /*
-    private String getCustomerTypeNames() {
-        for (CustomerType customerType : customerCtrl.getCustomerTypes()) {
-            customerType.getName();
-        }
-        return null;
-    }
-    */
-
     /**
      * Prints out all the customers informations
      */

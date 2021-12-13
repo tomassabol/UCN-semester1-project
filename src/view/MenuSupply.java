@@ -42,13 +42,12 @@ public class MenuSupply extends GenericMenuInterface {
         Product product = terminal.getProduct();
         terminal.printContractorInfo();
         Contractor contractor = terminal.getContractor();
-        BigDecimal pricePerItem = terminal.getBigDecimalInput("Price per Item");
-        int minQuantity = terminal.getIntegerInput("The minimum quantity of the product");
+        BigDecimal pricePerItem = terminal.getBigDecimalInput("Price per Item", 0, Integer.MAX_VALUE);
+        int minQuantity = terminal.getIntegerInput("The minimum quantity of the product", 0, Integer.MAX_VALUE);
         supplyCtrl.createSupplyOffer(product, contractor, pricePerItem, minQuantity);
         super.show("The offer was susccessfully created");
         System.out.println();
-        terminal.getAnyKeyInput("Press [Enter] to go back");
-        super.show();
+
     }
 
 
@@ -84,9 +83,8 @@ public class MenuSupply extends GenericMenuInterface {
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(supplyOfferId);
         supplyCtrl.setStatus(supplyOffer);
         super.show("Supply offer was set to " + supplyOffer.isActive());
-        System.out.println();
-        terminal.getAnyKeyInput("Press [Enter] to go back"); // Doesn't work for some reason
-        super.show();
+        
+        
     }
     
 
@@ -100,7 +98,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.printProductInfos();
         Product product = terminal.getProduct();
         printSuplyOffers(product);
-        int id = terminal.getIntegerInput("Enter the ID of a supply offer");
+        int id = terminal.getIntegerInput("Enter the ID of a supply offer", 0, Integer.MAX_VALUE);
         SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(id);
         int quantity = terminal.getIntegerInput("Enter the quantity of the product");
         supplyCtrl.createSupplyOrder(supplyOffer, quantity);

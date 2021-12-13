@@ -37,8 +37,15 @@ public class MenuProduct extends GenericMenuInterface{
         terminal.clearScreen();
         String pName = terminal.getStringInput("Name of the product");
         String description = terminal.getStringInput("Description of the product");
-        int minStock = terminal.getIntegerInput("Minimum stock of the product");
-        int maxStock = terminal.getIntegerInput("Maximum stock of the product");
+        int minStock = terminal.getIntegerInput("Minimum stock of the product", 0, Integer.MAX_VALUE);
+        int maxStock = terminal.getIntegerInput("Maximum stock of the product", 0, Integer.MAX_VALUE);
+        while(true){
+            if(minStock > maxStock){
+                System.out.println("The mimimum stock needs to be smaller than the maximum stock");
+            }else break;
+            minStock = terminal.getIntegerInput("Minimum stock of the product", 0, Integer.MAX_VALUE);
+            maxStock = terminal.getIntegerInput("Maximum stock of the product", 0, Integer.MAX_VALUE);
+        }
         if(terminal.confirmInput()){
             productCtrl.createProduct(pName, description, minStock, maxStock);
             super.show("New product was successfully created!");
@@ -96,7 +103,7 @@ public class MenuProduct extends GenericMenuInterface{
 
         printAllProducts();
         Product product = terminal.getProduct();
-        BigDecimal price = terminal.getBigDecimalInput("Enter the new price");
+        BigDecimal price = terminal.getBigDecimalInput("Enter the new price", 0, Integer.MAX_VALUE);
         productCtrl.createSellingPrice(price, product);
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -108,7 +115,7 @@ public class MenuProduct extends GenericMenuInterface{
 
         printAllProducts();
         Product product = terminal.getProduct();
-        BigDecimal price = terminal.getBigDecimalInput("Enter the new Price");
+        BigDecimal price = terminal.getBigDecimalInput("Enter the new Price", 0, Integer.MAX_VALUE);
         productCtrl.createSellingPrice(price, product);
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();

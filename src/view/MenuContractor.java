@@ -17,6 +17,7 @@ public class MenuContractor extends GenericMenuInterface{
         super.addMenuOption("1", new GenericMenuOption("Create a Contractor", () -> createContractor()));
         super.addMenuOption("2", new GenericMenuOption("Show all Contractor", () -> showAllContractors()));
         super.addMenuOption("3", new GenericMenuOption("Delete a Contractor", () -> deleteContractor()));
+        super.addMenuOption("4", new GenericMenuOption("Update Contractor company name", () -> updateName()));
         super.addMenuOptionGoBack("0");
 
         contractorCtrl = new ContractorController();
@@ -60,8 +61,7 @@ public class MenuContractor extends GenericMenuInterface{
         terminal.clearScreen();
 
         printContractors();
-        int id = terminal.getIntegerInput("The id of the contractor you want to delete");
-        contractorCtrl.removeContractor(id);
+        contractorCtrl.removeContractor(terminal.getContractor());
         super.show("The contractor was deleted!");
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -70,9 +70,20 @@ public class MenuContractor extends GenericMenuInterface{
     public void printContractors() {
         for (Contractor contractor : contractorCtrl.getContractors()) {
           System.out.println("Contractor ID: " + String.format(("%d"), contractor.ID));
-          System.out.println("Contractor Company name: " + String.format(("%d"), contractor.getCompanyName()));
+          System.out.println("Contractor Company name: " + String.format(("%s"), contractor.getCompanyName()));
           System.out.println();
         }
       }
+
+    public void updateName(){
+        Terminal terminal = getTerminal();
+        terminal.clearScreen();
+
+        printContractors();
+        Contractor contractor = terminal.getContractor();
+        String name = terminal.getStringInput("The new name of the company");
+        contractorCtrl.updateContractorCompanyName(contractor, name);
+        super.show("Name was successfully updated to: " + name);
+    }
 
 }

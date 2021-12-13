@@ -426,7 +426,7 @@ public class Terminal {
       System.out.println();
     }
   }
-  
+
   /**
    * Gets a specific bulk discount for a specific product by index in list
    *
@@ -553,8 +553,8 @@ public class Terminal {
    * @param prompt the prompt
    * @return the big decimal input
    */
-  public BigDecimal getBigDecimalInput(String prompt){
-    return BigDecimal.valueOf(getIntegerInput(prompt));
+  public BigDecimal getBigDecimalInput(String prompt, int min, int max){
+    return BigDecimal.valueOf(getIntegerInput(prompt, min, max));
   }
 
   /**

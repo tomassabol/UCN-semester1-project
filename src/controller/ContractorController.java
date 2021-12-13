@@ -56,10 +56,13 @@ public class ContractorController {
 			/**
 			 * @param id of the product to be removed
 			 */
-		public void removeContractor(int id) {
-				Contractor contractor = findContractorByID(id);
+		public void removeContractor(Contractor contractor) {
 				ContractorContainer.getInstance().removeContractor(contractor);
-			}
+		}
+
+		public void updateContractorCompanyName(Contractor contractor, String name){
+			contractor.setCompanyName(name);
+		}
 			
 }	
 	

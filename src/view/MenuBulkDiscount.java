@@ -1,7 +1,5 @@
 package view;
 
-import org.junit.jupiter.api.TestReporter;
-
 import controller.ProductController;
 import model.BulkDiscount;
 import model.Product;
@@ -40,26 +38,6 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         productCtrl.createBulkDiscount(product, minQuantity, discountPercentage);
         super.show("The bulk discount was successfully created!");
         
-        super.show();
-    }
-
-    private void printAllBullkDiscount() {
-    	Terminal terminal = getTerminal();
-        terminal.clearScreen();
-
-        terminal.printAllBullkDiscount();
-        terminal.getAnyKeyInput("Press [Enter] to continue");
-        super.show();
-    }
-
-    private void getBestBulkDiscount() {
-    	Terminal terminal = getTerminal();
-        terminal.clearScreen();
-
-        Product product = terminal.getProduct();
-        int quantity = terminal.getIntegerInput("Qunatity of the product you want to buy");
-        terminal.printBulkDiscount(product.getBestBulkDiscount(quantity));        
-        terminal.getAnyKeyInput("Press [Enter] to continue");
         super.show();
     }
 
