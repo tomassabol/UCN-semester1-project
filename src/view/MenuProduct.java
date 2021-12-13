@@ -38,14 +38,7 @@ public class MenuProduct extends GenericMenuInterface{
         String pName = terminal.getStringInput("Name of the product");
         String description = terminal.getStringInput("Description of the product");
         int minStock = terminal.getIntegerInput("Minimum stock of the product", 0, Integer.MAX_VALUE);
-        int maxStock = terminal.getIntegerInput("Maximum stock of the product", 0, Integer.MAX_VALUE);
-        while(true){
-            if(minStock > maxStock){
-                System.out.println("The mimimum stock needs to be smaller than the maximum stock");
-            }else break;
-            minStock = terminal.getIntegerInput("Minimum stock of the product", 0, Integer.MAX_VALUE);
-            maxStock = terminal.getIntegerInput("Maximum stock of the product", 0, Integer.MAX_VALUE);
-        }
+        int maxStock = terminal.getIntegerInput("Maximum stock of the product", minStock, Integer.MAX_VALUE);
         if(terminal.confirmInput()){
             productCtrl.createProduct(pName, description, minStock, maxStock);
             super.show("New product was successfully created!");
@@ -60,9 +53,9 @@ public class MenuProduct extends GenericMenuInterface{
     private void showAllProducts(){
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
-
-        System.out.println("[All Products in the System]");
-        printAllProducts();
+        
+        terminal.printProductsInDetail(productCtrl.getProducts());
+        
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
@@ -75,8 +68,13 @@ public class MenuProduct extends GenericMenuInterface{
         terminal.clearScreen();
 
         terminal.printProductInfos();
-        productCtrl.removeProduct(terminal.getProduct());
-        super.show("The product was deleted!");
+        Product product = terminal.getProduct();
+        
+        if (terminal.confirmInput("Are you sure you wish to remove the product: " + product.getName())) {
+            productCtrl.removeProduct(product);
+            super.show("The product was deleted!");
+        }
+
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
@@ -87,6 +85,7 @@ public class MenuProduct extends GenericMenuInterface{
     private void updateProduct() {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
+        
         Product product = terminal.getProduct();
         new MenuUpdateProduct(this, product).show();
         super.show();
@@ -101,10 +100,13 @@ public class MenuProduct extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        printAllProducts();
+        terminal.printProductsInDetail(productCtrl.getProducts());
         Product product = terminal.getProduct();
         BigDecimal price = terminal.getBigDecimalInput("Enter the new price", 0, Integer.MAX_VALUE);
+        terminal.clearScreen();
+
         productCtrl.createSellingPrice(price, product);
+        System.out.println("Successfully added a purchase price of " + price + " DKK to " + product.getName());
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
@@ -113,40 +115,17 @@ public class MenuProduct extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        printAllProducts();
+        terminal.printProductsInDetail(productCtrl.getProducts());
         Product product = terminal.getProduct();
-        BigDecimal price = terminal.getBigDecimalInput("Enter the new Price", 0, Integer.MAX_VALUE);
+        terminal.clearScreen();
+        
+        BigDecimal price = terminal.getBigDecimalInput("Enter the loaning Price", 0, Integer.MAX_VALUE);
+        
         productCtrl.createSellingPrice(price, product);
+        System.out.println("Successfully added a loaning price of " + price + " DKK to " + product.getName());
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
-
-    /**
-     * @param id The id of a product
-     * @return true if the system can't find the product
-     */
-    private boolean isEmpty(int id){
-        if(productCtrl.findProductByID(id) == null){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    private void printAllProducts() {
-        for (Product product : productCtrl.getProducts()) {
-          System.out.println("Product ID: " + String.format("(%d)",product.ID));
-          System.out.println("Name: " + String.format("%s",product.getName()));
-          System.out.println("Description: " + String.format("%s",product.getDescription()));
-          System.out.println("Max Stock: " + String.format("%d",product.getMaxStock()));
-          System.out.println("Min Stock: " + String.format("%d",product.getMinStock()));
-          System.out.println("In Stock: " + String.format("%d", productCtrl.getStock(product)));
-          System.out.println("Date added: " + String.format("%s)",product.getDateAdded()));
-          System.out.println("Selling price: " + String.format("%.2f",product.getLatestSellingPrice()));
-          System.out.println("Loaning price: " + String.format("%.2f",product.getLatestLoaningPrice()));
-          System.out.println();
-        }
-      }
 
       private void showBulkDisocuntMenu(){
     	  new MenuBulkDiscount(this).show();

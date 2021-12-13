@@ -155,8 +155,12 @@ public class Terminal {
 			  System.out.println("ID: " + product.ID);
 			  System.out.println("Description: " + product.getDescription());
 			  System.out.println("Loanable items in stock: " + stockCtrl.getLoanableQuantityInStock(product));
+	          System.out.println("Loaning price: " + String.format("%.2f",product.getLatestLoaningPrice()));
 			  System.out.println("Purchaseable items in stock: " + stockCtrl.getBuyableQuantityInStock(product));
-			  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
+	          System.out.println("Selling price: " + String.format("%.2f",product.getLatestSellingPrice()));
+	          System.out.println("Date added: " + String.format("%s)",product.getDateAdded()));
+	          System.out.println("Max Stock: " + String.format("%d",product.getMaxStock()));
+	          System.out.println("Min Stock: " + String.format("%d",product.getMinStock()));
 			  System.out.println();
 	    }
 	  }
