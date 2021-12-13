@@ -4,7 +4,7 @@ import model.Product;
 import controller.ProductController;
 
 public class MenuUpdateProduct extends GenericMenuInterface{
-    private int productId;
+    private Product product;
 
     private ProductController productCtrl;
 
@@ -13,10 +13,10 @@ public class MenuUpdateProduct extends GenericMenuInterface{
      * @param product The product to update
      */
     public MenuUpdateProduct(GenericMenuInterface previousInterface,
-    		int id) {
+    		Product product) {
         super(previousInterface);
         productCtrl = new ProductController();
-        Product product = productCtrl.findProductByID(id);
+        this.product = product;
         
         super.setTitle("Update " + product.getName());
         super.addMenuOption("1", new GenericMenuOption("Update product name", () -> updateName()));
@@ -25,7 +25,6 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         super.addMenuOption("4", new GenericMenuOption("Update product maximum stock", () -> updateMaxStock()));
         super.addMenuOptionGoBack("0");
         
-        productId = id;
     }
     /**
      * Updates the name of the product
@@ -36,7 +35,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         terminal.clearScreen();
 
         String name = terminal.getStringInput("The new name of the product");
-        productCtrl.updateProductName(productId, name);
+        productCtrl.updateProductName(product, name);
         super.setTitle("Update " + name);
         super.show("The product name was successfully updated to: " + name);
         terminal.getAnyKeyInput("Press [Enter] to go back");
@@ -51,7 +50,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         terminal.clearScreen();
 
         String description = terminal.getStringInput("The new description of the product");
-        productCtrl.updateProductDescription(productId, description);
+        productCtrl.updateProductDescription(product, description);
         super.show("The product description was successfully updated to: " + description);
         terminal.getAnyKeyInput("Press [Enter] to go back");
 		super.show();
@@ -65,7 +64,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         terminal.clearScreen();
 
         int minStock = terminal.getIntegerInput("The new minimum stock of the product");
-        productCtrl.updateProductMinStock(productId, minStock);
+        productCtrl.updateProductMinStock(product, minStock);
         super.show("The minimum stock of the product was successfully updated to: " + minStock);
         terminal.getAnyKeyInput("Press [Enter] to go back");
 		super.show();
@@ -79,7 +78,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
         terminal.clearScreen();
 
         int maxStock = terminal.getIntegerInput("The new maximum stock of the product");
-        productCtrl.updateProductMaxStock(productId, maxStock);
+        productCtrl.updateProductMaxStock(product, maxStock);
         super.show("The maximum stock of the product was successfully updated to: " + maxStock);
         terminal.getAnyKeyInput("Press [Enter] to go back");
 		super.show();

@@ -124,8 +124,11 @@ public class Product {
 		return this.sellingPrices.add(sellingPrice);
 	}
 
+
 	/**
-	 * @return the latest loaning price per hour
+	 * Gets the current loaning price
+	 *
+	 * @return the current loaning price
 	 */
 	public BigDecimal getLatestLoaningPrice() {
 		if (this.loaningPrices.isEmpty()) {
@@ -154,14 +157,19 @@ public class Product {
 		return this.loaningPrices.add(loaningPrice);
 	}
 
-	public void addBulkDiscount(BulkDiscount bulkDiscount) {
-		this.bulkDiscounts.add(bulkDiscount);
+	public boolean addBulkDiscount(BulkDiscount bulkDiscount) {
+		return this.bulkDiscounts.add(bulkDiscount);
 	}
 
 	public ArrayList<BulkDiscount> getBulkDiscounts() {
 		return this.bulkDiscounts;
 	}
 	
+	/**
+	 * Gets the active bulk discounts.
+	 *
+	 * @return the active bulk discounts
+	 */
 	public ArrayList<BulkDiscount> getActiveBulkDiscounts() {
     	ArrayList<BulkDiscount> activeBulkDiscounts = new ArrayList<>();
     	for (BulkDiscount bulkDiscount: this.getBulkDiscounts()) {
@@ -173,6 +181,11 @@ public class Product {
 		
 	}
 	
+	/**
+	 * Gets the inactive bulk discounts.
+	 *
+	 * @return the inactive bulk discounts
+	 */
 	public ArrayList<BulkDiscount> getInactiveBulkDiscounts() {
     	ArrayList<BulkDiscount> inactiveBulkDiscounts = new ArrayList<>();
     	for (BulkDiscount bulkDiscount: this.getBulkDiscounts()) {
@@ -183,6 +196,12 @@ public class Product {
     	return inactiveBulkDiscounts;
 	}
 	
+	/**
+	 * Gets the best bulk discount.
+	 *
+	 * @param quantity the quantity
+	 * @return the best bulk discount
+	 */
 	public BulkDiscount getBestBulkDiscount(int quantity) {
     	BulkDiscount bestBulkDiscount = null;
 		for (BulkDiscount bulkDiscount: this.getActiveBulkDiscounts()) {
@@ -200,6 +219,12 @@ public class Product {
 		
 	}
 
+	/**
+	 * Gets the bulk discount by index in the list
+	 *
+	 * @param index the index
+	 * @return the bulk discount by index
+	 */
 	public BulkDiscount getBulkDiscountByIndex(int index) {
 		BulkDiscount bulkDiscountWithId = null;
 		Iterator<BulkDiscount> it = this.getBulkDiscounts().iterator();
@@ -212,6 +237,11 @@ public class Product {
 		return bulkDiscountWithId;
 	}
 
+	/**
+	 * Sets bulkDiscount active or inactive
+	 *
+	 * @param boolean active: true, inactive: false
+	 */
 	public void setStatus(BulkDiscount bulkDiscount) {
 		bulkDiscount.setActive(!bulkDiscount.isActive());
 	}

@@ -2,8 +2,10 @@ package controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import model.BulkDiscount;
 import model.LoaningPrice;
 import model.PrimaryKey;
 import model.Product;
@@ -67,8 +69,7 @@ public class ProductController {
 	 * @param id of the product to be updated
 	 * @param name - new name of the product that will overwrite the previous one
 	 */
-	public void updateProductName(int id, String name) {
-		Product product = findProductByID(id);
+	public void updateProductName(Product product, String name) {
 		product.setName(name);
 	}
 
@@ -76,8 +77,7 @@ public class ProductController {
 	 * @param id of the product to be updated
 	 * @param description - new description of the product that will overwrite the previous one
 	 */
-	public void updateProductDescription(int id, String description) {
-		Product product = findProductByID(id);
+	public void updateProductDescription(Product product, String description) {
 		product.setDescription(description);
 	}
 
@@ -85,8 +85,7 @@ public class ProductController {
 	 * @param id of the product to be updated
 	 * @param minStock - new minimal stock of the product that will overwrite the previous one
 	 */
-	public void updateProductMinStock(int id, int minStock) {
-		Product product = findProductByID(id);
+	public void updateProductMinStock(Product product, int minStock) {
 		product.setMinStock(minStock);
 	}
 
@@ -94,8 +93,7 @@ public class ProductController {
 	 * @param id of the product to be updated
 	 * @param maxStock - new maximal stock of the product that will overwrite the previous one
 	 */
-	public void updateProductMaxStock(int id, int maxStock) {
-		Product product = findProductByID(id);
+	public void updateProductMaxStock(Product product, int maxStock) {
 		product.setMaxStock(maxStock);
 	}
 	
@@ -143,5 +141,71 @@ public class ProductController {
 			quantity = stockController.buyableItemQuantityInStock(product);
 		}
 		return quantity;
+	}
+	
+	/**
+	 * Gets all bulk discounts
+	 *
+	 * @param product the product
+	 * @return the bulk discounts
+	 */
+	public ArrayList<BulkDiscount> getBulkDiscounts(Product product) {
+		return product.getBulkDiscounts();
+	}
+	
+	/**
+	 * Gets the bulk discount by index in list
+	 *
+	 * @param product the product
+	 * @param index the index
+	 * @return the bulk discount by index
+	 */
+	public BulkDiscount getBulkDiscountByIndex(Product product, int index) {
+		return product.getBulkDiscountByIndex(index);
+	}
+	
+	/**
+	 * Gets the inactive bulk discounts.
+	 *
+	 * @param product the product
+	 * @return the inactive bulk discounts
+	 */
+	public ArrayList<BulkDiscount> getInactiveBulkDiscounts(Product product) {
+		return product.getInactiveBulkDiscounts();
+	}
+	
+	/**
+	 * Gets the active bulk discounts.
+	 *
+	 * @param product the product
+	 * @return the active bulk discounts
+	 */
+	public ArrayList<BulkDiscount> getActiveBulkDiscounts(Product product) {
+		return product.getActiveBulkDiscounts();
+	}
+	
+	
+	
+	/**
+	 * Sets the bulk discount status.
+	 *
+	 * @param bulkDiscount the bulk discount
+	 * @param status active: true, inactive: false
+	 */
+	public void setBulkDiscountStatus(BulkDiscount bulkDiscount, boolean status) {
+		bulkDiscount.setActive(status);
+	}
+	
+	/**
+	 * Creates the bulk discount and adds it to the product
+	 *
+	 * @param product the product
+	 * @param minQuantity the min quantity for it to apply
+	 * @param discountPercentage the discount percentage
+	 * @return true, if successful
+	 */
+	public boolean createBulkDiscount(Product product, int minQuantity, int discountPercentage) {
+		BulkDiscount bulkDiscount = new BulkDiscount(minQuantity, discountPercentage);
+		return product.addBulkDiscount(bulkDiscount);
 	}
 }

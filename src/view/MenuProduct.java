@@ -80,15 +80,8 @@ public class MenuProduct extends GenericMenuInterface{
     private void updateProduct() {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
-
-        int id = terminal.getIntegerInput("The id of the product you want to update");
-        if(isEmpty(id)){
-            super.show("There is no product with that id in the system");
-        }else{
-            MenuUpdateProduct updateMenu = new MenuUpdateProduct(this, id);
-            updateMenu.show();
-        }
-        terminal.getAnyKeyInput("Press [Enter] to go back");
+        Product product = terminal.getProduct();
+        new MenuUpdateProduct(this, product).show();
         super.show();
     }
 

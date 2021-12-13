@@ -227,12 +227,16 @@ public class Terminal {
    * @return int An integer as input from the user
    * Note: Runs until a valid integer value is entered
    */
-  public int getIntegerInput(String prompt) {
+  public int getIntegerInput(String prompt, int min, int max) {
     int userInput;
 
     while (true) {
       try {
         userInput = Integer.parseInt(getStringInput(prompt));
+        if (userInput < min || userInput > max) {
+        	this.printError("Please enter a number from " + min + " to " + max);
+        	continue;
+        }
         // If no errors, it means input is a valid int, so break.
         break;
       } catch (NumberFormatException e) {
@@ -242,6 +246,9 @@ public class Terminal {
     }
 
     return userInput;
+  }
+  public int getIntegerInput(String prompt) {
+	  return getIntegerInput(prompt, Integer.MIN_VALUE, Integer.MAX_VALUE);
   }
 
   /**
@@ -281,53 +288,37 @@ public class Terminal {
       System.out.println();
     }
   }
-
+  
   /**
-   * prints all bulk discount info
+   * Gets a specific bulk discount for a specific product by index in list
+   *
+   * @param product the product
+   * @return the bulk discount
    */
-  public void printArrayBulkDiscount(ArrayList<BulkDiscount> bulkDiscounts) {
-      for (BulkDiscount bulkDiscount : bulkDiscounts) {
-        System.out.println();
-        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
-        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
-        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
-        System.out.println();
-      }
+  public BulkDiscount getBulkDiscount(String prompt, Product product) {
+	  BulkDiscount bulkDiscount = null;
+	  do {
+		  int index = this.getIntegerInput(prompt);
+		  bulkDiscount = productCtrl.getBulkDiscountByIndex(product, index);
+	  }  while (bulkDiscount == null);
+	  return bulkDiscount;
   }
+	/**
+	* print bulk discount info for specific product
+	* @param product to print bulk discount info for
+	*/
+	public void printBulkDiscounts(ArrayList<BulkDiscount> bulkDiscounts){
+		for (int i = 0; i < bulkDiscounts.size(); i++) {
+			BulkDiscount bulkDiscount = bulkDiscounts.get(i);
+		    System.out.println();
+		    System.out.println("ID: " + i);
+		    System.out.println("Discount percentage: " + bulkDiscount.getDiscountPercentage());
+		    System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
+		    System.out.println("Active: " + bulkDiscount.isActive());
+		    System.out.println();
+		}
 
-  /**
-   * print bulk discount info for specific product
-   * @param product to print bulk discount info for
-   */
-  public void printBulkDiscount(Product product){
-      ArrayList<BulkDiscount> bulkDiscounts = product.getBulkDiscounts();
-      for(BulkDiscount bulkDiscount : bulkDiscounts) {
-        System.out.println();
-        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
-        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
-        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
-        System.out.println("Active: " + bulkDiscount.isActive());
-        System.out.println();
-      }
-  }
-
-  /**
-   * prints all bulk discount info
-   */
-  public void printAllBullkDiscount() {
-    for (Product product : productCtrl.getProducts()) {
-      ArrayList<BulkDiscount> bulkDiscounts = product.getBulkDiscounts();
-      for (BulkDiscount bulkDiscount : bulkDiscounts) {
-        System.out.println();
-        System.out.println("For ["+ product.getName() +"] product");
-        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
-        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
-        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
-        System.out.println("Active: " + bulkDiscount.isActive());
-        System.out.println();
-      }
-    }
-  }
+	}
 
   /**
    * prints info about specific bulkdiscount
@@ -335,11 +326,10 @@ public class Terminal {
    * @param bulkDiscount
    */
   public void printBulkDiscount(Product product, BulkDiscount bulkDiscount) {
-        System.out.println();
-        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
+        System.out.println("Bulk discount for ["+ product.getName() +"]");
+        System.out.println("Discount percentage: " + bulkDiscount.getDiscountPercentage());
         System.out.println("Minimum quantity" + bulkDiscount.getMinQuantity());
         System.out.println("Active: " + bulkDiscount.isActive());
-        System.out.println();
   }
 
   public SupplyOrder getSupplyOrder(String prompt){
@@ -354,7 +344,9 @@ public class Terminal {
   public void getAnyKeyInput(String prompt){
     System.out.print(prompt + ": ");
     String userInput = scanner.nextLine();
-    return;
+  }
+  public void getAnyKeyInput() {
+	  getAnyKeyInput("Press [Enter] to go back...");
   }
 
   public BigDecimal getBigDecimalInput(String prompt){
@@ -460,8 +452,8 @@ public class Terminal {
    * Print an error message
    * @param String The error message to print.
    */
-	public static void printError(String message) {
-		System.out.println("ERROR: " + message + "\n");
+	public void printError(String message) {
+		System.out.println("[ERROR]: " + message + "\n");
 	}
   
 	/*
@@ -490,10 +482,11 @@ public class Terminal {
 		}
 	}
 
-  public void printCustomerType() {
-  }
-
   public void printAllStorageLocations() {
+	  if (stockCtrl.getStorageLocations().isEmpty()) {
+		  System.out.println("There are no storage locations...");
+		  return;
+	  }
       for (StorageLocation storageLocation : stockCtrl.getStorageLocations()) {
         System.out.println("Storage Location ID: " + String.format(("%d"), storageLocation.ID));
         System.out.println("Name: " + String.format(("%s"), storageLocation.getName()));
