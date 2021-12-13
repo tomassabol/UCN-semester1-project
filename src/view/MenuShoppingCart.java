@@ -56,7 +56,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
     	terminal.clearScreen();
     	Product product = terminal.getBuyableProduct("Choose product to add to cart");
     	System.out.println("You chose: " + product.getName());
-    	int quantity = terminal.getIntegerInput("How many?", 1, stockCtrl.getBuyableQuantityInStock(product));
+    	int quantity = terminal.getIntegerInput("How many?");
     	try { 
     		shoppingCartCtrl.addProduct(shoppingCart, product, quantity);
     	} catch (IllegalArgumentException | OutOfStockException e){
@@ -105,7 +105,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
     
     public void clearShoppingCart() {
     	Terminal terminal = getTerminal();
-    	if (terminal.confirmInput("Are you sure you want to clear" + customer.getFirstName() + "'s cart?")) {
+    	if (terminal.confirmInput("Are you sure you want to clear " + customer.getFirstName() + "'s cart?")) {
     		customer.getShoppingCart().clear();
     	}
     	this.show();
