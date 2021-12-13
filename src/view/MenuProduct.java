@@ -67,7 +67,6 @@ public class MenuProduct extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        terminal.printProductInfos();
         Product product = terminal.getProduct();
         
         if (terminal.confirmInput("Are you sure you wish to remove the product: " + product.getName())) {

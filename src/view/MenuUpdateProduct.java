@@ -63,7 +63,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        int minStock = terminal.getIntegerInput("The new minimum stock of the product");
+        int minStock = terminal.getIntegerInput("The new minimum stock of the product", 0, Integer.MAX_VALUE);
         productCtrl.updateProductMinStock(product, minStock);
         super.show("The minimum stock of the product was successfully updated to: " + minStock);
         terminal.getAnyKeyInput("Press [Enter] to go back");
@@ -77,7 +77,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        int maxStock = terminal.getIntegerInput("The new maximum stock of the product");
+        int maxStock = terminal.getIntegerInput("The new maximum stock of the product", product.getMinStock(), Integer.MAX_VALUE);
         productCtrl.updateProductMaxStock(product, maxStock);
         super.show("The maximum stock of the product was successfully updated to: " + maxStock);
         terminal.getAnyKeyInput("Press [Enter] to go back");

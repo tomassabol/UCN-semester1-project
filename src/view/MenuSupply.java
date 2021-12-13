@@ -58,7 +58,6 @@ public class MenuSupply extends GenericMenuInterface {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        terminal.printProductInfos();
         Product product = terminal.getProduct();
         System.out.println("[All SupplyOffers in the System]");
         printSuplyOffers(product);
@@ -75,7 +74,6 @@ public class MenuSupply extends GenericMenuInterface {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        terminal.printProductInfos();
         Product product = terminal.getProduct();
         System.out.println("All Supply offers in the System");
         printSuplyOffers(product);
@@ -95,7 +93,6 @@ public class MenuSupply extends GenericMenuInterface {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        terminal.printProductInfos();
         Product product = terminal.getProduct();
         printSuplyOffers(product);
         SupplyOffer supplyOffer = terminal.getSupplyOffer();

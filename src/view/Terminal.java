@@ -296,32 +296,6 @@ public class Terminal {
 		  System.out.println();
 	  }
   }
-
-  /**
-   * prints all product and their info
-   */
-  public void printProductInfos(){
-    for (Product product : productCtrl.getProducts()){
-      System.out.println();
-		  System.out.println("[" + product.getName() + "]");
-		  System.out.println("ID: " + product.ID);
-		  System.out.println("Description: " + product.getDescription());
-		  System.out.println("In stock: " + productCtrl.getStock(product));
-		  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
-		  System.out.println();
-    }
-  }
-  
-  /**
-   * prints all quotes of a specific customer
-   * @param customer to print quotes for
-=======
-
-
-  /**
-   * Prints all of the products in detail
-   */
-
   
   /**
    * Prints the quotes.
