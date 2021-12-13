@@ -16,8 +16,8 @@ public class CustomerType {
 	 * @exception IllegalArgumentException if discount % < 0
 	 */
 	public CustomerType(int ID, String type, int discountPercentage) {
-		if (discountPercentage < 0 || discountPercentage > 20) {
-			throw new IllegalArgumentException("Customer's discount percentage must be between 0 and 20");
+		if (discountPercentage < 0 || discountPercentage > 100) {
+			throw new IllegalArgumentException("Customer's discount percentage must be between 0 and 100");
 		}
 		this.setDiscountPercentage(discountPercentage);
 		this.name = type;
@@ -47,8 +47,8 @@ public class CustomerType {
 	 * @exception IllegalArgumentException if discount % < 0
 	 */
 	public void setDiscountPercentage(int discountPercentage) {
-		if (discountPercentage <= 0 || discountPercentage >= 20) {
-			throw new IllegalArgumentException("Customer's discount percentage must be between 0 and 20");
+		if (discountPercentage < 0 || discountPercentage > 100) {
+			throw new IllegalArgumentException("Customer's discount percentage must be between 0 and 100");
 		}
 		this.discountPercentage = discountPercentage;
 	}
