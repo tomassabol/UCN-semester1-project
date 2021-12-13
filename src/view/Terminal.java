@@ -271,19 +271,7 @@ public class Terminal {
 	  return quote;
   }
 
-  public SupplyOffer getSupplyOffer() {
-    SupplyOffer supplyOffer = null;
-    do {
-      int id = getIntegerInput("Id of the supply offer");
-      supplyOffer = supplyCtrl.findSupplyOfferByID(id);
-      if(supplyOffer.isActive() == false) {
-        supplyOffer = null;
-        System.out.println("This supply offer is inactive");
-      }
-    }while (supplyOffer == null);
-    return supplyOffer;
-  }
-  
+
   /**
    * Gets the quote.
    *
@@ -760,5 +748,69 @@ public class Terminal {
         System.out.println();
       }
     }
+  
+  public void printSupplyOrder(SupplyOrder supplyOrder) {
+      System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
+      System.out.println("Product: " + String.format(("%s"), supplyOrder.getProduct().getName()));
+      System.out.println("Quantity: " + String.format(("%d"), supplyOrder.getQuantity()));
+      System.out.println("Price per item: " + String.format(("%.2f"), supplyOrder.getPricePerItem()));
+      System.out.println("Date Ordered: " + String.format(("%s"), supplyOrder.getDateOrdered()));
+      System.out.println("Delivered: " + String.format(("%s"), supplyOrder.isDelivered()));
+    }
+  
+  public void printAllSupplyOrders() {
+	  System.out.println("[Supply orders]");
+	  System.out.println();
+      for (SupplyOrder supplyOrder : supplyCtrl.getSupplyOrders()) {
+        printSupplyOrder(supplyOrder);  
+      }
+    }
+  
+  public void printUndeliveredSupplyOrders() {
+	  System.out.println("[UnDelivered supply orders]");
+	  System.out.println();
+      for (SupplyOrder supplyOrder : supplyCtrl.getUndeliveredSupplyOrders()) {
+        printSupplyOrder(supplyOrder);
+      }
+    }
+  
+  public void printDeliveredSupplyOrders() {
+	  System.out.println("[Delivered supply orders]");
+	  System.out.println();
+      for (SupplyOrder supplyOrder : supplyCtrl.getDeliveredSupplyOrders()) {
+        printSupplyOrder(supplyOrder);
+      }
+    }
+  
+    
+  /**
+   * Prints the all supply offers with index
+   *
+   * @param product the product
+   */
+  public void printSupplyOffers(Product product) {
+	    System.out.println("[Supply Offers for" + product.getName() + "]");
+	    System.out.println();
+	    List<SupplyOffer> supplyOffers = supplyCtrl.getSupplyOffers(product);
+        for (int i = 0; i < supplyOffers.size(); i++) {
+        	SupplyOffer supplyOffer = supplyOffers.get(i);
+          System.out.println("(%d): " + String.format(("%d"), i));
+          System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
+          System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
+          System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
+          System.out.println("Supply offer is active: " + String.format(("%s"), supplyOffer.isActive()));
+          System.out.println();
+        }
+    }
+  
+  public SupplyOffer getSupplyOffer(Product product) {
+	this.printSupplyOffers(product);
+    SupplyOffer supplyOffer = null;
+    do {
+      int index = getIntegerInput("Choose supply offer");
+      supplyOffer = supplyCtrl.findSupplyOfferByIndex(product, index);
+    } while (supplyOffer == null);
+    return supplyOffer;
+  }
 
 }

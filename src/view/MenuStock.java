@@ -1,7 +1,9 @@
 package view;
 
 import controller.StockController;
+import model.Shelf;
 import model.StorageLocation;
+import model.SupplyOrder;
 
 public class MenuStock extends GenericMenuInterface {
 
@@ -18,6 +20,7 @@ public class MenuStock extends GenericMenuInterface {
         super.addMenuOption("2", new GenericMenuOption("Create new Shelf", () -> createShelf()));
         super.addMenuOption("3", new GenericMenuOption("Show all Storage Locations", () -> showAllStorageLocations()));
         super.addMenuOption("4", new GenericMenuOption("Show all Shelves", () -> showAllShelves()));
+        super.addMenuOption("8", new GenericMenuOption("Stock and mark Supply Order as delivered", () -> stockAndMarkDelivered()));
         super.addMenuOptionGoBack("0");
 
         stockCtrl = new StockController();
@@ -75,6 +78,32 @@ public class MenuStock extends GenericMenuInterface {
 
         System.out.println("[All Shelves]");
         terminal.printAllShelves();
+        terminal.getAnyKeyInput("Press [Enter] to go back");
+        super.show();
+    }
+    
+    /**
+     * Puts products from supply order into stock - into specific shelf 
+     * - and marks the supply order as delivere
+     */
+    private void stockAndMarkDelivered() {
+    	Terminal terminal = getTerminal();
+        terminal.clearScreen();
+
+        printAllSupplyOrders();
+        int supplyOrderId = terminal.getIntegerInput("Enter the id of a supply order");
+        SupplyOrder supplyOrder = supplyCtrl.findSupplyOrderById(supplyOrderId);
+        terminal.printAllShelves();
+
+        System.out.println();
+
+        int shelfId = terminal.getIntegerInput("Enter the id of a shelf to put delivered product");
+        Shelf shelf = stockCtrl.findShelfById(shelfId);
+        System.out.println("test: " + shelf);
+        boolean trackable = terminal.confirmInput("Does the Item have a serial number?");
+        supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, trackable);
+        super.show("Success");
+        System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }

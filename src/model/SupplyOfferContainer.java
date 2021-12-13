@@ -49,7 +49,7 @@ public class SupplyOfferContainer {
      * @return supplyOffer with the specific ID if found, else null
      * Note: This is O(N), so best one.
      */
-    public SupplyOffer findSupplyOfferById(Product product, int index) {
+    public SupplyOffer findSupplyOfferByIndex(Product product, int index) {
     	try {
     		return this.offers.get(product).get(index);
     	} catch (IndexOutOfBoundsException e) {
