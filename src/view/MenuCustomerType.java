@@ -59,6 +59,7 @@ public class MenuCustomerType extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
+<<<<<<< HEAD
         CustomerType customerType = terminal.getCustomerType();
         
         String newName = terminal.getStringInput("The new name for the customer type");
@@ -68,6 +69,13 @@ public class MenuCustomerType extends GenericMenuInterface{
         	super.show("The name was successfully updated");
         }
         super.show();
+=======
+        CustomerType customerType = terminal.getCustomerType("Choose customer type");
+        
+        String newName = terminal.getStringInput("The new name of the customer type");
+        customerCtrl.updateCustomerTypeName(customerType, newName);
+        super.show("The name was successfully updated");
+>>>>>>> aabfa06 (Refactored menuCustomer)
     }
 
     /**
@@ -77,6 +85,7 @@ public class MenuCustomerType extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
+<<<<<<< HEAD
         CustomerType customerType = terminal.getCustomerType();
         
         int newDiscountPercentage = terminal.getIntegerInput("The new discount percentage", 1, 100);
@@ -86,6 +95,13 @@ public class MenuCustomerType extends GenericMenuInterface{
         	super.show("The discount percantage was successfully updated");
         }
         super.show();
+=======
+        CustomerType customerType = terminal.getCustomerType("Choose customer type");
+        
+        int newDiscountPercentage = terminal.getIntegerInput("The new discount percentage", 0, 100);
+        customerCtrl.updateCustomerTypeDiscountPercantage(customerType, newDiscountPercentage);
+        super.show("The discount percantage was successfully updated");
+>>>>>>> aabfa06 (Refactored menuCustomer)
     }
 
     /**
@@ -95,11 +111,26 @@ public class MenuCustomerType extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
+<<<<<<< HEAD
         CustomerType customerType = terminal.getCustomerType();
         
         if (terminal.confirmInput("Do you wish to delete the customer type: " + customerType.getName())) {
             customerCtrl.deleteCustomerType(customerType);
             super.show("The customer type was successfully deleted!");
+=======
+        CustomerType customerType = terminal.getCustomerType("Choose customer type");
+        
+        customerCtrl.deleteCustomerType(customerType);
+        super.show("The customer type was deleted");
+    }
+
+    private void printCustomerTypes() {
+        for (CustomerType customerType : customerCtrl.getCustomerTypes()) {
+            System.out.println("Customer type ID: " + String.format("(%d)",customerType.ID));
+            System.out.println("Name: " + String.format("%s",customerType.getName()));
+            System.out.println("Discount Percentage: " + String.format("%d",customerType.getDiscountPercentage()));
+            System.out.println();
+>>>>>>> aabfa06 (Refactored menuCustomer)
         }
         super.show();
     }
