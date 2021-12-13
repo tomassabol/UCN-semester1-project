@@ -15,23 +15,21 @@ public class MenuMain extends GenericMenuInterface {
     super.setTitle("Main Menu");
     super.addMenuOption("1", new GenericMenuOption("Generate test data",
     () -> generateTestData()));
-    super.addMenuOption("2", new GenericMenuOption("Orders",
-    		    () -> showOrdersMenu()));
-    super.addMenuOption("3", new GenericMenuOption("Quotes",
+    super.addMenuOption("2", new GenericMenuOption("Quotes",
     		    () -> showQuotesMenu()));
-    super.addMenuOption("4", new GenericMenuOption("Advanced Quote Menu",
+    super.addMenuOption("3", new GenericMenuOption("Advanced Quote Menu",
     		    () -> showAdvancedQuotes()));
-    super.addMenuOption("5", new GenericMenuOption("Products",
+    super.addMenuOption("4", new GenericMenuOption("Products",
             () -> showProductsMenu()));
-    super.addMenuOption("6", new GenericMenuOption("Employees",
+    super.addMenuOption("5", new GenericMenuOption("Employees",
             () -> showEmployeesMenu()));
-    super.addMenuOption("7", new GenericMenuOption("Contractors",
+    super.addMenuOption("6", new GenericMenuOption("Contractors",
             () -> showContractorMenu()));
-    super.addMenuOption("8", new GenericMenuOption("Supplies",
+    super.addMenuOption("7", new GenericMenuOption("Supplies",
             () -> showSupplyMenu()));
-    super.addMenuOption("9", new GenericMenuOption("Stock",
+    super.addMenuOption("8", new GenericMenuOption("Stock",
             () -> showStockMenu()));
-    super.addMenuOption("10", new GenericMenuOption("Customers", () -> showCustomerMenu()));
+    super.addMenuOption("9", new GenericMenuOption("Customers", () -> showCustomerMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		    () -> Terminal.quit()));
 
@@ -45,13 +43,7 @@ public class MenuMain extends GenericMenuInterface {
           generateCtrl.generateData();
           super.show("Data Generated");
   }
-  
-  /**
-   * Show orders menu.
-   */
-  private void showOrdersMenu() {
-	  new MenuOrders(this).show();
-  }
+
 
   /**
    * Show quotes menu.

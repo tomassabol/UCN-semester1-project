@@ -27,7 +27,7 @@ public class MenuStock extends GenericMenuInterface {
      * create a storage location within the system
      */
     private void createStorageLocation() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String name = terminal.getStringInput("Enter the name of a new Storage Location");
@@ -43,7 +43,7 @@ public class MenuStock extends GenericMenuInterface {
      * create a shelf within the System
      */
     private void createShelf() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String name = terminal.getStringInput("Enter name of a new Shelf");
@@ -59,7 +59,7 @@ public class MenuStock extends GenericMenuInterface {
      * prints all storage locations within the system and its information 
      */
     private void showAllStorageLocations() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         System.out.println("[All Storage Locations]");
@@ -73,7 +73,7 @@ public class MenuStock extends GenericMenuInterface {
      * prints all shelves within the system and its information
      */
     private void showAllShelves() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         System.out.println("[All Shelves]");

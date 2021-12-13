@@ -25,7 +25,7 @@ public class MenuCustomer extends GenericMenuInterface{
     }
 
     private void createCustomer(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String firstName = terminal.getStringInput("First name of the new customer");
@@ -54,7 +54,7 @@ public class MenuCustomer extends GenericMenuInterface{
      * Prints out all the customers informations
      */
     private void showAllCustomers(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         System.out.println("[All Customers in the System]");
@@ -67,7 +67,7 @@ public class MenuCustomer extends GenericMenuInterface{
      * Updates customer info
      */
     private void updateCustomerInfo(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         int id = terminal.getIntegerInput("The id of the Customer you want to update");
@@ -85,7 +85,7 @@ public class MenuCustomer extends GenericMenuInterface{
      * Removes a customer from the customers ArrayList
      */
     private void deleteCustomer(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         int id = terminal.getIntegerInput("The Id of the customer to be removed");

@@ -13,7 +13,6 @@ import controller.*;
 import model.*;
 
 public class Terminal {
-  private static Terminal instance;
   private Scanner scanner;
   
   CustomerController customerCtrl;
@@ -23,15 +22,17 @@ public class Terminal {
   SupplyController supplyCtrl;
   QuoteController quoteCtrl;
   OrderController orderCtrl;
+  GenericMenuInterface currentInterface;
 
   private static final String DATE_FORMAT = "dd/MM/yyyy";
 
   /**
    * Constructor for the Parser class.
    */
-  private Terminal() {
+  public Terminal(GenericMenuInterface currentInterface) {
+	this.currentInterface = currentInterface;
     scanner = new Scanner(System.in);
-    
+
     customerCtrl = new CustomerController();
     productCtrl = new ProductController();
     contractorCtrl = new ContractorController();
@@ -39,16 +40,6 @@ public class Terminal {
     supplyCtrl = new SupplyController();
     quoteCtrl = new QuoteController();
     orderCtrl = new OrderController();
-  }
-
-  /**
-   * @return The instance of the Parser class
-   */
-  public static Terminal getInstance() {
-    if (instance == null) {
-      instance = new Terminal();
-    }
-    return instance;
   }
   
   /**
@@ -220,8 +211,12 @@ public class Terminal {
   public String getStringInput(String prompt) {
     System.out.print(prompt + ": ");
     String userInput = scanner.nextLine();
+    if (userInput.toLowerCase().contentEquals("-back")) {
+    	this.currentInterface.goToPreviousMenu();
+    	System.out.println("wtf");
+    }
     while(userInput.isEmpty()){
-      System.out.println("Insert valid input");
+      System.out.println("Error: please enter the requested data");
       userInput = scanner.nextLine();
     }
     return userInput.trim();

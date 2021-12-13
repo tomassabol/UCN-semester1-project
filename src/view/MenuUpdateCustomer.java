@@ -33,7 +33,7 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
      * Updates the first name of the customer
      */
     private void updateFirstName(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String newFirstName = terminal.getStringInput("New first name");
@@ -45,7 +45,7 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
      * Updates the last name of the customer
      */
     private void updateLastName(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String newLastName = terminal.getStringInput("New last name");
@@ -57,7 +57,7 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
      * Updates the address of the customer
      */
     private void updateAddress(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String newAddress = terminal.getStringInput("The new address");
@@ -69,7 +69,7 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
      * Updates the phone number of the customer
      */
     private void updateMobile(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String newMobile = terminal.getStringInput("The new phone number");
@@ -81,7 +81,7 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
      * Updates the customer type
      */
     private void updateCustomerType(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
         
         CustomerType customerType = customerCtrl.findCustomerTypeById(terminal.getIntegerInput("Customer Type id"));
@@ -93,7 +93,7 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
      * Updates the birth date
      */
     private void updateBirthDate(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         LocalDate birthDate = terminal.getDateInput("The new birth date");

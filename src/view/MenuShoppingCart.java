@@ -34,7 +34,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
     
     @Override
     public void show() {
-    	Terminal.getInstance().clearScreen();
+    	getTerminal().clearScreen();
     	
     	System.out.println("[Customer]");
     	System.out.println(String.format("Name: %s %s", 
@@ -50,32 +50,34 @@ public class MenuShoppingCart extends GenericMenuInterface{
     }
     
     public void addItemToCart(ShoppingCart shoppingCart){
-    	Terminal.getInstance().clearScreen();
+    	Terminal terminal = getTerminal();
+    	terminal.clearScreen();
     	System.out.println("*** Products ***");
-    	Terminal.getInstance().printBuyableProducts();
-    	Product product = Terminal.getInstance().getProduct("Choose product by ID to add to cart");
-    	int quantity = Terminal.getInstance().getIntegerInput("Quantity");
+    	terminal.printBuyableProducts();
+    	Product product = terminal.getProduct("Choose product by ID to add to cart");
+    	int quantity = terminal.getIntegerInput("Quantity");
     	try { 
     		shoppingCartCtrl.addProduct(shoppingCart, product, quantity);
     	} catch (IllegalArgumentException | OutOfStockException e){
     		System.out.println(e.getLocalizedMessage());
     	}
 
-    	Terminal.getInstance().getAnyKeyInput("Press [Enter] to go back...");
+    	terminal.getAnyKeyInput("Press [Enter] to go back...");
     	this.show();
     }
     
     public void createQuoteFromCart() {
-    	if (Terminal.getInstance().confirmInput("Are you sure you want to create a quote for "+ customer.getFirstName() +"?")) {
+    	Terminal terminal = getTerminal();
+    	if (terminal.confirmInput("Are you sure you want to create a quote for "+ customer.getFirstName() +"?")) {
         	quoteCtrl.createQuote(customer,
         			getAuth().getLoggedInUser(),
         			customer.getShoppingCart());
-        	Terminal.getInstance().clearScreen();
+        	terminal.clearScreen();
         	System.out.println("The quote was successfully created.");
         	System.out.println();
-        	Terminal.getInstance().printQuotes(customer);
+        	terminal.printQuotes(customer);
         	System.out.println();
-        	Terminal.getInstance().getAnyKeyInput("Press [Enter] to go back");
+        	terminal.getAnyKeyInput("Press [Enter] to go back");
     	}
 
     	
@@ -101,7 +103,8 @@ public class MenuShoppingCart extends GenericMenuInterface{
     }
     
     public void clearShoppingCart() {
-    	if (Terminal.getInstance().confirmInput("Are you sure you want to clear" + customer.getFirstName() + "'s cart?")) {
+    	Terminal terminal = getTerminal();
+    	if (terminal.confirmInput("Are you sure you want to clear" + customer.getFirstName() + "'s cart?")) {
     		customer.getShoppingCart().clear();
     	}
     	this.show();

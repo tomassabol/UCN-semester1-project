@@ -33,7 +33,7 @@ public class MenuProduct extends GenericMenuInterface{
      * Creates a new Product
      */
     private void createProduct(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
         String pName = terminal.getStringInput("Name of the product");
         String description = terminal.getStringInput("Description of the product");
@@ -51,7 +51,7 @@ public class MenuProduct extends GenericMenuInterface{
      * Displays all the products
      */
     private void showAllProducts(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         System.out.println("[All Products in the System]");
@@ -64,7 +64,7 @@ public class MenuProduct extends GenericMenuInterface{
      * Deletes a product
      */
     private void deleteProduct(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -78,7 +78,7 @@ public class MenuProduct extends GenericMenuInterface{
      * Takes the id of a product and takes it to the MenuUpdateProduct
      */
     private void updateProduct() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         int id = terminal.getIntegerInput("The id of the product you want to update");
@@ -98,7 +98,7 @@ public class MenuProduct extends GenericMenuInterface{
      * Creates a new selling price
      */
     private void addSellingPrice() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         printAllProducts();
@@ -110,7 +110,7 @@ public class MenuProduct extends GenericMenuInterface{
     }
 
     private void addLoaningPrice() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         printAllProducts();

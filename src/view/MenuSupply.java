@@ -36,7 +36,7 @@ public class MenuSupply extends GenericMenuInterface {
      * Creates new supply offer
      */
     private void createSupplyOffer(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -57,7 +57,7 @@ public class MenuSupply extends GenericMenuInterface {
      * Displays all the supplyoffers
      */
     private void showAllSupplyOffers(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -74,7 +74,7 @@ public class MenuSupply extends GenericMenuInterface {
      * Changes specific supply offer status to not active (false)
      */
     private void setSupplyOfferStatus(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -95,7 +95,7 @@ public class MenuSupply extends GenericMenuInterface {
      * Creates a new supply offer
      */
     private void createSupplyOrder(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -116,7 +116,7 @@ public class MenuSupply extends GenericMenuInterface {
      * Displays all the supplyoffers
      */
     private void showAllSupplyOrders (){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         System.out.println("[All Supply orders in the System]");
@@ -130,7 +130,7 @@ public class MenuSupply extends GenericMenuInterface {
      * Prints all undelivered Supply orders
      */
     private void showUndeliveredSupplyOrders() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         System.out.println("[All Undelivered Supply orders in the System]");
@@ -144,7 +144,7 @@ public class MenuSupply extends GenericMenuInterface {
      * Prints all delivered supply orders
      */
     private void showDeliveredSupplyOrders() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         System.out.println("[All Delivered Supply orders in the System]");
@@ -159,7 +159,7 @@ public class MenuSupply extends GenericMenuInterface {
      * - and marks the supply order as delivere
      */
     private void stockAndMarkDelivered() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         printAllSupplyOrders();
@@ -171,6 +171,7 @@ public class MenuSupply extends GenericMenuInterface {
 
         int shelfId = terminal.getIntegerInput("Enter the id of a shelf to put delivered product");
         Shelf shelf = stockCtrl.findShelfById(shelfId);
+        System.out.println("test: " + shelf);
         boolean trackable = terminal.confirmInput("Does the Item have a serial number?");
         supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, trackable);
         super.show("Success");

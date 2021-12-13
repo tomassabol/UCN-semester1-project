@@ -55,7 +55,7 @@ public class MenuEmployee extends GenericMenuInterface {
 //	}
 
 	public void showAllEmployees() {
-		Terminal terminal = Terminal.getInstance();
+		Terminal terminal = getTerminal();
 		terminal.clearScreen();
 		
 		System.out.println("[All employees]");

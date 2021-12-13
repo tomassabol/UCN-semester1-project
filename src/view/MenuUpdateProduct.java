@@ -32,7 +32,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
      * It also changes the title of the Menu to the "Update " + new name
      */
     private void updateName(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String name = terminal.getStringInput("The new name of the product");
@@ -47,7 +47,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
      * Updates the description of the product
      */
     private void updateDescription(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String description = terminal.getStringInput("The new description of the product");
@@ -61,7 +61,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
      * Updates the minimum stock of the product
      */
     private void updateMinStock(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         int minStock = terminal.getIntegerInput("The new minimum stock of the product");
@@ -75,7 +75,7 @@ public class MenuUpdateProduct extends GenericMenuInterface{
      * Updates the maximum stock of the product
      */
     private void updateMaxStock(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         int maxStock = terminal.getIntegerInput("The new maximum stock of the product");

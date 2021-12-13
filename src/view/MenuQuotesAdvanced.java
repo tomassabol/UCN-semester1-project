@@ -14,7 +14,7 @@ public class MenuQuotesAdvanced extends GenericMenuInterface {
 
         this.setTitle("Advanced Quote Menu");
 
-        Terminal terminal = Terminal.getInstance();
+        Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printAllCustomers();
@@ -32,7 +32,7 @@ public class MenuQuotesAdvanced extends GenericMenuInterface {
 
     public void function() {}
     public void deleteQuote() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         quoteCtrl.removeQuote(quote);

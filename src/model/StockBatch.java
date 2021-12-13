@@ -49,11 +49,12 @@ public class StockBatch {
      * @param quantity - quantity of untrackableProduct
      */
     public StockBatch(Product product, int quantity) {
-        if (quantity < 0) {
+        if (quantity < 1) {
             throw new IllegalArgumentException("Quantity cannot be less than 0");
         }
         this.untrackableItemQuantity = quantity;
         this.PRODUCT = product;
+        this.trackableItems = new HashSet<>();
     }
 
     /**

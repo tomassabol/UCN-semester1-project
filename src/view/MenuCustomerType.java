@@ -25,7 +25,7 @@ public class MenuCustomerType extends GenericMenuInterface{
      * Creates a new customer type
      */
     private void createCustomerType(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         String name = terminal.getStringInput("The name of the customer type");
@@ -35,7 +35,7 @@ public class MenuCustomerType extends GenericMenuInterface{
     }
 
     private void showAllCustomerTypes(){
-        Terminal terminal = Terminal.getInstance();
+        Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         printCustomerTypes();
@@ -44,7 +44,7 @@ public class MenuCustomerType extends GenericMenuInterface{
     }
 
     private void updateCustomerTypeName(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         int id = terminal.getIntegerInput("The id of the customer type to be updated");
@@ -54,7 +54,7 @@ public class MenuCustomerType extends GenericMenuInterface{
     }
 
     private void updateCustomerTypeDiscountPercantage(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         int id = terminal.getIntegerInput("The id of the customer type to be updated");
@@ -64,7 +64,7 @@ public class MenuCustomerType extends GenericMenuInterface{
     }
 
     private void deleteCustomerType(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         int id = terminal.getIntegerInput("The id of the customer type to be updated");

@@ -25,7 +25,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
      * Maybe seperate this method in to two different ones | create and assign it to the hashmap
      */
     private void createBulkDiscount(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -38,7 +38,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
     }
 
     private void printAllBullkDiscount() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printAllBullkDiscount();
@@ -47,7 +47,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
     }
 
     private void getBestBulkDiscount() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -59,7 +59,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
     }
 
     private void getActiveBulk(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -70,7 +70,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
     }
 
     private void getInactiveBulk() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -81,7 +81,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
     }
     
     private void setActive() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -95,7 +95,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
     }
 
     private void setMinQuantity() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();
@@ -109,7 +109,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
     }
 
     private void setDiscountPercentage() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         terminal.printProductInfos();

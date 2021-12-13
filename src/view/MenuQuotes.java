@@ -35,8 +35,7 @@ public class MenuQuotes extends GenericMenuInterface {
  * Create Quote
  */
 	private void createQuote() {
-		
-		Terminal terminal = Terminal.getInstance();
+		Terminal terminal = getTerminal();
 		terminal.clearScreen();
 		System.out.println("[Customers]");
 		terminal.printAllCustomers();
@@ -48,7 +47,7 @@ public class MenuQuotes extends GenericMenuInterface {
 	 * Pay for a quote
 	 */
 	public void PayForQuote() {
-		Terminal terminal = Terminal.getInstance();
+		Terminal terminal = getTerminal();
 		terminal.clearScreen();
 		// identifies a customer & a quote
 		Quote quote = terminal.getQuote();
@@ -72,11 +71,11 @@ public class MenuQuotes extends GenericMenuInterface {
 	 * Prints all orders for a specific customer
 	 */
 	public void showOrders() {
-		Terminal terminal = Terminal.getInstance();
+		Terminal terminal = getTerminal();
 		terminal.clearScreen();
 		System.out.println("[Customers]");
 		terminal.printAllCustomers();
-		Customer customer = Terminal.getInstance().getCustomer();
+		Customer customer = terminal.getCustomer();
 		terminal.clearScreen();
 		terminal.printOrders(customer);
 		System.out.println();

@@ -9,6 +9,7 @@ import controller.AuthenticationController;
 public class GenericMenuInterface {
 	private Stack<GenericMenuInterface> breadcrumbs;
 	private AuthenticationController auth;
+	private Terminal terminal;
 	private String title;
 	private LinkedHashMap<String, GenericMenuOption> menuOptions;
 
@@ -25,6 +26,7 @@ public class GenericMenuInterface {
 		this.breadcrumbs = previousInterface.breadcrumbs;
 		this.breadcrumbs.add(previousInterface);
 		this.auth = previousInterface.auth;
+		this.terminal = new Terminal(this);
 		
 		this.title = null;
 		this.menuOptions = new LinkedHashMap<>();
@@ -34,8 +36,13 @@ public class GenericMenuInterface {
 	public GenericMenuInterface() {
 		this.breadcrumbs = new Stack<>();
 		this.auth = new AuthenticationController();
+		this.terminal = new Terminal(this);
 		this.title = null;
 		this.menuOptions = new LinkedHashMap<>();
+	}
+	
+	public Terminal getTerminal() {
+		return this.terminal;
 	}
 	
 	/**
@@ -43,7 +50,7 @@ public class GenericMenuInterface {
 	 * @param message (Optional) A message to show to the user above the menu
 	 */
 	public void show(String message, boolean clearScreen) {
-		Terminal terminal = Terminal.getInstance();
+		// clear screen
 		if (clearScreen) {
 			terminal.clearScreen();
 		}
@@ -104,10 +111,9 @@ public class GenericMenuInterface {
 	 * Get
 	 */
 	public GenericMenuOption getMenuOptionInput() {
-		Terminal parser = Terminal.getInstance();
 		GenericMenuOption menuOption = null;
 		while (true) {
-			menuOption = this.menuOptions.get(parser.getStringInput(">>"));
+			menuOption = this.menuOptions.get(terminal.getStringInput(">>"));
 			if (menuOption != null) {
 				// return breaks out of the while loop!
 				return menuOption;

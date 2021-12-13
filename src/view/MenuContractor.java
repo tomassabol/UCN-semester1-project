@@ -26,7 +26,7 @@ public class MenuContractor extends GenericMenuInterface{
      * Creates a new Contractor
      */
     private void createContractor(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
         String cName = terminal.getStringInput("Name of the contractor");
         if(terminal.confirmInput()){
@@ -43,7 +43,7 @@ public class MenuContractor extends GenericMenuInterface{
      * Displays all the contractors
      */
     private void showAllContractors(){
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         System.out.println("[All Contractors in the System]");
@@ -56,7 +56,7 @@ public class MenuContractor extends GenericMenuInterface{
      * Deletes a contractor
      */
     private void deleteContractor() {
-        Terminal terminal = Terminal.getInstance();
+    	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         printContractors();
