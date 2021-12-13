@@ -212,8 +212,9 @@ public class Terminal {
   public String getStringInput(String prompt) {
     System.out.print(prompt + ": ");
     String userInput = scanner.nextLine().trim();
+    // if back cmd, go to current menu
     if (userInput.toLowerCase().contentEquals(GO_BACK_CMD.toLowerCase())) {
-    	this.currentInterface.goToPreviousMenu();
+    	this.currentInterface.show();
     }
     while(userInput.isEmpty()){
       System.out.println("Please enter the requested info or type '"+ GO_BACK_CMD + "' to go back");
