@@ -10,6 +10,7 @@ public class MenuSupply extends GenericMenuInterface {
     private SupplyController supplyCtrl;
     private StockController stockCtrl;
     private ProductController productCtrl;
+    private ContractorController contractorCtrl;
     /**
      * Constructor for MenuProduct
      */
@@ -30,6 +31,7 @@ public class MenuSupply extends GenericMenuInterface {
         supplyCtrl = new SupplyController();
         stockCtrl = new StockController();
         productCtrl = new ProductController();
+        contractorCtrl = new ContractorController();
     }
 
     /**
@@ -40,7 +42,7 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-        terminal.printContractors(terminal.getContractors());
+        terminal.printContractors(contractorCtrl.getContractors());
         Contractor contractor = terminal.getContractor();
         BigDecimal pricePerItem = terminal.getBigDecimalInput("Price per Item", 0, Integer.MAX_VALUE);
         int minQuantity = terminal.getIntegerInput("The minimum quantity of the product", 0, Integer.MAX_VALUE);

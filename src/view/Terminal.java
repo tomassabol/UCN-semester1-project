@@ -81,7 +81,7 @@ public class Terminal {
    * Note: Runs until valid ID is entered
    */
   public Customer getCustomer(String prompt) {
-	  this.printAllCustomers(customerCtrl.getCustomers());
+	  this.printCustomers(customerCtrl.getCustomers());
 	  System.out.println();
 	  Customer customer = null;
 	  do {
@@ -95,19 +95,22 @@ public class Terminal {
 	  return this.getCustomer("Choose a customer");
   }
   /**
-   * Prints all Customers.
+   * Prints customers
    */
-  public void printAllCustomers(List<Customer> customers) {
-	  //for (Customer customer: customerCtrl.getCustomers()) {
+  public void printCustomers(List<Customer> customers) {
 	  System.out.println("*** Customers ***");
 	  System.out.println();
 	  for (Customer customer: customers) {
-		  String printLine = "(%d) %s %s %s";
+		  String printLine = "(%d) %s %s";
 		  System.out.println(String.format(printLine, 
 				  customer.ID,
 				  customer.getFirstName(),
-				  customer.getLastName(),
-				  customer.getBirthDate()));
+				  customer.getLastName()));
+          System.out.println("Address: " + String.format("%s", customer.getAddress()));
+          System.out.println("Phone Number: " + String.format("%s", customer.getMobile()));
+          System.out.println("Type: " + String.format("%s", customer.getCustomerType().getName()));
+          System.out.println("Birth date: " + String.format("%s", customer.getBirthDate()));
+          System.out.println();
 	  }
   }
   
@@ -209,14 +212,12 @@ public class Terminal {
 	  System.out.println("*** Employees ***");
 	  System.out.println();
 	  for (Employee employee: employees) {
-		  String printLine = "(%d) %s %s %s %s %s";
+		  String printLine = "(%d) %s %s %s";
 		  System.out.println(String.format(printLine, 
 				  employee.ID,
 				  employee.getFirstName(),
 				  employee.getLastName(),
-          employee.getBirthDate(),
-          employee.getAddress(),
-          employee.getCPRnumber()));
+				  employee.getBirthDate()));
 	  }
   }
   
@@ -236,10 +237,6 @@ public class Terminal {
 	  
 	  return contractor;
   }
-  
-  public List<Contractor> getContractors() {
-    return contractorCtrl.getContractors();
-  }
   /**
    * Prints the contractors.
    */
@@ -249,6 +246,7 @@ public class Terminal {
     	System.out.println(String.format("(%d) %s", contractor.ID, contractor.getCompanyName()));
       }
     }
+  
   
   /**
    * prompt the user to identify a customer, and then a quote.
@@ -410,12 +408,11 @@ public class Terminal {
       try {
         userInput = Integer.parseInt(getStringInput(prompt));
         if (userInput < min || userInput > max) {
-        // If no errors, it means input is a valid int, so break.
         	printError("Please choose a number between " + min + " and " + max);
-        	continue;
+        } else {
+        	break;
         }
-        // break out of loop, as it is a valid integer
-        break;
+        
       } catch (NumberFormatException e) {
         printError("Please enter a valid integer number or type " + GO_BACK_CMD + " to go back");
         // Not a valid integer input. No continue required.
@@ -437,22 +434,29 @@ public class Terminal {
    * @return the customer type
    */
   public CustomerType getCustomerType(String prompt){
-    CustomerType customerType;
+	printCustumerTypes(customerCtrl.getCustomerTypes());
+    CustomerType customerType = null;
     do {
       int id = getIntegerInput(prompt);
       customerType = customerCtrl.findCustomerTypeById(id);
     } while (customerType == null);
     return customerType;
   }
+  public CustomerType getCustomerType() {
+	  return getCustomerType("Choose customer type");
+  }
 
   /**
-   * prints al customertypes and information
    * Prints the custumer types.
    */
-  public void printCustumerTypes(){
-    List<CustomerType> customerTypes = customerCtrl.getCustomerTypes();
+  public void printCustumerTypes(List<CustomerType> customerTypes){
+	System.out.println("*** Customer types ***");
     for(CustomerType customerType : customerTypes){
-      System.out.println("Customer type name: " + customerType.getName() + "\nCustomer type discount percantage: " +customerType.getDiscountPercentage() + "\nCustomer type id: " + customerType.ID);
+      String printline = "(%d) %s with %d%% discount";
+      System.out.println(String.format(printline, 
+    		  customerType.ID,
+    		  customerType.getName(),
+    		  customerType.getDiscountPercentage()));
       System.out.println();
     }
   }

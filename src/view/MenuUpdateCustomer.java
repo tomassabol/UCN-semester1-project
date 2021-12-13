@@ -8,16 +8,15 @@ import model.CustomerType;
 
 public class MenuUpdateCustomer extends GenericMenuInterface{
     
-    private int customerId;
+    private Customer customer;
     private CustomerController customerCtrl;
 
     public MenuUpdateCustomer(GenericMenuInterface previousInterface,
-    		int id){
+    		Customer customer){
         super(previousInterface);
 
         customerCtrl = new CustomerController();
-        Customer customer = customerCtrl.findCustomerByID(id);
-        customerId = id;
+        this.customer = customer;
 
         super.setTitle("Update " + customer.getFirstName() + " " + customer.getLastName() + "'s information");
         super.addMenuOption("1", new GenericMenuOption("Update first name", () -> updateFirstName()));
@@ -36,9 +35,13 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        String newFirstName = terminal.getStringInput("New first name");
-        customerCtrl.updateFirstName(customerId, newFirstName);
-        super.show("The first name was successfully updated");
+        String newFirstName = terminal.getStringInput("New first name" + customer.getFirstName());
+        if (terminal.confirmInput("Update customer's name from " + customer.getFirstName() + " to " + newFirstName + " ")) {
+        	super.show("Customer's name was updated from " + customer.getFirstName() + " to " + newFirstName);
+        	customerCtrl.updateFirstName(customer, newFirstName);
+        }
+        
+        super.show();
     }
 
     /**
@@ -48,9 +51,13 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        String newLastName = terminal.getStringInput("New last name");
-        customerCtrl.updateLastName(customerId, newLastName);
-        super.show("The last name was successfully updated");
+        String newLastName = terminal.getStringInput("New last name" + customer.getFirstName());
+        if (terminal.confirmInput("Update customer's last name from " + customer.getLastName() + " to " + newLastName + " ")) {
+        	super.show("Customer's last name was updated from " + customer.getLastName() + " to " + newLastName);
+        	customerCtrl.updateLastName(customer, newLastName);
+        }
+        
+        super.show();
     }
 
     /**
@@ -60,9 +67,13 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        String newAddress = terminal.getStringInput("The new address");
-        customerCtrl.updateAddress(customerId, newAddress);
-        super.show("The address was successfully updated");
+        String newAddress = terminal.getStringInput("New address for " + customer.getFirstName());
+        if (terminal.confirmInput("Update customer's address from " + customer.getAddress() + " to " + newAddress + " ")) {
+        	super.show("Customer's address was updated from " + customer.getAddress() + " to " + newAddress);
+        	customerCtrl.updateAddress(customer, newAddress);
+        }
+        
+        super.show();
     }
 
     /**
@@ -72,9 +83,29 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        String newMobile = terminal.getStringInput("The new phone number");
-        customerCtrl.updateMobile(customerId, newMobile);
-        super.show("The phone number was successfully updated");
+        String newMobile = terminal.getStringInput("New mobile number for " + customer.getFirstName());
+        if (terminal.confirmInput("Update customer's mobile number from " + customer.getMobile() + " to " + newMobile + " ")) {
+        	super.show("Customer's mobile number was updated from " + customer.getMobile() + " to " + newMobile);
+        	customerCtrl.updateMobile(customer, newMobile);
+        }
+        
+        super.show();
+    }
+    
+    /**
+     * Updates the birth date
+     */
+    private void updateBirthDate(){
+    	Terminal terminal = getTerminal();
+        terminal.clearScreen();
+
+        LocalDate newBirthDate = terminal.getDateInput("New birth date for " + customer.getFirstName());
+        if (terminal.confirmInput("Update customer's birth date from " + customer.getBirthDate() + " to " + newBirthDate + " ")) {
+        	super.show("Customer's birth date was updated from " + customer.getBirthDate() + " to " + newBirthDate);
+        	customerCtrl.updateBirthDate(customer, newBirthDate);
+        }
+        
+        super.show();
     }
 
     /**
@@ -84,20 +115,15 @@ public class MenuUpdateCustomer extends GenericMenuInterface{
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
         
-        CustomerType customerType = customerCtrl.findCustomerTypeById(terminal.getIntegerInput("Customer Type id"));
-        customerCtrl.updateCustomerType(customerId, customerType);
-        super.show("The customer type was successfully updated");
+        Customer customer = terminal.getCustomer();
+        
+        CustomerType newCustomerType = terminal.getCustomerType("Choose customer type");
+        if (terminal.confirmInput("Update customer type from " + customer.getCustomerType().getName() + " to " + newCustomerType.getName() + " ")) {
+        	super.show("Customer's birth date was updated from " + customer.getCustomerType().getName() + " to " + newCustomerType.getName());
+        	customerCtrl.updateCustomerType(customer, newCustomerType);
+        }
+        
+        super.show();
     }
 
-    /**
-     * Updates the birth date
-     */
-    private void updateBirthDate(){
-    	Terminal terminal = getTerminal();
-        terminal.clearScreen();
-
-        LocalDate birthDate = terminal.getDateInput("The new birth date");
-        customerCtrl.updateBirthDate(customerId, birthDate);
-        super.show("The birth date was successfully updated");
-    }
 }

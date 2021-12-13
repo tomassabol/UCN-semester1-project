@@ -62,8 +62,7 @@ public class CustomerController {
 	 * 
 	 * @param id - the id of the customer to be removed
 	 */
-	public boolean removeCustomer(int id){
-		Customer customer = findCustomerByID(id);
+	public boolean removeCustomer(Customer customer){
 		return CustomerContainer.getInstance().removeCustomer(customer);
 	}
 	/**
@@ -107,8 +106,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param firstName - the new first name the first name to be updated to
 	 */
-	public void updateFirstName(int id, String firstName){
-		Customer customer = findCustomerByID(id);
+	public void updateFirstName(Customer customer, String firstName){
 		customer.setFirstName(firstName);
 	}
 
@@ -117,8 +115,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param lastName - the new last name the last name to be updated to
 	 */
-	public void updateLastName(int id, String lastName){
-		Customer customer = findCustomerByID(id);
+	public void updateLastName(Customer customer, String lastName){
 		customer.setLastName(lastName);
 	}
 
@@ -127,8 +124,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param address - the new address the address to be updated to
 	 */
-	public void updateAddress(int id, String address){
-		Customer customer = findCustomerByID(id);
+	public void updateAddress(Customer customer, String address){
 		customer.setAddress(address);
 	}
 
@@ -137,8 +133,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param mobile - the new phone number the phone number to be updated to
 	 */
-	public void updateMobile(int id, String mobile){
-		Customer customer = findCustomerByID(id);
+	public void updateMobile(Customer customer, String mobile){
 		customer.setMobile(mobile);
 	}
 
@@ -147,8 +142,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param customerType - the new customer type the customer type to be updated to
 	 */
-	public void updateCustomerType(int id, CustomerType customerType){
-		Customer customer = findCustomerByID(id);
+	public void updateCustomerType(Customer customer, CustomerType customerType){
 		customer.setCustomerType(customerType);
 	}
 
@@ -157,8 +151,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param birthDate - the new birth date the birth date to be updated to
 	 */
-	public void updateBirthDate(int id, LocalDate birthDate){
-		Customer customer = findCustomerByID(id);
+	public void updateBirthDate(Customer customer, LocalDate birthDate){
 		customer.setBirthDate(birthDate);
 	}
 
@@ -166,8 +159,8 @@ public class CustomerController {
 	 * Remove customer type from the container
 	 * @param name - The name of the customer type to be removed from the container
 	 */
-	public void deleteCustomerType(int id){
-		customerTypeContainer.removeCustomerType(findCustomerTypeById(id));
+	public void deleteCustomerType(CustomerType customerType){
+		customerTypeContainer.removeCustomerType(customerType);
 	}
 
 	/**
@@ -175,8 +168,7 @@ public class CustomerController {
      * @param name
      * @param newName
      */
-    public void updateCustomerTypeName(int id, String newName){
-        CustomerType customerType = customerTypeContainer.findCustomerTypeById(id);
+    public void updateCustomerTypeName(CustomerType customerType, String newName){
 		customerType.setName(newName);
     }
 
@@ -185,8 +177,7 @@ public class CustomerController {
      * @param name
      * @param newDiscountPercantage
      */
-    public void updateCustomerTypeDiscountPercantage(int id, int newDiscountPercantage){
-        CustomerType customerType = customerTypeContainer.findCustomerTypeById(id);
+    public void updateCustomerTypeDiscountPercantage(CustomerType customerType, int newDiscountPercantage){
 		customerType.setDiscountPercentage(newDiscountPercantage);
     }
 }
