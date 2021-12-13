@@ -1,8 +1,13 @@
 package view;
 
+import controller.OrderController;
+import controller.StockController;
 import model.*;
 
 public class MenuQuotes extends GenericMenuInterface {
+	
+	StockController stockCtrl;
+	OrderController orderCtrl;
 
   /**
    * Constructor for MainMenuUI.
@@ -13,11 +18,16 @@ public class MenuQuotes extends GenericMenuInterface {
     super.setTitle("Quotes");
     super.addMenuOption("1", new GenericMenuOption("Create a quote",
     		() -> createQuote()));
-    super.addMenuOption("2", new GenericMenuOption("Show quotes by customer",
-    		() -> showQuotes()));
-	super.addMenuOption("3", new GenericMenuOption("Create order from Quote",
+    super.addMenuOption("2", new GenericMenuOption("Pay for a quote (Quote -> Order)",
+    		() -> PayForQuote()));
+    super.addMenuOption("3", new GenericMenuOption("View customer orders",
+    		() -> showOrders()));
+	super.addMenuOption("4", new GenericMenuOption("Create order from Quote",
     		() -> createOrder()));
     super.addMenuOptionGoBack("0");
+    
+    stockCtrl = new StockController();
+    orderCtrl = new OrderController();
 
   }
 
@@ -35,16 +45,40 @@ public class MenuQuotes extends GenericMenuInterface {
 	}
 
 	/**
-	 * Prints all guotes and quote info
+	 * Pay for a quote
 	 */
-	public void showQuotes() {
+	public void PayForQuote() {
+		Terminal terminal = Terminal.getInstance();
+		terminal.clearScreen();
+		// identifies a customer & a quote
+		Quote quote = terminal.getQuote();
+		if (!stockCtrl.quoteIsInStock(quote)) {
+			System.out.println("Error: Some the items in the quote are not in stock anymore!");
+		} else {
+			System.out.println("All of the items in the quote are in stock. ");
+			if (terminal.confirmInput("Has the customer paid for the order?")) {
+				 orderCtrl.payForQuote(quote);
+			 }
+		}
+
+		
+		System.out.println();
+		
+		terminal.getAnyKeyInput("Press [Enter] to go back");
+		super.show();
+	}
+	
+	/**
+	 * Prints all orders for a specific customer
+	 */
+	public void showOrders() {
 		Terminal terminal = Terminal.getInstance();
 		terminal.clearScreen();
 		System.out.println("[Customers]");
 		terminal.printAllCustomers();
 		Customer customer = Terminal.getInstance().getCustomer();
 		terminal.clearScreen();
-		terminal.printQuotes(customer);
+		terminal.printOrders(customer);
 		System.out.println();
 		
 		terminal.getAnyKeyInput("Press [Enter] to go back");

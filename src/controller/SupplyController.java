@@ -125,6 +125,7 @@ public class SupplyController {
 		else {
 			supplyOffer.setActive(true);
 		}
+		//supplyOffer.setActive(!supplyOffer.isActive()); || This may be better
 	}
 	
 	/**

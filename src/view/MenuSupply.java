@@ -9,6 +9,7 @@ public class MenuSupply extends GenericMenuInterface {
     
     private SupplyController supplyCtrl;
     private StockController stockCtrl;
+    private ProductController productCtrl;
     /**
      * Constructor for MenuProduct
      */
@@ -28,6 +29,7 @@ public class MenuSupply extends GenericMenuInterface {
 
         supplyCtrl = new SupplyController();
         stockCtrl = new StockController();
+        productCtrl = new ProductController();
     }
 
     /**
@@ -58,6 +60,7 @@ public class MenuSupply extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
+        terminal.printProductInfos();
         Product product = terminal.getProduct();
         System.out.println("[All SupplyOffers in the System]");
         printSuplyOffers(product);
@@ -74,6 +77,7 @@ public class MenuSupply extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
+        terminal.printProductInfos();
         Product product = terminal.getProduct();
         System.out.println("All Supply offers in the System");
         printSuplyOffers(product);
@@ -94,6 +98,7 @@ public class MenuSupply extends GenericMenuInterface {
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
+        terminal.printProductInfos();
         Product product = terminal.getProduct();
         printSuplyOffers(product);
         int id = terminal.getIntegerInput("Enter the ID of a supply offer");
@@ -178,6 +183,7 @@ public class MenuSupply extends GenericMenuInterface {
     private void printSupplyOrder(SupplyOrder supplyOrder) {
         System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
         System.out.println("Product: " + String.format(("%s"), supplyOrder.getProduct().getName()));
+        System.out.println("Product instock quantity: " + String.format("%d", productCtrl.getStock(supplyOrder.getProduct())));
         System.out.println("Price per item: " + String.format(("%.2f"), supplyOrder.getPricePerItem()));
         System.out.println("Date Ordered: " + String.format(("%s"), supplyOrder.getDateOrdered()));
         System.out.println("Delivered: " + String.format(("%s"), supplyOrder.isDelivered()));
@@ -204,13 +210,17 @@ public class MenuSupply extends GenericMenuInterface {
     
       
       private void printSuplyOffers(Product product) {
-        for (SupplyOffer supplyOffer : supplyCtrl.getSupplyOffers(product)) {
-          System.out.println("Supply Offer ID: " + String.format(("%d"), supplyOffer.ID));
-          System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
-          System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
-          System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
-          System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.getMIN_QUANTITY()));
-          System.out.println();
+        if(supplyCtrl.getSupplyOffers(product) != null) {
+          for (SupplyOffer supplyOffer : supplyCtrl.getSupplyOffers(product)) {
+            System.out.println("Supply Offer ID: " + String.format(("%d"), supplyOffer.ID));
+            System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
+            System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
+            System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
+            System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.getMIN_QUANTITY()));
+            System.out.println();
+          }
+        }else {
+          super.show("There is no supply offer for this product");
         }
       }
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import model.Customer;
 import model.IFCustomer;
 import model.IFEmployee;
+import model.Order;
+import model.OrderContainer;
 import model.PrimaryKey;
 import model.Quote;
 import model.QuoteContainer;
@@ -77,10 +79,21 @@ public class QuoteController {
      */
     public boolean createQuote(IFCustomer customer, IFEmployee employee, ShoppingCart shoppingCart) {
     	// get itemLines
-    	ArrayList<ShoppingItemLine> itemLines = shoppingCart.getItemLines();
-    	// clear shopping cart
+    	ArrayList<ShoppingItemLine> shoppingItemLines = shoppingCart.getItemLines();
+    	// convert shopping item lines to quote item lines
+    	ArrayList<QuoteItemLine> quoteItemLines = new ArrayList<>();
+    	for (ShoppingItemLine shoppingItemLine: shoppingItemLines) {
+    		quoteItemLines.add(
+    				new QuoteItemLine(
+    						shoppingItemLine.PRODUCT,
+    						shoppingItemLine.getQuantity()));
+    	}
+    	// clear shopping cart 
     	shoppingCart.clear();
-    	return createQuote(customer, employee, itemLines);
+    	// create quote
+    	Quote quote = new Quote(PrimaryKey.getNextQuoteID(), customer, employee, quoteItemLines);
+    	//add quote to container
+    	return QuoteContainer.getInstance().addQuote(quote);
     }
 
 	public boolean removeQuote(Quote quote) {
@@ -90,5 +103,21 @@ public class QuoteController {
 	public Quote findQuoteById(int id) {
 		return QuoteContainer.getInstance().findQuoteByID(id);
 	}
+	
+	/**
+	 * Find quote, but restrict it to a specific customer
+	 *
+	 * @return the quote
+	 */
+	public Quote findOrderByIdForCustomer(int quoteID, Customer customer) {
+		Quote quote = QuoteContainer.getInstance().findQuoteByID(quoteID);
+		// if belongs to customer, return
+		if (quote != null && quote.getCustomer() == customer) {
+			return quote;
+		}
+		return null;
+	}
+	
+	
 	
 }

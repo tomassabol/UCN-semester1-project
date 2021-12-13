@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import controller.ProductController;
 import model.Product;
+import model.StockBatch;
 
 public class MenuProduct extends GenericMenuInterface{
 
@@ -66,7 +67,8 @@ public class MenuProduct extends GenericMenuInterface{
         Terminal terminal = Terminal.getInstance();
         terminal.clearScreen();
 
-        terminal.getProduct();
+        terminal.printProductInfos();
+        productCtrl.removeProduct(terminal.getProduct());
         super.show("The product was deleted!");
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -138,6 +140,7 @@ public class MenuProduct extends GenericMenuInterface{
           System.out.println("Description: " + String.format("%s",product.getDescription()));
           System.out.println("Max Stock: " + String.format("%d",product.getMaxStock()));
           System.out.println("Min Stock: " + String.format("%d",product.getMinStock()));
+          System.out.println("In Stock: " + String.format("%d", productCtrl.getStock(product)));
           System.out.println("Date added: " + String.format("%s)",product.getDateAdded()));
           System.out.println("Selling price: " + String.format("%.2f",product.getLatestSellingPrice()));
           System.out.println("Loaning price: " + String.format("%.2f",product.getLatestLoaningPrice()));
