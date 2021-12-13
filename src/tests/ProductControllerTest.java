@@ -59,11 +59,11 @@ class ProductControllerTest {
 	}
 	@Test
 	public	void testFindProductByID() {
-		productCon.findProductByProductId(12);
+		productCon.findProductById(12);
 		productCon.addProduct(product1);
 		
-		assertEquals(productCon.findProductByProductId(12), product1);
-		assertNull(productCon.findProductByProductId(11));
+		assertEquals(productCon.findProductById(12), product1);
+		assertNull(productCon.findProductById(11));
 			
 		}
 	@Test

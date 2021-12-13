@@ -39,7 +39,6 @@ public class MenuSupply extends GenericMenuInterface {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        terminal.printProductInfos();
         Product product = terminal.getProduct();
         terminal.printContractorInfo();
         Contractor contractor = terminal.getContractor();

@@ -79,9 +79,20 @@ public class StockController {
      * @param product the product
      * @return int the buyable item quantity
      */
-    public int buyableItemQuantityInStock(Product product) {
+    public int getBuyableQuantityInStock(Product product) {
     	return Stock.getInstance().getBuyableQuantityInStock(product);
     }
+    
+    /**
+     * Returns the Loanable item quantity for a product
+     *
+     * @param product the product
+     * @return int the loanable item quantity
+     */
+    public int getLoanableQuantityInStock(Product product) {
+    	return Stock.getInstance().getLoanableQuantityInStock(product);
+    }
+    
     
     /**
      * Checks that a product is in stock (buyable)
@@ -90,7 +101,7 @@ public class StockController {
      * @return true, if in stock
      */
     public boolean buyableItemIsInStock(Product product) {
-    	return buyableItemQuantityInStock(product) > 0;
+    	return getBuyableQuantityInStock(product) > 0;
     }
     
     public boolean quoteIsInStock(Quote quote) {

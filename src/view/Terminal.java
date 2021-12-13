@@ -12,23 +12,49 @@ import java.util.Scanner;
 import controller.*;
 import model.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Terminal.
+ */
 public class Terminal {
+	
+	/** The go back cmd. */
 	private final String GO_BACK_CMD = "-back";
+  
+  /** The scanner. */
   private Scanner scanner;
   
+  /** The customer ctrl. */
   CustomerController customerCtrl;
+  
+  /** The product ctrl. */
   ProductController productCtrl;
+  
+  /** The contractor ctrl. */
   ContractorController contractorCtrl;
+  
+  /** The stock ctrl. */
   StockController stockCtrl;
+  
+  /** The supply ctrl. */
   SupplyController supplyCtrl;
+  
+  /** The quote ctrl. */
   QuoteController quoteCtrl;
+  
+  /** The order ctrl. */
   OrderController orderCtrl;
+  
+  /** The current interface. */
   GenericMenuInterface currentInterface;
 
+  /** The Constant DATE_FORMAT. */
   private static final String DATE_FORMAT = "dd/MM/yyyy";
 
   /**
    * Constructor for the Parser class.
+   *
+   * @param currentInterface the current interface
    */
   public Terminal(GenericMenuInterface currentInterface) {
 	this.currentInterface = currentInterface;
@@ -44,8 +70,9 @@ public class Terminal {
   }
   
   /**
-   * Prompt the user to identify a customer by ID
+   * Prompt the user to identify a customer by ID.
    *
+   * @param prompt the prompt
    * @return the customer
    * Note: Runs until valid ID is entered
    */
@@ -58,6 +85,12 @@ public class Terminal {
 	  
 	  return customer;
   }
+  
+  /**
+   * Gets the customer.
+   *
+   * @return the customer
+   */
   public Customer getCustomer() {
 	  return this.getCustomer("Choose a customer by ID");
   }
@@ -65,10 +98,13 @@ public class Terminal {
   
 
   /**
-   * prompt the user to identify a product by ID
-   * @return specific product with entered product ID
+   * Prints all products and prompt the user to identify a product by ID.
+   *
+   * @param prompt the prompt
+   * @return the product
    */
   public Product getProduct(String prompt) {
+	  printProductsInDetail(productCtrl.getProducts());
 	  Product product = null;
 	  do {
 		  int id = this.getIntegerInput(prompt);
@@ -79,7 +115,62 @@ public class Terminal {
   }
   
   /**
-   * prompt the user to identify a customer, and then a quote
+   * Prints all products and prompt the user to identify a product by ID.
+   *
+   * @param prompt the prompt
+   * @return the product
+   */
+  public Product getBuyableProduct(String prompt) {
+	  printProductsInDetail(productCtrl.getBuyableProducts());
+	  Product product = null;
+	  do {
+		  int id = this.getIntegerInput(prompt);
+		  product = productCtrl.findProductByID(id);
+	  } while (product == null);
+	  
+	  return product;
+  }
+  
+  /**
+   * Prints the products in detail.
+   *
+   * @param products the products
+   */
+  public void printProductsInDetail(List<Product> products){
+	    for (Product product : products){
+	      System.out.println();
+			  System.out.println("[" + product.getName() + "]");
+			  System.out.println("ID: " + product.ID);
+			  System.out.println("Description: " + product.getDescription());
+			  System.out.println("Loanable items in stock: " + stockCtrl.getLoanableQuantityInStock(product));
+			  System.out.println("Purchaseable items in stock: " + stockCtrl.getBuyableQuantityInStock(product));
+			  System.out.println("Price: " + product.getLatestSellingPrice() + " DKK");
+			  System.out.println();
+	    }
+	  }
+  /**
+   * Prints the buyable products.
+   */
+  public void printPurchaseableProducts(List<Product> products) {
+	  for (Product product: products) {
+      System.out.println();
+		  System.out.println(String.format("(%s) %s",
+				  product.ID,
+				  product.getName()));
+		  System.out.println(String.format("In stock: %d", 
+				  Stock.getInstance().getBuyableQuantityInStock(product)));
+		  System.out.println(String.format("Price: %.2f DKK",
+				  product.getLatestSellingPrice()));
+		  System.out.println("Description: " + product.getDescription());
+		  System.out.println();
+	  }
+  }
+  
+  /**
+   * prompt the user to identify a customer, and then a quote.
+   *
+   * @param customerPrompt the customer prompt
+   * @param quotePrompt the quote prompt
    * @return Quote The found quote belonging to the customer
    */
   public Quote getQuote(String customerPrompt, String quotePrompt) {
@@ -95,17 +186,29 @@ public class Terminal {
 	  
 	  return quote;
   }
+  
+  /**
+   * Gets the quote.
+   *
+   * @return the quote
+   */
   public Quote getQuote() {
 	  return this.getQuote("Choose a customer to show the quotes for",
 			  "Choose the quote");
   }
   
+  /**
+   * Gets the product.
+   *
+   * @return the product
+   */
   public Product getProduct() {
 	  return getProduct("Choose product");
   }
   
   /**
-   * prompt the user to identify a Contractor by ID
+   * prompt the user to identify a Contractor by ID.
+   *
    * @return contractor with entered contructor ID
    */
   public Contractor getContractor() {
@@ -119,7 +222,13 @@ public class Terminal {
   }
 
   /**
+<<<<<<< HEAD
    * @return object of a storage location with specific id
+=======
+   * Gets the storage location.
+   *
+   * @return the storage location
+>>>>>>> 5d62cd4 (Refactoring view)
    */
   public StorageLocation getStorageLocation() {
 	  StorageLocation storageLocation = null;
@@ -131,8 +240,16 @@ public class Terminal {
 	  return storageLocation;
   }
 
+<<<<<<< HEAD
   /**
    * @return object of a class shelf with specific ID
+=======
+  
+  /**
+   * Gets the shelf.
+   *
+   * @return the shelf
+>>>>>>> 5d62cd4 (Refactoring view)
    */
   public Shelf getShelf() {
 	  Shelf shelf = null;
@@ -145,7 +262,7 @@ public class Terminal {
   }
   
   /**
-   * Prints all Customers
+   * Prints all Customers.
    */
   public void printAllCustomers() {
 	  for (Customer customer: customerCtrl.getCustomers()) {
@@ -154,6 +271,7 @@ public class Terminal {
 	  }
   }
   
+<<<<<<< HEAD
   /**
    * print all products marked as buyable
    */
@@ -190,6 +308,19 @@ public class Terminal {
   /**
    * prints all quotes of a specific customer
    * @param customer to print quotes for
+=======
+
+
+  /**
+   * Prints all of the products in detail
+   */
+
+  
+  /**
+   * Prints the quotes.
+   *
+   * @param customer the customer
+>>>>>>> 5d62cd4 (Refactoring view)
    */
   public void printQuotes(Customer customer) {
 		System.out.println(String.format("[Quotes for %s %s]", customer.getFirstName(), customer.getLastName()));
@@ -198,6 +329,11 @@ public class Terminal {
 		}
   }
   
+  /**
+   * Prints the orders.
+   *
+   * @param customer the customer
+   */
   public void printOrders(Customer customer) {
 		System.out.println(String.format("[Orders for %s %s]", customer.getFirstName(), customer.getLastName()));
 		for (Order order: orderCtrl.getOrders(customer)) {
@@ -206,6 +342,8 @@ public class Terminal {
   }
 
   /**
+   * Gets the string input.
+   *
    * @param prompt The text asking the user for input
    * @return String A string as input from the user
    */
@@ -224,6 +362,8 @@ public class Terminal {
   }
 
   /**
+   * Gets the integer input.
+   *
    * @param prompt The text asking the user for input
    * @return int An integer as input from the user
    * Note: Runs until a valid integer value is entered
@@ -235,10 +375,17 @@ public class Terminal {
       try {
         userInput = Integer.parseInt(getStringInput(prompt));
         if (userInput < min || userInput > max) {
+<<<<<<< HEAD
         	this.printError("Please enter a number from " + min + " to " + max);
         	continue;
         }
         // If no errors, it means input is a valid int, so break.
+=======
+        	printError("Please choose a number between " + min + " and " + max);
+        	continue;
+        }
+        // break out of loop, as it is a valid integer
+>>>>>>> 5d62cd4 (Refactoring view)
         break;
       } catch (NumberFormatException e) {
         printError("Please enter a valid integer number or type " + GO_BACK_CMD + " to go back");
@@ -249,6 +396,7 @@ public class Terminal {
     return userInput;
   }
   public int getIntegerInput(String prompt) {
+<<<<<<< HEAD
 	  return getIntegerInput(prompt, Integer.MIN_VALUE, Integer.MAX_VALUE);
   }
 
@@ -256,6 +404,16 @@ public class Terminal {
    * 
    * @param prompt - message to be printed out
    * @return customerType object
+=======
+	  return this.getIntegerInput(prompt, Integer.MIN_VALUE, Integer.MAX_VALUE);
+  }
+
+  /**
+   * Gets the customer type.
+   *
+   * @param prompt the prompt
+   * @return the customer type
+>>>>>>> 5d62cd4 (Refactoring view)
    */
   public CustomerType getCustomerType(String prompt){
     CustomerType customerType;
@@ -267,7 +425,11 @@ public class Terminal {
   }
 
   /**
+<<<<<<< HEAD
    * prints al customertypes and information
+=======
+   * Prints the custumer types.
+>>>>>>> 5d62cd4 (Refactoring view)
    */
   public void printCustumerTypes(){
     List<CustomerType> customerTypes = customerCtrl.getCustomerTypes();
@@ -278,7 +440,11 @@ public class Terminal {
   }
 
   /**
+<<<<<<< HEAD
    * prints all contractors and its information
+=======
+   * Prints the contractor info.
+>>>>>>> 5d62cd4 (Refactoring view)
    */
   public void printContractorInfo() {
     List<Contractor> contractors = contractorCtrl.getContractors();
@@ -289,6 +455,7 @@ public class Terminal {
       System.out.println();
     }
   }
+<<<<<<< HEAD
   
   /**
    * Gets a specific bulk discount for a specific product by index in list
@@ -303,6 +470,22 @@ public class Terminal {
 		  bulkDiscount = productCtrl.getBulkDiscountByIndex(product, index);
 	  }  while (bulkDiscount == null);
 	  return bulkDiscount;
+=======
+
+  /**
+   * Prints the array bulk discount.
+   *
+   * @param bulkDiscounts the bulk discounts
+   */
+  public void printArrayBulkDiscount(ArrayList<BulkDiscount> bulkDiscounts) {
+      for (BulkDiscount bulkDiscount : bulkDiscounts) {
+        System.out.println();
+        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
+        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
+        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
+        System.out.println();
+      }
+>>>>>>> 5d62cd4 (Refactoring view)
   }
 	/**
 	* print bulk discount info for specific product
@@ -319,6 +502,7 @@ public class Terminal {
 		    System.out.println();
 		}
 
+<<<<<<< HEAD
 	}
 
   /**
@@ -329,10 +513,61 @@ public class Terminal {
   public void printBulkDiscount(Product product, BulkDiscount bulkDiscount) {
         System.out.println("Bulk discount for ["+ product.getName() +"]");
         System.out.println("Discount percentage: " + bulkDiscount.getDiscountPercentage());
+=======
+  /**
+   * Prints the bulk discount.
+   *
+   * @param product the product
+   */
+  public void printBulkDiscount(Product product){
+      ArrayList<BulkDiscount> bulkDiscounts = product.getBulkDiscounts();
+      for(BulkDiscount bulkDiscount : bulkDiscounts) {
+        System.out.println();
+        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
+        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
+        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
+        System.out.println("Active: " + bulkDiscount.isActive());
+        System.out.println();
+      }
+  }
+
+  /**
+   * Prints the all bullk discount.
+   */
+  public void printAllBullkDiscount() {
+    for (Product product : productCtrl.getProducts()) {
+      ArrayList<BulkDiscount> bulkDiscounts = product.getBulkDiscounts();
+      for (BulkDiscount bulkDiscount : bulkDiscounts) {
+        System.out.println();
+        System.out.println("For ["+ product.getName() +"] product");
+        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
+        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
+        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
+        System.out.println("Active: " + bulkDiscount.isActive());
+        System.out.println();
+      }
+    }
+  }
+
+  /**
+   * Prints the bulk discount.
+   *
+   * @param bulkDiscount the bulk discount
+   */
+  public void printBulkDiscount(BulkDiscount bulkDiscount) {
+        System.out.println();
+        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
+>>>>>>> 5d62cd4 (Refactoring view)
         System.out.println("Minimum quantity" + bulkDiscount.getMinQuantity());
         System.out.println("Active: " + bulkDiscount.isActive());
   }
 
+  /**
+   * Gets the supply order.
+   *
+   * @param prompt the prompt
+   * @return the supply order
+   */
   public SupplyOrder getSupplyOrder(String prompt){
     SupplyOrder supplyOrder;
     do {
@@ -342,6 +577,12 @@ public class Terminal {
     return supplyOrder;
   }
 
+  /**
+   * Gets the any key input.
+   *
+   * @param prompt the prompt
+   * @return the any key input
+   */
   public void getAnyKeyInput(String prompt){
     System.out.print(prompt + ": ");
     String userInput = scanner.nextLine();
@@ -350,11 +591,19 @@ public class Terminal {
 	  getAnyKeyInput("Press [Enter] to go back...");
   }
 
+  /**
+   * Gets the big decimal input.
+   *
+   * @param prompt the prompt
+   * @return the big decimal input
+   */
   public BigDecimal getBigDecimalInput(String prompt){
     return BigDecimal.valueOf(getIntegerInput(prompt));
   }
 
   /**
+   * Gets the date time input.
+   *
    * @param prompt The text asking the user for input
    * @return LocalDateTime as input from the user
    * Note: Runs until valid dateTime is entered
@@ -378,6 +627,8 @@ public class Terminal {
   }
   
   /**
+   * Gets the date input.
+   *
    * @param prompt The text asking the user for input
    * @return LocalDate as input from the user
    * Note: Runs until valid date is entered
@@ -401,6 +652,8 @@ public class Terminal {
   }
 
   /**
+   * Confirm input.
+   *
    * @param prompt The text asking the user for input
    * @return boolean True if user confirmed input, else false
    * Note: Runs until the user enters a valid confrmation value
@@ -421,6 +674,12 @@ public class Terminal {
     }
 
   }
+  
+  /**
+   * Confirm input.
+   *
+   * @return true, if successful
+   */
   /*
    * Confirm input with default prompt.
    * @param prompt The text asking the user for input
@@ -432,6 +691,9 @@ public class Terminal {
 
 
   /**
+   * Convert string to date time.
+   *
+   * @param dateString the date string
    * @return localDateTime converted from String using the given format
    */
   private LocalDateTime convertStringToDateTime(String dateString) {
@@ -441,6 +703,9 @@ public class Terminal {
   }
   
   /**
+   * Convert string to date.
+   *
+   * @param dateString the date string
    * @return localDate converted from String using the given format
    */
   private LocalDate convertStringToDate(String dateString) {
@@ -449,6 +714,11 @@ public class Terminal {
     return localDate;
   }
   
+  /**
+   * Prints the error.
+   *
+   * @param message the message
+   */
   /*
    * Print an error message
    * @param String The error message to print.
@@ -456,15 +726,10 @@ public class Terminal {
 	public void printError(String message) {
 		System.out.println("[ERROR]: " + message + "\n");
 	}
-  
-	/*
-	 * Quit program
-	 */
-	public static void quit() {
-		System.out.println("Quitting...");
-		System.exit(0);
-	}
 
+  /**
+   * Prints the all shelves.
+   */
   public void printAllShelves() {
     for (Shelf shelf : stockCtrl.getShelves()) {
       System.out.println("Shelf ID: " + String.format(("%d"), shelf.ID));
@@ -474,6 +739,9 @@ public class Terminal {
     }
   }
 	
+	/**
+	 * Clear screen.
+	 */
 	/*
 	 * Clear terminal screen
 	 */
@@ -483,6 +751,9 @@ public class Terminal {
 		}
 	}
 
+  /**
+   * Prints the all storage locations.
+   */
   public void printAllStorageLocations() {
 	  if (stockCtrl.getStorageLocations().isEmpty()) {
 		  System.out.println("There are no storage locations...");

@@ -175,7 +175,7 @@ public class Stock {
     }
     
     /**
-     * Gets the quantity of a product in stock.
+     * Gets the buyable quantity of a product in stock.
      *
      * @param product the product
      * @return the quantity in stock
@@ -184,6 +184,20 @@ public class Stock {
     	int quantityInStock = 0;
     	for(Shelf shelf: this.getShelves()) {
     		quantityInStock += shelf.getBuyableQuantity(product);
+    	}
+    	return quantityInStock;
+    }
+    
+    /**
+     * Gets the loanable quantity of a product in stock.
+     *
+     * @param product the product
+     * @return the quantity in stock
+     */
+    public int getLoanableQuantityInStock(Product product) {
+    	int quantityInStock = 0;
+    	for(Shelf shelf: this.getShelves()) {
+    		quantityInStock += shelf.getLoanableQuantity(product);
     	}
     	return quantityInStock;
     }

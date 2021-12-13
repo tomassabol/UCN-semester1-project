@@ -157,10 +157,24 @@ public class Product {
 		return this.loaningPrices.add(loaningPrice);
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * Adds the bulk discount.
+	 *
+	 * @param bulkDiscount the bulk discount
+	 * @return true, if successful
+	 */
+>>>>>>> 5d62cd4 (Refactoring view)
 	public boolean addBulkDiscount(BulkDiscount bulkDiscount) {
 		return this.bulkDiscounts.add(bulkDiscount);
 	}
 
+	/**
+	 * Gets the bulk discounts.
+	 *
+	 * @return the bulk discounts
+	 */
 	public ArrayList<BulkDiscount> getBulkDiscounts() {
 		return this.bulkDiscounts;
 	}
@@ -220,7 +234,11 @@ public class Product {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Gets the bulk discount by index in the list
+=======
+	 * Gets the bulk discount by index in arraylist (not ID)
+>>>>>>> 5d62cd4 (Refactoring view)
 	 *
 	 * @param index the index
 	 * @return the bulk discount by index

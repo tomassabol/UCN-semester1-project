@@ -9,6 +9,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
 
     private ShoppingCartController shoppingCartCtrl;
     private QuoteController quoteCtrl;
+    private StockController stockCtrl;
 
     /**
      * Constructor for MenuShoppingCart
@@ -21,6 +22,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
         
         shoppingCartCtrl = new ShoppingCartController();
         quoteCtrl = new QuoteController();
+        stockCtrl = new StockController();
         
         this.customer = customer;
         
@@ -52,14 +54,13 @@ public class MenuShoppingCart extends GenericMenuInterface{
     public void addItemToCart(ShoppingCart shoppingCart){
     	Terminal terminal = getTerminal();
     	terminal.clearScreen();
-    	System.out.println("*** Products ***");
-    	terminal.printBuyableProducts();
-    	Product product = terminal.getProduct("Choose product by ID to add to cart");
-    	int quantity = terminal.getIntegerInput("Quantity");
+    	Product product = terminal.getBuyableProduct("Choose product to add to cart");
+    	System.out.println("You chose: " + product.getName());
+    	int quantity = terminal.getIntegerInput("How many?", 1, stockCtrl.getBuyableQuantityInStock(product));
     	try { 
     		shoppingCartCtrl.addProduct(shoppingCart, product, quantity);
     	} catch (IllegalArgumentException | OutOfStockException e){
-    		System.out.println(e.getLocalizedMessage());
+    		terminal.printError(e.getLocalizedMessage());
     	}
 
     	terminal.getAnyKeyInput("Press [Enter] to go back...");

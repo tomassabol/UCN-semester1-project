@@ -68,8 +68,21 @@ public class ProductContainer {
      * @param productId - id of the product to be found
      * @return product with the given number
      */
-    public Product findProductByProductId(int productId) {
+    public Product findProductById(int productId) {
         for (Product product : products) {
+            if (product.ID == productId) {
+                return product ;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * @param productId - id of the product to be found
+     * @return product with the given number
+     */
+    public Product findBuyableProductById(int productId) {
+        for (Product product : getBuyableProducts()) {
             if (product.ID == productId) {
                 return product ;
             }

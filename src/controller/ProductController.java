@@ -46,8 +46,7 @@ public class ProductController {
 	 * @return product with the specific ID
 	 */
 	public Product getProduct(int id) {
-		Product product = findProductByID(id);
-		return product;
+		return findProductByID(id);
 	}
 
 	/**
@@ -102,7 +101,11 @@ public class ProductController {
 	 * @return product
 	 */
 	public Product findProductByID(int id) {
-		return ProductContainer.getInstance().findProductByProductId(id);
+		return ProductContainer.getInstance().findProductById(id);
+	}
+	
+	public Product findBuyableProductByID(int id) {
+		return ProductContainer.getInstance().findBuyableProductById(id);
 	}
 
 	/**
@@ -128,6 +131,7 @@ public class ProductController {
 		product.addLoaningPrice(loaningPrice);
 		return loaningPrice;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * 
@@ -206,6 +210,17 @@ public class ProductController {
 	 */
 	public boolean createBulkDiscount(Product product, int minQuantity, int discountPercentage) {
 		BulkDiscount bulkDiscount = new BulkDiscount(minQuantity, discountPercentage);
+=======
+	
+	/**
+	 * Adds the bulk discount to a product
+	 *
+	 * @param product the product
+	 * @param bulkDiscount the bulk discount
+	 * @return true, if successful
+	 */
+	public boolean addBulkDiscount(Product product, BulkDiscount bulkDiscount) {
+>>>>>>> 5d62cd4 (Refactoring view)
 		return product.addBulkDiscount(bulkDiscount);
 	}
 }

@@ -117,10 +117,30 @@ public class Shelf {
     	return false;
     }
     
+    /**
+     * Gets the buyable quantity in stock
+     *
+     * @param product the product
+     * @return the buyable quantity
+     */
     public int getBuyableQuantity(Product product) {
 		int availableQuantity = 0;
 		for (StockBatch stockBatch: this.getStockBatches(product)) {
 			availableQuantity += stockBatch.getBuyableItemQuantity();
+		}
+		return availableQuantity;
+    }
+    
+    /**
+     * Gets the loanable quantity in stock
+     *
+     * @param product the product
+     * @return the loanable quantity
+     */
+    public int getLoanableQuantity(Product product) {
+		int availableQuantity = 0;
+		for (StockBatch stockBatch: this.getStockBatches(product)) {
+			availableQuantity += stockBatch.getLoanableItemQuantity();
 		}
 		return availableQuantity;
     }
