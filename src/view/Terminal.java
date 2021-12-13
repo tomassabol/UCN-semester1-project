@@ -195,9 +195,9 @@ public class Terminal {
    * @param prompt the prompt
    * @return the employee
    */
-  public Employee getEmployee(String prompt) {
+  public IFEmployee getEmployee(String prompt) {
 	  printEmployees(employeeCtrl.getEmployees());
-	  Employee employee = null;
+	  IFEmployee employee = null;
 	  do {
 		  int id = this.getIntegerInput(prompt);
 		  employee = employeeCtrl.getEmployeeByID(id);
@@ -205,16 +205,19 @@ public class Terminal {
 	  
 	  return employee;
   }
+  public IFEmployee getEmployee() {
+	  return getEmployee("Choose employee");
+  }
   /**
    * Prints all employees
    */
-  public void printEmployees(List<Employee> employees) {
+  public void printEmployees(List<IFEmployee> employees) {
 	  System.out.println("*** Employees ***");
 	  System.out.println();
-	  for (Employee employee: employees) {
+	  for (IFEmployee employee: employees) {
 		  String printLine = "(%d) %s %s %s";
 		  System.out.println(String.format(printLine, 
-				  employee.ID,
+				  employee.getID(),
 				  employee.getFirstName(),
 				  employee.getLastName(),
 				  employee.getBirthDate()));

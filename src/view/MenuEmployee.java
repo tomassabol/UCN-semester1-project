@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import controller.EmployeeController;
 import model.Employee;
+import model.IFEmployee;
 
 public class MenuEmployee extends GenericMenuInterface {
   
@@ -60,14 +61,9 @@ public class MenuEmployee extends GenericMenuInterface {
     terminal.clearScreen();
 
     terminal.printEmployees(employeeCtrl.getEmployees());
-    int id = terminal.getIntegerInput("The id of the Employee you want to update");
-    if(isEmpty(id)){
-      super.show("There is no Employee with that id in the system");
-    }else{
-      MenuUpdateEmployee updateMenu = new MenuUpdateEmployee(this, id);
-      updateMenu.show();
-    }
-    terminal.getAnyKeyInput("Press [Enter] to go back");
+    IFEmployee employee = terminal.getEmployee();
+	new MenuUpdateEmployee(this, employee).show();
+	
     super.show();
   }
 
@@ -75,27 +71,13 @@ public class MenuEmployee extends GenericMenuInterface {
     Terminal terminal = getTerminal();
     terminal.clearScreen();
 
-    terminal.printEmployees(employeeCtrl.getEmployees());
-    int id = terminal.getIntegerInput("The id of the Employee you want to delete");
-    
-    if(isEmpty(id)){
-      super.show("There is no Employee with that id in the system");
-    }else{
-      Employee employee = employeeCtrl.getEmployeeByID(id);
-      if(terminal.confirmInput("Are you sure you want to delete " + employee.getFirstName() + " " +employee.getLastName())) {
-        employeeCtrl.removeEmployee(employee);
-        super.show("Employee was successfully deleted");
-      }else {
-        super.show("Employee deletion was discarded");
-      }
-    }
+    IFEmployee employee = terminal.getEmployee();
+      
+	if(terminal.confirmInput("Are you sure you want to delete " + employee.getFirstName() + " " + employee.getLastName())) {
+		employeeCtrl.removeEmployee(employee);
+		super.show("Employee was successfully deleted");
+	}
+	super.show();
   }
 
-  private boolean isEmpty(int id){
-    if(employeeCtrl.getEmployeeByID(id) == null){
-        return true;
-    }else{
-        return false;
-    }
-  } 
 }

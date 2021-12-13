@@ -64,5 +64,9 @@ implements IFCustomer, IFEmployee {
 	public void setCustomerType(CustomerType customerType) {
 		this.customerType = customerType;
 	}
+	
+	public int getID() {
+		return this.ID;
+	}
 
 }
