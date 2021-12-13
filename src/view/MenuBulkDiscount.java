@@ -1,7 +1,5 @@
 package view;
 
-import org.junit.jupiter.api.TestReporter;
-
 import model.BulkDiscount;
 import model.Product;
 

@@ -97,6 +97,9 @@ public class Terminal {
 	  return contractor;
   }
 
+  /**
+   * @return object of a storage location with specific id
+   */
   public StorageLocation getStorageLocation() {
 	  StorageLocation storageLocation = null;
 	  do {
@@ -107,7 +110,9 @@ public class Terminal {
 	  return storageLocation;
   }
 
-  
+  /**
+   * @return object of a class shelf with specific ID
+   */
   public Shelf getShelf() {
 	  Shelf shelf = null;
 	  do {
@@ -128,6 +133,9 @@ public class Terminal {
 	  }
   }
   
+  /**
+   * print all products marked as buyable
+   */
   public void printBuyableProducts() {
 	  for (Product product: productCtrl.getBuyableProducts()) {
       System.out.println();
@@ -143,6 +151,9 @@ public class Terminal {
 	  }
   }
 
+  /**
+   * prints all product and their info
+   */
   public void printProductInfos(){
     for (Product product : productCtrl.getProducts()){
       System.out.println();
@@ -155,6 +166,10 @@ public class Terminal {
     }
   }
   
+  /**
+   * prints all quotes of a specific customer
+   * @param customer to print quotes for
+   */
   public void printQuotes(Customer customer) {
 		System.out.println(String.format("[Quotes for %s %s]", customer.getFirstName(), customer.getLastName()));
 		for (Quote quote: quoteCtrl.getQuotes(customer)) {
@@ -198,6 +213,11 @@ public class Terminal {
     return userInput;
   }
 
+  /**
+   * 
+   * @param prompt - message to be printed out
+   * @return customerType object
+   */
   public CustomerType getCustomerType(String prompt){
     CustomerType customerType;
     do {
@@ -207,6 +227,9 @@ public class Terminal {
     return customerType;
   }
 
+  /**
+   * prints al customertypes and information
+   */
   public void printCustumerTypes(){
     List<CustomerType> customerTypes = customerCtrl.getCustomerTypes();
     for(CustomerType customerType : customerTypes){
@@ -215,6 +238,9 @@ public class Terminal {
     }
   }
 
+  /**
+   * prints all contractors and its information
+   */
   public void printContractorInfo() {
     List<Contractor> contractors = contractorCtrl.getContractors();
     for(Contractor contractor : contractors){
@@ -225,6 +251,9 @@ public class Terminal {
     }
   }
 
+  /**
+   * prints all bulk discount info
+   */
   public void printArrayBulkDiscount(ArrayList<BulkDiscount> bulkDiscounts) {
       for (BulkDiscount bulkDiscount : bulkDiscounts) {
         System.out.println();
@@ -235,6 +264,10 @@ public class Terminal {
       }
   }
 
+  /**
+   * print bulk discount info for specific product
+   * @param product to print bulk discount info for
+   */
   public void printBulkDiscount(Product product){
       ArrayList<BulkDiscount> bulkDiscounts = product.getBulkDiscounts();
       for(BulkDiscount bulkDiscount : bulkDiscounts) {
@@ -247,6 +280,9 @@ public class Terminal {
       }
   }
 
+  /**
+   * prints all bulk discount info
+   */
   public void printAllBullkDiscount() {
     for (Product product : productCtrl.getProducts()) {
       ArrayList<BulkDiscount> bulkDiscounts = product.getBulkDiscounts();
@@ -262,6 +298,11 @@ public class Terminal {
     }
   }
 
+  /**
+   * prints info about specific bulkdiscount
+   * @param product 
+   * @param bulkDiscount
+   */
   public void printBulkDiscount(Product product, BulkDiscount bulkDiscount) {
         System.out.println();
         System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
