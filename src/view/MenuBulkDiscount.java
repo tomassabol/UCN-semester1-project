@@ -1,30 +1,20 @@
 package view;
 
-<<<<<<< HEAD
-=======
 import org.junit.jupiter.api.TestReporter;
 
->>>>>>> 5d62cd4 (Refactoring view)
 import controller.ProductController;
 import model.BulkDiscount;
 import model.Product;
 
 public class MenuBulkDiscount extends GenericMenuInterface {
-<<<<<<< HEAD
 	
-	ProductController productCtrl;
-=======
 	private ProductController productCtrl;
->>>>>>> 5d62cd4 (Refactoring view)
 
     public MenuBulkDiscount(GenericMenuInterface previousInterface) {
         super(previousInterface);
         
-<<<<<<< HEAD
         productCtrl = new ProductController();
-=======
         this.productCtrl = new ProductController();
->>>>>>> 5d62cd4 (Refactoring view)
 
         super.setTitle("Manage Bulk Discount");
         super.addMenuOption("1", new GenericMenuOption("Create a bulk discount", () -> createBulkDiscount()));
@@ -45,16 +35,11 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-<<<<<<< HEAD
         int minQuantity = terminal.getIntegerInput("Minimum quantity for bulk discount to apply", 0, 100);
         int discountPercentage = terminal.getIntegerInput("The discount %");
         productCtrl.createBulkDiscount(product, minQuantity, discountPercentage);
         super.show("The bulk discount was successfully created!");
-=======
-        int minQuantity = terminal.getIntegerInput("The minimum quantity from which the user can get the discount", 0, Integer.MAX_VALUE);
-        int discountPercentage = terminal.getIntegerInput("The discount in %");
-        BulkDiscount bulkDiscount = new BulkDiscount(minQuantity, discountPercentage);
-        productCtrl.addBulkDiscount(product, bulkDiscount);
+        
         super.show();
     }
 
@@ -76,7 +61,6 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         terminal.printBulkDiscount(product.getBestBulkDiscount(quantity));        
         terminal.getAnyKeyInput("Press [Enter] to continue");
         super.show();
->>>>>>> 5d62cd4 (Refactoring view)
     }
 
     private void getActiveBulk(){
@@ -86,7 +70,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         Product product = terminal.getProduct();
         terminal.clearScreen();
         
-        System.out.println("Active bulk discounts for ["+ product.getName() + "]");
+        System.out.println("*** Active bulk discounts for "+ product.getName() + " ***");
         terminal.printBulkDiscounts(productCtrl.getActiveBulkDiscounts(product));
         terminal.getAnyKeyInput();
         super.show();
@@ -99,7 +83,7 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         Product product = terminal.getProduct();
         terminal.clearScreen();
         
-        System.out.println("Inactive bulk discounts for ["+ product.getName() + "]");
+        System.out.println("*** Inactive bulk discounts for "+ product.getName() + " ***");
         terminal.printBulkDiscounts(productCtrl.getInactiveBulkDiscounts(product));
         terminal.getAnyKeyInput();
         super.show();
@@ -110,10 +94,13 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         terminal.clearScreen();
         
         Product product = terminal.getProduct();
+        terminal.clearScreen();
+        
         BulkDiscount bulkDiscount = terminal.getBulkDiscount("Choose bulk discount", product);
         terminal.clearScreen();
         
         terminal.printBulkDiscount(product, bulkDiscount);
+        System.out.println();
         if (terminal.confirmInput("Should this bulk discount be active?")) {
         	productCtrl.setBulkDiscountStatus(bulkDiscount, true);
         } else {
@@ -121,6 +108,8 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         }
         System.out.println("The bulk discount was successfully set to active: "+ bulkDiscount.isActive());
         terminal.getAnyKeyInput();
+        
+        super.show();
         
         
         
@@ -131,22 +120,34 @@ public class MenuBulkDiscount extends GenericMenuInterface {
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-        int index = terminal.getIntegerInput("Index of the bulk discount");
-        BulkDiscount bulkDiscount = product.getBulkDiscountByIndex(index);
-        int minQuantity = terminal.getIntegerInput("New minimum qunatity");
-        bulkDiscount.setMinQuantity(minQuantity);
+        terminal.clearScreen();
+        
+        BulkDiscount bulkDiscount = terminal.getBulkDiscount("Choose bulk discount", product);
+        terminal.clearScreen();
+
+        terminal.printBulkDiscount(bulkDiscount);
+        System.out.println();
+        int minQuantity = terminal.getIntegerInput("The new minimum quantity for the discount to 'kick in'", 0, Integer.MAX_VALUE);
+        
+        productCtrl.setBulkDiscountMinQuantity(bulkDiscount, minQuantity);
         super.show("Minimum qunatity was updated successfully");
     }
 
     private void setDiscountPercentage() {
+        
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-        int index = terminal.getIntegerInput("Index of the bulk discount");
-        BulkDiscount bulkDiscount = product.getBulkDiscountByIndex(index);
-        int discountPercentage = terminal.getIntegerInput("New discount percentage");
-        bulkDiscount.setDiscountPercentage(discountPercentage);
-        super.show("Discount percentage was updated successfully");
+        terminal.clearScreen();
+        
+        BulkDiscount bulkDiscount = terminal.getBulkDiscount("Choose bulk discount", product);
+        terminal.clearScreen();
+        
+        terminal.printBulkDiscount(bulkDiscount);
+        int discountPercentage = terminal.getIntegerInput("The new discount percentage'", 1, 100);
+        
+        productCtrl.setBulkDiscountDiscountPercentage(bulkDiscount, discountPercentage);
+        super.show("Minimum qunatity was updated successfully");
     }
 }

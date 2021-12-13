@@ -157,15 +157,12 @@ public class Product {
 		return this.loaningPrices.add(loaningPrice);
 	}
 
-<<<<<<< HEAD
-=======
 	/**
 	 * Adds the bulk discount.
 	 *
 	 * @param bulkDiscount the bulk discount
 	 * @return true, if successful
 	 */
->>>>>>> 5d62cd4 (Refactoring view)
 	public boolean addBulkDiscount(BulkDiscount bulkDiscount) {
 		return this.bulkDiscounts.add(bulkDiscount);
 	}

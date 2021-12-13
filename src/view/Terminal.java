@@ -137,6 +137,7 @@ public class Terminal {
    * @param products the products
    */
   public void printProductsInDetail(List<Product> products){
+	  	System.out.println("*** Products ***");
 	    for (Product product : products){
 	      System.out.println();
 			  System.out.println("[" + product.getName() + "]");
@@ -222,13 +223,9 @@ public class Terminal {
   }
 
   /**
-<<<<<<< HEAD
-   * @return object of a storage location with specific id
-=======
    * Gets the storage location.
    *
    * @return the storage location
->>>>>>> 5d62cd4 (Refactoring view)
    */
   public StorageLocation getStorageLocation() {
 	  StorageLocation storageLocation = null;
@@ -240,16 +237,11 @@ public class Terminal {
 	  return storageLocation;
   }
 
-<<<<<<< HEAD
-  /**
-   * @return object of a class shelf with specific ID
-=======
-  
+
   /**
    * Gets the shelf.
    *
    * @return the shelf
->>>>>>> 5d62cd4 (Refactoring view)
    */
   public Shelf getShelf() {
 	  Shelf shelf = null;
@@ -271,7 +263,6 @@ public class Terminal {
 	  }
   }
   
-<<<<<<< HEAD
   /**
    * print all products marked as buyable
    */
@@ -375,17 +366,11 @@ public class Terminal {
       try {
         userInput = Integer.parseInt(getStringInput(prompt));
         if (userInput < min || userInput > max) {
-<<<<<<< HEAD
-        	this.printError("Please enter a number from " + min + " to " + max);
-        	continue;
-        }
         // If no errors, it means input is a valid int, so break.
-=======
         	printError("Please choose a number between " + min + " and " + max);
         	continue;
         }
         // break out of loop, as it is a valid integer
->>>>>>> 5d62cd4 (Refactoring view)
         break;
       } catch (NumberFormatException e) {
         printError("Please enter a valid integer number or type " + GO_BACK_CMD + " to go back");
@@ -396,24 +381,16 @@ public class Terminal {
     return userInput;
   }
   public int getIntegerInput(String prompt) {
-<<<<<<< HEAD
 	  return getIntegerInput(prompt, Integer.MIN_VALUE, Integer.MAX_VALUE);
   }
 
-  /**
-   * 
-   * @param prompt - message to be printed out
-   * @return customerType object
-=======
-	  return this.getIntegerInput(prompt, Integer.MIN_VALUE, Integer.MAX_VALUE);
-  }
+
 
   /**
    * Gets the customer type.
    *
    * @param prompt the prompt
    * @return the customer type
->>>>>>> 5d62cd4 (Refactoring view)
    */
   public CustomerType getCustomerType(String prompt){
     CustomerType customerType;
@@ -425,11 +402,8 @@ public class Terminal {
   }
 
   /**
-<<<<<<< HEAD
    * prints al customertypes and information
-=======
    * Prints the custumer types.
->>>>>>> 5d62cd4 (Refactoring view)
    */
   public void printCustumerTypes(){
     List<CustomerType> customerTypes = customerCtrl.getCustomerTypes();
@@ -440,11 +414,8 @@ public class Terminal {
   }
 
   /**
-<<<<<<< HEAD
    * prints all contractors and its information
-=======
    * Prints the contractor info.
->>>>>>> 5d62cd4 (Refactoring view)
    */
   public void printContractorInfo() {
     List<Contractor> contractors = contractorCtrl.getContractors();
@@ -455,7 +426,6 @@ public class Terminal {
       System.out.println();
     }
   }
-<<<<<<< HEAD
   
   /**
    * Gets a specific bulk discount for a specific product by index in list
@@ -464,29 +434,16 @@ public class Terminal {
    * @return the bulk discount
    */
   public BulkDiscount getBulkDiscount(String prompt, Product product) {
+	  System.out.println("*** Bulk Discounts for " + product.getName() + " ***");
+	  printBulkDiscounts(product.getBulkDiscounts());
 	  BulkDiscount bulkDiscount = null;
 	  do {
 		  int index = this.getIntegerInput(prompt);
 		  bulkDiscount = productCtrl.getBulkDiscountByIndex(product, index);
 	  }  while (bulkDiscount == null);
 	  return bulkDiscount;
-=======
-
-  /**
-   * Prints the array bulk discount.
-   *
-   * @param bulkDiscounts the bulk discounts
-   */
-  public void printArrayBulkDiscount(ArrayList<BulkDiscount> bulkDiscounts) {
-      for (BulkDiscount bulkDiscount : bulkDiscounts) {
-        System.out.println();
-        System.out.println("Index of the bulk discount: " + bulkDiscounts.indexOf(bulkDiscount));
-        System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
-        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
-        System.out.println();
-      }
->>>>>>> 5d62cd4 (Refactoring view)
   }
+
 	/**
 	* print bulk discount info for specific product
 	* @param product to print bulk discount info for
@@ -502,7 +459,6 @@ public class Terminal {
 		    System.out.println();
 		}
 
-<<<<<<< HEAD
 	}
 
   /**
@@ -511,9 +467,10 @@ public class Terminal {
    * @param bulkDiscount
    */
   public void printBulkDiscount(Product product, BulkDiscount bulkDiscount) {
-        System.out.println("Bulk discount for ["+ product.getName() +"]");
+        System.out.println("Bulk discount for: "+ product.getName());
         System.out.println("Discount percentage: " + bulkDiscount.getDiscountPercentage());
-=======
+        System.out.println("Min quantity: " + bulkDiscount.getMinQuantity());
+  }
   /**
    * Prints the bulk discount.
    *
@@ -557,8 +514,7 @@ public class Terminal {
   public void printBulkDiscount(BulkDiscount bulkDiscount) {
         System.out.println();
         System.out.println("Discount percantage: " + bulkDiscount.getDiscountPercentage());
->>>>>>> 5d62cd4 (Refactoring view)
-        System.out.println("Minimum quantity" + bulkDiscount.getMinQuantity());
+        System.out.println("Minimum quantity: " + bulkDiscount.getMinQuantity());
         System.out.println("Active: " + bulkDiscount.isActive());
   }
 

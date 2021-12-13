@@ -131,7 +131,6 @@ public class ProductController {
 		product.addLoaningPrice(loaningPrice);
 		return loaningPrice;
 	}
-<<<<<<< HEAD
 
 	/**
 	 * 
@@ -141,8 +140,8 @@ public class ProductController {
 	public int getStock(Product product) {
 		StockController stockController = new StockController();
 		int quantity = 0;
-		if(stockController.buyableItemQuantityInStock(product) != 0) {
-			quantity = stockController.buyableItemQuantityInStock(product);
+		if(stockController.getBuyableQuantityInStock(product) != 0) {
+			quantity = stockController.getBuyableQuantityInStock(product);
 		}
 		return quantity;
 	}
@@ -210,7 +209,8 @@ public class ProductController {
 	 */
 	public boolean createBulkDiscount(Product product, int minQuantity, int discountPercentage) {
 		BulkDiscount bulkDiscount = new BulkDiscount(minQuantity, discountPercentage);
-=======
+		return product.addBulkDiscount(bulkDiscount);
+	}
 	
 	/**
 	 * Adds the bulk discount to a product
@@ -220,7 +220,26 @@ public class ProductController {
 	 * @return true, if successful
 	 */
 	public boolean addBulkDiscount(Product product, BulkDiscount bulkDiscount) {
->>>>>>> 5d62cd4 (Refactoring view)
 		return product.addBulkDiscount(bulkDiscount);
+	}
+	
+	/**
+	 * Sets the bulk discount min quantity.
+	 *
+	 * @param bulkDiscount the bulk discount
+	 * @param minQuantity the min quantity
+	 */
+	public void setBulkDiscountMinQuantity(BulkDiscount bulkDiscount, int minQuantity) {
+		bulkDiscount.setMinQuantity(minQuantity);
+	}
+	
+	/**
+	 * Sets the bulk discount discount percentage.
+	 *
+	 * @param bulkDiscount the bulk discount
+	 * @param discountPercentage the discount percentage
+	 */
+	public void setBulkDiscountDiscountPercentage(BulkDiscount bulkDiscount, int discountPercentage) {
+		bulkDiscount.setDiscountPercentage(discountPercentage);
 	}
 }
