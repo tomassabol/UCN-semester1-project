@@ -1,6 +1,7 @@
 package view;
 
 import controller.StockController;
+import controller.SupplyController;
 import model.Shelf;
 import model.StorageLocation;
 import model.SupplyOrder;
@@ -8,6 +9,7 @@ import model.SupplyOrder;
 public class MenuStock extends GenericMenuInterface {
 
     private StockController stockCtrl;
+    private SupplyController supplyCtrl;
 
     /**
      * Constructor class MenuStock
@@ -24,6 +26,7 @@ public class MenuStock extends GenericMenuInterface {
         super.addMenuOptionGoBack("0");
 
         stockCtrl = new StockController();
+        supplyCtrl = new SupplyController();
     }
 
     /**
@@ -90,7 +93,7 @@ public class MenuStock extends GenericMenuInterface {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        printAllSupplyOrders();
+        terminal.printAllSupplyOrders();
         int supplyOrderId = terminal.getIntegerInput("Enter the id of a supply order");
         SupplyOrder supplyOrder = supplyCtrl.findSupplyOrderById(supplyOrderId);
         terminal.printAllShelves();

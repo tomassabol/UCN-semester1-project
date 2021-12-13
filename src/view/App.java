@@ -15,6 +15,6 @@ public class App {
         // login default employee
         menuMain.getAuth().login(employee);
         // show main menu
-        menuMain.show();
+        menuMain.show("Remember: you can always type -back to go to previous menu");
     }
 }
