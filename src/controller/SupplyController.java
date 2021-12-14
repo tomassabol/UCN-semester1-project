@@ -71,12 +71,8 @@ public class SupplyController {
 	 * @param index the index
 	 * @return the supply offer
 	 */
-	public SupplyOffer findSupplyOfferByID(Product product, int index) {
-		return SupplyOfferContainer.getInstance().findSupplyOfferById(product, index);
-	}
-
-	public SupplyOffer findSupplyOfferByID(int id) {
-		return SupplyOfferContainer.getInstance().findSupplyOfferById(id);
+	public SupplyOffer findSupplyOfferByIndex(Product product, int index) {
+		return SupplyOfferContainer.getInstance().findSupplyOfferByIndex(product, index);
 	}
 
 	public SupplyOrder findSupplyOrderById(int supplyOrderId) {
@@ -105,26 +101,14 @@ public class SupplyController {
 		return SupplyOrderContainer.getInstance().getDeliveredSupplyOrders();
 	}
 	
-	/*
-	private void removeSupplyOffer() {
-		// This is left empty for a reason!
-		// Supply offers should not be removed, only deactivated!
-	}
-	*/
 	
 	/**
 	 * Deactivate a supply offer
 	 *
 	 * @param supplyOffer The supply offer
 	 */
-	public void setStatus(SupplyOffer supplyOffer) {
-		//supplyOffer.setActive(false);
-		if (supplyOffer.isActive() == true) {
-			supplyOffer.setActive(false);
-		}
-		else {
-			supplyOffer.setActive(true);
-		}
+	public void setStatus(SupplyOffer supplyOffer, boolean status) {
+		supplyOffer.setActive(status);
 		//supplyOffer.setActive(!supplyOffer.isActive()); || This may be better
 	}
 	

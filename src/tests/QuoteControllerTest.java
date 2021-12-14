@@ -23,13 +23,7 @@ class QuoteControllerTest {
 	private Customer customer1;
 	private Employee employee1;
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+	
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -40,9 +34,7 @@ class QuoteControllerTest {
 		quote1 = new Quote(1, customer1, employee1, null);
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
+	
 
 	@Test
 	void testFindQuoteById() {

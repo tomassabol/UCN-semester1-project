@@ -15,19 +15,19 @@ public class MenuMain extends GenericMenuInterface {
     super.setTitle("Main Menu");
     super.addMenuOption("1", new GenericMenuOption("Generate test data",
     () -> generateTestData()));
-    super.addMenuOption("2", new GenericMenuOption("Quotes",
-    		    () -> showQuotesMenu()));
-    super.addMenuOption("3", new GenericMenuOption("Products",
+    super.addMenuOption("2", new GenericMenuOption("Products",
             () -> showProductsMenu()));
-    super.addMenuOption("4", new GenericMenuOption("Employees",
+    super.addMenuOption("3", new GenericMenuOption("Employees",
             () -> showEmployeesMenu()));
+    super.addMenuOption("4", new GenericMenuOption("Customers", () -> showCustomerMenu()));
     super.addMenuOption("5", new GenericMenuOption("Contractors",
             () -> showContractorMenu()));
     super.addMenuOption("6", new GenericMenuOption("Supplies",
             () -> showSupplyMenu()));
     super.addMenuOption("7", new GenericMenuOption("Stock",
             () -> showStockMenu()));
-    super.addMenuOption("8", new GenericMenuOption("Customers", () -> showCustomerMenu()));
+    super.addMenuOption("8", new GenericMenuOption("Quotes & Orders",
+		    () -> showQuotesMenu()));
     super.addMenuOption("0", new GenericMenuOption("Quit the program",
     		    () -> System.exit(0)));
 

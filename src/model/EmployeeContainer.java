@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EmployeeContainer {
     private static EmployeeContainer instance;
-    private ArrayList<Employee> employees;
+    private ArrayList<IFEmployee> employees;
 
     /**
      * Constructor class EmployeeContainer
@@ -30,7 +30,7 @@ public class EmployeeContainer {
      * @param employee the employee
      * @return true, if successful
      */
-    public boolean addEmployee(Employee employee) {
+    public boolean addEmployee(IFEmployee employee) {
         return employees.add(employee);
     }
 
@@ -39,7 +39,7 @@ public class EmployeeContainer {
      *
      * @return list of all employees
      */
-    public List<Employee> getEmployees() {
+    public List<IFEmployee> getEmployees() {
         return this.employees;
     }
 
@@ -50,7 +50,7 @@ public class EmployeeContainer {
      * @param employee the employee
      * @return true, if successful
      */
-    public boolean removeEmployee(Employee employee) {
+    public boolean removeEmployee(IFEmployee employee) {
         return employees.remove(employee);
     }
 
@@ -58,9 +58,9 @@ public class EmployeeContainer {
      * @param employeeID - id of an employee to be found
      * @return employee if the employee was found
      */
-    public Employee findEmployeeById(int employeeID) {
-        for (Employee employee : employees) {
-            if (employee.ID == employeeID) {
+    public IFEmployee findEmployeeById(int employeeID) {
+        for (IFEmployee employee : employees) {
+            if (employee.getID() == employeeID) {
                 return employee;
             }
         }

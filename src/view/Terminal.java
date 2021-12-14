@@ -195,9 +195,9 @@ public class Terminal {
    * @param prompt the prompt
    * @return the employee
    */
-  public Employee getEmployee(String prompt) {
+  public IFEmployee getEmployee(String prompt) {
 	  printEmployees(employeeCtrl.getEmployees());
-	  Employee employee = null;
+	  IFEmployee employee = null;
 	  do {
 		  int id = this.getIntegerInput(prompt);
 		  employee = employeeCtrl.getEmployeeByID(id);
@@ -205,16 +205,19 @@ public class Terminal {
 	  
 	  return employee;
   }
+  public IFEmployee getEmployee() {
+	  return getEmployee("Choose employee");
+  }
   /**
    * Prints all employees
    */
-  public void printEmployees(List<Employee> employees) {
+  public void printEmployees(List<IFEmployee> employees) {
 	  System.out.println("*** Employees ***");
 	  System.out.println();
-	  for (Employee employee: employees) {
+	  for (IFEmployee employee: employees) {
 		  String printLine = "(%d) %s %s %s";
 		  System.out.println(String.format(printLine, 
-				  employee.ID,
+				  employee.getID(),
 				  employee.getFirstName(),
 				  employee.getLastName(),
 				  employee.getBirthDate()));
@@ -268,19 +271,7 @@ public class Terminal {
 	  return quote;
   }
 
-  public SupplyOffer getSupplyOffer() {
-    SupplyOffer supplyOffer = null;
-    do {
-      int id = getIntegerInput("Id of the supply offer");
-      supplyOffer = supplyCtrl.findSupplyOfferByID(id);
-      if(supplyOffer.isActive() == false) {
-        supplyOffer = null;
-        System.out.println("This supply offer is inactive");
-      }
-    }while (supplyOffer == null);
-    return supplyOffer;
-  }
-  
+
   /**
    * Gets the quote.
    *
@@ -307,6 +298,7 @@ public class Terminal {
    * @return the storage location
    */
   public StorageLocation getStorageLocation() {
+	  this.printStorageLocations();
 	  StorageLocation storageLocation = null;
 	  do {
 		  int id = this.getIntegerInput("Choose Storage Location by ID");
@@ -315,18 +307,54 @@ public class Terminal {
 	  
 	  return storageLocation;
   }
+  
+  /**
+   * Prints the all shelves.
+   */
+  public void printShelf(Shelf shelf) {
+      System.out.println("Shelf ID: " + String.format(("%d"), shelf.ID));
+      System.out.println("Name: " + String.format(("%s"), shelf.getName()));
+      System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
+  }
 
-
+  /**
+   * Prints the all shelves.
+   */
+  public void printAllShelves() {
+	  System.out.println("[Shelves]");
+    for (Shelf shelf : stockCtrl.getShelves()) {
+      this.printShelf(shelf);
+      System.out.println();
+    }
+  }
+  
+  /**
+   * Prints the all shelves.
+   */
+  public void printShelves(StorageLocation storageLocation) {
+	  System.out.println("[Shelves for " + storageLocation.getName() +"]");
+	  List<Shelf> shelves = stockCtrl.getShelves(storageLocation);
+    for (int i = 0; i < shelves.size(); i++) {
+    	Shelf shelf = shelves.get(i);
+      System.out.println("(%d)" + String.format(("%d"), i));
+      System.out.println("Name: " + String.format(("%s"), shelf.getName()));
+      System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
+      System.out.println();
+    }
+  }
+  
   /**
    * Gets the shelf.
    *
    * @return the shelf
    */
-  public Shelf getShelf() {
+  public Shelf getShelf(StorageLocation storageLocation) {
+	  
+	  this.printShelves(storageLocation);
 	  Shelf shelf = null;
 	  do {
-		  int id = this.getIntegerInput("Choose Shelf by ID");
-		  shelf = stockCtrl.findShelfById(id);
+		  int index = this.getIntegerInput("Choose Shelf by ID");
+		  shelf = stockCtrl.findShelfByIndex(storageLocation, index);
 	  } while (shelf == null);
 	  
 	  return shelf;
@@ -357,8 +385,9 @@ public class Terminal {
    */
   public void printQuotes(Customer customer) {
 		System.out.println(String.format("[Quotes for %s %s]", customer.getFirstName(), customer.getLastName()));
+		System.out.println();
 		for (Quote quote: quoteCtrl.getQuotes(customer)) {
-			System.out.println("\tQuote: #" + quote.ID + " " + quote.CREATION_DATE);
+			System.out.println("Quote: #" + quote.ID + " " + quote.CREATION_DATE);
 		}
   }
   
@@ -369,8 +398,9 @@ public class Terminal {
    */
   public void printOrders(Customer customer) {
 		System.out.println(String.format("[Orders for %s %s]", customer.getFirstName(), customer.getLastName()));
+		System.out.println();
 		for (Order order: orderCtrl.getOrders(customer)) {
-			System.out.println("\torder: #" + order.ID + " " + order.CREATION_DATE);
+			System.out.println(String.format("(%d) created at %s", order.ID, order.CREATION_DATE));
 		}
   }
 
@@ -559,12 +589,23 @@ public class Terminal {
    * @return the supply order
    */
   public SupplyOrder getSupplyOrder(String prompt){
+	this.printSupplyOrders();
     SupplyOrder supplyOrder;
     do {
       int id = getIntegerInput(prompt);
       supplyOrder = supplyCtrl.findSupplyOrderById(id);
     } while (supplyOrder == null);
     return supplyOrder;
+  }
+  public SupplyOrder getSupplyOrder() {
+	  return getSupplyOrder("Choose supply order");
+  }
+  
+  public void printSupplyOrders() {
+	  System.out.println("[Supply Orders[");
+	  for(SupplyOrder supplyOrder: supplyCtrl.getSupplyOrders()) {
+		  this.printSupplyOrder(supplyOrder);
+	  }
   }
 
   /**
@@ -716,18 +757,6 @@ public class Terminal {
 	public void printError(String message) {
 		System.out.println("[ERROR]: " + message + "\n");
 	}
-
-  /**
-   * Prints the all shelves.
-   */
-  public void printAllShelves() {
-    for (Shelf shelf : stockCtrl.getShelves()) {
-      System.out.println("Shelf ID: " + String.format(("%d"), shelf.ID));
-      System.out.println("Name: " + String.format(("%s"), shelf.getName()));
-      System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
-      System.out.println();
-    }
-  }
 	
 	/**
 	 * Clear screen.
@@ -744,7 +773,8 @@ public class Terminal {
   /**
    * Prints the all storage locations.
    */
-  public void printAllStorageLocations() {
+  public void printStorageLocations() {
+	  System.out.println("[Storage locations]");
 	  if (stockCtrl.getStorageLocations().isEmpty()) {
 		  System.out.println("There are no storage locations...");
 		  return;
@@ -757,5 +787,69 @@ public class Terminal {
         System.out.println();
       }
     }
+  
+  public void printSupplyOrder(SupplyOrder supplyOrder) {
+      System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
+      System.out.println("Product: " + String.format(("%s"), supplyOrder.getProduct().getName()));
+      System.out.println("Quantity: " + String.format(("%d"), supplyOrder.getQuantity()));
+      System.out.println("Price per item: " + String.format(("%.2f"), supplyOrder.getPricePerItem()));
+      System.out.println("Date Ordered: " + String.format(("%s"), supplyOrder.getDateOrdered()));
+      System.out.println("Delivered: " + String.format(("%s"), supplyOrder.isDelivered()));
+    }
+  
+  public void printAllSupplyOrders() {
+	  System.out.println("[Supply orders]");
+	  System.out.println();
+      for (SupplyOrder supplyOrder : supplyCtrl.getSupplyOrders()) {
+        printSupplyOrder(supplyOrder);  
+      }
+    }
+  
+  public void printUndeliveredSupplyOrders() {
+	  System.out.println("[UnDelivered supply orders]");
+	  System.out.println();
+      for (SupplyOrder supplyOrder : supplyCtrl.getUndeliveredSupplyOrders()) {
+        printSupplyOrder(supplyOrder);
+      }
+    }
+  
+  public void printDeliveredSupplyOrders() {
+	  System.out.println("[Delivered supply orders]");
+	  System.out.println();
+      for (SupplyOrder supplyOrder : supplyCtrl.getDeliveredSupplyOrders()) {
+        printSupplyOrder(supplyOrder);
+      }
+    }
+  
+    
+  /**
+   * Prints the all supply offers with index
+   *
+   * @param product the product
+   */
+  public void printSupplyOffers(Product product) {
+	    System.out.println("[Supply Offers for" + product.getName() + "]");
+	    System.out.println();
+	    List<SupplyOffer> supplyOffers = supplyCtrl.getSupplyOffers(product);
+        for (int i = 0; i < supplyOffers.size(); i++) {
+        	SupplyOffer supplyOffer = supplyOffers.get(i);
+          System.out.println("(%d): " + String.format(("%d"), i));
+          System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
+          System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
+          System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
+          System.out.println("Supply offer is active: " + String.format(("%s"), supplyOffer.isActive()));
+          System.out.println();
+        }
+    }
+  
+  public SupplyOffer getSupplyOffer(Product product) {
+	this.printSupplyOffers(product);
+    SupplyOffer supplyOffer = null;
+    do {
+      int index = getIntegerInput("Choose supply offer");
+      supplyOffer = supplyCtrl.findSupplyOfferByIndex(product, index);
+    } while (supplyOffer == null);
+    return supplyOffer;
+  }
 
 }

@@ -4,21 +4,21 @@ import java.time.LocalDate;
 
 import controller.EmployeeController;
 import model.Employee;
+import model.IFEmployee;
 
 public class MenuUpdateEmployee extends GenericMenuInterface{
     
-    private int employeeId;
+    private IFEmployee employee;
     private EmployeeController employeeCtrl;
 
-    public MenuUpdateEmployee(GenericMenuInterface previousInterface, int id) {
+    public MenuUpdateEmployee(GenericMenuInterface previousInterface, IFEmployee employee) {
         super(previousInterface);
 
         employeeCtrl = new EmployeeController();
-        Employee employee = employeeCtrl.getEmployeeByID(id);
-        employeeId = id;
+        this.employee = employee;
 
         super.setTitle("Update employee " + employee.getFirstName() + " " + employee.getLastName());
-        super.addMenuOption("1", new GenericMenuOption("Update employee fisrt name", () -> updateFirstName()));
+        super.addMenuOption("1", new GenericMenuOption("Update first name", () -> updateFirstName()));
         super.addMenuOption("2", new GenericMenuOption("Update last name", () -> updateLastName()));
         super.addMenuOption("3", new GenericMenuOption("Update address", () -> updateAddress()));
         super.addMenuOption("4", new GenericMenuOption("Update birth date", () -> updateBirthDate()));
@@ -30,9 +30,10 @@ public class MenuUpdateEmployee extends GenericMenuInterface{
         Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        String  firstName = terminal.getStringInput("New first name");
-        employeeCtrl.updateFirstName(employeeId, firstName);
+        String firstName = terminal.getStringInput("New first name");
+        employeeCtrl.updateFirstName(employee, firstName);
         super.show("First name was successfully updated to: " + firstName);
+        // TODO: Add confirmation
     }
 
     public void updateLastName() {
@@ -40,8 +41,10 @@ public class MenuUpdateEmployee extends GenericMenuInterface{
         terminal.clearScreen();
 
         String lastName = terminal.getStringInput("New last name");
-        employeeCtrl.updateLastName(employeeId, lastName);
+        employeeCtrl.updateLastName(employee, lastName);
         super.show("Last name was successfully updated to: " + lastName);
+        
+     // TODO: Add confirmation
     }
 
     public void updateAddress() {
@@ -49,8 +52,10 @@ public class MenuUpdateEmployee extends GenericMenuInterface{
         terminal.clearScreen();
 
         String address = terminal.getStringInput("New address");
-        employeeCtrl.updateAddress(employeeId, address);
+        employeeCtrl.updateAddress(employee, address);
         super.show("Address was successfully updated to: " + address);
+        
+     // TODO: Add confirmation
     }
 
     public void updateBirthDate() {
@@ -58,8 +63,10 @@ public class MenuUpdateEmployee extends GenericMenuInterface{
         terminal.clearScreen();
 
         LocalDate birthDate = terminal.getDateInput("New birth date");
-        employeeCtrl.updataBirthDate(employeeId, birthDate);
+        employeeCtrl.updataBirthDate(employee, birthDate);
         super.show("Birth date was successfully updated to: " + birthDate);
+        
+     // TODO: Add confirmation
     }
 
     public void updateCPRNumber() {
@@ -67,7 +74,9 @@ public class MenuUpdateEmployee extends GenericMenuInterface{
         terminal.clearScreen();
 
         String CPRNumber = terminal.getStringInput("Newe CPR number");
-        employeeCtrl.updateCPRNumber(employeeId, CPRNumber);
+        employeeCtrl.updateCPRNumber(employee, CPRNumber);
         super.show("CPR number was successfully updated to: " + CPRNumber);
+        
+     // TODO: Add confirmation
     }
 }

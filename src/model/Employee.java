@@ -44,5 +44,10 @@ implements IFEmployee {
 	public String getUsername() {
 		return "";
 	}
+	
+	public int getID() {
+		return this.ID;
+	}
+	
 
 }

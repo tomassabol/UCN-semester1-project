@@ -25,7 +25,6 @@ public class MenuSupply extends GenericMenuInterface {
         super.addMenuOption("5", new GenericMenuOption("Show all supply orders", () -> showAllSupplyOrders()));
         super.addMenuOption("6", new GenericMenuOption("Show undelivered supply orders", () -> showUndeliveredSupplyOrders()));
         super.addMenuOption("7", new GenericMenuOption("Show delivered supply orders", () -> showDeliveredSupplyOrders()));
-        super.addMenuOption("8", new GenericMenuOption("Stock and mark Supply Order as delivered", () -> stockAndMarkDelivered()));
         super.addMenuOptionGoBack("0");
 
         supplyCtrl = new SupplyController();
@@ -42,13 +41,17 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-        terminal.printContractors(contractorCtrl.getContractors());
         Contractor contractor = terminal.getContractor();
         BigDecimal pricePerItem = terminal.getBigDecimalInput("Price per Item", 0, Integer.MAX_VALUE);
-        int minQuantity = terminal.getIntegerInput("The minimum quantity of the product", 0, Integer.MAX_VALUE);
-        supplyCtrl.createSupplyOffer(product, contractor, pricePerItem, minQuantity);
-        super.show("The offer was susccessfully created");
-        System.out.println();
+        int minQuantity = terminal.getIntegerInput("Minimum quantity that must be bought", 0, Integer.MAX_VALUE);
+        
+        // TODO: Customize confirmation
+        if (terminal.confirmInput()) {
+        	supplyCtrl.createSupplyOffer(product, contractor, pricePerItem, minQuantity);
+        	super.show("The offer was susccessfully created");
+        }
+        super.show();
+       
 
     }
 
@@ -61,10 +64,9 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-        System.out.println("[All SupplyOffers in the System]");
-        printSuplyOffers(product);
+        terminal.printSupplyOffers(product);
         System.out.println();
-        terminal.getAnyKeyInput("Press [Enter] to go back");
+        terminal.getAnyKeyInput();
         super.show();
     }
 
@@ -77,11 +79,13 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-        System.out.println("All Supply offers in the System");
-        printSuplyOffers(product);
-        int supplyOfferId = terminal.getIntegerInput("Enter the Supply Offer ID");
-        SupplyOffer supplyOffer = supplyCtrl.findSupplyOfferByID(supplyOfferId);
-        supplyCtrl.setStatus(supplyOffer);
+        terminal.clearScreen();
+        
+        SupplyOffer supplyOffer = terminal.getSupplyOffer(product);
+        
+        boolean status = terminal.confirmInput("Should this supply offer be active?");
+        supplyCtrl.setStatus(supplyOffer, status);
+        
         super.show("Supply offer status was set to " + supplyOffer.isActive());
         
         
@@ -96,14 +100,14 @@ public class MenuSupply extends GenericMenuInterface {
         terminal.clearScreen();
 
         Product product = terminal.getProduct();
-        printSuplyOffers(product);
-        SupplyOffer supplyOffer = terminal.getSupplyOffer();
-        int quantity = terminal.getIntegerInput("Enter the quantity of the product");
+        SupplyOffer supplyOffer = terminal.getSupplyOffer(product);
+        int quantity = terminal.getIntegerInput("Enter the quantity of the product", 1, Integer.MAX_VALUE);
         supplyCtrl.createSupplyOrder(supplyOffer, quantity);
         super.show("The supply order was susccessfully created");
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
+        // TODO: add confirmation
     }
 
 
@@ -114,8 +118,8 @@ public class MenuSupply extends GenericMenuInterface {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        System.out.println("[All Supply orders in the System]");
-        printAllSupplyOrders();
+        Product product = terminal.getProduct();
+        terminal.printSupplyOffers(product);
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -128,8 +132,7 @@ public class MenuSupply extends GenericMenuInterface {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        System.out.println("[All Undelivered Supply orders in the System]");
-        printUndeliveredSupplyOrders();
+        terminal.printUndeliveredSupplyOrders();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
@@ -142,82 +145,11 @@ public class MenuSupply extends GenericMenuInterface {
     	Terminal terminal = getTerminal();
         terminal.clearScreen();
 
-        System.out.println("[All Delivered Supply orders in the System]");
-        printDeliveredSupplyOrders();
-        System.out.println();
-        terminal.getAnyKeyInput("Press [Enter] to go back");
-        super.show();
-    }
-
-    /**
-     * Puts products from supply order into stock - into specific shelf 
-     * - and marks the supply order as delivere
-     */
-    private void stockAndMarkDelivered() {
-    	Terminal terminal = getTerminal();
-        terminal.clearScreen();
-
-        printAllSupplyOrders();
-        int supplyOrderId = terminal.getIntegerInput("Enter the id of a supply order");
-        SupplyOrder supplyOrder = supplyCtrl.findSupplyOrderById(supplyOrderId);
-        terminal.printAllShelves();
-
-        System.out.println();
-
-        int shelfId = terminal.getIntegerInput("Enter the id of a shelf to put delivered product");
-        Shelf shelf = stockCtrl.findShelfById(shelfId);
-        System.out.println("test: " + shelf);
-        boolean trackable = terminal.confirmInput("Does the Item have a serial number?");
-        supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, trackable);
-        super.show("Success");
+        terminal.printDeliveredSupplyOrders();
         System.out.println();
         terminal.getAnyKeyInput("Press [Enter] to go back");
         super.show();
     }
 
 
-    private void printSupplyOrder(SupplyOrder supplyOrder) {
-        System.out.println("Supply Order ID: " + String.format(("%d"), supplyOrder.ID));
-        System.out.println("Product: " + String.format(("%s"), supplyOrder.getProduct().getName()));
-        System.out.println("Product instock quantity: " + String.format("%d", productCtrl.getStock(supplyOrder.getProduct())));
-        System.out.println("Price per item: " + String.format(("%.2f"), supplyOrder.getPricePerItem()));
-        System.out.println("Date Ordered: " + String.format(("%s"), supplyOrder.getDateOrdered()));
-        System.out.println("Delivered: " + String.format(("%s"), supplyOrder.isDelivered()));
-        System.out.println("Quantity: " + String.format(("%d"), supplyOrder.getQuantity()));
-        System.out.println();
-      }
-      private void printAllSupplyOrders() {
-        for (SupplyOrder supplyOrder : supplyCtrl.getSupplyOrders()) {
-          printSupplyOrder(supplyOrder);  
-        }
-      }
-    
-      private void printUndeliveredSupplyOrders() {
-        for (SupplyOrder supplyOrder : supplyCtrl.getUndeliveredSupplyOrders()) {
-          printSupplyOrder(supplyOrder);
-        }
-      }
-    
-      private void printDeliveredSupplyOrders() {
-        for (SupplyOrder supplyOrder : supplyCtrl.getDeliveredSupplyOrders()) {
-          printSupplyOrder(supplyOrder);
-        }
-      }
-    
-      
-      private void printSuplyOffers(Product product) {
-        if(supplyCtrl.getSupplyOffers(product) != null) {
-          for (SupplyOffer supplyOffer : supplyCtrl.getSupplyOffers(product)) {
-            System.out.println("Supply Offer ID: " + String.format(("%d"), supplyOffer.ID));
-            System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
-            System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
-            System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
-            System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.getMIN_QUANTITY()));
-            System.out.println("Supply offer status active: " + String.format(("%s"), supplyOffer.isActive()));
-            System.out.println();
-          }
-        }else {
-          super.show("There is no supply offer for this product");
-        }
-      }
 }

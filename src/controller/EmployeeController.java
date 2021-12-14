@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Employee;
 import model.EmployeeContainer;
+import model.IFEmployee;
 import model.PrimaryKey;
 
 public class EmployeeController {
@@ -37,7 +38,7 @@ public class EmployeeController {
 	 * @param id the id
 	 * @return the employee
 	 */
-	public Employee getEmployeeByID(int id) {
+	public IFEmployee getEmployeeByID(int id) {
 		return EmployeeContainer.getInstance().findEmployeeById(id);
 	}
 	
@@ -47,36 +48,31 @@ public class EmployeeController {
 	 *
 	 * @return A list of employees
 	 */
-	public List<Employee> getEmployees() {
+	public List<IFEmployee> getEmployees() {
 		return EmployeeContainer.getInstance().getEmployees();
 	}
 
-	public void updateFirstName(int id, String firstName) {
-		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+	public void updateFirstName(IFEmployee employee, String firstName) {
 		employee.setFirstName(firstName);
 	}
 
-	public void updateLastName(int id, String lastName) {
-		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+	public void updateLastName(IFEmployee employee, String lastName) {
 		employee.setLastName(lastName);
 	}
 
-	public void updateAddress(int id, String address) {
-		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+	public void updateAddress(IFEmployee employee, String address) {
 		employee.setAddress(address);
 	}
 
-	public void updataBirthDate(int id, LocalDate birthDate) {
-		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+	public void updataBirthDate(IFEmployee employee, LocalDate birthDate) {
 		employee.setBirthDate(birthDate);
 	}
 
-	public void updateCPRNumber(int id, String CPRNumber) {
-		Employee employee = EmployeeContainer.getInstance().findEmployeeById(id);
+	public void updateCPRNumber(IFEmployee employee, String CPRNumber) {
 		employee.setCPRNumber(CPRNumber);
 	}
 
-	public void removeEmployee(Employee employee) {
+	public void removeEmployee(IFEmployee employee) {
 		EmployeeContainer.getInstance().removeEmployee(employee);
 	}
 
