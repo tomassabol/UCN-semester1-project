@@ -336,7 +336,7 @@ public class Terminal {
 	  List<Shelf> shelves = stockCtrl.getShelves(storageLocation);
     for (int i = 0; i < shelves.size(); i++) {
     	Shelf shelf = shelves.get(i);
-      System.out.println("(%d)" + String.format(("%d"), i));
+      System.out.println(String.format("(%d)", i));
       System.out.println("Name: " + String.format(("%s"), shelf.getName()));
       System.out.println("Address: " + String.format(("%s"), shelf.getStorageLocation().getName()));
       System.out.println();
@@ -834,7 +834,7 @@ public class Terminal {
 	    List<SupplyOffer> supplyOffers = supplyCtrl.getSupplyOffers(product);
         for (int i = 0; i < supplyOffers.size(); i++) {
         	SupplyOffer supplyOffer = supplyOffers.get(i);
-          System.out.println("(%d): " + String.format(("%d"), i));
+          System.out.println(String.format("(%d): ", i));
           System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
           System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
           System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
