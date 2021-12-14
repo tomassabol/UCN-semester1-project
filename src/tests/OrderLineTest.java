@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -40,7 +41,7 @@ private SellingPrice sellingPrice1;
 
 	@Test
 	void testMustContainOneItemAtleast() {
-		IllegalArgumentException thrown = 	assertThrows(IllegalArgumentException.class, () -> {
+		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 			trackableItems.add(trackableItem1);
 			orderLine1 = new OrderLine(null, 0, trackableItems, null, null);
 				});
@@ -49,7 +50,7 @@ private SellingPrice sellingPrice1;
 			}
 	//@Test
 	void testAllItemsMustBeOfSameType() {
-		IllegalArgumentException thrown = 	assertThrows(IllegalArgumentException.class, () -> {
+		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 			
 			trackableItems.add(trackableItem1);
 			trackableItems.add(trackableItem2);
