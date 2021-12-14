@@ -26,13 +26,7 @@ class ProductControllerTest {
 	private Product product1;
 	private Product product2;
 
-	@BeforeAll
-	public static void setUpBeforeClass() throws Exception {
-	}
 
-	@AfterAll
-	public static void tearDownAfterClass() throws Exception {
-	}
 
 	@BeforeEach
 	public void setUp() {
@@ -45,9 +39,7 @@ class ProductControllerTest {
 		
 	}
 
-	@AfterEach
-	public void tearDown() throws Exception {
-	}
+	
 
 	@Test
 	public void testCreateProduct() {

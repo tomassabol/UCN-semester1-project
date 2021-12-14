@@ -14,11 +14,13 @@ import org.junit.jupiter.api.Test;
 import model.Product;
 import model.SupplyOffer;
 import model.SupplyOfferContainer;
+import model.TrackableItem;
 
 class SupplyControllerTest {
 private SupplyOfferContainer supplyCon;
 private SupplyOffer supplyOffer1;
 private Product product1;
+
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,12 +33,13 @@ private Product product1;
 	@BeforeEach
 	public void setUp() {
 		supplyCon = SupplyOfferContainer.getInstance();
-		supplyOffer1 = new SupplyOffer(1, BigDecimal.valueOf(500), 20, null, true, null);
-		product1 = new Product(5,"product1", "discreption", 10, 30, null);
+		supplyOffer1 = new SupplyOffer(0, null, 0, null, false, null);
+		product1 = new Product(1,"product1", "discreption", 10, 30, null);
+		
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	public void tearDown()  {
 	}
 	
 	
@@ -46,7 +49,7 @@ private Product product1;
 		supplyCon.addSupplyOffer(product1, supplyOffer1);
 		
 		assertEquals(supplyCon.findSupplyOfferById(1), supplyOffer1);
-		//assertNull(supplyCon.findSupplyOfferById(1));
+		//assertNull(supplyCon.findSupplyOfferById(product1, 0));
 		
 	}
 	

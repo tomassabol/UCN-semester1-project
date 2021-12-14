@@ -16,13 +16,7 @@ class EmployeeControllerTest {
 	private Employee employee1;
 	
 	
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+	
 
 	@BeforeEach
 	void setUp()  {

@@ -17,13 +17,7 @@ class CustomerControllerTest {
 	private CustomerContainer customerCon;
 	private Customer customer1;
 	private Customer customer2;
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+	
 
 	@BeforeEach
 	void setUp() {
