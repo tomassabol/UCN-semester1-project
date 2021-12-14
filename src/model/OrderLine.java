@@ -17,16 +17,11 @@ public class OrderLine {
 			Set<TrackableItem> trackableItems, BigDecimal productPrice, 
 			BulkDiscount bulkDiscount) {
 		
-		// check that quantity is not below zero
-		if (untrackableItemQuantity < 1) {
-			throw new IllegalArgumentException("The orderline must contain at least 1 item");
-		}
-		
 		
 		// check that all trackable items are of same product
 		for(TrackableItem item: trackableItems) {
 			if(product != item.getProduct()) {
-				throw new IllegalArgumentException("All items must be of same type(product)");
+				throw new IllegalArgumentException("All trackable items must be of same type(product)");
 			}
 		}
 		
