@@ -8,9 +8,6 @@ import model.*;
 public class MenuSupply extends GenericMenuInterface {
     
     private SupplyController supplyCtrl;
-    private StockController stockCtrl;
-    private ProductController productCtrl;
-    private ContractorController contractorCtrl;
     /**
      * Constructor for MenuProduct
      */
@@ -28,9 +25,6 @@ public class MenuSupply extends GenericMenuInterface {
         super.addMenuOptionGoBack("0");
 
         supplyCtrl = new SupplyController();
-        stockCtrl = new StockController();
-        productCtrl = new ProductController();
-        contractorCtrl = new ContractorController();
     }
 
     /**

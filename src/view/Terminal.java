@@ -401,6 +401,7 @@ public class Terminal {
 		System.out.println();
 		for (Order order: orderCtrl.getOrders(customer)) {
 			System.out.println(String.format("(%d) created at %s", order.ID, order.CREATION_DATE));
+      System.out.println(String.format("%.2f", order.calculateTotalPriceWithDiscountsApplied()));
 		}
   }
 

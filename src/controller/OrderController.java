@@ -53,5 +53,14 @@ public class OrderController {
 		Order order = new Order(PrimaryKey.getNextOrderID(), 
 				customer, employee, orderLines);
 	}
+
+	/**
+	 * 
+	 * @param order to get orderlines for
+	 * @return list of orderlines per order
+	 */
+	public List<OrderLine> getOrderLines(Order order) {
+		return OrderContainer.getInstance().getOrderLines(order);
+	}
 	
 }

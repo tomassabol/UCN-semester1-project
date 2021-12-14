@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +49,14 @@ public class OrderContainer {
     public List<Order> getOrders() {
     	return this.orders;
     }
+
+    /**
+     * returns list of orderlines
+     * @return list of orderlines
+     */
+    public List<OrderLine> getOrderLines(Order order) {
+        return order.getItemLines();
+    }
     
     /**
      * Find order by ID.
@@ -78,6 +87,10 @@ public class OrderContainer {
     		}
     	}
     	return customerOrders;
+    }
+
+    public BigDecimal calculateTotalPriceWithDiscountsApplied(Order order) {
+        return order.calculateTotalPriceWithDiscountsApplied();
     }
 
 }

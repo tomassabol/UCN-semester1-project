@@ -3,7 +3,6 @@ package view;
 import java.time.LocalDate;
 
 import controller.EmployeeController;
-import model.Employee;
 import model.IFEmployee;
 
 public class MenuEmployee extends GenericMenuInterface {
