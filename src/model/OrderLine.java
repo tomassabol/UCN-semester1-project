@@ -33,7 +33,7 @@ public class OrderLine {
 		
 		
 		// If product price < 0, throw exception
-		if (productPrice.compareTo(BigDecimal.ZERO) > 0) {
+		if (productPrice.compareTo(BigDecimal.ZERO) < 0) {
 			throw new IllegalArgumentException("Product price cannot be below zero!");
 		}
 		
