@@ -1,7 +1,7 @@
 package tests;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +35,7 @@ private Set<TrackableItem> trackableItems;
 	@Test
 	void testIfContainAtleatOneProduct() {
 		
-		IllegalArgumentException thrown = 	assertThrows(IllegalArgumentException.class, () -> {
+		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 			//trackableItems.add(trackableItem1);
 			stockBatch1 = new StockBatch(trackableItems);
 		});

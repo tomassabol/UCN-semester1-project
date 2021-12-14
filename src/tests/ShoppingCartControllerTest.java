@@ -1,7 +1,7 @@
 package tests;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -66,7 +66,7 @@ class ShoppingCartControllerTest {
 	}
 	@Test
 	void testCaddItemLineToaShoppingCartWhichIsDoesNotHaveABuyPrice() {
-	IllegalArgumentException thrown = 	assertThrows(IllegalArgumentException.class, () -> {
+	IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 		
 		Stock.getInstance().addStorageLocation(storageLocation1);
 		Stock.getInstance().addShelf(storageLocation1, shelf1);

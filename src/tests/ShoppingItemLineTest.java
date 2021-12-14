@@ -1,7 +1,7 @@
 package tests;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 
@@ -27,7 +27,7 @@ private Product product1;
 
 	@Test
 	void test() {
-		IllegalArgumentException thrown = 	assertThrows(IllegalArgumentException.class, () -> {
+		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 			
 			shoppingItemLine1 = new ShoppingItemLine(product1, -2);
 		});

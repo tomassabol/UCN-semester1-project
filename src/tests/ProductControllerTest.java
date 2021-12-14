@@ -1,9 +1,9 @@
 package tests;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -64,7 +64,7 @@ class ProductControllerTest {
 	}
 	@Test
 	public void testLoanPriceSholdNotBeLessThanZero() {
-		IllegalArgumentException thrown = 	assertThrows(IllegalArgumentException.class, () -> {
+		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 			LoaningPrice loaningPrice = new LoaningPrice(BigDecimal.valueOf(-10), LocalDateTime.now());
 			product2.addLoaningPrice(loaningPrice);
 		});
