@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to 1st Semester Project - UCN Computer Science 👋</h1>
+<h1 align="center">👋 Welcome to Semester 1 Project - UCN Computer Science 👋</h1>
 <p>🚧 Work in progress 🚧</p>
 <p>Business plan, Design and Development of a basic system for Vestbjerg Byggecenter.</p>
 <p>
@@ -7,13 +7,15 @@
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>  
 </p>
+<p>Latest release is a TUI version of the System. Next update will be build on a GUI.</p>
 
 ### 🏠 [Homepage](https://github.com/tomassabol/UCN-semester1-project)
 
 ## Usage
 
 ```
-Will be added once it's finished
+Just run the App.jar file from the terminal
+You can use command "-back" if you get stuck on the prompt
 ```
 
 ## Author
