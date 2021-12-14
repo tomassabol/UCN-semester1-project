@@ -22,8 +22,6 @@ public class MenuQuotes extends GenericMenuInterface {
     		() -> PayForQuote()));
     super.addMenuOption("3", new GenericMenuOption("View customer orders",
     		() -> showOrders()));
-	super.addMenuOption("4", new GenericMenuOption("Create order from Quote",
-    		() -> createOrder()));
     super.addMenuOptionGoBack("0");
     
     stockCtrl = new StockController();
@@ -80,6 +78,4 @@ public class MenuQuotes extends GenericMenuInterface {
 		super.show();
 	}
 
-	// TODO: Finish after MENU ORDER is done
-	public void createOrder() {}
 }

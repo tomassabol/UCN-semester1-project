@@ -385,8 +385,9 @@ public class Terminal {
    */
   public void printQuotes(Customer customer) {
 		System.out.println(String.format("[Quotes for %s %s]", customer.getFirstName(), customer.getLastName()));
+		System.out.println();
 		for (Quote quote: quoteCtrl.getQuotes(customer)) {
-			System.out.println("\tQuote: #" + quote.ID + " " + quote.CREATION_DATE);
+			System.out.println("Quote: #" + quote.ID + " " + quote.CREATION_DATE);
 		}
   }
   
@@ -397,8 +398,9 @@ public class Terminal {
    */
   public void printOrders(Customer customer) {
 		System.out.println(String.format("[Orders for %s %s]", customer.getFirstName(), customer.getLastName()));
+		System.out.println();
 		for (Order order: orderCtrl.getOrders(customer)) {
-			System.out.println("\torder: #" + order.ID + " " + order.CREATION_DATE);
+			System.out.println(String.format("(%d) created at %s", order.ID, order.CREATION_DATE));
 		}
   }
 
