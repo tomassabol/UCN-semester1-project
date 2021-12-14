@@ -71,6 +71,7 @@ public class MenuQuotesAndOrders extends GenericMenuInterface {
 			System.out.println("All of the items in the quote are in stock. ");
 			if (terminal.confirmInput("Has the customer paid for the order?")) {
 				 orderCtrl.payForQuote(quote);
+				 super.show("The order was created successfully!");
 			 }
 		}
 

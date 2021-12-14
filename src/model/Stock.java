@@ -256,6 +256,11 @@ public class Stock {
     		}
 
     	}
+    	
+    	if (removedTotalquantity <= 0) {
+    		return null;
+    	}
+    	
     	// Create an orderline from the removed stock items and return it
     	return new OrderLine(product, removedUntrackableItemQuantity, 
     			removedTrackableBuyableItems, product.getLatestSellingPrice(), 

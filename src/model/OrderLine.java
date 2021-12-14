@@ -39,6 +39,7 @@ public class OrderLine {
 		
 		// An orderline must contain at least one item
 		if (trackableItems.size() == 0 && untrackableItemQuantity == 0) {
+			System.out.println(product);
 			throw new IllegalArgumentException("An orderline must contain at least one item!");
 		}
 		
