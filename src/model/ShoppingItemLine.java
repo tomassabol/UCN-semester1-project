@@ -67,7 +67,7 @@ public class ShoppingItemLine {
 	 * Adds items to the line
 	 *
 	 * @param quantity the quantity
-	 * @return true, if successful. False if quantity < 1
+	 * @return true, if successful. 
 	 */
 	public boolean addItems(int quantity) {
 		if (quantity < 1) {
@@ -79,6 +79,12 @@ public class ShoppingItemLine {
 		return true;
 	}
 	
+	/**
+	 * Removes the items from the itemLine
+	 *
+	 * @param quantity the quantity
+	 * @return true, if successful
+	 */
 	public boolean removeItems(int quantity) {
 		if (quantity < this.quantity) {
 			return false;

@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -83,7 +84,7 @@ private SellingPrice sellingPrice1;
 			} */
 	@Test
 	void testOrderLineMustContainAtleastOneItem() {
-		IllegalArgumentException thrown = 	assertThrows(IllegalArgumentException.class, () -> {
+		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 			
 			orderLine1 = new OrderLine(product1, 1, null, BigDecimal.valueOf(5), null);
 				});

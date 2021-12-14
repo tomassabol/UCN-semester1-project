@@ -231,9 +231,9 @@ public class Stock {
     	int removedTotalquantity = 0;
     	
     	for (Shelf shelf: this.getShelves()) {
-    		Iterator<StockBatch> shelfIt = shelf.getStockBatches(product).iterator();
-    		while (shelfIt.hasNext()) {
-    			StockBatch stockBatch = shelfIt.next();
+    		Iterator<StockBatch> stockBatchIt = shelf.getStockBatches(product).iterator();
+    		while (stockBatchIt.hasNext()) {
+    			StockBatch stockBatch = stockBatchIt.next();
     			
     			// remove untrackable, buable
     			if (removedTotalquantity < quantity) {
@@ -251,7 +251,7 @@ public class Stock {
     			
     			// remove stock batch if empty
     			if (stockBatch.getTotalQuantity() == 0) {
-    				shelf.removeStockBatch(product, stockBatch);
+    				stockBatchIt.remove();
     			}
     		}
 
