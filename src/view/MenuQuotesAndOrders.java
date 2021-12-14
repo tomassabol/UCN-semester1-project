@@ -4,7 +4,7 @@ import controller.OrderController;
 import controller.StockController;
 import model.*;
 
-public class MenuQuotes extends GenericMenuInterface {
+public class MenuQuotesAndOrders extends GenericMenuInterface {
 	
 	StockController stockCtrl;
 	OrderController orderCtrl;
@@ -12,17 +12,19 @@ public class MenuQuotes extends GenericMenuInterface {
   /**
    * Constructor for MainMenuUI.
    */
-  public MenuQuotes(GenericMenuInterface previousInterface) {
+  public MenuQuotesAndOrders(GenericMenuInterface previousInterface) {
     super(previousInterface);
 
-    super.setTitle("Quotes");
+    super.setTitle("Quotes and Orders");
     super.addMenuOption("1", new GenericMenuOption("Create a quote",
     		() -> createQuote()));
     super.addMenuOption("2", new GenericMenuOption("Pay for a quote (Quote -> Order)",
     		() -> PayForQuote()));
-    super.addMenuOption("3", new GenericMenuOption("View customer orders",
+	super.addMenuOption("3", new GenericMenuOption("Show Quotes",
+    		() -> showQuotes()));
+    super.addMenuOption("4", new GenericMenuOption("View customer orders",
     		() -> showOrders()));
-	super.addMenuOption("4", new GenericMenuOption("Create order from Quote",
+	super.addMenuOption("5", new GenericMenuOption("Create order from Quote",
     		() -> createOrder()));
     super.addMenuOptionGoBack("0");
     
@@ -39,6 +41,20 @@ public class MenuQuotes extends GenericMenuInterface {
 		terminal.clearScreen();
 		Customer customer = terminal.getCustomer();
 		new MenuShoppingCart(this, customer).show();
+	}
+
+	/**
+	 * prints out all the quotes and its info
+	 * TODO:
+	 */
+	public void showQuotes() {
+		Terminal terminal = getTerminal();
+		terminal.clearScreen();
+
+		Customer customer = terminal.getCustomer();
+		terminal.printQuotes(customer);
+		terminal.getAnyKeyInput("Press [Enter] to go back");
+		super.show();
 	}
 
 	/**

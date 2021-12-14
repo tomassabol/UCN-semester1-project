@@ -9,7 +9,6 @@ public class MenuShoppingCart extends GenericMenuInterface{
 
     private ShoppingCartController shoppingCartCtrl;
     private QuoteController quoteCtrl;
-    private StockController stockCtrl;
 
     /**
      * Constructor for MenuShoppingCart
@@ -22,7 +21,6 @@ public class MenuShoppingCart extends GenericMenuInterface{
         
         shoppingCartCtrl = new ShoppingCartController();
         quoteCtrl = new QuoteController();
-        stockCtrl = new StockController();
         
         this.customer = customer;
         

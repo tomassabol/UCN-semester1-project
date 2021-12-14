@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import controller.ProductController;
 import model.Product;
-import model.StockBatch;
 
 public class MenuProduct extends GenericMenuInterface{
 

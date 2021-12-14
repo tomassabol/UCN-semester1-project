@@ -1,7 +1,6 @@
 package view;
 
 import controller.CustomerController;
-import model.Customer;
 import model.CustomerType;
 
 public class MenuCustomerType extends GenericMenuInterface{

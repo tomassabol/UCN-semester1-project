@@ -47,7 +47,7 @@ public class MenuMain extends GenericMenuInterface {
    * Show quotes menu.
    */
   private void showQuotesMenu() {
-        new MenuQuotes(this).show();
+        new MenuQuotesAndOrders(this).show();
 }
 
   /**

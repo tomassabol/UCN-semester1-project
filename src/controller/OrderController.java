@@ -3,15 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Customer;
-import model.IFCustomer;
-import model.IFEmployee;
-import model.Order;
-import model.OrderContainer;
-import model.OrderLine;
-import model.PrimaryKey;
-import model.Quote;
-import model.Stock;
+import model.*;
 
 /**
  * The Class OrderController.

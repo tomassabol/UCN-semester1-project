@@ -3,17 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Customer;
-import model.IFCustomer;
-import model.IFEmployee;
-import model.Order;
-import model.OrderContainer;
-import model.PrimaryKey;
-import model.Quote;
-import model.QuoteContainer;
-import model.QuoteItemLine;
-import model.ShoppingCart;
-import model.ShoppingItemLine;
+import model.*;
 
 /**
  * The Class OrderController.
@@ -117,7 +107,5 @@ public class QuoteController {
 		}
 		return null;
 	}
-	
-	
 	
 }
