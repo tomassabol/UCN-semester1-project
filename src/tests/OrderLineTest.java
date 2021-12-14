@@ -2,10 +2,8 @@ package tests;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,8 +42,8 @@ private SellingPrice sellingPrice1;
 	@Test
 	void testMustContainOneItemAtleast() {
 		IllegalArgumentException thrown = 	assertThrows(IllegalArgumentException.class, () -> {
-			
-			orderLine1 = new OrderLine(null, 0, null, null, null);
+			trackableItems.add(trackableItem1);
+			orderLine1 = new OrderLine(null, 0, trackableItems, null, null);
 				});
 				
 				assertEquals("The orderline must contain at least 1 item", thrown.getMessage());
@@ -70,6 +68,7 @@ private SellingPrice sellingPrice1;
 				
 				assertEquals("Selling price cannot be null!", thrown.getMessage());
 			}
+}
 	/*@Test
 	void testProductPriceCannotBeBelowZero() {
 		IllegalArgumentException thrown = 	assertThrows(IllegalArgumentException.class, () -> {
@@ -82,7 +81,7 @@ private SellingPrice sellingPrice1;
 				
 				assertEquals("Product price cannot be below zero!", thrown.getMessage());
 			} */
-	@Test
+	/*@Test
 	void testOrderLineMustContainAtleastOneItem() {
 		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 			
@@ -91,6 +90,6 @@ private SellingPrice sellingPrice1;
 				
 				assertEquals("An orderline must contain at least one item!", thrown.getMessage());
 			} 
-} 
+} */
 
 

@@ -2,9 +2,8 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,9 +24,7 @@ class EmployeeControllerTest {
 		employee1 = new Employee(1, "081090-3221", "Tomas", "Sabol", "AleneGade", "40504432",null);
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
+
 
 	@Test
 	void testFindEmployeeById() {

@@ -1,9 +1,9 @@
 package tests;
 
-import static org.junit.Assert.assertNull;
+
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.math.BigDecimal;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -11,13 +11,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import controller.SupplyController;
 import model.Product;
+import model.ProductContainer;
 import model.SupplyOffer;
 import model.SupplyOfferContainer;
-import model.TrackableItem;
 
 class SupplyControllerTest {
 private SupplyOfferContainer supplyCon;
+private ProductContainer productCon;
 private SupplyOffer supplyOffer1;
 private Product product1;
 
@@ -33,7 +35,8 @@ private Product product1;
 	@BeforeEach
 	public void setUp() {
 		supplyCon = SupplyOfferContainer.getInstance();
-		supplyOffer1 = new SupplyOffer(0, null, 0, null, false, null);
+		productCon = ProductContainer.getInstance();
+		supplyOffer1 = new SupplyOffer(1, null, 0, null, false, null);
 		product1 = new Product(1,"product1", "discreption", 10, 30, null);
 		
 	}
@@ -45,27 +48,20 @@ private Product product1;
 	
 	@Test
 	public void testFindSupplyOfferById() {
-		supplyCon.findSupplyOfferById(1);
 		supplyCon.addSupplyOffer(product1, supplyOffer1);
+		productCon.addProduct(product1);
+		supplyCon.findSupplyOfferById(1);
+		
 		
 		assertEquals(supplyCon.findSupplyOfferById(1), supplyOffer1);
 		//assertNull(supplyCon.findSupplyOfferById(product1, 0));
 		
 	}
 	
-	@Test
-	public void testUpdate() {
-		
-	}
-
 }
 
 
 
-/*
-@Test 
-public void testCreateSupplyOffer() {
-	SupplyController SupplyController = new SupplyController();
-	Supply supply = SupplyController.createSupplyOffer(1, 20, 500, "product1", "Tree Build", true, LocalDateTime.now());
-}
-*/
+
+
+
