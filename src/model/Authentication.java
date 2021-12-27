@@ -1,5 +1,7 @@
 package model;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import controller.EmployeeController;
 
 public class Authentication {
@@ -28,12 +30,15 @@ public class Authentication {
 		return loggedInUser;
 	}
 	
-	// TODO: Check credentials using Bcrypt
+	/**
+	 * Check credentials.
+	 *
+	 * @param pw1 The unhashed candidate password
+	 * @param pw2 the hashed employee's password to compare to
+	 * @return true, if successful
+	 */
 	public boolean checkCredentials(String pw1, String pw2) {
-		if (pw1.equals(pw2)) {
-			return true;
-		}
-		return false;
+		return BCrypt.checkpw(pw1, pw2);
 	}
 	
 }

@@ -1,5 +1,7 @@
 package controller;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import model.Authentication;
 import model.IFEmployee;
 
@@ -22,10 +24,9 @@ public class AuthenticationController {
 		if (employee == null) {
 			return false;
 		}
-		// TODO: Hash password before checking
-		String hashedPassword = password;
+		
 		// Check login details
-		if (auth.checkCredentials(hashedPassword, employee.getHashedPassword())) {
+		if (auth.checkCredentials(password, employee.getHashedPassword())) {
 			auth.login(employee);
 			return true;
 		}
