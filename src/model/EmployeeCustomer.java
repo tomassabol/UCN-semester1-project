@@ -15,15 +15,19 @@ implements IFCustomer, IFEmployee {
 	private String CPRNumber;
 	private ShoppingCart shoppingCart;
 	private CustomerType customerType;
+	private String email;
+	private String hashedPassword;
 	
 	/**
 	 *  Constructor
 	 */
-	public EmployeeCustomer(int ID, String CPRNumber, String firstName, String lastName, String address, String mobile, CustomerType customertype, LocalDate birthDate) {
+	public EmployeeCustomer(int ID, String CPRNumber, String email, String hashedPassword, String firstName, String lastName, String address, String mobile, CustomerType customertype, LocalDate birthDate) {
 		super(ID, firstName, lastName, address, mobile, birthDate);
 		this.CPRNumber = CPRNumber;
 		this.shoppingCart = new ShoppingCart(this);
 		this.customerType = customertype;
+		this.email = email;
+		this.hashedPassword = hashedPassword;
 	}
 	
 	/**
@@ -39,14 +43,6 @@ implements IFCustomer, IFEmployee {
 	 */
 	public void setCPRNumber(String CPRNumber){
 		this.CPRNumber = CPRNumber;
-	}
-	
-	public String getHashedPassword() {
-		return "";
-	}
-	
-	public String getUsername() {
-		return "";
 	}
 	
 	public ShoppingCart getShoppingCart() {
@@ -67,6 +63,22 @@ implements IFCustomer, IFEmployee {
 	
 	public int getID() {
 		return this.ID;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getHashedPassword() {
+		return hashedPassword;
+	}
+
+	public void setHashedPassword(String hashedPassword) {
+		this.hashedPassword = hashedPassword;
 	}
 
 }

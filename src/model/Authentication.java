@@ -11,20 +11,12 @@ public class Authentication {
 	}
 	
 	/**
-	 * Login.
+	 * Logs in as an employee
 	 *
 	 * @param employee the employee
-	 * @return true, if successful
 	 */
-	public boolean login(String email, String password) {
-		// Check login details
-		if (true) {
-			IFEmployee employee = new EmployeeController().getEmployeeByID(0);
-			this.loggedInUser = employee;
-			return true;
-		} else {
-			return false;
-		}
+	public void login(IFEmployee employee) {
+		this.loggedInUser = employee;
 	}
 	
 	/**
@@ -34,6 +26,14 @@ public class Authentication {
 	 */
 	public IFEmployee getLoggedInUser( ) {
 		return loggedInUser;
+	}
+	
+	// TODO: Check credentials using Bcrypt
+	public boolean checkCredentials(String pw1, String pw2) {
+		if (pw1.equals(pw2)) {
+			return true;
+		}
+		return false;
 	}
 	
 }

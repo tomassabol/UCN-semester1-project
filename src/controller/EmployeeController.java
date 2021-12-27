@@ -25,8 +25,10 @@ public class EmployeeController {
 	 * @param birthDate the birth date
 	 * @return the employee
 	 */
-	public Employee createEmployee(String CPRNumber, String firstName, String lastName, String address, String mobile, LocalDate birthDate) {
-		Employee employee = new Employee(PrimaryKey.getNextEmployeeID(), CPRNumber, firstName, lastName, address, mobile, birthDate);
+	public Employee createEmployee(String CPRNumber, String email, String password, String firstName, String lastName, String address, String mobile, LocalDate birthDate) {
+		// TODO: Hash password
+		Employee employee = new Employee(PrimaryKey.getNextEmployeeID(), CPRNumber, email, password, firstName, lastName, address, mobile, birthDate);
+		// TODO: Add only if CPR & email already doesn't exist in container.
 		EmployeeContainer.getInstance().addEmployee(employee);
 		return employee;
 	}
@@ -36,10 +38,20 @@ public class EmployeeController {
 	 * get employee by ID.
 	 *
 	 * @param id the id
-	 * @return the employee
+	 * @return the employee, or null
 	 */
 	public IFEmployee getEmployeeByID(int id) {
 		return EmployeeContainer.getInstance().findEmployeeById(id);
+	}
+	
+	/**
+	 * get employee by Email
+	 *
+	 * @param string the email of the employee
+	 * @return the employee, or null
+	 */
+	public IFEmployee getEmployeeByEmail(String email) {
+		return EmployeeContainer.getInstance().findEmployeeByEmail(email);
 	}
 	
 	

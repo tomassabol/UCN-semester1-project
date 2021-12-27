@@ -25,7 +25,7 @@ public class App {
 		}
 		
 		// Add default employee (for logging in)
-		new EmployeeController().createEmployee("12323", "Admin", "Admin", "Admin street 4", "991", LocalDate.now());
+		new EmployeeController().createEmployee("080600-1111", "admin@admin.com", "password", "Admin", "no surname", "Admin street 4", "991", LocalDate.now());
 
 		// Show login window
 		EventQueue.invokeLater(() -> {

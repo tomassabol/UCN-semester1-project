@@ -56,11 +56,24 @@ public class EmployeeContainer {
 
     /**
      * @param employeeID - id of an employee to be found
-     * @return employee if the employee was found
+     * @return employee, or null
      */
     public IFEmployee findEmployeeById(int employeeID) {
         for (IFEmployee employee : employees) {
             if (employee.getID() == employeeID) {
+                return employee;
+            }
+        }
+        return null;
+    } 
+    
+    /**
+     * @param employeeEmail - Email of an employee to be found
+     * @return employee, or null
+     */
+    public IFEmployee findEmployeeByEmail(String employeeEmail) {
+        for (IFEmployee employee : employees) {
+            if (employee.getEmail().equals(employeeEmail)) {
                 return employee;
             }
         }

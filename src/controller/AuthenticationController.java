@@ -18,7 +18,20 @@ public class AuthenticationController {
 	 * @return true, if successful
 	 */
 	public boolean login(String email, String password) {
-		return auth.login(email, password);
+		IFEmployee employee = new EmployeeController().getEmployeeByEmail(email);
+		if (employee == null) {
+			return false;
+		}
+		// TODO: Hash password before checking
+		String hashedPassword = password;
+		// Check login details
+		if (auth.checkCredentials(hashedPassword, employee.getHashedPassword())) {
+			auth.login(employee);
+			return true;
+		}
+		
+		return false;
+		
 	}
 	
 	/**

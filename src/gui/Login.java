@@ -10,9 +10,6 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 
 import controller.AuthenticationController;
 import controller.EmployeeController;
@@ -124,6 +121,8 @@ public class Login extends JFrame {
 		gbc_btnLogin.gridy = 6;
 		contentPane.add(btnLogin, gbc_btnLogin);
 		
+		this.txtEmail.setText("admin@admin.com");
+		this.txtPassword.setText("password");
 		// Handle events
 		addEventHandlers();
 	}
@@ -149,10 +148,10 @@ public class Login extends JFrame {
 		    if (auth.login(email, password)) {
 				Dashboard frame = new Dashboard(auth);
 				frame.setVisible(true);
-		    	// free up memory by destroying this form
+		    	// free up memory by destroying the current login form
 		    	this.dispose();
 		    } else {
-		    	Error.show("Incorrect credentials!");
+		    	Error.show("The e-mail and/or password is incorrect.");
 		    	return;
 		    }
 		    
