@@ -1,118 +1,163 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+
+
+import java.awt.Dimension;
+import javax.swing.JComboBox;
+import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import javax.swing.JButton;
+import java.awt.GridBagConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+
+import controller.AuthenticationController;
+import controller.EmployeeController;
+import model.Authentication;
+import model.IFEmployee;
+
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import javax.swing.JSpinner;
-import javax.swing.JPasswordField;
-import javax.swing.JSlider;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.Component;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
-	private JPasswordField pwdGhgh;
+	private JTextField txtEmail;
+	private JLabel lblPassword;
+	private JTextField txtPassword;
+	private JButton btnLogin;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		
-		// Set FlatLaf Look And Feel
-		try {
-		    UIManager.setLookAndFeel( new FlatLightLaf() );
-		} catch( Exception ex ) {
-		    System.err.println( "Failed to initialize LaF" );
-		}
-
-		// create UI here...
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
+	 * Create the Login Window
 	 */
 	public Login() {
+		setBounds(new Rectangle(0, 0, 0, 0));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 250, 250);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setAlignmentY(0.0f);
+		contentPane.setAlignmentX(0.0f);
+		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{136, 37, 149, 0};
-		gbl_contentPane.rowHeights = new int[]{36, 24, 30, 19, 20, 16, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{200, 0};
+		gbl_contentPane.rowHeights = new int[]{22, 0, 0, 0, 0, 6, 37, 0};
+		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JButton btnNewButton = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 0;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
+		JLabel lblTitle = new JLabel("Log In");
+		lblTitle.setFont(new Font("Dialog", Font.PLAIN, 30));
+		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+		gbc_lblTitle.anchor = GridBagConstraints.WEST;
+		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTitle.gridx = 0;
+		gbc_lblTitle.gridy = 0;
+		contentPane.add(lblTitle, gbc_lblTitle);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
-		GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
-		gbc_rdbtnNewRadioButton.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_rdbtnNewRadioButton.insets = new Insets(0, 0, 5, 0);
-		gbc_rdbtnNewRadioButton.gridx = 2;
-		gbc_rdbtnNewRadioButton.gridy = 0;
-		contentPane.add(rdbtnNewRadioButton, gbc_rdbtnNewRadioButton);
+		JLabel lblEmail = new JLabel("E-mail");
+		lblEmail.setVerticalAlignment(SwingConstants.BOTTOM);
+		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
+		gbc_lblEmail.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_lblEmail.gridx = 0;
+		gbc_lblEmail.gridy = 1;
+		contentPane.add(lblEmail, gbc_lblEmail);
 		
-		JComboBox comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.anchor = GridBagConstraints.NORTHEAST;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.gridx = 0;
-		gbc_comboBox.gridy = 1;
-		contentPane.add(comboBox, gbc_comboBox);
+		txtEmail = new JTextField();
+		txtEmail.setName("");
+		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
+		gbc_txtEmail.anchor = GridBagConstraints.NORTH;
+		gbc_txtEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtEmail.gridx = 0;
+		gbc_txtEmail.gridy = 2;
+		contentPane.add(txtEmail, gbc_txtEmail);
+		txtEmail.setColumns(10);
 		
-		pwdGhgh = new JPasswordField();
-		pwdGhgh.setText("ghgh");
-		GridBagConstraints gbc_pwdGhgh = new GridBagConstraints();
-		gbc_pwdGhgh.anchor = GridBagConstraints.NORTHWEST;
-		gbc_pwdGhgh.insets = new Insets(0, 0, 5, 0);
-		gbc_pwdGhgh.gridx = 2;
-		gbc_pwdGhgh.gridy = 3;
-		contentPane.add(pwdGhgh, gbc_pwdGhgh);
+		lblPassword = new JLabel("Password");
+		lblPassword.setVerticalAlignment(SwingConstants.BOTTOM);
+		GridBagConstraints gbc_lblPassword = new GridBagConstraints();
+		gbc_lblPassword.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblPassword.insets = new Insets(0, 0, 5, 0);
+		gbc_lblPassword.gridx = 0;
+		gbc_lblPassword.gridy = 3;
+		contentPane.add(lblPassword, gbc_lblPassword);
 		
-		JSpinner spinner = new JSpinner();
-		GridBagConstraints gbc_spinner = new GridBagConstraints();
-		gbc_spinner.anchor = GridBagConstraints.NORTHEAST;
-		gbc_spinner.insets = new Insets(0, 0, 5, 5);
-		gbc_spinner.gridx = 0;
-		gbc_spinner.gridy = 4;
-		contentPane.add(spinner, gbc_spinner);
+		txtPassword = new JTextField();
+		txtPassword.setToolTipText("");
+		txtPassword.setColumns(10);
+		GridBagConstraints gbc_txtPassword = new GridBagConstraints();
+		gbc_txtPassword.anchor = GridBagConstraints.NORTH;
+		gbc_txtPassword.insets = new Insets(0, 0, 5, 0);
+		gbc_txtPassword.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPassword.gridx = 0;
+		gbc_txtPassword.gridy = 4;
+		contentPane.add(txtPassword, gbc_txtPassword);
 		
-		JSlider slider = new JSlider();
-		GridBagConstraints gbc_slider = new GridBagConstraints();
-		gbc_slider.anchor = GridBagConstraints.NORTHWEST;
-		gbc_slider.gridwidth = 3;
-		gbc_slider.gridx = 0;
-		gbc_slider.gridy = 5;
-		contentPane.add(slider, gbc_slider);
+		btnLogin = new JButton("Log In");
+
+		btnLogin.setFont(new Font("Dialog", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
+		gbc_btnLogin.fill = GridBagConstraints.BOTH;
+		gbc_btnLogin.gridx = 0;
+		gbc_btnLogin.gridy = 6;
+		contentPane.add(btnLogin, gbc_btnLogin);
+		
+		// Handle events
+		addEventHandlers();
 	}
+	
+	/*
+	 * *******************************************************
+	 * *******************  EVENT HANDLERS *******************
+	 * *******************************************************
+	 */
+	public void addEventHandlers() {
+		btnLogin.addActionListener(e -> {
+		    String email = txtEmail.getText().trim();
+		    String password = txtPassword.getText();
+		    
+		    // if empty, show error
+		    if (email.isEmpty() || password.isEmpty()) {
+	            Error.show("Email or password cannot be empty!");
+	            return;
+		    }
+		    
+		    // Log in
+		    AuthenticationController auth = new AuthenticationController();
+		    if (auth.login(email, password)) {
+				Dashboard frame = new Dashboard(auth);
+				frame.setVisible(true);
+		    	// free up memory by destroying this form
+		    	this.dispose();
+		    } else {
+		    	Error.show("Incorrect credentials!");
+		    	return;
+		    }
+		    
+		   
+		});
+	}
+	
 }

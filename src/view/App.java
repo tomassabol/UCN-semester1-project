@@ -13,7 +13,7 @@ public class App {
     	// Create main menu
         MenuMain menuMain = new MenuMain();
         // login default employee
-        menuMain.getAuth().login(employee);
+        menuMain.getAuth().login("", "");
         // show main menu
         menuMain.show("Remember: you can always type -back to go to previous menu");
     }

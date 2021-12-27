@@ -17,9 +17,8 @@ public class AuthenticationController {
 	 * @param employee the employee
 	 * @return true, if successful
 	 */
-	public boolean login(IFEmployee employee) {
-		auth.login(employee);
-		return true;
+	public boolean login(String email, String password) {
+		return auth.login(email, password);
 	}
 	
 	/**

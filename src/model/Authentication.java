@@ -1,5 +1,6 @@
 package model;
 
+import controller.EmployeeController;
 
 public class Authentication {
 	
@@ -15,9 +16,15 @@ public class Authentication {
 	 * @param employee the employee
 	 * @return true, if successful
 	 */
-	public boolean login(IFEmployee employee) {
-		this.loggedInUser = employee;
-		return true;
+	public boolean login(String email, String password) {
+		// Check login details
+		if (true) {
+			IFEmployee employee = new EmployeeController().getEmployeeByID(0);
+			this.loggedInUser = employee;
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
