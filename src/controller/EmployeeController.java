@@ -31,7 +31,7 @@ public class EmployeeController {
 		// Hash password
 		String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 		Employee employee = new Employee(PrimaryKey.getNextEmployeeID(), CPRNumber, email, hashedPassword, firstName, lastName, address, mobile, birthDate);
-		// TODO: Add only if CPR & email already doesn't exist in container.
+		// TODO: Add only if CPR & email already doesn't exist in container. Throw custom NotUniqueException
 		EmployeeContainer.getInstance().addEmployee(employee);
 		return employee;
 	}
