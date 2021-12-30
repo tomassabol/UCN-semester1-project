@@ -80,18 +80,18 @@ public class ShoppingCart extends JDialog {
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
 		
-		JLabel lblTest_1 = new JLabel(
+		JLabel lblTitle = new JLabel(
 				String.format("%s %s's shopping cart", 
 						customer.getFirstName(), 
 						customer.getLastName()
 				)
 		);
-		GridBagConstraints gbc_lblTest_1 = new GridBagConstraints();
-		gbc_lblTest_1.gridwidth = 3;
-		gbc_lblTest_1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblTest_1.gridx = 0;
-		gbc_lblTest_1.gridy = 0;
-		topPanel.add(lblTest_1, gbc_lblTest_1);
+		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+		gbc_lblTitle.gridwidth = 3;
+		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTitle.gridx = 0;
+		gbc_lblTitle.gridy = 0;
+		topPanel.add(lblTitle, gbc_lblTitle);
 		
 		btnClear = new JButton("Clear");
 		GridBagConstraints gbc_btnTest_2 = new GridBagConstraints();
@@ -157,14 +157,14 @@ public class ShoppingCart extends JDialog {
 		gbc_btnRemove.gridy = 0;
 		tableBottomOptionsPanel.add(btnRemove, gbc_btnRemove);
 		
-		JPanel tableOptionsPanel = new JPanel();
-		bottomPanel.add(tableOptionsPanel, BorderLayout.SOUTH);
-		GridBagLayout gbl_tableOptionsPanel = new GridBagLayout();
-		gbl_tableOptionsPanel.columnWidths = new int[]{0, 17, 0, 0, 0};
-		gbl_tableOptionsPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_tableOptionsPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_tableOptionsPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		tableOptionsPanel.setLayout(gbl_tableOptionsPanel);
+		JPanel priceAndSubmitPanel = new JPanel();
+		bottomPanel.add(priceAndSubmitPanel, BorderLayout.SOUTH);
+		GridBagLayout gbl_priceAndSubmitPanel = new GridBagLayout();
+		gbl_priceAndSubmitPanel.columnWidths = new int[]{0, 17, 0, 0, 0};
+		gbl_priceAndSubmitPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_priceAndSubmitPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_priceAndSubmitPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		priceAndSubmitPanel.setLayout(gbl_priceAndSubmitPanel);
 		
 		JLabel lblSubtotal = new JLabel("Subtotal:");
 		GridBagConstraints gbc_lblSubtotal = new GridBagConstraints();
@@ -172,9 +172,8 @@ public class ShoppingCart extends JDialog {
 		gbc_lblSubtotal.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSubtotal.gridx = 0;
 		gbc_lblSubtotal.gridy = 0;
-		tableOptionsPanel.add(lblSubtotal, gbc_lblSubtotal);
+		priceAndSubmitPanel.add(lblSubtotal, gbc_lblSubtotal);
 		
-		// TODO: Implement subtotal function in controller & data model
 		lblSubtotalValue = new JLabel("N/A");
 		lblSubtotalValue.setForeground(new Color(102, 102, 102));
 		GridBagConstraints gbc_lblSubtotalValue = new GridBagConstraints();
@@ -182,7 +181,7 @@ public class ShoppingCart extends JDialog {
 		gbc_lblSubtotalValue.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSubtotalValue.gridx = 2;
 		gbc_lblSubtotalValue.gridy = 0;
-		tableOptionsPanel.add(lblSubtotalValue, gbc_lblSubtotalValue);
+		priceAndSubmitPanel.add(lblSubtotalValue, gbc_lblSubtotalValue);
 		
 		JLabel lblDiscount = new JLabel(customer.getCustomerType().getName() + " Discount:");
 		GridBagConstraints gbc_lblDiscount = new GridBagConstraints();
@@ -190,7 +189,7 @@ public class ShoppingCart extends JDialog {
 		gbc_lblDiscount.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDiscount.gridx = 0;
 		gbc_lblDiscount.gridy = 1;
-		tableOptionsPanel.add(lblDiscount, gbc_lblDiscount);
+		priceAndSubmitPanel.add(lblDiscount, gbc_lblDiscount);
 		
 		lblDiscountValue = new JLabel("N/A");
 		lblDiscountValue.setForeground(new Color(0, 102, 0));
@@ -199,7 +198,7 @@ public class ShoppingCart extends JDialog {
 		gbc_lblDiscountValue.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDiscountValue.gridx = 2;
 		gbc_lblDiscountValue.gridy = 1;
-		tableOptionsPanel.add(lblDiscountValue, gbc_lblDiscountValue);
+		priceAndSubmitPanel.add(lblDiscountValue, gbc_lblDiscountValue);
 		
 		JLabel lblTotal = new JLabel("Total:");
 		GridBagConstraints gbc_lblTotal = new GridBagConstraints();
@@ -207,23 +206,22 @@ public class ShoppingCart extends JDialog {
 		gbc_lblTotal.anchor = GridBagConstraints.WEST;
 		gbc_lblTotal.gridx = 0;
 		gbc_lblTotal.gridy = 2;
-		tableOptionsPanel.add(lblTotal, gbc_lblTotal);
+		priceAndSubmitPanel.add(lblTotal, gbc_lblTotal);
 		
-		// TODO: Implement this function in controller
 		lblTotalValue = new JLabel("N/A");
 		GridBagConstraints gbc_lblTotalValue = new GridBagConstraints();
 		gbc_lblTotalValue.anchor = GridBagConstraints.WEST;
 		gbc_lblTotalValue.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTotalValue.gridx = 2;
 		gbc_lblTotalValue.gridy = 2;
-		tableOptionsPanel.add(lblTotalValue, gbc_lblTotalValue);
+		priceAndSubmitPanel.add(lblTotalValue, gbc_lblTotalValue);
 		
 		JButton btnCreateQuote = new JButton("Create quote");
 		GridBagConstraints gbc_btnCreateQuote = new GridBagConstraints();
 		gbc_btnCreateQuote.anchor = GridBagConstraints.EAST;
 		gbc_btnCreateQuote.gridx = 3;
 		gbc_btnCreateQuote.gridy = 3;
-		tableOptionsPanel.add(btnCreateQuote, gbc_btnCreateQuote);
+		priceAndSubmitPanel.add(btnCreateQuote, gbc_btnCreateQuote);
 		
 		// Set price
 		this.refreshPriceSection();
@@ -233,34 +231,40 @@ public class ShoppingCart extends JDialog {
 	}
 	
 	public void refreshPriceSection() {
-		lblSubtotalValue.setText("<IMPLEMENT> DKK");
-		lblDiscountValue.setText(String.format("%d%%", customer.getCustomerType().getDiscountPercentage()));
+		lblSubtotalValue.setText(String.format("%.2f DKK", 
+				customer.getShoppingCart().calculateSubtotal()));
+		lblDiscountValue.setText(String.format("%d%%",
+				customer.getCustomerType().getDiscountPercentage()));
 		lblTotalValue.setText(String.format("%.2f DKK", 
-				customer.getShoppingCart().calculateTotalPriceWithDiscountsApplied()));
+				customer.getShoppingCart().calculateTotal()));
 	}
 	
 	public void addEventHandlers() {
-		
+		// Refresh price on table change
 		mainTable.getModel().addTableModelListener(e -> {
 			this.refreshPriceSection();
 		});
 		
-		 mainTable.getSelectionModel().addListSelectionListener(e -> {
-			 if (mainTable.getSelectionModel().isSelectionEmpty()) {
-				 btnView.setEnabled(false);
-				 btnEditQuantity.setEnabled(false);
-				 btnRemove.setEnabled(false);
-			 } else {
-				 btnView.setEnabled(true);
-				 btnEditQuantity.setEnabled(true);
-				 btnRemove.setEnabled(true);			 }
-		    });
+		// toggle bottom table buttons depending on whether a table row is selected
+		mainTable.getSelectionModel().addListSelectionListener(e -> {
+			if (mainTable.getSelectionModel().isSelectionEmpty()) {
+				btnView.setEnabled(false);
+				btnEditQuantity.setEnabled(false);
+				btnRemove.setEnabled(false);
+			} else {
+				btnView.setEnabled(true);
+				btnEditQuantity.setEnabled(true);
+				btnRemove.setEnabled(true);
+			}
+		});
 		
+		// Clear button press: Clear shopping cart
 		btnClear.addActionListener(e -> {
 			tableModel.clear();
 			shoppingCartCtrl.clearCart(customer.getShoppingCart());
 		});
 		
+		// Remove item button press: remove the item from data model & table model
 		btnRemove.addActionListener(e -> {
 			tableModel.remove(mainTable.getSelectedRow());
 		});

@@ -98,7 +98,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
 		if (customer.getCustomerType().getDiscountPercentage() != 0) {
 			System.out.println("-" + customer.getCustomerType().getDiscountPercentage() + "% customer discount");
 		}
-		System.out.println("Total: " + customer.getShoppingCart().calculateTotalPriceWithDiscountsApplied()+ " DKK");
+		System.out.println("Total: " + customer.getShoppingCart().calculateTotal()+ " DKK");
     }
     
     public void clearShoppingCart() {
