@@ -34,7 +34,7 @@ public class ShoppingItemLine {
 	}
 	
 	/**
-	 * Gets the current price with bulk discount
+	 * Gets the current total price with bulk discount
 	 * If no bulk discount applies, returns normal price
 	 *
 	 * @return the price as BigDecimal or null if no price is set.

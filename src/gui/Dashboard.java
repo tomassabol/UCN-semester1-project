@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,6 +18,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
+import java.util.Map;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -40,7 +43,7 @@ public class Dashboard extends JFrame {
 	private AuthenticationController auth;
 	private String logoutText;
 	private JLabel lblGreeting;
-	private JLabel lblLogout;
+	private JLink lblLogout;
 	private JTabbedPane tabsPane;
 	private JPanel sellPanel;
 	private JPanel sellPaneTopPanel;
@@ -92,9 +95,7 @@ public class Dashboard extends JFrame {
 		
 				// ***Right-top: Log out button
 				logoutText = "Log out";
-				lblLogout = new JLabel(logoutText);
-				lblLogout.setForeground(ColorPalette.LINK_COLOR);
-				lblLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				lblLogout = new JLink(logoutText);
 				GridBagConstraints gbc_lblLogout = new GridBagConstraints();
 				gbc_lblLogout.insets = new Insets(0, 0, 5, 0);
 				gbc_lblLogout.gridx = 2;
@@ -234,17 +235,6 @@ public class Dashboard extends JFrame {
 		    	
 		    }
 		    
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        // the mouse is on the label: underline it
-		    	lblLogout.setText(String.format("<html><a href=''>%s</a></html>", logoutText));
-		    }
-		 
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        // the mouse has exited the label: set back to original
-		    	lblLogout.setText(logoutText);
-		    }
 		});
 		
 		// ***** Sell items button *****
