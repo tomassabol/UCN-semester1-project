@@ -35,13 +35,13 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ShoppingCart extends JDialog {
+public class ShoppingCartUI extends JDialog {
 	private Customer customer;
 	private JPanel contentPane;
 	private JTable table;
 	private JButton btnClear;
 	private JButton btnAddItem;
-	private ShoppingCartModel tableModel;
+	private ShoppingCartTableModel tableModel;
 	private JButton btnRemove;
 	private JTable mainTable;
 	private JButton btnView;
@@ -55,7 +55,7 @@ public class ShoppingCart extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ShoppingCart(Customer customer) {
+	public ShoppingCartUI(Customer customer) {
 		if (customer == null) {
 			throw new IllegalArgumentException("Customer cannot be null!");
 		}
@@ -120,7 +120,7 @@ public class ShoppingCart extends JDialog {
 			middlePanel.add(scrollPanel);
 		
 				// ***** Table *****
-				tableModel = new ShoppingCartModel(this.customer.getShoppingCart());
+				tableModel = new ShoppingCartTableModel(this.customer.getShoppingCart());
 				mainTable = new JTable();
 				mainTable.setModel(tableModel);
 				mainTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 import controller.ShoppingCartController;
 import model.ShoppingItemLine;
 
-public class ShoppingCartModel extends AbstractTableModel {
+public class ShoppingCartTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -2367962812967993282L;
 
@@ -28,7 +28,7 @@ public class ShoppingCartModel extends AbstractTableModel {
      *
      * @param itemLines the item lines
      */
-    public ShoppingCartModel(model.ShoppingCart shoppingCart) {
+    public ShoppingCartTableModel(model.ShoppingCart shoppingCart) {
     	this.shoppingCart = shoppingCart;
     	this.shoppingCartCtrl = new ShoppingCartController();
         // Prevent possible external mutation

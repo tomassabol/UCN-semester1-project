@@ -34,7 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
-public class Dashboard extends JFrame {
+public class DashboardUI extends JFrame {
 	
 	private Customer customer = null;
 	
@@ -61,7 +61,7 @@ public class Dashboard extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Dashboard(AuthenticationController auth) {
+	public DashboardUI(AuthenticationController auth) {
 		setTitle("Vestbjerg Byggecenter System");
 		this.auth = auth;
 		
@@ -257,12 +257,12 @@ public class Dashboard extends JFrame {
 		// ***** Log out button *****
 		btnLogout.addActionListener(e -> {
 	        // User clicked on logout
-	    	if (Messages.confirm(Dashboard.this, "Are you sure you want to log out?", "Log Out?")) {
+	    	if (Messages.confirm(DashboardUI.this, "Are you sure you want to log out?", "Log Out?")) {
 		    	auth.Logout();
 				Login frame = new Login();
 				frame.setVisible(true);
 		    	// free up memory by destroying the current dashboard
-		    	Dashboard.this.dispose();
+		    	DashboardUI.this.dispose();
 	    	}
 		});
 		
@@ -271,7 +271,7 @@ public class Dashboard extends JFrame {
 			if (this.customer == null) {
 				Messages.info(this, "Please choose a customer", "Choose a customer");
 			} else {
-				ShoppingCart frame = new ShoppingCart(customer);
+				ShoppingCartUI frame = new ShoppingCartUI(customer);
 				frame.setVisible(true);
 			}
 
