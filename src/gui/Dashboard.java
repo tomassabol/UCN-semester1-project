@@ -43,7 +43,7 @@ public class Dashboard extends JFrame {
 	private AuthenticationController auth;
 	private String logoutText;
 	private JLabel lblGreeting;
-	private JLink lblLogout;
+	private JLink btnLogout;
 	private JTabbedPane tabsPane;
 	private JPanel sellPanel;
 	private JPanel sellPaneTopPanel;
@@ -95,12 +95,12 @@ public class Dashboard extends JFrame {
 		
 				// ***Right-top: Log out button
 				logoutText = "Log out";
-				lblLogout = new JLink(logoutText);
+				btnLogout = new JLink(logoutText);
 				GridBagConstraints gbc_lblLogout = new GridBagConstraints();
 				gbc_lblLogout.insets = new Insets(0, 0, 5, 0);
 				gbc_lblLogout.gridx = 2;
 				gbc_lblLogout.gridy = 0;
-				topPanel.add(lblLogout, gbc_lblLogout);
+				topPanel.add(btnLogout, gbc_lblLogout);
 		
 			// **Tabs
 			tabsPane = new JTabbedPane(JTabbedPane.TOP);
@@ -219,7 +219,7 @@ public class Dashboard extends JFrame {
 	
 	public void addEventHandlers() {
 		// ***** Log out button *****
-		lblLogout.addActionListener(e -> {
+		btnLogout.addActionListener(e -> {
 	        // User clicked on logout
 	    	if (Messages.confirm(Dashboard.this, "Are you sure you want to log out?", "Log Out?")) {
 		    	auth.Logout();
