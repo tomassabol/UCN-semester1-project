@@ -29,6 +29,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 public class Dashboard extends JFrame {
+	
 
 	private JPanel contentPane;
 	private AuthenticationController auth;
@@ -57,11 +58,12 @@ public class Dashboard extends JFrame {
 		setTitle("Vestbjerg Byggecenter System");
 		this.auth = auth;
 		
-		// *Main content pane
+		// Window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		// *Content pane
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
@@ -86,7 +88,7 @@ public class Dashboard extends JFrame {
 				// ***Right-top: Log out button
 				logoutText = "Log out";
 				lblLogout = new JLabel(logoutText);
-				lblLogout.setForeground(Color.BLUE.darker());
+				lblLogout.setForeground(ColorPalette.LINK_COLOR);
 				lblLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				GridBagConstraints gbc_lblLogout = new GridBagConstraints();
 				gbc_lblLogout.insets = new Insets(0, 0, 5, 0);

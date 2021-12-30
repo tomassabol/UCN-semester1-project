@@ -13,12 +13,16 @@ import javax.swing.JTable;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
 
 public class ShoppingCart extends JDialog {
+	private JPanel contentPane;
 	private JTable table;
 
 	/**
@@ -28,7 +32,10 @@ public class ShoppingCart extends JDialog {
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout(0, 0));
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel topPanel = new JPanel();
 		getContentPane().add(topPanel, BorderLayout.NORTH);
@@ -67,15 +74,15 @@ public class ShoppingCart extends JDialog {
 		JScrollPane scrollPanel = new JScrollPane();
 		middlePanel.add(scrollPanel);
 		
+		// Table
 		table = new JTable();
+		table.setEnabled(false);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"test", "test", "test", "test", "test"},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column", "New column"
+				
 			}
 		));
 		scrollPanel.setViewportView(table);
@@ -83,9 +90,9 @@ public class ShoppingCart extends JDialog {
 		JPanel bottomPanel = new JPanel();
 		getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 		GridBagLayout gbl_bottomPanel = new GridBagLayout();
-		gbl_bottomPanel.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_bottomPanel.columnWidths = new int[]{0, 17, 0, 0, 0};
 		gbl_bottomPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_bottomPanel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_bottomPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_bottomPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
 		
@@ -98,9 +105,11 @@ public class ShoppingCart extends JDialog {
 		bottomPanel.add(lblSubtotal, gbc_lblSubtotal);
 		
 		JLabel lblDkk = new JLabel("20 DKK");
+		lblDkk.setForeground(new Color(102, 102, 102));
 		GridBagConstraints gbc_lblDkk = new GridBagConstraints();
+		gbc_lblDkk.anchor = GridBagConstraints.WEST;
 		gbc_lblDkk.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDkk.gridx = 1;
+		gbc_lblDkk.gridx = 2;
 		gbc_lblDkk.gridy = 0;
 		bottomPanel.add(lblDkk, gbc_lblDkk);
 		
@@ -113,9 +122,11 @@ public class ShoppingCart extends JDialog {
 		bottomPanel.add(lblVipDiscount, gbc_lblVipDiscount);
 		
 		JLabel label = new JLabel("-20%");
+		label.setForeground(new Color(0, 102, 0));
 		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.anchor = GridBagConstraints.WEST;
 		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 1;
+		gbc_label.gridx = 2;
 		gbc_label.gridy = 1;
 		bottomPanel.add(label, gbc_label);
 		
@@ -129,15 +140,16 @@ public class ShoppingCart extends JDialog {
 		
 		JLabel lblDkk_1 = new JLabel("15 DKK");
 		GridBagConstraints gbc_lblDkk_1 = new GridBagConstraints();
+		gbc_lblDkk_1.anchor = GridBagConstraints.WEST;
 		gbc_lblDkk_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDkk_1.gridx = 1;
+		gbc_lblDkk_1.gridx = 2;
 		gbc_lblDkk_1.gridy = 2;
 		bottomPanel.add(lblDkk_1, gbc_lblDkk_1);
 		
 		JButton btnCreateQuote = new JButton("Create quote");
 		GridBagConstraints gbc_btnCreateQuote = new GridBagConstraints();
 		gbc_btnCreateQuote.anchor = GridBagConstraints.EAST;
-		gbc_btnCreateQuote.gridx = 2;
+		gbc_btnCreateQuote.gridx = 3;
 		gbc_btnCreateQuote.gridy = 3;
 		bottomPanel.add(btnCreateQuote, gbc_btnCreateQuote);
 

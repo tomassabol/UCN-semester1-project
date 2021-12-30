@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import javax.swing.UIManager;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import controller.EmployeeController;
