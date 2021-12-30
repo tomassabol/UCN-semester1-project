@@ -62,5 +62,14 @@ public class ShoppingCartController {
 		
 
 	}
+	
+	/**
+	 * Clear shopping cart.
+	 *
+	 * @param shoppingCart the shopping cart
+	 */
+	public void clearCart(ShoppingCart shoppingCart) {
+		shoppingCart.clear();
+	}
 
 }

@@ -28,11 +28,16 @@ import model.Customer;
 import model.ShoppingItemLine;
 
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ShoppingCart extends JDialog {
 	private Customer customer;
 	private JPanel contentPane;
 	private JTable table;
+	private JButton btnClear;
+	private JButton btnAddItem;
+	private ShoppingCartModel tableModel;
 
 	/**
 	 * Create the dialog.
@@ -73,19 +78,19 @@ public class ShoppingCart extends JDialog {
 		gbc_lblTest_1.gridy = 0;
 		topPanel.add(lblTest_1, gbc_lblTest_1);
 		
-		JButton btnTest_2 = new JButton("Clear");
+		btnClear = new JButton("Clear");
 		GridBagConstraints gbc_btnTest_2 = new GridBagConstraints();
 		gbc_btnTest_2.insets = new Insets(0, 0, 5, 5);
 		gbc_btnTest_2.gridx = 1;
 		gbc_btnTest_2.gridy = 1;
-		topPanel.add(btnTest_2, gbc_btnTest_2);
+		topPanel.add(btnClear, gbc_btnTest_2);
 		
-		JButton btnNewButton = new JButton("Add item");
+		btnAddItem = new JButton("Add item");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 1;
-		topPanel.add(btnNewButton, gbc_btnNewButton);
+		topPanel.add(btnAddItem, gbc_btnNewButton);
 		
 		JPanel middlePanel = new JPanel();
 		getContentPane().add(middlePanel, BorderLayout.CENTER);
@@ -96,10 +101,9 @@ public class ShoppingCart extends JDialog {
 		
 		// Table
 		JTable table = new JTable();
-		List<ShoppingItemLine> itemLines = this.customer.getShoppingCart().getItemLines();
-		TableModel model = new ShoppingCartModel(itemLines);
+		tableModel = new ShoppingCartModel(this.customer.getShoppingCart());
 		table = new JTable();
-		table.setModel(model);
+		table.setModel(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPanel.setViewportView(table);
 		
@@ -202,7 +206,14 @@ public class ShoppingCart extends JDialog {
 		gbc_btnCreateQuote.gridy = 3;
 		tableOptionsPanel.add(btnCreateQuote, gbc_btnCreateQuote);
 		
-
+		this.addEventHandlers();
+	}
+	
+	public void addEventHandlers() {
+		btnClear.addActionListener(e -> {
+			tableModel.clear();
+			new ShoppingCartController().clearCart(customer.getShoppingCart());
+		});
 	}
 	
 }

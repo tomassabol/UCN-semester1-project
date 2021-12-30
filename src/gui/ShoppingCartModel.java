@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import controller.ShoppingCartController;
 import model.ShoppingItemLine;
 
 public class ShoppingCartModel extends AbstractTableModel {
@@ -17,7 +18,9 @@ public class ShoppingCartModel extends AbstractTableModel {
         "ID", "Product", "Price", "Quantity"
     };
 
+	private model.ShoppingCart shoppingCart;
     private List<ShoppingItemLine> itemLines;
+    private ShoppingCartController shoppingCartCtrl;
 
     
     /**
@@ -25,9 +28,11 @@ public class ShoppingCartModel extends AbstractTableModel {
      *
      * @param itemLines the item lines
      */
-    public ShoppingCartModel(List<ShoppingItemLine> itemLines) {
+    public ShoppingCartModel(model.ShoppingCart shoppingCart) {
+    	this.shoppingCart = shoppingCart;
+    	this.shoppingCartCtrl = new ShoppingCartController();
         // Prevent possible external mutation
-        this.itemLines = new ArrayList<>(itemLines);
+        this.itemLines = new ArrayList<>(shoppingCart.getItemLines());
     }
 
     @Override
@@ -71,6 +76,21 @@ public class ShoppingCartModel extends AbstractTableModel {
     @Override
     public boolean isCellEditable(int row, int column) {       
         return false;
+    }
+    
+    /**
+     * Clear the shopping cart
+     */
+    public void clear() {
+    	// update model
+    	this.shoppingCartCtrl.clearCart(shoppingCart);
+    	// update view
+    	this.itemLines.clear();
+    	this.fireTableDataChanged();
+    }
+    
+    public ShoppingItemLine getModel(int row) {
+    	return itemLines.get(row);
     }
 
 }
