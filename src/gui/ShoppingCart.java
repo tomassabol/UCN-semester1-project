@@ -46,6 +46,11 @@ public class ShoppingCart extends JDialog {
 	private JTable mainTable;
 	private JButton btnView;
 	private JLink btnEditQuantity;
+	
+	ShoppingCartController shoppingCartCtrl;
+	private JLabel lblDiscountValue;
+	private JLabel lblTotalValue;
+	private JLabel lblSubtotalValue;
 
 	/**
 	 * Create the dialog.
@@ -55,6 +60,8 @@ public class ShoppingCart extends JDialog {
 			throw new IllegalArgumentException("Customer cannot be null!");
 		}
 		this.customer = customer;
+		
+		shoppingCartCtrl = new ShoppingCartController();
 		
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -167,31 +174,32 @@ public class ShoppingCart extends JDialog {
 		gbc_lblSubtotal.gridy = 0;
 		tableOptionsPanel.add(lblSubtotal, gbc_lblSubtotal);
 		
-		JLabel lblDkk = new JLabel("20 DKK");
-		lblDkk.setForeground(new Color(102, 102, 102));
-		GridBagConstraints gbc_lblDkk = new GridBagConstraints();
-		gbc_lblDkk.anchor = GridBagConstraints.WEST;
-		gbc_lblDkk.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDkk.gridx = 2;
-		gbc_lblDkk.gridy = 0;
-		tableOptionsPanel.add(lblDkk, gbc_lblDkk);
+		// TODO: Implement subtotal function in controller & data model
+		lblSubtotalValue = new JLabel("N/A");
+		lblSubtotalValue.setForeground(new Color(102, 102, 102));
+		GridBagConstraints gbc_lblSubtotalValue = new GridBagConstraints();
+		gbc_lblSubtotalValue.anchor = GridBagConstraints.WEST;
+		gbc_lblSubtotalValue.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSubtotalValue.gridx = 2;
+		gbc_lblSubtotalValue.gridy = 0;
+		tableOptionsPanel.add(lblSubtotalValue, gbc_lblSubtotalValue);
 		
-		JLabel lblVipDiscount = new JLabel("VIP Discount:");
-		GridBagConstraints gbc_lblVipDiscount = new GridBagConstraints();
-		gbc_lblVipDiscount.anchor = GridBagConstraints.WEST;
-		gbc_lblVipDiscount.insets = new Insets(0, 0, 5, 5);
-		gbc_lblVipDiscount.gridx = 0;
-		gbc_lblVipDiscount.gridy = 1;
-		tableOptionsPanel.add(lblVipDiscount, gbc_lblVipDiscount);
+		JLabel lblDiscount = new JLabel(customer.getCustomerType().getName() + " Discount:");
+		GridBagConstraints gbc_lblDiscount = new GridBagConstraints();
+		gbc_lblDiscount.anchor = GridBagConstraints.WEST;
+		gbc_lblDiscount.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDiscount.gridx = 0;
+		gbc_lblDiscount.gridy = 1;
+		tableOptionsPanel.add(lblDiscount, gbc_lblDiscount);
 		
-		JLabel label = new JLabel("-20%");
-		label.setForeground(new Color(0, 102, 0));
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.anchor = GridBagConstraints.WEST;
-		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 2;
-		gbc_label.gridy = 1;
-		tableOptionsPanel.add(label, gbc_label);
+		lblDiscountValue = new JLabel("N/A");
+		lblDiscountValue.setForeground(new Color(0, 102, 0));
+		GridBagConstraints gbc_lblDiscountValue = new GridBagConstraints();
+		gbc_lblDiscountValue.anchor = GridBagConstraints.WEST;
+		gbc_lblDiscountValue.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDiscountValue.gridx = 2;
+		gbc_lblDiscountValue.gridy = 1;
+		tableOptionsPanel.add(lblDiscountValue, gbc_lblDiscountValue);
 		
 		JLabel lblTotal = new JLabel("Total:");
 		GridBagConstraints gbc_lblTotal = new GridBagConstraints();
@@ -201,13 +209,14 @@ public class ShoppingCart extends JDialog {
 		gbc_lblTotal.gridy = 2;
 		tableOptionsPanel.add(lblTotal, gbc_lblTotal);
 		
-		JLabel lblDkk_1 = new JLabel("15 DKK");
-		GridBagConstraints gbc_lblDkk_1 = new GridBagConstraints();
-		gbc_lblDkk_1.anchor = GridBagConstraints.WEST;
-		gbc_lblDkk_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDkk_1.gridx = 2;
-		gbc_lblDkk_1.gridy = 2;
-		tableOptionsPanel.add(lblDkk_1, gbc_lblDkk_1);
+		// TODO: Implement this function in controller
+		lblTotalValue = new JLabel("N/A");
+		GridBagConstraints gbc_lblTotalValue = new GridBagConstraints();
+		gbc_lblTotalValue.anchor = GridBagConstraints.WEST;
+		gbc_lblTotalValue.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTotalValue.gridx = 2;
+		gbc_lblTotalValue.gridy = 2;
+		tableOptionsPanel.add(lblTotalValue, gbc_lblTotalValue);
 		
 		JButton btnCreateQuote = new JButton("Create quote");
 		GridBagConstraints gbc_btnCreateQuote = new GridBagConstraints();
@@ -215,10 +224,26 @@ public class ShoppingCart extends JDialog {
 		gbc_btnCreateQuote.gridx = 3;
 		gbc_btnCreateQuote.gridy = 3;
 		tableOptionsPanel.add(btnCreateQuote, gbc_btnCreateQuote);
+		
+		// Set price
+		this.refreshPriceSection();
+		
+		// Add event handlers
 		this.addEventHandlers();
 	}
 	
+	public void refreshPriceSection() {
+		lblSubtotalValue.setText("<IMPLEMENT> DKK");
+		lblDiscountValue.setText(String.format("%d%%", customer.getCustomerType().getDiscountPercentage()));
+		lblTotalValue.setText(String.format("%.2f DKK", 
+				customer.getShoppingCart().calculateTotalPriceWithDiscountsApplied()));
+	}
+	
 	public void addEventHandlers() {
+		
+		mainTable.getModel().addTableModelListener(e -> {
+			this.refreshPriceSection();
+		});
 		
 		 mainTable.getSelectionModel().addListSelectionListener(e -> {
 			 if (mainTable.getSelectionModel().isSelectionEmpty()) {
@@ -233,7 +258,7 @@ public class ShoppingCart extends JDialog {
 		
 		btnClear.addActionListener(e -> {
 			tableModel.clear();
-			new ShoppingCartController().clearCart(customer.getShoppingCart());
+			shoppingCartCtrl.clearCart(customer.getShoppingCart());
 		});
 		
 		btnRemove.addActionListener(e -> {

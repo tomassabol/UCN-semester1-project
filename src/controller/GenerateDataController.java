@@ -9,10 +9,12 @@ import model.*;
 public class GenerateDataController {
     private QuoteController orderCtrl;
     private EmployeeController employeeCtrl;
+    ContractorController contractorCtrl;
 
     public GenerateDataController() {
         orderCtrl = new QuoteController();
         employeeCtrl = new EmployeeController();
+        contractorCtrl = new ContractorController();
     }
 
     public void generateData() {
@@ -32,15 +34,14 @@ public class GenerateDataController {
         // Add purchase price to the product
         productCtrl.createSellingPrice(BigDecimal.valueOf(95), product1);
         
+        // Add contractor
+        Contractor contractor1 = contractorCtrl.createContractor("Some supply company");
+        
+        // NOTE: Not using a controller to skip stock check!
         // Create items
         ShoppingItemLine itemLine1 = new ShoppingItemLine(product1, 4);
         ShoppingItemLine itemLine2 = new ShoppingItemLine(product1, 1);
-        // Add contractor
-        ContractorController contractorCtrl = new ContractorController();
-        Contractor contractor1 = contractorCtrl.createContractor("Some supply company");
-        
         // Add itemline to shopping cart
-        // NOTE: Not using a controller to skip stock check!
         customer1.getShoppingCart().add(itemLine1);
         
         // Create employees
