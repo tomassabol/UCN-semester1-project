@@ -19,16 +19,22 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+
+import model.Customer;
+
 import javax.swing.ListSelectionModel;
 
 public class ShoppingCart extends JDialog {
+	private Customer customer;
 	private JPanel contentPane;
 	private JTable table;
 
 	/**
 	 * Create the dialog.
 	 */
-	public ShoppingCart() {
+	public ShoppingCart(Customer customer) {
+		this.customer = customer;
+		
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -46,7 +52,12 @@ public class ShoppingCart extends JDialog {
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
 		
-		JLabel lblTest_1 = new JLabel("Attila Bako's shopping cart");
+		JLabel lblTest_1 = new JLabel(
+				String.format("%s %s's shopping cart", 
+						customer.getFirstName(), 
+						customer.getLastName()
+				)
+		);
 		GridBagConstraints gbc_lblTest_1 = new GridBagConstraints();
 		gbc_lblTest_1.gridwidth = 3;
 		gbc_lblTest_1.insets = new Insets(0, 0, 5, 5);

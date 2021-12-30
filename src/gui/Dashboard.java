@@ -252,7 +252,7 @@ public class Dashboard extends JFrame {
 			if (this.customer == null) {
 				Messages.info(this, "Please choose a customer", "Choose a customer");
 			} else {
-				ShoppingCart frame = new ShoppingCart();
+				ShoppingCart frame = new ShoppingCart(customer);
 				frame.setVisible(true);
 			}
 
