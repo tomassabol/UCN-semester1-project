@@ -12,6 +12,7 @@ public class Quote {
 	private final ArrayList<QuoteItemLine> ITEM_LINES;
 	private final String CUSTOMER_TYPE;
 	private final int CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
+	private final BigDecimal TOTAL_PRICE;
 
 	public Quote(int Id, IFCustomer customer,
 			IFEmployee employee, ArrayList<QuoteItemLine> itemLines) {
@@ -23,6 +24,7 @@ public class Quote {
 		this.CREATION_DATE = LocalDateTime.now();
 		this.CUSTOMER_TYPE = customer.getCustomerType().getName();
 		this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE = customer.getCustomerType().getDiscountPercentage();
+		this.TOTAL_PRICE = this.calculateTotalPrice();
 		
 	}
 
@@ -61,11 +63,12 @@ public class Quote {
 	}
 	
 	/**
-	 * Calculate the total price with bulk discounts & customer type discount applied
+	 * Calculate the total price
+	 * includes: Bulk discounts & customer type discount
 	 *
 	 * @return BigDecimal the calculated price
 	 */
-	public BigDecimal calculateTotalPriceWithDiscountsApplied() {
+	private BigDecimal calculateTotalPrice() {
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		// Count total price with bulk discounts applied
 		for(QuoteItemLine itemLine: this.ITEM_LINES) {
@@ -75,6 +78,10 @@ public class Quote {
 		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100.0));
 		
 		return totalPrice;
+	}
+	
+	public BigDecimal getTotalPrice() {
+		return this.TOTAL_PRICE;
 	}
 
 
