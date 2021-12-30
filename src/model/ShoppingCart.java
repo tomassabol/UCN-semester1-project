@@ -62,11 +62,12 @@ public class ShoppingCart {
 	}
 	
 	/**
-	 * Calculate the total price with bulk discounts & customer type discount applied
+	 * Calculates the total price
+	 * includes: Bulk discounts & customer type discounts
 	 *
 	 * @return BigDecimal the calculated price
 	 */
-	public BigDecimal calculateTotalPriceWithDiscountsApplied() {
+	public BigDecimal calculateTotal() {
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		// Count total price with bulk discounts applied
 		for(ShoppingItemLine itemLine: this.itemLines) {
@@ -77,5 +78,22 @@ public class ShoppingCart {
 		
 		return totalPrice;
 	}
+	
+	/**
+	 * Calculates the sub-total price.
+	 * Includes: Bulk discounts
+	 * Does not include: Customer type discount
+	 *
+	 * @return the big decimal
+	 */
+	public BigDecimal calculateSubtotal() {
+		BigDecimal totalPrice = BigDecimal.ZERO;
+		// Count total price with bulk discounts applied
+		for(ShoppingItemLine itemLine: this.itemLines) {
+			totalPrice = totalPrice.add(itemLine.getCurrentPriceWithBulkDiscount());
+		}
+		return totalPrice;
+	}
+	
 
 }
