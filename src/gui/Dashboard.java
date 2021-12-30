@@ -219,22 +219,15 @@ public class Dashboard extends JFrame {
 	
 	public void addEventHandlers() {
 		// ***** Log out button *****
-		lblLogout.addMouseListener(new MouseAdapter() {
-			 
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-		        // User clicked on logout
-		    	if (Messages.confirm(Dashboard.this, "Are you sure you want to log out?", "Log Out?")) {
-			    	auth.Logout();
-					Login frame = new Login();
-					frame.setVisible(true);
-			    	// free up memory by destroying the current dashboard
-			    	Dashboard.this.dispose();
-		    	}
-
-		    	
-		    }
-		    
+		lblLogout.addActionListener(e -> {
+	        // User clicked on logout
+	    	if (Messages.confirm(Dashboard.this, "Are you sure you want to log out?", "Log Out?")) {
+		    	auth.Logout();
+				Login frame = new Login();
+				frame.setVisible(true);
+		    	// free up memory by destroying the current dashboard
+		    	Dashboard.this.dispose();
+	    	}
 		});
 		
 		// ***** Sell items button *****

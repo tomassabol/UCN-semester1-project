@@ -1,12 +1,15 @@
 package gui;
 
 import java.awt.Cursor;
+import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.border.EmptyBorder;
 
-public class JLink extends JLabel {
+public class JLink extends JButton {
 
 
 	private static final long serialVersionUID = -6117412042952963334L;
@@ -22,6 +25,12 @@ public class JLink extends JLabel {
 		super(text);
 		this.text = text;
 		this.color = color;
+		
+        setFocusPainted(false);
+        setMargin(new Insets(0, 0, 0, 0));
+        setContentAreaFilled(false);
+        setBorderPainted(false);
+        setOpaque(false);
 		
 		this.setForeground(ColorPalette.LINK_COLOR);
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
