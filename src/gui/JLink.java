@@ -12,13 +12,17 @@ import javax.swing.border.EmptyBorder;
 
 public class JLink extends JButton {
 	
-	public static final Color BLUE_LINK_COLOR = new Color(0, 51, 204);
+	public static final Color INDIGO_COLOR = new Color(101, 88, 245);
+	public static final Color GREEN_COLOR = new Color(32, 120, 104);
+	public static final Color RED_COLOR = new Color(211, 69, 91);
 
 
 	private static final long serialVersionUID = -6117412042952963334L;
 	
 	public enum COLORS {
-		BLUE
+		INDIGO,
+		GREEN,
+		RED,
 	}
 	
 	String text;
@@ -34,10 +38,13 @@ public class JLink extends JButton {
         setContentAreaFilled(false);
         setBorderPainted(false);
         setOpaque(false);
-		
-        if (color == COLORS.BLUE) {
-        	this.setForeground(BLUE_LINK_COLOR);
-        }
+        
+		switch(color) {
+			case INDIGO: this.setForeground(INDIGO_COLOR);break;
+			case GREEN: this.setForeground(GREEN_COLOR);break;
+			case RED: this.setForeground(RED_COLOR);break;
+			default: this.setForeground(INDIGO_COLOR);break;
+		}
 		
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
@@ -58,7 +65,7 @@ public class JLink extends JButton {
 	}
 	
 	public JLink(String text) {
-		this(text, COLORS.BLUE);
+		this(text, COLORS.INDIGO);
 	}
 	
 
