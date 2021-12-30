@@ -244,7 +244,7 @@ public class ShoppingCart extends JDialog {
 		// Set price
 		this.refreshPriceSection();
 		
-		// Add event handlers
+		// Attach event handler
 		this.addEventHandlers();
 	}
 	

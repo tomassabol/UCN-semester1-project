@@ -77,6 +77,8 @@ public class Dashboard extends JFrame {
 			// **Top panel (greeting & log out)
 			JPanel topPanel = new JPanel();
 			contentPane.add(topPanel, BorderLayout.NORTH);
+			
+			// ***** TOP PANEL *****
 			GridBagLayout gbl_topPanel = new GridBagLayout();
 			gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0};
 			gbl_topPanel.rowHeights = new int[]{0, 0, 0};
@@ -84,7 +86,7 @@ public class Dashboard extends JFrame {
 			gbl_topPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 			topPanel.setLayout(gbl_topPanel);
 		
-				// ***left-top:  greeting
+				// // ***** Greeting label *****
 				lblGreeting = new JLabel("Hi, " + auth.getLoggedInUser().getFirstName());
 				GridBagConstraints gbc_lblGreeting = new GridBagConstraints();
 				gbc_lblGreeting.insets = new Insets(0, 0, 5, 5);
@@ -92,7 +94,7 @@ public class Dashboard extends JFrame {
 				gbc_lblGreeting.gridy = 0;
 				topPanel.add(lblGreeting, gbc_lblGreeting);
 		
-				// ***Right-top: Log out button
+				// // ***** Log out button *****
 				btnLogout = new JLink("Log out");
 				GridBagConstraints gbc_lblLogout = new GridBagConstraints();
 				gbc_lblLogout.insets = new Insets(0, 0, 5, 0);
@@ -100,30 +102,26 @@ public class Dashboard extends JFrame {
 				gbc_lblLogout.gridy = 0;
 				topPanel.add(btnLogout, gbc_lblLogout);
 		
-			// **Tabs
+			// ***** Tabs pane *****
 			tabsPane = new JTabbedPane(JTabbedPane.TOP);
 			contentPane.add(tabsPane, BorderLayout.CENTER);
 		
-				/// *** Sell tab
-				this.initializeSellTab();
+				// ***** SELL tab *****
+				this.initSellTab();
 		
-			/// *** Loans tab
-			loanPanel = new JPanel();
-			tabsPane.addTab("Loans", null, loanPanel, null);
+				// ***** LOANS tab *****
+				this.initLoansTab();
+				
+				// ***** INVENTORY tab *****
+				this.initInventoryTab();
+				
+				// ***** PEOPLE tab *****
+				this.initPeopleTab();
+				
+				// ***** STATISTICS tab *****
+				this.initStatisticsTab();
 			
-			/// *** Inventory tab
-			JPanel inventoryPanel = new JPanel();
-			tabsPane.addTab("Inventory", null, inventoryPanel, null);
-			
-			/// *** People tab
-			JPanel peoplePanel = new JPanel();
-			tabsPane.addTab("People", null, peoplePanel, null);
-			
-			/// *** Statistcs tab
-			statisticsPanel = new JPanel();
-			tabsPane.addTab("Statistics", null, statisticsPanel, null);
-			
-		// Handle events
+		// Attach event handler
 		addEventHandlers();
 	}
 	
@@ -132,7 +130,7 @@ public class Dashboard extends JFrame {
 	 * ----------------------  Sell tab ----------------------
 	 * -------------------------------------------------------
 	 */
-	public void initializeSellTab() {
+	public void initSellTab() {
 		sellPanel = new JPanel();
 		sellPanel.setToolTipText("");
 		sellPanel.setBorder(null);
@@ -207,6 +205,46 @@ public class Dashboard extends JFrame {
 		gbc_btnNewButton_2.gridx = 2;
 		gbc_btnNewButton_2.gridy = 1;
 		sellPaneBottomPanel.add(btnNewButton_2, gbc_btnNewButton_2);
+	}
+	
+	/*
+	 * -------------------------------------------------------
+	 * ----------------------  Loans tab ---------------------
+	 * -------------------------------------------------------
+	 */
+	public void initLoansTab() {
+		loanPanel = new JPanel();
+		tabsPane.addTab("Loans", null, loanPanel, null);
+	}
+
+	/*
+	 * -------------------------------------------------------
+	 * --------------------  Inventory tab -------------------
+	 * -------------------------------------------------------
+	 */
+	public void initInventoryTab() {
+		JPanel inventoryPanel = new JPanel();
+		tabsPane.addTab("Inventory", null, inventoryPanel, null);
+	}
+	
+	/*
+	 * -------------------------------------------------------
+	 * ---------------------  People tab ---------------------
+	 * -------------------------------------------------------
+	 */
+	public void initPeopleTab() {
+		JPanel peoplePanel = new JPanel();
+		tabsPane.addTab("People", null, peoplePanel, null);
+	}
+	
+	/*
+	 * -------------------------------------------------------
+	 * -------------------  Statistics tab -------------------
+	 * -------------------------------------------------------
+	 */
+	public void initStatisticsTab() {
+		statisticsPanel = new JPanel();
+		tabsPane.addTab("Statistics", null, statisticsPanel, null);
 	}
 	
 	/*
