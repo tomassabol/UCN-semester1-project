@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JDialog;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.List;
@@ -16,6 +18,8 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
@@ -38,6 +42,10 @@ public class ShoppingCart extends JDialog {
 	private JButton btnClear;
 	private JButton btnAddItem;
 	private ShoppingCartModel tableModel;
+	private JButton btnRemove;
+	private JTable mainTable;
+	private JButton btnView;
+	private JLink btnEditQuantity;
 
 	/**
 	 * Create the dialog.
@@ -100,12 +108,11 @@ public class ShoppingCart extends JDialog {
 		middlePanel.add(scrollPanel);
 		
 		// Table
-		JTable table = new JTable();
 		tableModel = new ShoppingCartModel(this.customer.getShoppingCart());
-		table = new JTable();
-		table.setModel(tableModel);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPanel.setViewportView(table);
+		mainTable = new JTable();
+		mainTable.setModel(tableModel);
+		mainTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPanel.setViewportView(mainTable);
 		
 		JPanel bottomPanel = new JPanel();
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
@@ -120,21 +127,24 @@ public class ShoppingCart extends JDialog {
 		gbl_tableBottomOptionsPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		tableBottomOptionsPanel.setLayout(gbl_tableBottomOptionsPanel);
 		
-		JButton btnView = new JLink("View", JLink.COLORS.GREEN);
+		btnView = new JLink("View", JLink.COLORS.GREEN);
+		btnView.setEnabled(false);
 		GridBagConstraints gbc_btnView = new GridBagConstraints();
 		gbc_btnView.insets = new Insets(0, 0, 0, 5);
 		gbc_btnView.gridx = 1;
 		gbc_btnView.gridy = 0;
 		tableBottomOptionsPanel.add(btnView, gbc_btnView);
 		
-		JButton btnEditQuantity = new JLink("Edit Quantity", JLink.COLORS.INDIGO);
+		btnEditQuantity = new JLink("Edit Quantity", JLink.COLORS.INDIGO);
+		btnEditQuantity.setEnabled(false);
 		GridBagConstraints gbc_btnEditQuantity = new GridBagConstraints();
 		gbc_btnEditQuantity.insets = new Insets(0, 0, 0, 5);
 		gbc_btnEditQuantity.gridx = 2;
 		gbc_btnEditQuantity.gridy = 0;
 		tableBottomOptionsPanel.add(btnEditQuantity, gbc_btnEditQuantity);
 		
-		JButton btnRemove = new JLink("Remove", JLink.COLORS.RED);
+		btnRemove = new JLink("Remove", JLink.COLORS.RED);
+		btnRemove.setEnabled(false);
 		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
 		gbc_btnRemove.gridx = 3;
 		gbc_btnRemove.gridy = 0;
@@ -205,14 +215,29 @@ public class ShoppingCart extends JDialog {
 		gbc_btnCreateQuote.gridx = 3;
 		gbc_btnCreateQuote.gridy = 3;
 		tableOptionsPanel.add(btnCreateQuote, gbc_btnCreateQuote);
-		
 		this.addEventHandlers();
 	}
 	
 	public void addEventHandlers() {
+		
+		 mainTable.getSelectionModel().addListSelectionListener(e -> {
+			 if (mainTable.getSelectionModel().isSelectionEmpty()) {
+				 btnView.setEnabled(false);
+				 btnEditQuantity.setEnabled(false);
+				 btnRemove.setEnabled(false);
+			 } else {
+				 btnView.setEnabled(true);
+				 btnEditQuantity.setEnabled(true);
+				 btnRemove.setEnabled(true);			 }
+		    });
+		
 		btnClear.addActionListener(e -> {
 			tableModel.clear();
 			new ShoppingCartController().clearCart(customer.getShoppingCart());
+		});
+		
+		btnRemove.addActionListener(e -> {
+			tableModel.remove(mainTable.getSelectedRow());
 		});
 	}
 	

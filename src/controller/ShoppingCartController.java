@@ -71,5 +71,9 @@ public class ShoppingCartController {
 	public void clearCart(ShoppingCart shoppingCart) {
 		shoppingCart.clear();
 	}
+	
+	public void remove(ShoppingCart shoppingCart, ShoppingItemLine itemLine) {
+		shoppingCart.remove(itemLine);
+	}
 
 }

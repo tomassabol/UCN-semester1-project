@@ -82,14 +82,29 @@ public class ShoppingCartModel extends AbstractTableModel {
      * Clear the shopping cart
      */
     public void clear() {
-    	// update model
+    	// update the model layer
     	this.shoppingCartCtrl.clearCart(shoppingCart);
-    	// update view
+    	// update this model's itemLine copies
     	this.itemLines.clear();
+    	// Update the rendered table
     	this.fireTableDataChanged();
     }
     
-    public ShoppingItemLine getModel(int row) {
+    public void remove(int row) {
+    	ShoppingItemLine itemLine = this.itemLines.get(row);
+    	if (itemLine != null) {
+        	// update model layer
+        	shoppingCart.remove(itemLine);
+        	// update this model's itemLine copies
+        	this.itemLines.remove(itemLine);
+        	// Update the rendered table
+        	this.fireTableRowsDeleted(row, row);
+        	
+    	}
+
+    }
+    
+    public ShoppingItemLine getItemLine(int row) {
     	return itemLines.get(row);
     }
 
