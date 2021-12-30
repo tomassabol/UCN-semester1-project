@@ -117,21 +117,21 @@ public class ShoppingCart extends JDialog {
 		gbl_tableBottomOptionsPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		tableBottomOptionsPanel.setLayout(gbl_tableBottomOptionsPanel);
 		
-		JButton btnView = new JLink("View");
+		JButton btnView = new JLink("View", JLink.COLORS.GREEN);
 		GridBagConstraints gbc_btnView = new GridBagConstraints();
 		gbc_btnView.insets = new Insets(0, 0, 0, 5);
 		gbc_btnView.gridx = 1;
 		gbc_btnView.gridy = 0;
 		tableBottomOptionsPanel.add(btnView, gbc_btnView);
 		
-		JButton btnEditQuantity = new JLink("Edit quantity");
+		JButton btnEditQuantity = new JLink("Edit Quantity", JLink.COLORS.INDIGO);
 		GridBagConstraints gbc_btnEditQuantity = new GridBagConstraints();
 		gbc_btnEditQuantity.insets = new Insets(0, 0, 0, 5);
 		gbc_btnEditQuantity.gridx = 2;
 		gbc_btnEditQuantity.gridy = 0;
 		tableBottomOptionsPanel.add(btnEditQuantity, gbc_btnEditQuantity);
 		
-		JButton btnRemove = new JLink("Remove");
+		JButton btnRemove = new JLink("Remove", JLink.COLORS.RED);
 		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
 		gbc_btnRemove.gridx = 3;
 		gbc_btnRemove.gridy = 0;
