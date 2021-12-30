@@ -26,12 +26,12 @@ public class AuthenticationController {
 		}
 		
 		// Check login details
-		if (auth.checkCredentials(password, employee.getHashedPassword())) {
-			auth.login(employee);
-			return true;
+		if (!auth.checkCredentials(password, employee.getHashedPassword())) {
+			return false;
 		}
 		
-		return false;
+		auth.login(employee);
+		return true;
 		
 	}
 	
@@ -42,6 +42,13 @@ public class AuthenticationController {
 	 */
 	public IFEmployee getLoggedInUser() {
 		return auth.getLoggedInUser();
+	}
+	
+	/**
+	 * Log out
+	 */
+	public void Logout() {
+		auth.Logout();
 	}
 
 }

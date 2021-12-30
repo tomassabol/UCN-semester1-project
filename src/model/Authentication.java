@@ -41,4 +41,11 @@ public class Authentication {
 		return BCrypt.checkpw(pw1, pw2);
 	}
 	
+	/**
+	 * Log out
+	 */
+	public void Logout() {
+		this.loggedInUser = null;
+	}
+	
 }
