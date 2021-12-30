@@ -52,14 +52,19 @@ public class JLink extends JButton {
 			
 			@Override
 		    public void mouseEntered(MouseEvent e) {
-		        // the mouse is on the label: underline it
-		    	JLink.this.setText("<HTML><U>" + text +"</U></HTML>");
+				if (JLink.this.isEnabled()) {
+			        // the mouse is on the label: underline it
+			    	JLink.this.setText("<HTML><U>" + text +"</U></HTML>");
+				}
+
 		    }
 		 
 			@Override
 		    public void mouseExited(MouseEvent e) {
-		        // the mouse has exited the label: set back to original
-		    	JLink.this.setText(text);
+				if (JLink.this.isEnabled()) {
+			        // the mouse has exited the label: set back to original
+			    	JLink.this.setText(text);
+				}
 		    }
 		});
 	}
