@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
+import controller.CustomerController;
+import model.Customer;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -30,6 +33,8 @@ import javax.swing.event.ChangeEvent;
 
 public class Dashboard extends JFrame {
 	
+	private Customer customer = null;
+	
 
 	private JPanel contentPane;
 	private AuthenticationController auth;
@@ -40,10 +45,10 @@ public class Dashboard extends JFrame {
 	private JPanel sellPanel;
 	private JPanel sellPaneTopPanel;
 	private JPanel sellPaneBottomPanel;
-	private JTextField textField;
-	private JButton btnNewButton;
+	private JTextField txtCustomer;
+	private JButton btnChooseCustomer;
 	private JLabel lblTest;
-	private JButton btnSellAnItem;
+	private JButton btnSellItems;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JButton btnNewButton_1;
@@ -139,12 +144,12 @@ public class Dashboard extends JFrame {
 		sellPanel.add(sellPaneTopPanel, BorderLayout.NORTH);
 		sellPaneTopPanel.setLayout(new BorderLayout(0, 0));
 		
-		btnNewButton = new JButton("New button");
-		sellPaneTopPanel.add(btnNewButton, BorderLayout.NORTH);
+		btnChooseCustomer = new JButton("Choose Customer");
+		sellPaneTopPanel.add(btnChooseCustomer, BorderLayout.NORTH);
 		
-		textField = new JTextField();
-		sellPaneTopPanel.add(textField, BorderLayout.SOUTH);
-		textField.setColumns(10);
+		txtCustomer = new JTextField();
+		sellPaneTopPanel.add(txtCustomer, BorderLayout.SOUTH);
+		txtCustomer.setColumns(10);
 		
 		sellPaneBottomPanel = new JPanel();
 		sellPanel.add(sellPaneBottomPanel, BorderLayout.CENTER);
@@ -180,12 +185,12 @@ public class Dashboard extends JFrame {
 		sellPaneBottomPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		
-		btnSellAnItem = new JButton("Sell items");
-		GridBagConstraints gbc_btnSellAnItem = new GridBagConstraints();
-		gbc_btnSellAnItem.insets = new Insets(0, 0, 0, 5);
-		gbc_btnSellAnItem.gridx = 0;
-		gbc_btnSellAnItem.gridy = 1;
-		sellPaneBottomPanel.add(btnSellAnItem, gbc_btnSellAnItem);
+		btnSellItems = new JButton("Sell items");
+		GridBagConstraints gbc_btnSellItems = new GridBagConstraints();
+		gbc_btnSellItems.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSellItems.gridx = 0;
+		gbc_btnSellItems.gridy = 1;
+		sellPaneBottomPanel.add(btnSellItems, gbc_btnSellItems);
 		
 		btnNewButton_1 = new JButton("Quotes");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -218,7 +223,7 @@ public class Dashboard extends JFrame {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
 		        // User clicked on logout
-		    	if (Messages.confirmation(Dashboard.this, "Are you sure you want to log out?", "Log Out?")) {
+		    	if (Messages.confirm(Dashboard.this, "Are you sure you want to log out?", "Log Out?")) {
 			    	auth.Logout();
 					Login frame = new Login();
 					frame.setVisible(true);
@@ -243,9 +248,22 @@ public class Dashboard extends JFrame {
 		});
 		
 		// ***** Sell items button *****
-		btnSellAnItem.addActionListener(e -> {
-			ShoppingCart frame = new ShoppingCart();
-			frame.setVisible(true);
+		btnSellItems.addActionListener(e -> {
+			if (this.customer == null) {
+				Messages.info(this, "Please choose a customer", "Choose a customer");
+			} else {
+				ShoppingCart frame = new ShoppingCart();
+				frame.setVisible(true);
+			}
+
+		});
+		
+		// ***** Choose customer button *****
+		btnChooseCustomer.addActionListener(e -> {
+			customer = new CustomerController().findCustomerByID(0);
+			if (customer != null) {
+				this.txtCustomer.setText(customer.getFirstName() + " " + customer.getLastName());
+			}
 		});
 		
 		

@@ -152,7 +152,8 @@ public class ShoppingCart extends JDialog {
 		gbc_btnCreateQuote.gridx = 3;
 		gbc_btnCreateQuote.gridy = 3;
 		bottomPanel.add(btnCreateQuote, gbc_btnCreateQuote);
+		
 
 	}
-
+	
 }

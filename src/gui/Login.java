@@ -139,7 +139,7 @@ public class Login extends JFrame {
 		    
 		    // if empty, show error
 		    if (email.isEmpty() || password.isEmpty()) {
-	            Messages.show("Email or password cannot be empty!");
+	            Messages.error(this, "Email or password cannot be empty!");
 	            return;
 		    }
 		    
@@ -151,7 +151,7 @@ public class Login extends JFrame {
 		    	// free up memory by destroying the current login form
 		    	this.dispose();
 		    } else {
-		    	Messages.show("The e-mail and/or password is incorrect.");
+		    	Messages.error(this, "The e-mail and/or password is incorrect.");
 		    	return;
 		    }
 		    

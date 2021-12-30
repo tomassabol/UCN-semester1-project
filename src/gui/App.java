@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import controller.EmployeeController;
+import controller.GenerateDataController;
 import model.IFEmployee;
 
 public class App {
@@ -28,6 +29,9 @@ public class App {
 		// Add default employee (for logging in)
 		new EmployeeController().createEmployee("080600-1111", "admin@admin.com", "password", "Admin", "no surname", "Admin street 4", "991", LocalDate.now());
 
+		// Generate some default data
+		new GenerateDataController().generateData();
+		
 		// Show login window
 		EventQueue.invokeLater(() -> {
 			try {
