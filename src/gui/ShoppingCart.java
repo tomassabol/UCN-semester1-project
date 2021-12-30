@@ -100,7 +100,6 @@ public class ShoppingCart extends JDialog {
 		TableModel model = new ShoppingCartModel(itemLines);
 		table = new JTable();
 		table.setModel(model);
-		table.setEnabled(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPanel.setViewportView(table);
 		

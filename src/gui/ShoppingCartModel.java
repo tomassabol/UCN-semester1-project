@@ -66,5 +66,11 @@ public class ShoppingCartModel extends AbstractTableModel {
             default: return null;
         }
     }
+    
+    // Make cells uneditable
+    @Override
+    public boolean isCellEditable(int row, int column) {       
+        return false;
+    }
 
 }
