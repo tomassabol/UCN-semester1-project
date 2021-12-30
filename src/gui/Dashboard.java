@@ -41,7 +41,6 @@ public class Dashboard extends JFrame {
 
 	private JPanel contentPane;
 	private AuthenticationController auth;
-	private String logoutText;
 	private JLabel lblGreeting;
 	private JLink btnLogout;
 	private JTabbedPane tabsPane;
@@ -94,8 +93,7 @@ public class Dashboard extends JFrame {
 				topPanel.add(lblGreeting, gbc_lblGreeting);
 		
 				// ***Right-top: Log out button
-				logoutText = "Log out";
-				btnLogout = new JLink(logoutText);
+				btnLogout = new JLink("Log out");
 				GridBagConstraints gbc_lblLogout = new GridBagConstraints();
 				gbc_lblLogout.insets = new Insets(0, 0, 5, 0);
 				gbc_lblLogout.gridx = 2;

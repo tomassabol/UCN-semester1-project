@@ -108,14 +108,34 @@ public class ShoppingCart extends JDialog {
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		bottomPanel.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		bottomPanel.add(panel, BorderLayout.NORTH);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0};
-		gbl_panel.rowHeights = new int[]{0};
-		gbl_panel.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
+		JPanel tableBottomOptionsPanel = new JPanel();
+		bottomPanel.add(tableBottomOptionsPanel, BorderLayout.NORTH);
+		GridBagLayout gbl_tableBottomOptionsPanel = new GridBagLayout();
+		gbl_tableBottomOptionsPanel.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_tableBottomOptionsPanel.rowHeights = new int[]{0, 0};
+		gbl_tableBottomOptionsPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_tableBottomOptionsPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		tableBottomOptionsPanel.setLayout(gbl_tableBottomOptionsPanel);
+		
+		JButton btnView = new JLink("View");
+		GridBagConstraints gbc_btnView = new GridBagConstraints();
+		gbc_btnView.insets = new Insets(0, 0, 0, 5);
+		gbc_btnView.gridx = 1;
+		gbc_btnView.gridy = 0;
+		tableBottomOptionsPanel.add(btnView, gbc_btnView);
+		
+		JButton btnEditQuantity = new JLink("Edit quantity");
+		GridBagConstraints gbc_btnEditQuantity = new GridBagConstraints();
+		gbc_btnEditQuantity.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEditQuantity.gridx = 2;
+		gbc_btnEditQuantity.gridy = 0;
+		tableBottomOptionsPanel.add(btnEditQuantity, gbc_btnEditQuantity);
+		
+		JButton btnRemove = new JLink("Remove");
+		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
+		gbc_btnRemove.gridx = 3;
+		gbc_btnRemove.gridy = 0;
+		tableBottomOptionsPanel.add(btnRemove, gbc_btnRemove);
 		
 		JPanel tableOptionsPanel = new JPanel();
 		bottomPanel.add(tableOptionsPanel, BorderLayout.SOUTH);

@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
@@ -10,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
 public class JLink extends JButton {
+	
+	public static final Color BLUE_LINK_COLOR = new Color(0, 51, 204);
 
 
 	private static final long serialVersionUID = -6117412042952963334L;
@@ -32,7 +35,10 @@ public class JLink extends JButton {
         setBorderPainted(false);
         setOpaque(false);
 		
-		this.setForeground(ColorPalette.LINK_COLOR);
+        if (color == COLORS.BLUE) {
+        	this.setForeground(BLUE_LINK_COLOR);
+        }
+		
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		this.addMouseListener(new MouseAdapter() {
