@@ -34,7 +34,7 @@ public class Dashboard extends JFrame {
 	private JLabel lblGreeting;
 	private JLabel lblLogout;
 	private JTabbedPane tabsPane;
-	private JPanel sellPane;
+	private JPanel sellPanel;
 	private JPanel sellPaneTopPanel;
 	private JPanel sellPaneBottomPanel;
 	private JTextField textField;
@@ -45,6 +45,8 @@ public class Dashboard extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
+	private JPanel loanPanel;
+	private JPanel statisticsPanel;
 
 	/**
 	 * Create the frame.
@@ -61,48 +63,76 @@ public class Dashboard extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		// **Top panel (greeting & log out)
-		JPanel topPanel = new JPanel();
-		contentPane.add(topPanel, BorderLayout.NORTH);
-		GridBagLayout gbl_topPanel = new GridBagLayout();
-		gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_topPanel.rowHeights = new int[]{0, 0, 0};
-		gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		topPanel.setLayout(gbl_topPanel);
+			// **Top panel (greeting & log out)
+			JPanel topPanel = new JPanel();
+			contentPane.add(topPanel, BorderLayout.NORTH);
+			GridBagLayout gbl_topPanel = new GridBagLayout();
+			gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0};
+			gbl_topPanel.rowHeights = new int[]{0, 0, 0};
+			gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+			gbl_topPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+			topPanel.setLayout(gbl_topPanel);
 		
-		// ***left-top:  greeting
-		lblGreeting = new JLabel("Hi, " + auth.getLoggedInUser().getFirstName());
-		GridBagConstraints gbc_lblGreeting = new GridBagConstraints();
-		gbc_lblGreeting.insets = new Insets(0, 0, 5, 5);
-		gbc_lblGreeting.gridx = 0;
-		gbc_lblGreeting.gridy = 0;
-		topPanel.add(lblGreeting, gbc_lblGreeting);
+				// ***left-top:  greeting
+				lblGreeting = new JLabel("Hi, " + auth.getLoggedInUser().getFirstName());
+				GridBagConstraints gbc_lblGreeting = new GridBagConstraints();
+				gbc_lblGreeting.insets = new Insets(0, 0, 5, 5);
+				gbc_lblGreeting.gridx = 0;
+				gbc_lblGreeting.gridy = 0;
+				topPanel.add(lblGreeting, gbc_lblGreeting);
 		
-		// ***Right-top: Log out button
-		logoutText = "Log out";
-		lblLogout = new JLabel(logoutText);
-		lblLogout.setForeground(Color.BLUE.darker());
-		lblLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		GridBagConstraints gbc_lblLogout = new GridBagConstraints();
-		gbc_lblLogout.insets = new Insets(0, 0, 5, 0);
-		gbc_lblLogout.gridx = 2;
-		gbc_lblLogout.gridy = 0;
-		topPanel.add(lblLogout, gbc_lblLogout);
+				// ***Right-top: Log out button
+				logoutText = "Log out";
+				lblLogout = new JLabel(logoutText);
+				lblLogout.setForeground(Color.BLUE.darker());
+				lblLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				GridBagConstraints gbc_lblLogout = new GridBagConstraints();
+				gbc_lblLogout.insets = new Insets(0, 0, 5, 0);
+				gbc_lblLogout.gridx = 2;
+				gbc_lblLogout.gridy = 0;
+				topPanel.add(lblLogout, gbc_lblLogout);
 		
-		// **Tabs
-		tabsPane = new JTabbedPane(JTabbedPane.TOP);
-		contentPane.add(tabsPane, BorderLayout.CENTER);
+			// **Tabs
+			tabsPane = new JTabbedPane(JTabbedPane.TOP);
+			contentPane.add(tabsPane, BorderLayout.CENTER);
 		
-		/// *** 'Sell tab'
-		sellPane = new JPanel();
-		sellPane.setToolTipText("");
-		sellPane.setBorder(null);
-		tabsPane.addTab("Sell", null, sellPane, "Sell Products");
-		sellPane.setLayout(new BorderLayout(0, 0));
+				/// *** Sell tab
+				this.initializeSellTab();
+		
+			/// *** Loans tab
+			loanPanel = new JPanel();
+			tabsPane.addTab("Loans", null, loanPanel, null);
+			
+			/// *** Inventory tab
+			JPanel inventoryPanel = new JPanel();
+			tabsPane.addTab("Inventory", null, inventoryPanel, null);
+			
+			/// *** People tab
+			JPanel peoplePanel = new JPanel();
+			tabsPane.addTab("People", null, peoplePanel, null);
+			
+			/// *** Statistcs tab
+			statisticsPanel = new JPanel();
+			tabsPane.addTab("Statistics", null, statisticsPanel, null);
+			
+		// Handle events
+		addEventHandlers();
+	}
+	
+	/*
+	 * -------------------------------------------------------
+	 * ----------------------  Sell tab ----------------------
+	 * -------------------------------------------------------
+	 */
+	public void initializeSellTab() {
+		sellPanel = new JPanel();
+		sellPanel.setToolTipText("");
+		sellPanel.setBorder(null);
+		tabsPane.addTab("Sell", null, sellPanel, "Sell Products");
+		sellPanel.setLayout(new BorderLayout(0, 0));
 		
 		sellPaneTopPanel = new JPanel();
-		sellPane.add(sellPaneTopPanel, BorderLayout.NORTH);
+		sellPanel.add(sellPaneTopPanel, BorderLayout.NORTH);
 		sellPaneTopPanel.setLayout(new BorderLayout(0, 0));
 		
 		btnNewButton = new JButton("New button");
@@ -113,7 +143,7 @@ public class Dashboard extends JFrame {
 		textField.setColumns(10);
 		
 		sellPaneBottomPanel = new JPanel();
-		sellPane.add(sellPaneBottomPanel, BorderLayout.CENTER);
+		sellPanel.add(sellPaneBottomPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_sellPaneBottomPanel = new GridBagLayout();
 		gbl_sellPaneBottomPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_sellPaneBottomPanel.rowHeights = new int[]{0, 0, 0};
@@ -145,6 +175,7 @@ public class Dashboard extends JFrame {
 		gbc_lblNewLabel_1.gridy = 0;
 		sellPaneBottomPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
+		
 		btnSellAnItem = new JButton("Sell items");
 		GridBagConstraints gbc_btnSellAnItem = new GridBagConstraints();
 		gbc_btnSellAnItem.insets = new Insets(0, 0, 0, 5);
@@ -168,9 +199,6 @@ public class Dashboard extends JFrame {
 		gbc_btnNewButton_2.gridx = 2;
 		gbc_btnNewButton_2.gridy = 1;
 		sellPaneBottomPanel.add(btnNewButton_2, gbc_btnNewButton_2);
-		
-		// Handle events
-		addEventHandlers();
 	}
 	
 	/*
@@ -180,7 +208,7 @@ public class Dashboard extends JFrame {
 	 */
 	
 	public void addEventHandlers() {
-		// Log out button
+		// ***** Log out button *****
 		lblLogout.addMouseListener(new MouseAdapter() {
 			 
 		    @Override
@@ -197,7 +225,6 @@ public class Dashboard extends JFrame {
 		    	
 		    }
 		    
-		    
 		    @Override
 		    public void mouseEntered(MouseEvent e) {
 		        // the mouse is on the label: underline it
@@ -211,4 +238,6 @@ public class Dashboard extends JFrame {
 		    }
 		});
 	}
+	
+	
 }
