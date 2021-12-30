@@ -25,6 +25,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class Dashboard extends JFrame {
 
@@ -237,7 +239,14 @@ public class Dashboard extends JFrame {
 		    	lblLogout.setText(logoutText);
 		    }
 		});
-	}
-	
-	
+		
+		// ***** Sell items button *****
+		btnSellAnItem.addActionListener(e -> {
+			ShoppingCart frame = new ShoppingCart();
+			frame.setVisible(true);
+		});
+		
+		
+		
+	} // end of event handlers
 }
