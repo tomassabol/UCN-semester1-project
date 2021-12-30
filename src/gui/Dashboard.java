@@ -99,11 +99,14 @@ public class Dashboard extends JFrame {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
 		        // User clicked on logout
-		    	auth.Logout();
-				Login frame = new Login();
-				frame.setVisible(true);
-		    	// free up memory by destroying the current dashboard
-		    	Dashboard.this.dispose();
+		    	if (Messages.confirmation(Dashboard.this, "Are you sure you want to log out?", "Log Out?")) {
+			    	auth.Logout();
+					Login frame = new Login();
+					frame.setVisible(true);
+			    	// free up memory by destroying the current dashboard
+			    	Dashboard.this.dispose();
+		    	}
+
 		    	
 		    }
 		    
