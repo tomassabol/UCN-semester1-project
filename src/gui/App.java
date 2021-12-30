@@ -30,8 +30,7 @@ public class App {
 		// Show login window
 		EventQueue.invokeLater(() -> {
 			try {
-//				Login frame = new Login();
-				ShoppingCart frame = new ShoppingCart();
+				Login frame = new Login();
 				frame.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
