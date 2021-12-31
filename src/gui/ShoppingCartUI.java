@@ -56,6 +56,7 @@ public class ShoppingCartUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public ShoppingCartUI(Customer customer) {
+		setTitle("Shopping Cart");
 		if (customer == null) {
 			throw new IllegalArgumentException("Customer cannot be null!");
 		}

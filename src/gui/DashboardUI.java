@@ -53,8 +53,8 @@ public class DashboardUI extends JFrame {
 	private JButton btnSellItems;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
+	private JButton btnViewQuotes;
+	private JButton btnViewOrders;
 	private JPanel loanPanel;
 	private JPanel statisticsPanel;
 
@@ -189,22 +189,22 @@ public class DashboardUI extends JFrame {
 		gbc_btnSellItems.gridy = 1;
 		sellPaneBottomPanel.add(btnSellItems, gbc_btnSellItems);
 		
-		btnNewButton_1 = new JButton("Quotes");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnViewQuotes = new JButton("Quotes");
+		btnViewQuotes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_1.gridx = 1;
-		gbc_btnNewButton_1.gridy = 1;
-		sellPaneBottomPanel.add(btnNewButton_1, gbc_btnNewButton_1);
+		GridBagConstraints gbc_btnViewQuotes = new GridBagConstraints();
+		gbc_btnViewQuotes.insets = new Insets(0, 0, 0, 5);
+		gbc_btnViewQuotes.gridx = 1;
+		gbc_btnViewQuotes.gridy = 1;
+		sellPaneBottomPanel.add(btnViewQuotes, gbc_btnViewQuotes);
 		
-		btnNewButton_2 = new JButton("Orders");
-		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-		gbc_btnNewButton_2.gridx = 2;
-		gbc_btnNewButton_2.gridy = 1;
-		sellPaneBottomPanel.add(btnNewButton_2, gbc_btnNewButton_2);
+		btnViewOrders = new JButton("Orders");
+		GridBagConstraints gbc_btnViewOrders = new GridBagConstraints();
+		gbc_btnViewOrders.gridx = 2;
+		gbc_btnViewOrders.gridy = 1;
+		sellPaneBottomPanel.add(btnViewOrders, gbc_btnViewOrders);
 	}
 	
 	/*
@@ -256,7 +256,6 @@ public class DashboardUI extends JFrame {
 	public void addEventHandlers() {
 		// ***** Log out button *****
 		btnLogout.addActionListener(e -> {
-	        // User clicked on logout
 	    	if (Messages.confirm(DashboardUI.this, "Are you sure you want to log out?", "Log Out?")) {
 		    	auth.Logout();
 				Login frame = new Login();
@@ -264,6 +263,14 @@ public class DashboardUI extends JFrame {
 		    	// free up memory by destroying the current dashboard
 		    	DashboardUI.this.dispose();
 	    	}
+		});
+		
+		// ***** Choose customer button *****
+		btnChooseCustomer.addActionListener(e -> {
+			customer = new CustomerController().findCustomerByID(0);
+			if (customer != null) {
+				this.txtCustomer.setText(customer.getFirstName() + " " + customer.getLastName());
+			}
 		});
 		
 		// ***** Sell items button *****
@@ -277,11 +284,12 @@ public class DashboardUI extends JFrame {
 
 		});
 		
-		// ***** Choose customer button *****
-		btnChooseCustomer.addActionListener(e -> {
-			customer = new CustomerController().findCustomerByID(0);
-			if (customer != null) {
-				this.txtCustomer.setText(customer.getFirstName() + " " + customer.getLastName());
+		btnViewQuotes.addActionListener(e -> {
+			if (this.customer == null) {
+				Messages.info(this, "Please choose a customer", "Choose a customer");
+			} else {
+				QuotesUI frame = new QuotesUI(customer);
+				frame.setVisible(true);
 			}
 		});
 		
