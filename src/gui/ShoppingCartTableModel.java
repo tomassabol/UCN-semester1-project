@@ -53,7 +53,6 @@ public class ShoppingCartTableModel extends AbstractTableModel {
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
-            case 0: return Integer.class;
             default: return String.class;
         }
     }
