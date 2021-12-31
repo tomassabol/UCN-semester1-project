@@ -145,6 +145,7 @@ public class DashboardUI extends JFrame {
 		sellPaneTopPanel.add(btnChooseCustomer, BorderLayout.NORTH);
 		
 		txtCustomer = new JTextField();
+		txtCustomer.setEditable(false);
 		sellPaneTopPanel.add(txtCustomer, BorderLayout.SOUTH);
 		txtCustomer.setColumns(10);
 		
