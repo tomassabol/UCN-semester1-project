@@ -270,7 +270,10 @@ public class DashboardUI extends JFrame {
 		btnChooseCustomer.addActionListener(e -> {
 			customer = new CustomerController().findCustomerByID(0);
 			if (customer != null) {
-				this.txtCustomer.setText(customer.getFirstName() + " " + customer.getLastName());
+				txtCustomer.setText(String.format("(%s) %s %s", 
+						customer.ID,
+						customer.getFirstName(),
+						customer.getLastName()));
 			}
 		});
 		
