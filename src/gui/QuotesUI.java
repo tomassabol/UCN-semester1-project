@@ -48,6 +48,7 @@ public class QuotesUI extends JDialog {
 	QuoteController quoteCtrl;
 	private JTextField txtSearch;
 	private JTable table_1;
+	private JButton btnCreateQuote;
 
 	/**
 	 * Create the dialog.
@@ -102,7 +103,7 @@ public class QuotesUI extends JDialog {
 			topPanel.add(txtSearch, gbc_txtSearch);
 			txtSearch.setColumns(10);
 			
-			JButton btnCreateQuote = new JButton("Create quote");
+			btnCreateQuote = new JButton("Create quote");
 			GridBagConstraints gbc_btnCreateQuote = new GridBagConstraints();
 			gbc_btnCreateQuote.insets = new Insets(0, 0, 5, 0);
 			gbc_btnCreateQuote.gridx = 2;
@@ -180,6 +181,12 @@ public class QuotesUI extends JDialog {
 	 * *******************************************************
 	 */
 	public void addEventHandlers() {
+		
+		// Create quote button -> redirect to shopping cart
+		btnCreateQuote.addActionListener(e -> {
+			ShoppingCartUI frame = new ShoppingCartUI(customer);
+			frame.setVisible(true);
+		});
 		
 		// When a row is selected/unselected:
 		quotesTable.getSelectionModel().addListSelectionListener(e -> {
