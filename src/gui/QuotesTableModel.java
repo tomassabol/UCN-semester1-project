@@ -18,7 +18,7 @@ public class QuotesTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -2367962812967993282L;
 
 	protected static final String COLUMN_NAMES[] = {
-        "ID", "Created", "Items", "Price"
+        "ID", "Created", "Items", "subtotal", "customer type discount", "Price"
     };
 
     private List<Quote> quotes;
@@ -66,7 +66,9 @@ public class QuotesTableModel extends AbstractTableModel {
             case 0: return "#" + quote.ID;
             case 1: return quote.getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             case 2: return quote.ITEM_LINES.size();
-            case 3: return quote.getTotalPrice() + " DKK";
+            case 3: return quote.getSubtotal() + " DKK";
+            case 4: return quote.getCUSTOMER_TYPE() + ": -" + quote.getCUSTOMER_TYPE_DISCOUNT_PERCENTAGE() + "%";
+            case 5: return quote.getTotalPrice() + " DKK";
             default: return null;
         }
     }

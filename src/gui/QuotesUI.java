@@ -30,6 +30,7 @@ import javax.swing.table.TableModel;
 import controller.QuoteController;
 import controller.ShoppingCartController;
 import model.Customer;
+import model.Quote;
 import model.ShoppingItemLine;
 
 import javax.swing.ListSelectionModel;
@@ -225,7 +226,7 @@ public class QuotesUI extends JDialog {
 				priceAndPayPanel.add(btnPay, gbc_btnPay);
 		
 		// Set price
-		this.setPricing();
+		this.setPricing(null);
 		
 		// Attach event handler
 		this.addEventHandlers();
@@ -242,13 +243,20 @@ public class QuotesUI extends JDialog {
 	 * and update view
 	 */
 	// TODO: REFRESH PRICING DEPENDING ON WHICH QUOTE IS SELECTED
-	public void setPricing() {
-		lblSubtotalValue.setText(String.format("%.2f DKK", 
-				customer.getShoppingCart().calculateSubtotal()));
-		lblDiscountValue.setText(String.format("%d%%",
-				customer.getCustomerType().getDiscountPercentage()));
-		lblTotalValue.setText(String.format("%.2f DKK", 
-				customer.getShoppingCart().calculateTotal()));
+	public void setPricing(Quote quote) {
+		if (quote == null) {
+			lblSubtotalValue.setText("");
+			lblDiscountValue.setText("");
+			lblTotalValue.setText("");
+		} else {
+			lblSubtotalValue.setText(String.format("%.2f DKK", 
+					quote.getSubtotal()));
+			lblDiscountValue.setText(String.format("%d%%",
+					quote.getCUSTOMER_TYPE_DISCOUNT_PERCENTAGE()));
+			lblTotalValue.setText(String.format("%.2f DKK", 
+					quote.getTotalPrice()));
+		}
+
 	}
 	
 	
@@ -259,12 +267,18 @@ public class QuotesUI extends JDialog {
 	 */
 	public void addEventHandlers() {
 		
-		// toggle bottom table buttons depending on whether a table row is selected
+		// When a row is selected/unselected:
+		// show price for the selected quote
+		// toggle table's bottom options
 		mainTable.getSelectionModel().addListSelectionListener(e -> {
+			// not selected
 			if (mainTable.getSelectionModel().isSelectionEmpty()) {
 				btnViewInDetail.setEnabled(false);
+				setPricing(null);
+			// selected
 			} else {
 				btnViewInDetail.setEnabled(true);
+				setPricing(tableModel.getQuote(mainTable.getSelectedRow()));
 			}
 		});
 		
