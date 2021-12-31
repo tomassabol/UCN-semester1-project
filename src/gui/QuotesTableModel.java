@@ -3,9 +3,12 @@ package gui;
 
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
+import javax.swing.JComboBox;
 import javax.swing.table.AbstractTableModel;
 
 import controller.QuoteController;
@@ -63,8 +66,8 @@ public class QuotesTableModel extends AbstractTableModel {
     	Quote quote = quotes.get(rowIndex);
         switch (columnIndex) {
             case 0: return "#" + quote.ID;
-            case 1: return quote.getCreationDate();
-            case 2: return quote.ITEM_LINES;
+            case 1: return quote.getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            case 2: return new JComboBox(new Vector(quote.ITEM_LINES));
             case 3: return quote.getTotalPrice() + " DKK";
             default: return null;
         }
