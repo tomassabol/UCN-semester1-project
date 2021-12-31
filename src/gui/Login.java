@@ -8,6 +8,9 @@ import java.awt.Dimension;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 
@@ -123,9 +126,16 @@ public class Login extends JFrame {
 		
 		this.txtEmail.setText("admin@admin.com");
 		this.txtPassword.setText("password");
-		// Handle events
+		
+		// Add event handlers
 		addEventHandlers();
 	}
+	/*
+	 * *******************************************************
+	 * ***********************  Methods **********************
+	 * *******************************************************
+	 */
+	
 	
 	/*
 	 * *******************************************************
@@ -133,30 +143,42 @@ public class Login extends JFrame {
 	 * *******************************************************
 	 */
 	public void addEventHandlers() {
-		btnLogin.addActionListener(e -> {
-		    String email = txtEmail.getText().trim();
-		    String password = txtPassword.getText();
-		    
-		    // if empty, show error
-		    if (email.isEmpty() || password.isEmpty()) {
-	            Messages.error(this, "Email or password cannot be empty!");
-	            return;
+		// Define login action
+		Action loginAction = new AbstractAction()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+		    public void actionPerformed(ActionEvent e)
+		    {
+				// parse fields
+			    String email = txtEmail.getText().trim();
+			    String password = txtPassword.getText();
+			    
+			    // if empty, show error
+			    if (email.isEmpty() || password.isEmpty()) {
+		            Messages.error(Login.this, "Email or password cannot be empty!");
+		            return;
+			    }
+			    
+			    // Log in
+			    AuthenticationController auth = new AuthenticationController();
+			    if (auth.login(email, password)) {
+					DashboardUI frame = new DashboardUI(auth);
+					frame.setVisible(true);
+			    	// free up memory by destroying the current login form
+			    	Login.this.dispose();
+			    } else {
+			    	Messages.error(Login.this, "The e-mail and/or password is incorrect.");
+			    }
 		    }
-		    
-		    // Log in
-		    AuthenticationController auth = new AuthenticationController();
-		    if (auth.login(email, password)) {
-				DashboardUI frame = new DashboardUI(auth);
-				frame.setVisible(true);
-		    	// free up memory by destroying the current login form
-		    	this.dispose();
-		    } else {
-		    	Messages.error(this, "The e-mail and/or password is incorrect.");
-		    	return;
-		    }
-		    
-		   
-		});
+		};
+		// Attach login action to button
+		btnLogin.addActionListener(loginAction);
+		// Attach login action to enter key press on password field
+		txtPassword.addActionListener(loginAction);
+		// Attach login action to enter key press on e-mail field
+		txtEmail.addActionListener(loginAction);
 	}
 	
 }
