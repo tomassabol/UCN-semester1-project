@@ -18,9 +18,7 @@ public class ShoppingCartTableModel extends AbstractTableModel {
         "ID", "Product", "Price", "Quantity"
     };
 
-	private model.ShoppingCart shoppingCart;
     private List<ShoppingItemLine> itemLines;
-    private ShoppingCartController shoppingCartCtrl;
 
     
     /**
@@ -29,8 +27,6 @@ public class ShoppingCartTableModel extends AbstractTableModel {
      * @param itemLines the item lines
      */
     public ShoppingCartTableModel(model.ShoppingCart shoppingCart) {
-    	this.shoppingCart = shoppingCart;
-    	this.shoppingCartCtrl = new ShoppingCartController();
         // Prevent possible external mutation
         this.itemLines = new ArrayList<>(shoppingCart.getItemLines());
     }
@@ -81,8 +77,6 @@ public class ShoppingCartTableModel extends AbstractTableModel {
      * Clear the shopping cart
      */
     public void clear() {
-    	// update the model layer
-    	this.shoppingCartCtrl.clearCart(shoppingCart);
     	// update this model's itemLine copies
     	this.itemLines.clear();
     	// Update the rendered table
@@ -92,8 +86,6 @@ public class ShoppingCartTableModel extends AbstractTableModel {
     public void remove(int row) {
     	ShoppingItemLine itemLine = this.itemLines.get(row);
     	if (itemLine != null) {
-        	// update model layer
-        	shoppingCart.remove(itemLine);
         	// update this model's itemLine copies
         	this.itemLines.remove(itemLine);
         	// Update the rendered table
