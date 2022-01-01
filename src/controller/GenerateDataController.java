@@ -48,7 +48,7 @@ public class GenerateDataController {
         IFEmployee employee = employeeCtrl.createEmployee("080600-1111", "daniels@abc.com", "1234", "Daniels", "Kanepe", "Rundvej 8", "+45 11114567", LocalDate.now());
         
         // Add orders to customer1
-        orderCtrl.createQuote(customer1, employee, customer1.getShoppingCart());
+        orderCtrl.createQuote(customer1, employee);
         
         customer1.getShoppingCart().add(itemLine1);
         
