@@ -49,6 +49,7 @@ public class QuotesUI extends JDialog {
 	private JTextField txtSearch;
 	private JTable table_1;
 	private JButton btnCreateQuote;
+	
 
 	/**
 	 * Create the dialog.
@@ -173,8 +174,6 @@ public class QuotesUI extends JDialog {
 	 * *******************************************************
 	 */
 	
-
-	
 	/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
@@ -186,6 +185,9 @@ public class QuotesUI extends JDialog {
 		btnCreateQuote.addActionListener(e -> {
 			ShoppingCartUI frame = new ShoppingCartUI(customer);
 			frame.setVisible(true);
+			if (frame.isSubmitPressed()) {
+				// TODO: Implement logic e.g. refresh the tablemodel & select the new quote.
+			}
 		});
 		
 		// When a row is selected/unselected:

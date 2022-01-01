@@ -284,6 +284,10 @@ public class DashboardUI extends JFrame {
 			} else {
 				ShoppingCartUI frame = new ShoppingCartUI(customer);
 				frame.setVisible(true);
+				if (frame.isSubmitPressed()) {
+					QuotesUI quoteFrame = new QuotesUI(customer);
+					quoteFrame.setVisible(true);
+				}
 			}
 
 		});

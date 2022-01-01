@@ -46,11 +46,12 @@ public class ShoppingCartUI extends JDialog {
 	private JTable mainTable;
 	private JButton btnView;
 	private JLink btnEditQuantity;
-	
-	ShoppingCartController shoppingCartCtrl;
 	private JLabel lblDiscountValue;
 	private JLabel lblTotalValue;
 	private JLabel lblSubtotalValue;
+	
+	ShoppingCartController shoppingCartCtrl;
+	private boolean submitPressed = false;
 
 	/**
 	 * Create the dialog.
@@ -254,6 +255,11 @@ public class ShoppingCartUI extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
+	
+	// This method allows the parent UI to check if 'create quote' button was pressed
+	public boolean isSubmitPressed() {
+		return this.submitPressed;
+	}
 	
 	/**
 	 * recalculate the subtotal, total price, customer type discount percentage
