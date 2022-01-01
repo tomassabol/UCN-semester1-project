@@ -282,10 +282,10 @@ public class DashboardUI extends JFrame {
 			if (this.customer == null) {
 				Messages.info(this, "Please choose a customer", "Choose a customer");
 			} else {
-				ShoppingCartUI frame = new ShoppingCartUI(customer);
+				ShoppingCartUI frame = new ShoppingCartUI(auth, customer);
 				frame.setVisible(true);
 				if (frame.isSubmitPressed()) {
-					QuotesUI quoteFrame = new QuotesUI(customer);
+					QuotesUI quoteFrame = new QuotesUI(auth, customer);
 					quoteFrame.setVisible(true);
 				}
 			}
@@ -296,7 +296,7 @@ public class DashboardUI extends JFrame {
 			if (this.customer == null) {
 				Messages.info(this, "Please choose a customer", "Choose a customer");
 			} else {
-				QuotesUI frame = new QuotesUI(customer);
+				QuotesUI frame = new QuotesUI(auth, customer);
 				frame.setVisible(true);
 			}
 		});

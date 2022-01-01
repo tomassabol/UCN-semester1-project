@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import controller.AuthenticationController;
 import controller.QuoteController;
 import controller.ShoppingCartController;
 import model.Customer;
@@ -39,6 +40,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
 public class QuotesUI extends JDialog {
+	private AuthenticationController auth;
 	private Customer customer;
 	private JPanel contentPane;
 	private JTable table;
@@ -54,7 +56,8 @@ public class QuotesUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public QuotesUI(Customer customer) {
+	public QuotesUI(AuthenticationController auth, Customer customer) {
+		this.auth = auth;
 		setTitle("Quotes");
 		if (customer == null) {
 			throw new IllegalArgumentException("Customer cannot be null!");
@@ -183,7 +186,7 @@ public class QuotesUI extends JDialog {
 		
 		// Create quote button -> redirect to shopping cart
 		btnCreateQuote.addActionListener(e -> {
-			ShoppingCartUI frame = new ShoppingCartUI(customer);
+			ShoppingCartUI frame = new ShoppingCartUI(auth, customer);
 			frame.setVisible(true);
 			if (frame.isSubmitPressed()) {
 				// TODO: Implement logic e.g. refresh the tablemodel & select the new quote.

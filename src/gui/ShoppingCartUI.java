@@ -27,6 +27,8 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import controller.AuthenticationController;
+import controller.QuoteController;
 import controller.ShoppingCartController;
 import model.Customer;
 import model.ShoppingItemLine;
@@ -36,6 +38,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ShoppingCartUI extends JDialog {
+	private AuthenticationController auth;
+	
 	private Customer customer;
 	private JPanel contentPane;
 	private JTable table;
@@ -51,12 +55,15 @@ public class ShoppingCartUI extends JDialog {
 	private JLabel lblSubtotalValue;
 	
 	ShoppingCartController shoppingCartCtrl;
+	QuoteController quoteCtrl;
 	private boolean submitPressed = false;
+	private JButton btnCreateQuote;
 
 	/**
 	 * Create the dialog.
 	 */
-	public ShoppingCartUI(Customer customer) {
+	public ShoppingCartUI(AuthenticationController auth, Customer customer) {
+		this.auth = auth;
 		setTitle("Shopping Cart");
 		if (customer == null) {
 			throw new IllegalArgumentException("Customer cannot be null!");
@@ -64,6 +71,7 @@ public class ShoppingCartUI extends JDialog {
 		this.customer = customer;
 		
 		shoppingCartCtrl = new ShoppingCartController();
+		quoteCtrl = new QuoteController();
 		
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -236,7 +244,7 @@ public class ShoppingCartUI extends JDialog {
 				priceAndSubmitPanel.add(lblTotalValue, gbc_lblTotalValue);
 				
 				// ***** Create quote button *****
-				JButton btnCreateQuote = new JButton("Create quote");
+				btnCreateQuote = new JButton("Create quote");
 				GridBagConstraints gbc_btnCreateQuote = new GridBagConstraints();
 				gbc_btnCreateQuote.anchor = GridBagConstraints.EAST;
 				gbc_btnCreateQuote.gridx = 3;
@@ -309,5 +317,6 @@ public class ShoppingCartUI extends JDialog {
 		btnRemove.addActionListener(e -> {
 			tableModel.remove(mainTable.getSelectedRow());
 		});
+		
 	}
 }

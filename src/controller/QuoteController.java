@@ -67,7 +67,8 @@ public class QuoteController {
      * @param itemLines the shopping item lines
      * @return true, if successful
      */
-    public boolean createQuote(IFCustomer customer, IFEmployee employee, ShoppingCart shoppingCart) {
+    public boolean createQuote(IFCustomer customer, IFEmployee employee) {
+    	ShoppingCart shoppingCart = customer.getShoppingCart();
     	// get itemLines
     	ArrayList<ShoppingItemLine> shoppingItemLines = shoppingCart.getItemLines();
     	// convert shopping item lines to quote item lines
