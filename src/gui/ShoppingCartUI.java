@@ -320,6 +320,7 @@ public class ShoppingCartUI extends JDialog {
 		
 		// Create quote button: create quote & close the frame
 		btnCreateQuote.addActionListener(e -> {
+			this.submitPressed = true;
 			quoteCtrl.createQuote(customer, auth.getLoggedInUser());
 			this.dispose();
 		});
