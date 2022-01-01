@@ -31,6 +31,7 @@ import controller.AuthenticationController;
 import controller.QuoteController;
 import controller.ShoppingCartController;
 import model.Customer;
+import model.Quote;
 import model.ShoppingItemLine;
 
 import javax.swing.ListSelectionModel;
@@ -57,6 +58,7 @@ public class ShoppingCartUI extends JDialog {
 	ShoppingCartController shoppingCartCtrl;
 	QuoteController quoteCtrl;
 	private boolean submitPressed = false;
+	private Quote createdQuote = null;
 	private JButton btnCreateQuote;
 
 	/**
@@ -270,6 +272,15 @@ public class ShoppingCartUI extends JDialog {
 	}
 	
 	/**
+	 * Gets the created quote.
+	 *
+	 * @return the created quote
+	 */
+	public Quote getCreatedQuote() {
+		return this.createdQuote;
+	}
+	
+	/**
 	 * recalculate the subtotal, total price, customer type discount percentage
 	 * and update view
 	 */
@@ -321,7 +332,7 @@ public class ShoppingCartUI extends JDialog {
 		// Create quote button: create quote & close the frame
 		btnCreateQuote.addActionListener(e -> {
 			this.submitPressed = true;
-			quoteCtrl.createQuote(customer, auth.getLoggedInUser());
+			this.createdQuote = quoteCtrl.createQuote(customer, auth.getLoggedInUser());
 			this.dispose();
 		});
 	}

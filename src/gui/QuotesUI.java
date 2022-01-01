@@ -190,6 +190,8 @@ public class QuotesUI extends JDialog {
 			frame.setVisible(true);
 			if (frame.isSubmitPressed()) {
 				// TODO: Implement logic e.g. refresh the tablemodel & select the new quote.
+				int row = tableModel.addRow(frame.getCreatedQuote());
+				quotesTable.setRowSelectionInterval(0, row);
 			}
 		});
 		

@@ -65,9 +65,9 @@ public class QuoteController {
      * @param customer the customer
      * @param employee the employee
      * @param itemLines the shopping item lines
-     * @return true, if successful
+     * @return Quote the newly created quote
      */
-    public boolean createQuote(IFCustomer customer, IFEmployee employee) {
+    public Quote createQuote(IFCustomer customer, IFEmployee employee) {
     	ShoppingCart shoppingCart = customer.getShoppingCart();
     	// get itemLines
     	ArrayList<ShoppingItemLine> shoppingItemLines = shoppingCart.getItemLines();
@@ -84,7 +84,8 @@ public class QuoteController {
     	// create quote
     	Quote quote = new Quote(PrimaryKey.getNextQuoteID(), customer, employee, quoteItemLines);
     	//add quote to container
-    	return QuoteContainer.getInstance().addQuote(quote);
+    	QuoteContainer.getInstance().addQuote(quote);
+    	return quote;
     }
 
 	public boolean removeQuote(Quote quote) {

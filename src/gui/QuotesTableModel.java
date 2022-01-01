@@ -36,6 +36,7 @@ public class QuotesTableModel extends AbstractTableModel {
     	//but also consistent order
         this.quotes = new ArrayList<Quote>(quotes);
     }
+    
 
     @Override
     public int getRowCount() {
@@ -78,8 +79,27 @@ public class QuotesTableModel extends AbstractTableModel {
         return false;
     }
     
+    /**
+     * Gets the quote object by row
+     *
+     * @param row the row
+     * @return the quote
+     */
     public Quote getQuote(int row) {
     	return quotes.get(row);
+    }
+    
+    /**
+     * Adds a quote to the table.
+     *
+     * @param quote the quote
+     * @return the row that the quote was inserted in
+     */
+    public int addRow(Quote quote) {
+    	int row = quotes.size();
+        this.quotes.add(quote);
+        fireTableRowsInserted(row, row);
+        return row;
     }
 
 }
