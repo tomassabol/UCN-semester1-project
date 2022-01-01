@@ -318,5 +318,10 @@ public class ShoppingCartUI extends JDialog {
 			tableModel.remove(mainTable.getSelectedRow());
 		});
 		
+		// Create quote button: create quote & close the frame
+		btnCreateQuote.addActionListener(e -> {
+			quoteCtrl.createQuote(customer, auth.getLoggedInUser());
+			this.dispose();
+		});
 	}
 }
