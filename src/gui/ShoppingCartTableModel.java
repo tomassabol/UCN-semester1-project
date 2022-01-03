@@ -15,7 +15,7 @@ public class ShoppingCartTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -2367962812967993282L;
 
 	protected static final String COLUMN_NAMES[] = {
-        "ID", "Product", "Price", "Quantity"
+        "ID", "Product", "Price", "Quantity", "Total", "Description"
     };
 
     private List<ShoppingItemLine> itemLines;
@@ -59,10 +59,11 @@ public class ShoppingCartTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case 0: return "#" + itemLine.getPRODUCT().ID;
             case 1: return itemLine.getPRODUCT().getName();
-            case 2: return itemLine.getCurrentPriceWithoutBulkDiscount() + "DKK to "
-            	+ itemLine.getCurrentPriceWithBulkDiscount() + " DKK";
+            case 2: return itemLine.PRODUCT.getLatestSellingPrice() + " DKK";
             case 3: return itemLine.getQuantity();
-            case 4: return itemLine.getPRODUCT().getDescription();
+            case 4: return itemLine.getCurrentPriceWithoutBulkDiscount() + "DKK to "
+                	+ itemLine.getCurrentPriceWithBulkDiscount() + " DKK";
+            case 5: return itemLine.getPRODUCT().getDescription();
             default: return null;
         }
     }
