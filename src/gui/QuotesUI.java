@@ -44,12 +44,13 @@ public class QuotesUI extends JDialog {
 	private Customer customer;
 	private JPanel contentPane;
 	private JTable table;
-	private QuotesTableModel tableModel;
+	private QuotesTableModel quotesTableModel;
+	private QuotesItemTableModel quotesItemTableModel;
 	private JTable quotesTable;
 	
 	QuoteController quoteCtrl;
 	private JTextField txtSearch;
-	private JTable table_1;
+	private JTable itemLinesTable;
 	private JButton btnCreateQuote;
 	private JButton btnPay;
 	
@@ -125,9 +126,9 @@ public class QuotesUI extends JDialog {
 			middlePanel.add(scrollPanel);
 		
 				// ***** Table *****
-				tableModel = new QuotesTableModel(quoteCtrl.getQuotes(customer));
+				quotesTableModel = new QuotesTableModel(quoteCtrl.getQuotes(customer));
 				quotesTable = new JTable();
-				quotesTable.setModel(tableModel);
+				quotesTable.setModel(quotesTableModel);
 				quotesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				scrollPanel.setViewportView(quotesTable);
 		
@@ -158,8 +159,8 @@ public class QuotesUI extends JDialog {
 					gbc_scrollPane.gridy = 1;
 					bottomPanel.add(scrollPane, gbc_scrollPane);
 					
-					table_1 = new JTable();
-					scrollPane.setRowHeaderView(table_1);
+					itemLinesTable = new JTable();
+					scrollPane.setRowHeaderView(itemLinesTable);
 					
 					btnPay = new JButton("Pay");
 					GridBagConstraints gbc_btnPay = new GridBagConstraints();
@@ -190,7 +191,7 @@ public class QuotesUI extends JDialog {
 			ShoppingCartUI frame = new ShoppingCartUI(auth, customer);
 			frame.setVisible(true);
 			if (frame.isSubmitPressed()) {
-				int row = tableModel.addRow(frame.getCreatedQuote());
+				int row = quotesTableModel.addRow(frame.getCreatedQuote());
 				quotesTable.setRowSelectionInterval(0, row);
 			}
 		});
@@ -208,6 +209,13 @@ public class QuotesUI extends JDialog {
 				
 				// Enable pay button
 				btnPay.setEnabled(true);
+				
+				// Get selected quote, and show the item lines (by using ShoppingCartTableModel)
+				Quote quote = quotesTableModel.getQuote(quotesTable.getSelectedRow());
+				quotesItemTableModel = new QuotesItemTableModel(quote.getItemLines());
+				itemLinesTable.setModel(quotesItemTableModel);
+				itemLinesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				//scrollPanel.setViewportView(mainTable);
 				
 			}
 		});
