@@ -45,7 +45,7 @@ public class QuotesUI extends JDialog {
 	private JPanel contentPane;
 	private JTable table;
 	private QuotesTableModel quotesTableModel;
-	private QuotesItemTableModel quotesItemTableModel;
+	private QuotesItemTableModel itemTableModel;
 	private JTable quotesTable;
 	
 	QuoteController quoteCtrl;
@@ -198,22 +198,24 @@ public class QuotesUI extends JDialog {
 		
 		// When a row is selected/unselected:
 		quotesTable.getSelectionModel().addListSelectionListener(e -> {
-			// *** Not selected ***
-			
-			// Disable pay button
-			
+			// ***** Not selected *****
 			if (quotesTable.getSelectionModel().isSelectionEmpty()) {
+				// Disable pay button
 				btnPay.setEnabled(false);
+				
+				
+				// Reset item line table model
+				itemLinesTable.setModel(new DefaultTableModel());
 			} else {
-				// *** Selected ***
+				// ***** Selected *****
 				
 				// Enable pay button
 				btnPay.setEnabled(true);
 				
 				// Get selected quote, and show the item lines (by using ShoppingCartTableModel)
 				Quote quote = quotesTableModel.getQuote(quotesTable.getSelectedRow());
-				quotesItemTableModel = new QuotesItemTableModel(quote.getItemLines());
-				itemLinesTable.setModel(quotesItemTableModel);
+				itemTableModel = new QuotesItemTableModel(quote.getItemLines());
+				itemLinesTable.setModel(itemTableModel);
 				itemLinesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				//scrollPanel.setViewportView(mainTable);
 				
