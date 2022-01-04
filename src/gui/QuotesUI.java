@@ -158,6 +158,8 @@ public class QuotesUI extends JDialog {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
 		tableItems = new JTable();
+		tableItems.setEnabled(false);
+		tableItems.setRowSelectionAllowed(false);
 		tableItems.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(tableItems);
 		
