@@ -137,6 +137,7 @@ public class QuotesUI extends JDialog {
 		contentPane.add(scrollPanel, gbc_scrollPanel);
 		
 		tableQuotes = new JTable();
+		tableQuotes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		quotesTableModel = new QuotesTableModel(quoteCtrl.getQuotes(customer));
 		tableQuotes.setModel(quotesTableModel);
 		scrollPanel.setViewportView(tableQuotes);
@@ -157,6 +158,7 @@ public class QuotesUI extends JDialog {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
 		tableItems = new JTable();
+		tableItems.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(tableItems);
 		
 		btnPay = new JButton("Pay");
