@@ -193,20 +193,20 @@ public class QuotesUI extends JDialog {
 			frame.setVisible(true);
 			if (frame.isSubmitPressed()) {
 				int row = quotesTableModel.addRow(frame.getCreatedQuote());
-				quotesTable.setRowSelectionInterval(0, row);
+				tableQuotes.setRowSelectionInterval(0, row);
 			}
 		});
 		
 		// When a row is selected/unselected:
 		tableQuotes.getSelectionModel().addListSelectionListener(e -> {
 			// ***** Not selected *****
-			if (quotesTable.getSelectionModel().isSelectionEmpty()) {
+			if (tableQuotes.getSelectionModel().isSelectionEmpty()) {
 				// Disable pay button
 				btnPay.setEnabled(false);
 				
 				
 				// Reset item line table model
-				itemLinesTable.setModel(new DefaultTableModel());
+				tableItems.setModel(new DefaultTableModel());
 			} else {
 				// ***** Selected *****
 				
@@ -214,10 +214,10 @@ public class QuotesUI extends JDialog {
 				btnPay.setEnabled(true);
 				
 				// Get selected quote, and show the item lines (by using ShoppingCartTableModel)
-				Quote quote = quotesTableModel.getQuote(quotesTable.getSelectedRow());
+				Quote quote = quotesTableModel.getQuote(tableQuotes.getSelectedRow());
 				itemTableModel = new QuotesItemTableModel(quote.getItemLines());
-				itemLinesTable.setModel(itemTableModel);
-				itemLinesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				tableItems.setModel(itemTableModel);
+				tableItems.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				//scrollPanel.setViewportView(mainTable);
 				
 			}

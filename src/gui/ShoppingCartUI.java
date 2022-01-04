@@ -48,7 +48,7 @@ public class ShoppingCartUI extends JDialog {
 	private JButton btnAddItem;
 	private ShoppingCartTableModel tableModel;
 	private JButton btnRemove;
-	private JTable mainTable;
+	private JTable tableMain;
 	private JButton btnView;
 	private JLink btnEditQuantity;
 	private JLabel lblDiscountValue;
@@ -133,10 +133,10 @@ public class ShoppingCartUI extends JDialog {
 		
 				// ***** Table *****
 				tableModel = new ShoppingCartTableModel(this.customer.getShoppingCart());
-				mainTable = new JTable();
-				mainTable.setModel(tableModel);
-				mainTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				scrollPanel.setViewportView(mainTable);
+				tableMain = new JTable();
+				tableMain.setModel(tableModel);
+				tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				scrollPanel.setViewportView(tableMain);
 		
 		// ***** Bottom panel *****
 		JPanel bottomPanel = new JPanel();
@@ -301,13 +301,13 @@ public class ShoppingCartUI extends JDialog {
 	 */
 	public void addEventHandlers() {
 		// Refresh price on table change
-		mainTable.getModel().addTableModelListener(e -> {
+		tableMain.getModel().addTableModelListener(e -> {
 			this.refreshPriceSection();
 		});
 		
 		// toggle bottom table buttons depending on whether a table row is selected
-		mainTable.getSelectionModel().addListSelectionListener(e -> {
-			if (mainTable.getSelectionModel().isSelectionEmpty()) {
+		tableMain.getSelectionModel().addListSelectionListener(e -> {
+			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				btnView.setEnabled(false);
 				btnEditQuantity.setEnabled(false);
 				btnRemove.setEnabled(false);
@@ -326,7 +326,7 @@ public class ShoppingCartUI extends JDialog {
 		
 		// Remove item button press: remove the item from data model & table model
 		btnRemove.addActionListener(e -> {
-			tableModel.remove(mainTable.getSelectedRow());
+			tableModel.remove(tableMain.getSelectedRow());
 		});
 		
 		// Create quote button: create quote & close the frame
