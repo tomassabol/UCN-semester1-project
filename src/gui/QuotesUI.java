@@ -46,11 +46,11 @@ public class QuotesUI extends JDialog {
 	private JTable table;
 	private QuotesTableModel quotesTableModel;
 	private QuotesItemTableModel itemTableModel;
-	private JTable quotesTable;
+	private JTable tableQuotes;
 	
 	QuoteController quoteCtrl;
 	private JTextField txtSearch;
-	private JTable itemLinesTable;
+	private JTable tableItems;
 	private JButton btnCreateQuote;
 	private JButton btnPay;
 	
@@ -127,10 +127,10 @@ public class QuotesUI extends JDialog {
 		
 				// ***** Table *****
 				quotesTableModel = new QuotesTableModel(quoteCtrl.getQuotes(customer));
-				quotesTable = new JTable();
-				quotesTable.setModel(quotesTableModel);
-				quotesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				scrollPanel.setViewportView(quotesTable);
+				tableQuotes = new JTable();
+				tableQuotes.setModel(quotesTableModel);
+				tableQuotes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				scrollPanel.setViewportView(tableQuotes);
 		
 		// ***** Bottom panel *****
 		JPanel bottomPanel = new JPanel();
@@ -142,13 +142,13 @@ public class QuotesUI extends JDialog {
 					gbl_bottomPanel.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 					bottomPanel.setLayout(gbl_bottomPanel);
 					
-					JLabel lblNewLabel = new JLabel("New label");
-					GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-					gbc_lblNewLabel.gridwidth = 2;
-					gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-					gbc_lblNewLabel.gridx = 0;
-					gbc_lblNewLabel.gridy = 0;
-					bottomPanel.add(lblNewLabel, gbc_lblNewLabel);
+					JLabel lblItemsInQuote = new JLabel("Items in quote");
+					GridBagConstraints gbc_lblItemsInQuote = new GridBagConstraints();
+					gbc_lblItemsInQuote.gridwidth = 2;
+					gbc_lblItemsInQuote.insets = new Insets(0, 0, 5, 5);
+					gbc_lblItemsInQuote.gridx = 0;
+					gbc_lblItemsInQuote.gridy = 0;
+					bottomPanel.add(lblItemsInQuote, gbc_lblItemsInQuote);
 					
 					JScrollPane scrollPane = new JScrollPane();
 					GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -159,8 +159,8 @@ public class QuotesUI extends JDialog {
 					gbc_scrollPane.gridy = 1;
 					bottomPanel.add(scrollPane, gbc_scrollPane);
 					
-					itemLinesTable = new JTable();
-					scrollPane.setRowHeaderView(itemLinesTable);
+					tableItems = new JTable();
+					scrollPane.setRowHeaderView(tableItems);
 					
 					btnPay = new JButton("Pay");
 					btnPay.setEnabled(false);
@@ -198,7 +198,7 @@ public class QuotesUI extends JDialog {
 		});
 		
 		// When a row is selected/unselected:
-		quotesTable.getSelectionModel().addListSelectionListener(e -> {
+		tableQuotes.getSelectionModel().addListSelectionListener(e -> {
 			// ***** Not selected *****
 			if (quotesTable.getSelectionModel().isSelectionEmpty()) {
 				// Disable pay button
