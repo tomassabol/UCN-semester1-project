@@ -51,6 +51,7 @@ public class QuotesUI extends JDialog {
 	private JTextField txtSearch;
 	private JTable table_1;
 	private JButton btnCreateQuote;
+	private JButton btnPay;
 	
 
 	/**
@@ -160,7 +161,7 @@ public class QuotesUI extends JDialog {
 					table_1 = new JTable();
 					scrollPane.setRowHeaderView(table_1);
 					
-					JButton btnPay = new JButton("Pay");
+					btnPay = new JButton("Pay");
 					GridBagConstraints gbc_btnPay = new GridBagConstraints();
 					gbc_btnPay.insets = new Insets(0, 0, 5, 0);
 					gbc_btnPay.gridx = 1;
@@ -196,14 +197,20 @@ public class QuotesUI extends JDialog {
 		
 		// When a row is selected/unselected:
 		quotesTable.getSelectionModel().addListSelectionListener(e -> {
-			// not selected
+			// *** Not selected ***
+			
+			// Disable pay button
+			
 			if (quotesTable.getSelectionModel().isSelectionEmpty()) {
-			// selected
+				btnPay.setEnabled(false);
 			} else {
+				// *** Selected ***
+				
+				// Enable pay button
+				btnPay.setEnabled(true);
+				
 			}
 		});
-		
-		// Create quote button -> redirect to shopping cart window
 		
 	}
 }
