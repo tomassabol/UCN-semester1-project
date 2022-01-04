@@ -163,6 +163,7 @@ public class QuotesUI extends JDialog {
 					scrollPane.setRowHeaderView(itemLinesTable);
 					
 					btnPay = new JButton("Pay");
+					btnPay.setEnabled(false);
 					GridBagConstraints gbc_btnPay = new GridBagConstraints();
 					gbc_btnPay.insets = new Insets(0, 0, 5, 0);
 					gbc_btnPay.gridx = 1;
