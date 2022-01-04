@@ -93,9 +93,20 @@ public class ProductContainer {
     /**
      * @param product - the product to be removed
      * @return true if the product was successfully removed
+     * WARNING: THIS METHOD HAS BEEN DEPRECATED. use Enabled now!
      */
-    public boolean removeProduct(Product product) {
+    private boolean removeProduct(Product product) {
         return products.remove(product);
+    }
+    
+    /**
+     * Enable or disable the product
+     *
+     * @param product the product
+     * @param status the status
+     */
+    public void setEnabled(Product product, boolean status) {
+    	product.setEnabled(status);
     }
 
 }

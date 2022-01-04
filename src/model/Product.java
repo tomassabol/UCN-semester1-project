@@ -20,7 +20,9 @@ public class Product {
 	private ArrayList<LoaningPrice> loaningPrices = new ArrayList<>();
 	private ArrayList<BulkDiscount> bulkDiscounts = new ArrayList<>();
 	private LocalDateTime DATE_ADDED;
+	private boolean enabled;
 	
+
 	/**
 	 * Constructor of class Product
 	 * @param productID of the product
@@ -259,5 +261,13 @@ public class Product {
 	 */
 	public void setStatus(BulkDiscount bulkDiscount) {
 		bulkDiscount.setActive(!bulkDiscount.isActive());
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }
