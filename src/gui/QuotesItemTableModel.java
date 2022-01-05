@@ -77,28 +77,6 @@ public class QuotesItemTableModel extends AbstractTableModel {
         return false;
     }
     
-    /**
-     * Clear the shopping cart
-     */
-    public void clear() {
-    	// update this model's itemLine copies
-    	this.itemLines.clear();
-    	// Update the rendered table
-    	this.fireTableDataChanged();
-    }
-    
-    public void remove(int row) {
-    	QuoteItemLine itemLine = this.itemLines.get(row);
-    	if (itemLine != null) {
-        	// update this model's itemLine copies
-        	this.itemLines.remove(itemLine);
-        	// Update the rendered table
-        	this.fireTableRowsDeleted(row, row);
-        	
-    	}
-
-    }
-    
     public QuoteItemLine getItemLine(int row) {
     	return itemLines.get(row);
     }
