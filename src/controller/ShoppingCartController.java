@@ -24,7 +24,7 @@ public class ShoppingCartController {
 	 * @exception IllegalArgumentException when quantity <= 0
 	 * @exception IllegalArgumentException When adding product that doesn't have a buy price
 	 */
-	public void addProduct(ShoppingCart shoppingCart, Product product, int quantity)  throws OutOfStockException  {
+	public ShoppingItemLine addProduct(ShoppingCart shoppingCart, Product product, int quantity)  throws OutOfStockException  {
 		// check if product already is in cart
 		ShoppingItemLine alreadyInCart = null;
 		for (ShoppingItemLine itemLine: shoppingCart.getItemLines()) {
@@ -47,11 +47,13 @@ public class ShoppingCartController {
 						alreadyInCart.getQuantity(),
 						buyableQuantityInStock));
 			}
+			return alreadyInCart;
 		// not in cart
 		} else {
+			ShoppingItemLine itemLine;
 			// in stock
 			if (quantity <= buyableQuantityInStock) {
-				ShoppingItemLine itemLine = new ShoppingItemLine(product, quantity);
+				itemLine = new ShoppingItemLine(product, quantity);
 				shoppingCart.add(itemLine);
 			// not in stock
 			} else {
@@ -59,6 +61,7 @@ public class ShoppingCartController {
 						quantity,
 						buyableQuantityInStock));
 			}
+			return itemLine;
 		} 
 		
 

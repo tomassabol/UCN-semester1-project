@@ -107,6 +107,24 @@ public class ShoppingCartTableModel extends AbstractTableModel {
     }
     
     /**
+     * Adds the itemLine to the table or increments quantity if alread in table
+     *
+     * @param itemLine the item line
+     */
+    public void add(ShoppingItemLine newItemLine) {
+    	for(int i = 0; i < this.itemLines.size(); i++) {
+    		ShoppingItemLine itemLine = this.itemLines.get(i);
+    		if (newItemLine.getPRODUCT() == itemLine.getPRODUCT()) {
+    			itemLine.setQuantity(newItemLine.getQuantity());
+    			this.fireTableRowsUpdated(i, i);
+    			return;
+    		}
+    	}
+    	this.itemLines.add(newItemLine);
+    	this.fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+    }
+    
+    /**
      * Gets the ShoppingItemLine object for a particular row
      *
      * @param row the row

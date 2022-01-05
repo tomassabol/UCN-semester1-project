@@ -341,11 +341,12 @@ public class ShoppingCartUI extends JDialog {
 		btnAddItem.addActionListener(e -> {
 			Product prod = new ProductController().getProduct(0);
 			try {
-				shoppingCartCtrl.addProduct(customer.getShoppingCart(),
+				ShoppingItemLine itemLine = shoppingCartCtrl.addProduct(customer.getShoppingCart(),
 						prod,
 						1);
-				tableModel.fireTableDataChanged();
+				tableModel.add(itemLine);
 			} catch (OutOfStockException e1) {
+				System.out.println("Out of stock");
 			}
 		});
 		
