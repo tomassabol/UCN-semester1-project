@@ -40,15 +40,13 @@ public class GenerateDataController {
         // NOTE: Not using a controller to skip stock check!
         // Create items
         ShoppingItemLine itemLine1 = new ShoppingItemLine(product1, 4);
-        ShoppingItemLine itemLine2 = new ShoppingItemLine(product1, 1);
+        ShoppingItemLine itemLine2 = new ShoppingItemLine(product1, 3);
         // Add itemline to shopping cart
         customer1.getShoppingCart().add(itemLine1);
         
         // Create employees
         IFEmployee employee = employeeCtrl.createEmployee("080600-1111", "daniels@abc.com", "1234", "Daniels", "Kanepe", "Rundvej 8", "+45 11114567", LocalDate.now());
-        
-        // Add orders to customer1
-        orderCtrl.createQuote(customer1, employee);
+ 
         
         customer1.getShoppingCart().add(itemLine2);
         
@@ -64,8 +62,18 @@ public class GenerateDataController {
         SupplyController supplyCtrl = new SupplyController();
         SupplyOffer supplyOffer1 = supplyCtrl.createSupplyOffer(product1, contractor1, BigDecimal.valueOf(4), 2);
         
-        StockBatch stockBatch = new StockBatch(product1, 5);
+        StockBatch stockBatch = new StockBatch(product1, 10);
         shelf1.addStockBatch(product1, stockBatch);
         supplyCtrl.createSupplyOrder(supplyOffer1, 5);
+        
+        // Add orders to customer1
+        try {
+			orderCtrl.createQuote(customer1, employee);
+		} catch (OutOfStockException e) {
+			e.printStackTrace();
+		}
+        
+        // Add itemline to shopping cart
+        customer1.getShoppingCart().add(itemLine1);
     }
 }

@@ -66,11 +66,23 @@ public class QuoteController {
      * @param employee the employee
      * @param itemLines the shopping item lines
      * @return Quote the newly created quote
+     * @throws OutOfStockException if an item is out of stock
      */
-    public Quote createQuote(IFCustomer customer, IFEmployee employee) {
+    public Quote createQuote(IFCustomer customer, IFEmployee employee) throws OutOfStockException {
+    	
     	ShoppingCart shoppingCart = customer.getShoppingCart();
-    	// get itemLines
     	ArrayList<ShoppingItemLine> shoppingItemLines = shoppingCart.getItemLines();
+    	
+    	// Check that every item line is in stock
+    	for (ShoppingItemLine itemLine: shoppingItemLines) {
+    		// get quantity in stock
+    		int buyableQuantityInStock = Stock.getInstance().getBuyableQuantityInStock(itemLine.PRODUCT);
+    		if (itemLine.getQuantity() > buyableQuantityInStock) {
+    			throw new OutOfStockException("Cannot create a quote as some of the items are out of stock!");
+    		}
+    	}
+
+    	
     	// convert shopping item lines to quote item lines
     	ArrayList<QuoteItemLine> quoteItemLines = new ArrayList<>();
     	for (ShoppingItemLine shoppingItemLine: shoppingItemLines) {

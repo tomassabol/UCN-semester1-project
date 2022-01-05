@@ -335,6 +335,11 @@ public class ShoppingCartUI extends JDialog {
 			}
 		});
 		
+		// 'ADD ITEM' button mockup
+		btnAddItem.addActionListener(e -> {
+			
+		});
+		
 		// Clear button: Clear the shopping cart
 		btnClear.addActionListener(e -> {
 			// Clear shopping cart
@@ -365,8 +370,12 @@ public class ShoppingCartUI extends JDialog {
 			}
 			// Create quote
 			if (Messages.confirm(this, "A quote cannot be changed. Are you sure you want to create a quote with these items?")) {
+				try {
+					this.createdQuote = quoteCtrl.createQuote(customer, auth.getLoggedInUser());
+				} catch (OutOfStockException e1) {
+					Messages.error(this, "Could not create a quote as some of the items are out of stock!");
+				}
 				this.submitPressed = true;
-				this.createdQuote = quoteCtrl.createQuote(customer, auth.getLoggedInUser());
 				this.dispose();
 			}
 
