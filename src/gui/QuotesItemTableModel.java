@@ -16,7 +16,7 @@ public class QuotesItemTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -2367962812967993282L;
 
 	protected static final String COLUMN_NAMES[] = {
-        "ID", "Product", "Price", "Quantity", "Total", "Description"
+        "ID", "Product", "Price", "Quantity", "Subtotal", "Bulk discount", "Total", "Description"
     };
 
     private List<QuoteItemLine> itemLines;
@@ -59,11 +59,14 @@ public class QuotesItemTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case 0: return "#" + itemLine.getPRODUCT().ID;
             case 1: return itemLine.getPRODUCT().getName();
-            case 2: return itemLine.getFIXED_PRODUCT_PRICE() + " DKK";
+            case 2: return String.format("%.2f DKK", itemLine.getFIXED_PRODUCT_PRICE());
             case 3: return itemLine.getQuantity();
-            case 4: return itemLine.getFixedPriceWithoutBulkDiscount() + "DKK to "
-                	+ itemLine.getFixedPriceWithBulkDiscount() + " DKK";
-            case 5: return itemLine.getPRODUCT().getDescription();
+            case 4: return String.format("%.2f DKK", itemLine.getFixedPriceWithoutBulkDiscount());
+            case 5: return String.format("%d%% (%d+)", 
+            		itemLine.getFIXED_BULK_DISCOUNT().getDiscountPercentage(),
+            		itemLine.getFIXED_BULK_DISCOUNT().getMinQuantity());
+            case 6: return String.format("%.2f DKK", itemLine.getFixedPriceWithBulkDiscount());
+            case 7: return itemLine.getPRODUCT().getDescription();
             default: return null;
         }
     }
