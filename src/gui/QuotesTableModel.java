@@ -14,6 +14,8 @@ import model.Quote;
 import model.QuoteItemLine;
 
 public class QuotesTableModel extends AbstractTableModel {
+	
+	private final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	private static final long serialVersionUID = -2367962812967993282L;
 
@@ -65,10 +67,12 @@ public class QuotesTableModel extends AbstractTableModel {
     	Quote quote = quotes.get(rowIndex);
         switch (columnIndex) {
             case 0: return "#" + quote.ID;
-            case 1: return quote.getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            case 2: return quote.getSubtotal() + " DKK";
-            case 3: return quote.getCUSTOMER_TYPE() + ": -" + quote.getCUSTOMER_TYPE_DISCOUNT_PERCENTAGE() + "%";
-            case 4: return quote.getTotalPrice() + " DKK";
+            case 1: return quote.getCreationDate().format(DateTimeFormatter.ofPattern(DATETIME_FORMAT));
+            case 2: return String.format("%.2f DKK", quote.getSubtotal());
+            case 3: return String.format("%s: -%d%%", 
+            		quote.getCUSTOMER_TYPE(),
+            		quote.getCUSTOMER_TYPE_DISCOUNT_PERCENTAGE());
+            case 4: return String.format("%.2f DKK", quote.getTotalPrice());
             default: return null;
         }
     }

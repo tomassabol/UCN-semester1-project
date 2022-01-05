@@ -272,9 +272,9 @@ public class ShoppingCartUI extends JDialog {
 	}
 	
 	/**
-	 * Gets the created quote.
+	 * Gets the created quote
 	 *
-	 * @return the created quote
+	 * @return the created quote, or null
 	 */
 	public Quote getCreatedQuote() {
 		return this.createdQuote;
