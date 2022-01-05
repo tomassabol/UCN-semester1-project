@@ -348,6 +348,9 @@ public class ShoppingCartUI extends JDialog {
 			} catch (OutOfStockException e1) {
 				System.out.println("Out of stock");
 			}
+			
+			// Enable 'create quote button'
+			this.toggleCreateQuote();
 		});
 		
 		// Clear button: Clear the shopping cart
