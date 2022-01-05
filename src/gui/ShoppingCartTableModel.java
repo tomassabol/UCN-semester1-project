@@ -56,7 +56,6 @@ public class ShoppingCartTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
     	ShoppingItemLine itemLine = itemLines.get(rowIndex);
-    	System.out.println("X: " + rowIndex + " Y: " + columnIndex);
         switch (columnIndex) {
             case 0: return "#" + itemLine.getPRODUCT().ID;
             case 1: return itemLine.getPRODUCT().getName();
