@@ -321,18 +321,23 @@ public class ShoppingCartUI extends JDialog {
 			}
 		});
 		
-		// Clear button press: Clear shopping cart
+		// Clear button: Clear the shopping cart
 		btnClear.addActionListener(e -> {
-			tableModel.clear();
-			shoppingCartCtrl.clearCart(customer.getShoppingCart());
+			if (Messages.confirm(this, "Are you sure you want to clear the shopping cart?")) {
+				// Clear cart in data model
+				shoppingCartCtrl.clearCart(customer.getShoppingCart());
+				// Clear rendered table
+				tableModel.clear();
+				
+			}
 		});
 		
-		// Remove item button press: remove the item from data model & table model
+		// Remove item button: remove the item from data model & table model
 		btnRemove.addActionListener(e -> {
 			tableModel.remove(tableMain.getSelectedRow());
 		});
 		
-		// Create quote button: create quote & close the frame
+		// Create quote button: create quote & dispose of the frame
 		btnCreateQuote.addActionListener(e -> {
 			this.submitPressed = true;
 			this.createdQuote = quoteCtrl.createQuote(customer, auth.getLoggedInUser());
