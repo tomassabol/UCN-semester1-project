@@ -386,5 +386,10 @@ public class ShoppingCartUI extends JDialog {
 			}
 			
 		});
+		
+		// View button
+		btnView.addActionListener(e -> {
+			Messages.info(this, "Not implemented yet!");
+		});
 	}
 }
