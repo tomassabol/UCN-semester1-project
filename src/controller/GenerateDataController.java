@@ -50,7 +50,7 @@ public class GenerateDataController {
         // Add orders to customer1
         orderCtrl.createQuote(customer1, employee);
         
-        customer1.getShoppingCart().add(itemLine1);
+        customer1.getShoppingCart().add(itemLine2);
         
         StockController stockCtrl = new StockController();
         StorageLocation storageLocation1 = stockCtrl.createStorageLocation("DIY", "Rundvej 11A", true);

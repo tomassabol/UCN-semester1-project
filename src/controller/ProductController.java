@@ -34,11 +34,15 @@ public class ProductController {
 		return product;
 	}
 
+
 	/**
-	 * @param id of the product to be removed
+	 * Sets the status of a product (enabled/disabled)
+	 *
+	 * @param product the product
+	 * @param status the status
 	 */
-	public void removeProduct(Product product) {
-		ProductContainer.getInstance().removeProduct(product);
+	public void setEnabled(Product product, boolean status) {
+		product.setEnabled(status);
 	}
 
 	/**

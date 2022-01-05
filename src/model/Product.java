@@ -255,11 +255,11 @@ public class Product {
 	}
 
 	/**
-	 * Sets bulkDiscount active or inactive
+	 * Toggles BUlk Discount
 	 *
 	 * @param boolean active: true, inactive: false
 	 */
-	public void setStatus(BulkDiscount bulkDiscount) {
+	public void toggleBulkDiscount(BulkDiscount bulkDiscount) {
 		bulkDiscount.setActive(!bulkDiscount.isActive());
 	}
 	
