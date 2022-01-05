@@ -391,5 +391,22 @@ public class ShoppingCartUI extends JDialog {
 		btnView.addActionListener(e -> {
 			Messages.info(this, "Not implemented yet!");
 		});
+		
+		// Remove item line button
+		btnRemove.addActionListener(e -> {
+			// Get selected item line
+			int row = tableMain.getSelectedRow();
+			if (row == -1) {
+				return;
+			}
+			ShoppingItemLine itemLine = tableModel.getItemLine(row);
+			if (itemLine == null) {
+				return;
+			}
+			
+			// Remove the item line from shopping cart
+			customer.getShoppingCart().remove(itemLine);
+			// NOTE: how there is no need to update table, because selection change event does it for us.
+		});
 	}
 }
