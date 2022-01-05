@@ -28,11 +28,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import controller.AuthenticationController;
+import controller.ProductController;
 import controller.QuoteController;
 import controller.ShoppingCartController;
 import controller.StockController;
 import model.Customer;
 import model.OutOfStockException;
+import model.Product;
 import model.Quote;
 import model.ShoppingItemLine;
 
@@ -337,7 +339,14 @@ public class ShoppingCartUI extends JDialog {
 		
 		// 'ADD ITEM' button mockup
 		btnAddItem.addActionListener(e -> {
-			
+			Product prod = new ProductController().getProduct(0);
+			try {
+				shoppingCartCtrl.addProduct(customer.getShoppingCart(),
+						prod,
+						1);
+				tableModel.fireTableDataChanged();
+			} catch (OutOfStockException e1) {
+			}
 		});
 		
 		// Clear button: Clear the shopping cart
