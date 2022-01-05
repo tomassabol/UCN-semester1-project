@@ -171,11 +171,17 @@ public class QuotesUI extends JDialog {
 		gbc_btnPay.gridy = 4;
 		contentPane.add(btnPay, gbc_btnPay);
 		
-		
+		// Automatically select latest quote, if any exist
+		int row = quotesTableModel.getRowCount() - 1;
+		if (row >= 0) {
+			System.out.println("Row: " + row);
+			tableQuotes.setRowSelectionInterval(0, row);
+		}
 		
 		// Attach event handler
 		this.addEventHandlers();
 	}
+
 	
 	/*
 	 * *******************************************************
@@ -195,7 +201,7 @@ public class QuotesUI extends JDialog {
 			ShoppingCartUI frame = new ShoppingCartUI(auth, customer);
 			frame.setVisible(true);
 			if (frame.isSubmitPressed()) {
-				int row = quotesTableModel.addRow(frame.getCreatedQuote());
+				int row = quotesTableModel.addQuote(frame.getCreatedQuote());
 				tableQuotes.setRowSelectionInterval(0, row);
 			}
 		});
