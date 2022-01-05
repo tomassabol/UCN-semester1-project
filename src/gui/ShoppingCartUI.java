@@ -30,7 +30,9 @@ import javax.swing.table.TableModel;
 import controller.AuthenticationController;
 import controller.QuoteController;
 import controller.ShoppingCartController;
+import controller.StockController;
 import model.Customer;
+import model.OutOfStockException;
 import model.Quote;
 import model.ShoppingItemLine;
 
@@ -56,6 +58,7 @@ public class ShoppingCartUI extends JDialog {
 	private JLabel lblSubtotalValue;
 	
 	ShoppingCartController shoppingCartCtrl;
+	StockController stockCtrl;
 	QuoteController quoteCtrl;
 	private boolean submitPressed = false;
 	private Quote createdQuote = null;
@@ -74,6 +77,7 @@ public class ShoppingCartUI extends JDialog {
 		
 		shoppingCartCtrl = new ShoppingCartController();
 		quoteCtrl = new QuoteController();
+		stockCtrl = new StockController();
 		
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -284,7 +288,7 @@ public class ShoppingCartUI extends JDialog {
 	 * recalculate the subtotal, total price, customer type discount percentage
 	 * and update view
 	 */
-	public void refreshPriceSection() {
+	private void refreshPriceSection() {
 		lblSubtotalValue.setText(String.format("%.2f DKK", 
 				customer.getShoppingCart().calculateSubtotal()));
 		lblDiscountValue.setText(String.format("%d%%",
@@ -292,7 +296,6 @@ public class ShoppingCartUI extends JDialog {
 		lblTotalValue.setText(String.format("%.2f DKK", 
 				customer.getShoppingCart().calculateTotal()));
 	}
-	
 	
 	/*
 	 * *******************************************************
@@ -334,6 +337,54 @@ public class ShoppingCartUI extends JDialog {
 			this.submitPressed = true;
 			this.createdQuote = quoteCtrl.createQuote(customer, auth.getLoggedInUser());
 			this.dispose();
+		});
+		
+		// Edit quantity button
+		btnEditQuantity.addActionListener(e -> {
+			// Get selected item line
+			int row = tableMain.getSelectedRow();
+			if (row == -1) {
+				return;
+			}
+			ShoppingItemLine itemLine = tableModel.getItemLine(row);
+			if (itemLine == null) {
+				return;
+			}
+			
+			// Get quantity
+	        String newQuantityString = JOptionPane.showInputDialog(this,
+	        		"New quantity",
+	        		String.format("New quantity for '%s'", itemLine.getPRODUCT().getName()),
+	        		JOptionPane.PLAIN_MESSAGE,
+	        		null,null,
+	        		itemLine.getQuantity()).toString();
+	        int newQuantity = 0;
+	        
+	        // Convert to int or throw exception
+			try {
+				newQuantity = Integer.parseInt(newQuantityString);
+			} catch (NumberFormatException e1) {
+				Messages.error(this, "The entered quantity must be a positive, whole number!");
+				return;
+			}
+			// Throw error if quantity < 1
+			if (newQuantity < 1) {
+				Messages.error(this, "The entered quantity must be a positive number!");
+				return;
+			}
+			// Update the item line's quantity
+			try {
+				// Update data model's quantity
+				shoppingCartCtrl.updateQuantity(itemLine, newQuantity);
+				// Update rendered table
+				tableModel.fireTableRowsUpdated(row, row);
+			} catch (OutOfStockException e2) {
+				Messages.error(this,
+						String.format("You entered %d, but there are only %d item(s) in stock", 
+								newQuantity,
+								stockCtrl.getBuyableQuantityInStock(itemLine.PRODUCT)));
+			}
+			
 		});
 	}
 }
