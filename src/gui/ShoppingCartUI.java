@@ -260,6 +260,9 @@ public class ShoppingCartUI extends JDialog {
 		// Set price
 		this.refreshPriceSection();
 		
+		// Toggle create quote (if needed)
+		this.toggleCreateQuote();
+		
 		// Attach event handler
 		this.addEventHandlers();
 	}
@@ -297,6 +300,17 @@ public class ShoppingCartUI extends JDialog {
 				customer.getShoppingCart().calculateTotal()));
 	}
 	
+	/**
+	 * Enables create quote if shopping cart is not empty, else disables
+	 */
+	private void toggleCreateQuote() {
+		if (customer.getShoppingCart().isEmpty()) {
+			btnCreateQuote.setEnabled(false);
+		} else {
+			btnCreateQuote.setEnabled(true);
+		}
+	}
+	
 	/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
@@ -323,6 +337,7 @@ public class ShoppingCartUI extends JDialog {
 		
 		// Clear button: Clear the shopping cart
 		btnClear.addActionListener(e -> {
+			// Clear shopping cart
 			if (Messages.confirm(this, "Are you sure you want to clear the shopping cart?")) {
 				// Clear cart in data model
 				shoppingCartCtrl.clearCart(customer.getShoppingCart());
@@ -330,6 +345,8 @@ public class ShoppingCartUI extends JDialog {
 				tableModel.clear();
 				
 			}
+			// Disable 'create quote' button
+			btnCreateQuote.setEnabled(false);
 		});
 		
 		// Remove item button: remove the item from data model & table model
@@ -423,6 +440,9 @@ public class ShoppingCartUI extends JDialog {
 			// Remove the item line from shopping cart
 			customer.getShoppingCart().remove(itemLine);
 			// NOTE: how there is no need to update table, because selection change event does it for us.
+			
+			// Toggle create quote (if needed)
+			this.toggleCreateQuote();
 		});
 	}
 }
