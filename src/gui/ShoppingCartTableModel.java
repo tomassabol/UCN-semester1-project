@@ -15,7 +15,7 @@ public class ShoppingCartTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -2367962812967993282L;
 
 	protected static final String COLUMN_NAMES[] = {
-        "ID", "Product", "Price", "Quantity", "Total", "Description"
+        "ID", "Product", "Price", "Quantity", "Subtotal", "Bulk Discount", "Total", "Description"
     };
 
     private List<ShoppingItemLine> itemLines;
@@ -59,11 +59,14 @@ public class ShoppingCartTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case 0: return "#" + itemLine.getPRODUCT().ID;
             case 1: return itemLine.getPRODUCT().getName();
-            case 2: return itemLine.PRODUCT.getLatestSellingPrice() + " DKK";
+            case 2: return String.format("%.2f DKK", itemLine.PRODUCT.getLatestSellingPrice());
             case 3: return itemLine.getQuantity();
-            case 4: return itemLine.getCurrentPriceWithoutBulkDiscount() + "DKK to "
-                	+ itemLine.getCurrentPriceWithBulkDiscount() + " DKK";
-            case 5: return itemLine.getPRODUCT().getDescription();
+            case 4: return String.format("%.2f DKK", itemLine.getCurrentPriceWithoutBulkDiscount());
+            case 5: return String.format("%d%% (%d+)", 
+            		itemLine.getBulkDiscount().getDiscountPercentage(),
+            		itemLine.getBulkDiscount().getMinQuantity());
+            case 6: return String.format("%.2f DKK", itemLine.getCurrentPriceWithBulkDiscount());
+            case 7: return itemLine.getPRODUCT().getDescription();
             default: return null;
         }
     }
@@ -84,6 +87,11 @@ public class ShoppingCartTableModel extends AbstractTableModel {
     	this.fireTableDataChanged();
     }
     
+    /**
+     * Removes a row from the table model
+     *
+     * @param row the row
+     */
     public void remove(int row) {
     	ShoppingItemLine itemLine = this.itemLines.get(row);
     	if (itemLine != null) {
@@ -96,6 +104,12 @@ public class ShoppingCartTableModel extends AbstractTableModel {
 
     }
     
+    /**
+     * Gets the ShoppingItemLine object for a particular row
+     *
+     * @param row the row
+     * @return the item line
+     */
     public ShoppingItemLine getItemLine(int row) {
     	return itemLines.get(row);
     }
