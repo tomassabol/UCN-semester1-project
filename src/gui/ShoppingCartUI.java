@@ -353,8 +353,8 @@ public class ShoppingCartUI extends JDialog {
 			
 			// Get quantity
 	        String newQuantityString = JOptionPane.showInputDialog(this,
-	        		"New quantity",
 	        		String.format("New quantity for '%s'", itemLine.getPRODUCT().getName()),
+	        		"New Quantity",
 	        		JOptionPane.PLAIN_MESSAGE,
 	        		null,null,
 	        		itemLine.getQuantity()).toString();
