@@ -56,15 +56,17 @@ public class ShoppingCartTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
     	ShoppingItemLine itemLine = itemLines.get(rowIndex);
+    	System.out.println("X: " + rowIndex + " Y: " + columnIndex);
         switch (columnIndex) {
             case 0: return "#" + itemLine.getPRODUCT().ID;
             case 1: return itemLine.getPRODUCT().getName();
             case 2: return String.format("%.2f DKK", itemLine.PRODUCT.getLatestSellingPrice());
             case 3: return itemLine.getQuantity();
             case 4: return String.format("%.2f DKK", itemLine.getCurrentPriceWithoutBulkDiscount());
-            case 5: return String.format("%d%% (%d+)", 
-            		itemLine.getBulkDiscount().getDiscountPercentage(),
-            		itemLine.getBulkDiscount().getMinQuantity());
+            case 5: return itemLine.getBulkDiscount() == null ? "0%" : 
+        		String.format("%d%% (%d+)", 
+        				itemLine.getBulkDiscount().getDiscountPercentage(),
+        				itemLine.getBulkDiscount().getMinQuantity());
             case 6: return String.format("%.2f DKK", itemLine.getCurrentPriceWithBulkDiscount());
             case 7: return itemLine.getPRODUCT().getDescription();
             default: return null;

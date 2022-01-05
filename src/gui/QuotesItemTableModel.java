@@ -62,9 +62,10 @@ public class QuotesItemTableModel extends AbstractTableModel {
             case 2: return String.format("%.2f DKK", itemLine.getFIXED_PRODUCT_PRICE());
             case 3: return itemLine.getQuantity();
             case 4: return String.format("%.2f DKK", itemLine.getFixedPriceWithoutBulkDiscount());
-            case 5: return String.format("%d%% (%d+)", 
-            		itemLine.getFIXED_BULK_DISCOUNT().getDiscountPercentage(),
-            		itemLine.getFIXED_BULK_DISCOUNT().getMinQuantity());
+            case 5: return itemLine.getFIXED_BULK_DISCOUNT() == null ? "0%" : 
+        		String.format("%d%% (%d+)", 
+        				itemLine.getFIXED_BULK_DISCOUNT().getDiscountPercentage(),
+        				itemLine.getFIXED_BULK_DISCOUNT().getMinQuantity());
             case 6: return String.format("%.2f DKK", itemLine.getFixedPriceWithBulkDiscount());
             case 7: return itemLine.getPRODUCT().getDescription();
             default: return null;
