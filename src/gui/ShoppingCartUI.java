@@ -338,10 +338,21 @@ public class ShoppingCartUI extends JDialog {
 		});
 		
 		// Create quote button: create quote & dispose of the frame
+		// Note: it does not add it to the container. 
+		// - Use getCreatedQuote() to do that where needed (e.g. in parent UI)
 		btnCreateQuote.addActionListener(e -> {
-			this.submitPressed = true;
-			this.createdQuote = quoteCtrl.createQuote(customer, auth.getLoggedInUser());
-			this.dispose();
+			// Empty shopping cart
+			if (customer.getShoppingCart().isEmpty()) {
+				Messages.error(this, "Cannot create a quote! The shopping cart is empty.");
+				return;
+			}
+			// Create quote
+			if (Messages.confirm(this, "A quote cannot be changed. Are you sure you want to create a quote with these items?")) {
+				this.submitPressed = true;
+				this.createdQuote = quoteCtrl.createQuote(customer, auth.getLoggedInUser());
+				this.dispose();
+			}
+
 		});
 		
 		// Edit quantity button
