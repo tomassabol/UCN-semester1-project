@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JPanel;
 import controller.AuthenticationController;
 import controller.QuoteController;
@@ -148,6 +149,9 @@ public class QuotesUI extends JDialog {
 		gbc_btnPay.gridx = 0;
 		gbc_btnPay.gridy = 4;
 		contentPane.add(btnPay, gbc_btnPay);
+	
+		// Attach event handlers
+		this.addEventHandlers();
 		
 		// Automatically select latest quote, if any exist
 		int row = quotesTableModel.getRowCount() - 1;
@@ -155,9 +159,6 @@ public class QuotesUI extends JDialog {
 			System.out.println("Row: " + row);
 			tableQuotes.setRowSelectionInterval(0, row);
 		}
-		
-		// Attach event handlers
-		this.addEventHandlers();
 	}
 
 	
@@ -166,6 +167,8 @@ public class QuotesUI extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
+	
+	
 	
 	/*
 	 * *******************************************************
@@ -191,6 +194,9 @@ public class QuotesUI extends JDialog {
 				
 				// Disable pay button
 				btnPay.setEnabled(false);
+				
+				// clear item lines
+				tableItems.setModel(new DefaultTableModel());
 			} else {
 				// ***** SELECTED *****
 				
