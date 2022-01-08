@@ -396,39 +396,42 @@ public class ShoppingCartUI extends JDialog {
 			}
 			
 			// Get quantity
-	        String newQuantityString = JOptionPane.showInputDialog(this,
+	        Object inputDialogResponse = JOptionPane.showInputDialog(this,
 	        		String.format("New quantity for '%s'", itemLine.getPRODUCT().getName()),
 	        		"New Quantity",
 	        		JOptionPane.PLAIN_MESSAGE,
 	        		null,null,
-	        		itemLine.getQuantity()).toString();
-	        int newQuantity = 0;
-	        
-	        // Convert to int or throw exception
-			try {
-				newQuantity = Integer.parseInt(newQuantityString);
-			} catch (NumberFormatException e1) {
-				Messages.error(this, "The entered quantity must be a positive, whole number!");
-				return;
-			}
-			// Throw error if quantity < 1
-			if (newQuantity < 1) {
-				Messages.error(this, "The entered quantity must be a positive number!");
-				return;
-			}
-			// Update the item line's quantity
-			try {
-				// Update data model's quantity
-				shoppingCartCtrl.updateQuantity(itemLine, newQuantity);
-				// Update rendered table
-				tableModel.fireTableRowsUpdated(row, row);
-			} catch (OutOfStockException e2) {
-				Messages.error(this,
-						String.format("You entered %d, but there are only %d item(s) in stock", 
-								newQuantity,
-								stockCtrl.getBuyableQuantityInStock(itemLine.PRODUCT)));
-			}
-			
+	        		itemLine.getQuantity());
+	        // If cancel not pressed:
+	        if (inputDialogResponse != null) {
+	        	String newQuantityString = String.valueOf(inputDialogResponse);
+		        int newQuantity = 0;
+		        
+		        // Convert to int or throw exception
+				try {
+					newQuantity = Integer.parseInt(newQuantityString);
+				} catch (NumberFormatException e1) {
+					Messages.error(this, "The entered quantity must be a positive, whole number!");
+					return;
+				}
+				// Throw error if quantity < 1
+				if (newQuantity < 1) {
+					Messages.error(this, "The entered quantity must be a positive number!");
+					return;
+				}
+				// Update the item line's quantity
+				try {
+					// Update data model's quantity
+					shoppingCartCtrl.updateQuantity(itemLine, newQuantity);
+					// Update rendered table
+					tableModel.fireTableRowsUpdated(row, row);
+				} catch (OutOfStockException e2) {
+					Messages.error(this,
+							String.format("You entered %d, but there are only %d item(s) in stock", 
+									newQuantity,
+									stockCtrl.getBuyableQuantityInStock(itemLine.PRODUCT)));
+				}
+	        }
 		});
 		
 		// View button
