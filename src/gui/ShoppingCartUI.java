@@ -302,6 +302,36 @@ public class ShoppingCartUI extends JDialog {
 		}
 	}
 	
+	/**
+	 * 'Add item' button code
+	 */
+	private void addItem() {
+		AddProductToCartUI frame = new AddProductToCartUI();
+		frame.setVisible(true);
+		
+		if (frame.isProductSelected()) {
+			Product product = frame.getSelectedProduct();
+			int quantity = frame.getSelectedQuantity();
+			try {
+				ShoppingItemLine itemLine = shoppingCartCtrl.addProduct(customer.getShoppingCart(),
+						product,
+						quantity);
+				tableModel.add(itemLine);
+			} catch (OutOfStockException e1) {
+				Messages.error(this, 
+						String.format("There are only %d items in stock. You were trying to add %d items while you already have %d in your shopping cart", 
+								stockCtrl.getBuyableQuantityInStock(product), 
+								quantity,
+								customer.getShoppingCart().getQuantity(product)));
+				// execute itself, again
+				this.addItem();
+			}
+			
+			// Enable 'create quote button'
+			this.toggleCreateQuote();
+		}
+	}
+	
 	/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
@@ -326,31 +356,9 @@ public class ShoppingCartUI extends JDialog {
 			}
 		});
 		
-		// 'ADD ITEM' button mockup
+		// 'ADD ITEM' button
 		btnAddItem.addActionListener(e -> {
-			
-			AddProductToCartUI frame = new AddProductToCartUI();
-			frame.setVisible(true);
-			
-			if (frame.isProductSelected()) {
-				Product product = frame.getSelectedProduct();
-				int quantity = frame.getSelectedQuantity();
-				try {
-					ShoppingItemLine itemLine = shoppingCartCtrl.addProduct(customer.getShoppingCart(),
-							product,
-							quantity);
-					tableModel.add(itemLine);
-				} catch (OutOfStockException e1) {
-					Messages.error(this, 
-							String.format("There are only %d items in stock. You were trying to add %d items while you already have %d in your shopping cart", 
-									stockCtrl.getBuyableQuantityInStock(product), 
-									quantity,
-									customer.getShoppingCart().getQuantity(product)));
-				}
-				
-				// Enable 'create quote button'
-				this.toggleCreateQuote();
-			}
+			this.addItem();
 		});
 		
 		// Clear button: Clear the shopping cart

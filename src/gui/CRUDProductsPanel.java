@@ -168,6 +168,24 @@ public class CRUDProductsPanel extends JPanel {
 		return tableModel;
 	}
 	
+	/**
+	 * Select a product in the CRUD table.
+	 *
+	 * @param product the product
+	 * @return true, if successful
+	 */
+	public boolean selectProduct(Product product) {
+		int rows = tableModel.getRowCount();
+		for (int i = 0; i < rows; i++) {
+			Product foundProduct = tableModel.getProduct(i);
+			if (foundProduct == product) {
+				tableMain.getSelectionModel().setSelectionInterval(0, i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
