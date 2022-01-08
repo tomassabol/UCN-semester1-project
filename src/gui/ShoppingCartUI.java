@@ -328,15 +328,19 @@ public class ShoppingCartUI extends JDialog {
 		
 		// 'ADD ITEM' button mockup
 		btnAddItem.addActionListener(e -> {
-			Product prod = new ProductController().getProduct(0);
-			try {
-				ShoppingItemLine itemLine = shoppingCartCtrl.addProduct(customer.getShoppingCart(),
-						prod,
-						1);
-				tableModel.add(itemLine);
-			} catch (OutOfStockException e1) {
-				System.out.println("Out of stock");
-			}
+			
+			AddProductToCartUI frame = new AddProductToCartUI();
+			frame.setVisible(true);
+			
+//			Product prod = new ProductController().getProduct(0);
+//			try {
+//				ShoppingItemLine itemLine = shoppingCartCtrl.addProduct(customer.getShoppingCart(),
+//						prod,
+//						1);
+//				tableModel.add(itemLine);
+//			} catch (OutOfStockException e1) {
+//				System.out.println("Out of stock");
+//			}
 			
 			// Enable 'create quote button'
 			this.toggleCreateQuote();

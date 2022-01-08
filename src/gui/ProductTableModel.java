@@ -10,7 +10,6 @@ import javax.swing.table.AbstractTableModel;
 
 import controller.StockController;
 import model.Product;
-import model.QuoteItemLine;
 
 /**
  * @author Daniels Kanepe
@@ -20,7 +19,7 @@ public class ProductTableModel extends AbstractTableModel {
 	
 	StockController stockCtrl;
 
-	private static final long serialVersionUID = -2367962812967993282L;
+	private static final long serialVersionUID = -2367962412967993282L;
 	
 	public enum Column {
 		ID("ID"),
@@ -30,7 +29,8 @@ public class ProductTableModel extends AbstractTableModel {
 		MAX_STOCK("Max Stock"),
 		BUYABLE_STOCK("Buyable stock"),
 		LOANABLE_STOCK("Loanable stock"),
-		DATE_ADDED("Added");
+		DATE_ADDED("Added"),
+		ENABLED("Enabled");
 		
 		private String value;
 		
@@ -96,7 +96,9 @@ public class ProductTableModel extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        switch (columnIndex) {
+    	Column column = this.columns.get(columnIndex);
+        switch (column) {
+        case ENABLED: return Boolean.class;
             default: return String.class;
         }
     }
@@ -110,10 +112,11 @@ public class ProductTableModel extends AbstractTableModel {
 		case DATE_ADDED: return product.getDateAdded();
 		case DESCRIPTION: return product.getDescription();
 		case ID: return product.ID;
-		case LOANABLE_STOCK: return stockCtrl.getBuyableQuantityInStock(product);
+		case LOANABLE_STOCK: return stockCtrl.getLoanableQuantityInStock(product);
 		case MAX_STOCK: return product.getMinStock();
 		case MIN_STOCK: return product.getMinStock();
 		case NAME: return product.getName();
+		case ENABLED: return product.isEnabled();
 		default: return "Error retrieving column name";
     	}
     }
