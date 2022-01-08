@@ -113,7 +113,7 @@ public class ProductTableModel extends AbstractTableModel {
 		case DESCRIPTION: return product.getDescription();
 		case ID: return product.ID;
 		case LOANABLE_STOCK: return stockCtrl.getLoanableQuantityInStock(product);
-		case MAX_STOCK: return product.getMinStock();
+		case MAX_STOCK: return product.getMaxStock();
 		case MIN_STOCK: return product.getMinStock();
 		case NAME: return product.getName();
 		case ENABLED: return product.isEnabled();
