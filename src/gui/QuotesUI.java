@@ -12,11 +12,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JPanel;
 import controller.AuthenticationController;
+import controller.OrderController;
 import controller.QuoteController;
 import model.Customer;
 import model.Quote;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe
@@ -180,6 +183,21 @@ public class QuotesUI extends JDialog {
 	 * *******************************************************
 	 */
 	public void addEventHandlers() {
+		
+		btnPay.addActionListener(e -> {
+			if (!tableQuotes.getSelectionModel().isSelectionEmpty()) {
+				if (Messages.confirm(this, "Has the customer paid for the quote?")) {
+					Quote quote = quotesTableModel.getQuote(tableQuotes.getSelectedRow());
+					if (new OrderController().payForQuote(quote)) {
+						quotesTableModel.removeQuote(tableQuotes.getSelectedRow());
+						Messages.info(this, "Successfully created an order! Implement Redirection!");
+					} else {
+						Messages.error(this, "Could not create an order for this quote :(");
+					}
+				}
+
+			}
+		});
 		
 		// Create quote button -> redirect to shopping cart
 		btnCreateQuote.addActionListener(e -> {

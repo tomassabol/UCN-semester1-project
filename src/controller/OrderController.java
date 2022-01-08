@@ -43,7 +43,7 @@ public class OrderController {
 		return null;
 	}
 	
-	public void payForQuote(Quote quote) {
+	public boolean payForQuote(Quote quote) {
 		IFCustomer customer = quote.getCustomer();
 		IFEmployee employee = quote.getEmployee();
 		ArrayList<OrderLine> orderLines = new ArrayList<>();
@@ -52,6 +52,9 @@ public class OrderController {
 		}
 		Order order = new Order(PrimaryKey.getNextOrderID(), 
 				customer, employee, orderLines);
+		new QuoteController().removeQuote(quote);
+		return true;
+		// TODO: return false if not enough quantity (e.g. somebody else bought it), and put back in shelves
 	}
 
 	/**

@@ -107,5 +107,10 @@ public class QuotesTableModel extends AbstractTableModel {
         fireTableRowsInserted(row, row);
         return row;
     }
+    
+    public void removeQuote(int row) {
+    	this.quotes.remove(row);
+    	this.fireTableRowsDeleted(row, row);
+    }
 
 }
