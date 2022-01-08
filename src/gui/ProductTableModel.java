@@ -130,5 +130,10 @@ public class ProductTableModel extends AbstractTableModel {
     public Product getProduct(int row) {
     	return products.get(row);
     }
+    
+    public void remove(int row) {
+    	this.products.remove(row);
+    	this.fireTableRowsDeleted(row, row);
+    }
 
 }

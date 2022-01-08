@@ -34,6 +34,8 @@ import model.ShoppingItemLine;
 import javax.swing.ListSelectionModel;
 import gui.JLink.COLORS;
 import gui.ProductTableModel.Column;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe
@@ -201,16 +203,28 @@ public class CRUDProductsPanel extends JPanel {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
-		
+		// Table row selection
 		tableMain.getSelectionModel().addListSelectionListener(e -> {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
+				// Not selected
 				btnView.setEnabled(false);
 				btnEdit.setEnabled(true);
 				btnDisable.setEnabled(true);
 			} else {
+				// Selected
 				btnView.setEnabled(true);
 				btnEdit.setEnabled(true);
 				btnDisable.setEnabled(true);
+			}
+		});
+		
+		// Disable product
+		btnDisable.addActionListener(e -> {
+			int row = tableMain.getSelectedRow();
+			Product product = tableModel.getProduct(row);
+			if (Messages.confirm(this, String.format("Are you sure you wish to disable the product '%s'?", product.getName()))) {
+				productCtrl.setEnabled(product, false);
+				tableModel.remove(row);
 			}
 		});
 	}
