@@ -127,7 +127,7 @@ public class ProductTableModel extends AbstractTableModel {
         return false;
     }
     
-    public Product getItemLine(int row) {
+    public Product getProduct(int row) {
     	return products.get(row);
     }
 

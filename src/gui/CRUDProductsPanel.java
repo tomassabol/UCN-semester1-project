@@ -52,6 +52,11 @@ public class CRUDProductsPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -8329527605114016878L;
+	private JTable tableMain;
+	private ProductTableModel tableModel;
+	private JLink btnView;
+	private JLink btnEdit;
+	private JLink btnDisable;
 
 	/**
 	 * Create the dialog.
@@ -60,8 +65,6 @@ public class CRUDProductsPanel extends JPanel {
 		productCtrl = new ProductController();
 		setLayout(new BorderLayout(0, 0));
 		
-		// Table model
-		ProductTableModel tableModel;
 		if (shownColumns == Display.BUYABLE) {
 			tableModel = new ProductTableModel(productCtrl.getBuyableProducts());
 		} else if (shownColumns == Display.LOANABLE) {
@@ -103,7 +106,7 @@ public class CRUDProductsPanel extends JPanel {
 		JScrollPane scrollPanel = new JScrollPane();
 		add(scrollPanel, BorderLayout.CENTER);
 			// ***** Table *****
-			JTable tableMain = new JTable();
+			tableMain = new JTable();
 			tableMain.setModel(tableModel);
 			tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			scrollPanel.setViewportView(tableMain);
@@ -119,7 +122,7 @@ public class CRUDProductsPanel extends JPanel {
 		bottomPanel.setLayout(gbl_bottomPanel);
 			
 			// ***** View button *****
-			JLink btnView = new JLink("View", COLORS.GREEN);
+			btnView = new JLink("View", COLORS.GREEN);
 			GridBagConstraints gbc_btnView = new GridBagConstraints();
 			gbc_btnView.insets = new Insets(0, 0, 0, 5);
 			gbc_btnView.gridx = 1;
@@ -127,20 +130,25 @@ public class CRUDProductsPanel extends JPanel {
 			bottomPanel.add(btnView, gbc_btnView);
 			
 			// ***** Edit button *****
-			JLink btnEditQuantity = new JLink("Edit", COLORS.INDIGO);
-			GridBagConstraints gbc_btnEditQuantity = new GridBagConstraints();
-			gbc_btnEditQuantity.insets = new Insets(0, 0, 0, 5);
-			gbc_btnEditQuantity.gridx = 2;
-			gbc_btnEditQuantity.gridy = 0;
-			bottomPanel.add(btnEditQuantity, gbc_btnEditQuantity);
+			btnEdit = new JLink("Edit", COLORS.INDIGO);
+			GridBagConstraints gbc_btnEdit = new GridBagConstraints();
+			gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
+			gbc_btnEdit.gridx = 2;
+			gbc_btnEdit.gridy = 0;
+			bottomPanel.add(btnEdit, gbc_btnEdit);
+			
 			
 			// ***** Disable button *****
-			JLink btnRemove = new JLink("Disable", COLORS.RED);
-			GridBagConstraints gbc_btnRemove = new GridBagConstraints();
-			gbc_btnRemove.gridx = 3;
-			gbc_btnRemove.gridy = 0;
-			bottomPanel.add(btnRemove, gbc_btnRemove);
+			btnDisable = new JLink("Disable", COLORS.RED);
+			GridBagConstraints gbc_btnDisable = new GridBagConstraints();
+			gbc_btnDisable.gridx = 3;
+			gbc_btnDisable.gridy = 0;
+			bottomPanel.add(btnDisable, gbc_btnDisable);
 		
+		// By default: all selection buttons disabled
+		btnView.setEnabled(false);
+		btnEdit.setEnabled(false);
+		btnDisable.setEnabled(false);
 		
 		// Attach event handler
 		this.addEventHandlers();
@@ -152,7 +160,13 @@ public class CRUDProductsPanel extends JPanel {
 	 * *******************************************************
 	 */
 	
-
+	public JTable getTable() {
+		return tableMain;
+	}
+	
+	public ProductTableModel getTableModel() {
+		return tableModel;
+	}
 	
 	/*
 	 * *******************************************************
@@ -161,5 +175,16 @@ public class CRUDProductsPanel extends JPanel {
 	 */
 	private void addEventHandlers() {
 		
+		tableMain.getSelectionModel().addListSelectionListener(e -> {
+			if (tableMain.getSelectionModel().isSelectionEmpty()) {
+				btnView.setEnabled(false);
+				btnEdit.setEnabled(true);
+				btnDisable.setEnabled(true);
+			} else {
+				btnView.setEnabled(true);
+				btnEdit.setEnabled(true);
+				btnDisable.setEnabled(true);
+			}
+		});
 	}
 }

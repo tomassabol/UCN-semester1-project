@@ -11,13 +11,22 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.ProductController;
+import controller.StockController;
 import gui.CRUDProductsPanel.Display;
+import model.Product;
 
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe
@@ -28,14 +37,21 @@ public class AddProductToCartUI extends JDialog {
 	/**
 	 * 
 	 */
+	private StockController stockCtrl;
+	
 	private static final long serialVersionUID = 2968937670159813565L;
 	private final JPanel contentPane;
+	private CRUDProductsPanel productsPanel;
+	private JButton btnChoose;
+	private JSpinner spinnerQuantity;
 
 
 	/**
 	 * Create the dialog.
 	 */
 	public AddProductToCartUI() {
+		this.setTitle("Choose product to add to cart");
+		stockCtrl = new StockController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -44,40 +60,43 @@ public class AddProductToCartUI extends JDialog {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 420, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{210, 0, 25, 0};
+		gbl_contentPane.rowHeights = new int[]{210, 25, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		CRUDProductsPanel panel = new CRUDProductsPanel(Display.BUYABLE);
+		productsPanel = new CRUDProductsPanel(Display.BUYABLE);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridwidth = 3;
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		getContentPane().add(panel, gbc_panel);
+		getContentPane().add(productsPanel, gbc_panel);
 		
 		JLabel lblQuantity = new JLabel("Quantity");
 		GridBagConstraints gbc_lblQuantity = new GridBagConstraints();
 		gbc_lblQuantity.anchor = GridBagConstraints.EAST;
 		gbc_lblQuantity.insets = new Insets(0, 0, 0, 5);
 		gbc_lblQuantity.gridx = 0;
-		gbc_lblQuantity.gridy = 2;
+		gbc_lblQuantity.gridy = 1;
 		contentPane.add(lblQuantity, gbc_lblQuantity);
 		
-		JSpinner spinner = new JSpinner();
-		GridBagConstraints gbc_spinner = new GridBagConstraints();
-		gbc_spinner.anchor = GridBagConstraints.WEST;
-		gbc_spinner.insets = new Insets(0, 0, 0, 5);
-		gbc_spinner.gridx = 1;
-		gbc_spinner.gridy = 2;
-		contentPane.add(spinner, gbc_spinner);
+		spinnerQuantity = new JSpinner();
+		spinnerQuantity.setModel(new SpinnerNumberModel(new Integer(1), null, null, new Integer(1)));
+		spinnerQuantity.setEnabled(false);
+		GridBagConstraints gbc_spinnerQuantity = new GridBagConstraints();
+		gbc_spinnerQuantity.anchor = GridBagConstraints.WEST;
+		gbc_spinnerQuantity.insets = new Insets(0, 0, 0, 5);
+		gbc_spinnerQuantity.gridx = 1;
+		gbc_spinnerQuantity.gridy = 1;
+		contentPane.add(spinnerQuantity, gbc_spinnerQuantity);
 		
-		JButton btnChoose = new JButton("Choose");
+		btnChoose = new JButton("Choose...");
+		btnChoose.setEnabled(false);
 		GridBagConstraints gbc_btnChoose = new GridBagConstraints();
 		gbc_btnChoose.gridx = 2;
-		gbc_btnChoose.gridy = 2;
+		gbc_btnChoose.gridy = 1;
 		contentPane.add(btnChoose, gbc_btnChoose);
 		
 		// Attach event handlers
@@ -96,7 +115,27 @@ public class AddProductToCartUI extends JDialog {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
-	
+		productsPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
+			JTable table = productsPanel.getTable();
+			if (table.getSelectionModel().isSelectionEmpty()) {
+				spinnerQuantity.setEnabled(false);
+				btnChoose.setEnabled(false);
+			} else {
+				ProductTableModel tableModel = productsPanel.getTableModel();
+				Product product = tableModel.getProduct(table.getSelectedRow());
+				btnChoose.setEnabled(true);
+				spinnerQuantity.setEnabled(true);
+				spinnerQuantity.setModel(
+						new SpinnerNumberModel(1, 1, stockCtrl.getBuyableQuantityInStock(product), 1)
+				);
+			}
+			
+		});
+		
+		// Choose button
+		btnChoose.addActionListener(e -> {
+			
+		});
 	}
 	
 }
