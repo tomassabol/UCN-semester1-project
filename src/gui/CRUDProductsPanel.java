@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -32,6 +33,7 @@ import model.ShoppingItemLine;
 
 import javax.swing.ListSelectionModel;
 import gui.JLink.COLORS;
+import gui.ProductTableModel.Column;
 
 /**
  * @author Daniels Kanepe
@@ -39,7 +41,7 @@ import gui.JLink.COLORS;
  */
 public class CRUDProductsPanel extends JPanel {
 	
-	public enum Display {
+	public enum Mode {
 		BUYABLE,
 		LOANABLE,
 		ALL;
@@ -61,13 +63,20 @@ public class CRUDProductsPanel extends JPanel {
 	/**
 	 * Create the dialog.
 	 */
-	public CRUDProductsPanel(Display shownColumns) {
+	public CRUDProductsPanel(Mode shownColumns) {
 		productCtrl = new ProductController();
 		setLayout(new BorderLayout(0, 0));
 		
-		if (shownColumns == Display.BUYABLE) {
-			tableModel = new ProductTableModel(productCtrl.getBuyableProducts());
-		} else if (shownColumns == Display.LOANABLE) {
+		if (shownColumns == Mode.BUYABLE) {
+			tableModel = new ProductTableModel(productCtrl.getBuyableProducts(), 
+					Arrays.asList(
+							Column.ID,
+							Column.NAME,
+							Column.BUYABLE_STOCK,
+							Column.DESCRIPTION
+							)
+					);
+		} else if (shownColumns == Mode.LOANABLE) {
 			tableModel = new ProductTableModel(new ArrayList<>());
 		} else {
 			tableModel = new ProductTableModel(productCtrl.getProducts());

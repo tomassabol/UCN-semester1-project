@@ -13,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.ProductController;
 import controller.StockController;
-import gui.CRUDProductsPanel.Display;
+import gui.CRUDProductsPanel.Mode;
 import model.Product;
 
 import javax.swing.JLabel;
@@ -68,7 +68,7 @@ public class AddProductToCartUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		productsPanel = new CRUDProductsPanel(Display.BUYABLE);
+		productsPanel = new CRUDProductsPanel(Mode.BUYABLE);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridwidth = 3;
 		gbc_panel.fill = GridBagConstraints.BOTH;
