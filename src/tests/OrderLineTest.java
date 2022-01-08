@@ -3,7 +3,6 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import model.OrderLine;
 import model.Product;
-import model.SellingPrice;
 import model.TrackableItem;
 
 class OrderLineTest {

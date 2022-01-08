@@ -2,7 +2,6 @@ package gui;
 
 
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.swing.table.AbstractTableModel;
 
 import controller.QuoteController;
 import model.Quote;
-import model.QuoteItemLine;
 
 public class QuotesTableModel extends AbstractTableModel {
 	

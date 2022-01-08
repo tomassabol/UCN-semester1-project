@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import controller.SupplyController;
 import model.Product;
 import model.ProductContainer;
 import model.SupplyOffer;

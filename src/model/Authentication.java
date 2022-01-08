@@ -2,8 +2,6 @@ package model;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import controller.EmployeeController;
-
 public class Authentication {
 	
 	private IFEmployee loggedInUser;

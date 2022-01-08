@@ -1,7 +1,5 @@
 package controller;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import model.Authentication;
 import model.IFEmployee;
 

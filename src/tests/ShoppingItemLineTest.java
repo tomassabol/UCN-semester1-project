@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import model.Product;
 import model.ShoppingItemLine;
-import model.StockBatch;
 
 class ShoppingItemLineTest {
 private ShoppingItemLine shoppingItemLine1;

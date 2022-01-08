@@ -5,12 +5,10 @@ import java.time.LocalDate;
 
 import javax.swing.UIManager;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import controller.EmployeeController;
 import controller.GenerateDataController;
-import model.IFEmployee;
 
 public class App {
 

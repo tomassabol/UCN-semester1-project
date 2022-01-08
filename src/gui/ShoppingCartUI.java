@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JDialog;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -9,24 +7,13 @@ import javax.swing.JOptionPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 import controller.AuthenticationController;
 import controller.ProductController;
 import controller.QuoteController;
@@ -39,8 +26,6 @@ import model.Quote;
 import model.ShoppingItemLine;
 
 import javax.swing.ListSelectionModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class ShoppingCartUI extends JDialog {
 	private AuthenticationController auth;

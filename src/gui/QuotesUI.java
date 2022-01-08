@@ -1,42 +1,20 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JDialog;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import java.awt.Color;
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 import controller.AuthenticationController;
 import controller.QuoteController;
-import controller.ShoppingCartController;
 import model.Customer;
 import model.Quote;
-import model.ShoppingItemLine;
-
 import javax.swing.ListSelectionModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
 public class QuotesUI extends JDialog {
@@ -178,7 +156,7 @@ public class QuotesUI extends JDialog {
 			tableQuotes.setRowSelectionInterval(0, row);
 		}
 		
-		// Attach event handler
+		// Attach event handlers
 		this.addEventHandlers();
 	}
 
@@ -223,7 +201,7 @@ public class QuotesUI extends JDialog {
 				int selectedRow = tableQuotes.getSelectedRow();
 				Quote quote = quotesTableModel.getQuote(selectedRow);
 				itemTableModel = new QuotesItemTableModel(quote.getItemLines());
-				tableItems.setModel(itemTableModel);;
+				tableItems.setModel(itemTableModel);
 			}
 		});
 		

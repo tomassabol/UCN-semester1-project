@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import controller.ShoppingCartController;
 import model.ShoppingItemLine;
 
 public class ShoppingCartTableModel extends AbstractTableModel {

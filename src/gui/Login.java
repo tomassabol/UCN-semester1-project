@@ -4,9 +4,6 @@ package gui;
 import javax.swing.JFrame;
 
 
-import java.awt.Dimension;
-import javax.swing.JComboBox;
-import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 
 import javax.swing.AbstractAction;
@@ -15,26 +12,15 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 
 import controller.AuthenticationController;
-import controller.EmployeeController;
-import model.Authentication;
-import model.IFEmployee;
-
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Insets;
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.Rectangle;
-import java.awt.Component;
 import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
