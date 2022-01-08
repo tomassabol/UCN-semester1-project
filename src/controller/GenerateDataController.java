@@ -25,7 +25,7 @@ public class GenerateDataController {
         System.out.println("Generated customer data!");
         // Create products
         ProductController productCtrl = new ProductController();
-        Product product1 = productCtrl.createProduct("Shovel", "A big, steel shovel", 0, 100);
+        Product product1 = productCtrl.createProduct("Shovel", "A big, steel shovel", 0, 100, true);
         // add bulk discount to product
         BulkDiscount bulkDiscount = new BulkDiscount(2, 20);
         product1.addBulkDiscount(bulkDiscount);

@@ -33,13 +33,14 @@ public class Product {
 	 * 
 	 * @exception IllegalArgumentException Min stock cannot be below zero!
 	 */
-	public Product(int id, String name, String description, int minStock, int maxStock, LocalDateTime dateAdded) {
+	public Product(int id, String name, String description, int minStock, int maxStock, LocalDateTime dateAdded, boolean enabled) {
 		this.ID = id;
 		this.name = name;
 		this.description = description;
 		this.minStock = minStock;
 		this.maxStock = maxStock;
 		this.DATE_ADDED = dateAdded;
+		this.enabled = enabled;
 	}
 
 	// set/get name
