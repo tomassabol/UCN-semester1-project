@@ -44,6 +44,9 @@ public class AddProductToCartUI extends JDialog {
 	private CRUDProductsPanel productsPanel;
 	private JButton btnChoose;
 	private JSpinner spinnerQuantity;
+	
+	private Product selectedProduct = null;
+	private int selectedQuantity;
 
 
 	/**
@@ -107,7 +110,17 @@ public class AddProductToCartUI extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
-
+		public boolean isProductSelected() {
+			return selectedProduct != null;
+		}
+	
+		public Product getSelectedProduct() {
+			return selectedProduct;
+		}
+		
+		public int getSelectedQuantity() {
+			return selectedQuantity;
+		}
 	
 	/*
 	 * *******************************************************
@@ -134,7 +147,14 @@ public class AddProductToCartUI extends JDialog {
 		
 		// Choose button
 		btnChoose.addActionListener(e -> {
-			
+			JTable table = productsPanel.getTable();
+			if (!table.getSelectionModel().isSelectionEmpty()) {
+				ProductTableModel tableModel = productsPanel.getTableModel();
+				Product product = tableModel.getProduct(table.getSelectedRow());
+				selectedProduct = product;
+				selectedQuantity = (int) spinnerQuantity.getValue();
+				this.dispose();
+			}
 		});
 	}
 	

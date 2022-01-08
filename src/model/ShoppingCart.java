@@ -95,5 +95,21 @@ public class ShoppingCart {
 		return totalPrice;
 	}
 	
+	/**
+	 * Gets the quantity of a product in the shopping cart
+	 *
+	 * @param product the product
+	 * @return the quantity
+	 */
+	public int getQuantity(Product product) {
+		int quantity = 0;
+		for (ShoppingItemLine itemLine: this.getItemLines()) {
+			if (product == itemLine.PRODUCT) {
+				quantity += itemLine.getQuantity();
+			}
+		}
+		return quantity;
+	}
+	
 
 }

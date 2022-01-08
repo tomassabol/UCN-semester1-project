@@ -332,18 +332,25 @@ public class ShoppingCartUI extends JDialog {
 			AddProductToCartUI frame = new AddProductToCartUI();
 			frame.setVisible(true);
 			
-//			Product prod = new ProductController().getProduct(0);
-//			try {
-//				ShoppingItemLine itemLine = shoppingCartCtrl.addProduct(customer.getShoppingCart(),
-//						prod,
-//						1);
-//				tableModel.add(itemLine);
-//			} catch (OutOfStockException e1) {
-//				System.out.println("Out of stock");
-//			}
-			
-			// Enable 'create quote button'
-			this.toggleCreateQuote();
+			if (frame.isProductSelected()) {
+				Product product = frame.getSelectedProduct();
+				int quantity = frame.getSelectedQuantity();
+				try {
+					ShoppingItemLine itemLine = shoppingCartCtrl.addProduct(customer.getShoppingCart(),
+							product,
+							quantity);
+					tableModel.add(itemLine);
+				} catch (OutOfStockException e1) {
+					Messages.error(this, 
+							String.format("There are only %d items in stock. You were trying to add %d items while you already have %d in your shopping cart", 
+									stockCtrl.getBuyableQuantityInStock(product), 
+									quantity,
+									customer.getShoppingCart().getQuantity(product)));
+				}
+				
+				// Enable 'create quote button'
+				this.toggleCreateQuote();
+			}
 		});
 		
 		// Clear button: Clear the shopping cart
