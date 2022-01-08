@@ -9,6 +9,10 @@ import javax.swing.table.AbstractTableModel;
 
 import model.QuoteItemLine;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class QuotesItemTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -2367962812967993282L;

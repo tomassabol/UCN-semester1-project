@@ -27,6 +27,10 @@ import model.ShoppingItemLine;
 
 import javax.swing.ListSelectionModel;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class ShoppingCartUI extends JDialog {
 	private AuthenticationController auth;
 	

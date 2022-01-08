@@ -4,6 +4,10 @@ import java.awt.Component;
 
 import javax.swing.JOptionPane;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class Messages {
 
 	private Messages() {

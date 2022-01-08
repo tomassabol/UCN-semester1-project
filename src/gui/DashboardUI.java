@@ -19,6 +19,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class DashboardUI extends JFrame {
 	
 	private Customer customer = null;

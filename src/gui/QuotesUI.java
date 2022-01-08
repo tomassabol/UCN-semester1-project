@@ -18,6 +18,10 @@ import model.Quote;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class QuotesUI extends JDialog {
 	private AuthenticationController auth;
 	private Customer customer;

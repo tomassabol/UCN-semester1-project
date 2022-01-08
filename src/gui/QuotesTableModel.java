@@ -11,6 +11,10 @@ import javax.swing.table.AbstractTableModel;
 import controller.QuoteController;
 import model.Quote;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class QuotesTableModel extends AbstractTableModel {
 	
 	private final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";

@@ -10,6 +10,10 @@ import com.formdev.flatlaf.FlatLightLaf;
 import controller.EmployeeController;
 import controller.GenerateDataController;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class App {
 
 	/**

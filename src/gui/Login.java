@@ -23,6 +23,10 @@ import java.awt.Rectangle;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;

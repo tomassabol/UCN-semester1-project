@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"gui","c":"QuotesUI","l":"addEventHandlers()"},{"p":"gui","c":"QuotesUI","l":"QuotesUI(AuthenticationController, Customer)","url":"%3Cinit%3E(controller.AuthenticationController,model.Customer)"}]

@@ -8,6 +8,10 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class JLink extends JButton {
 	
 	public static final Color INDIGO_COLOR = new Color(101, 88, 245);
