@@ -13,6 +13,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import java.awt.event.ActionListener;
@@ -38,10 +40,10 @@ public class DashboardUI extends JFrame {
 	private JPanel sellPaneBottomPanel;
 	private JTextField txtCustomer;
 	private JButton btnChooseCustomer;
-	private JLabel lblTest;
+	private JLabel lblSell;
 	private JButton btnSellItems;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
+	private JLabel lblQuotes;
+	private JLabel lblOrder;
 	private JButton btnViewQuotes;
 	private JButton btnViewOrders;
 	private JPanel loanPanel;
@@ -147,29 +149,35 @@ public class DashboardUI extends JFrame {
 		gbl_sellPaneBottomPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		sellPaneBottomPanel.setLayout(gbl_sellPaneBottomPanel);
 		
-		lblTest = new JLabel("IMG");
-		GridBagConstraints gbc_lblTest = new GridBagConstraints();
-		gbc_lblTest.fill = GridBagConstraints.VERTICAL;
-		gbc_lblTest.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTest.gridx = 0;
-		gbc_lblTest.gridy = 0;
-		sellPaneBottomPanel.add(lblTest, gbc_lblTest);
+		lblSell = new JLabel();
+		ImageIcon sellIcon = new ImageIcon("images/coins.png", "");
+		lblSell.setIcon(sellIcon);
+		GridBagConstraints gbc_lblSell = new GridBagConstraints();
+		gbc_lblSell.fill = GridBagConstraints.VERTICAL;
+		gbc_lblSell.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSell.gridx = 0;
+		gbc_lblSell.gridy = 0;
+		sellPaneBottomPanel.add(lblSell, gbc_lblSell);
 		
-		lblNewLabel = new JLabel("IMG");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 0;
-		sellPaneBottomPanel.add(lblNewLabel, gbc_lblNewLabel);
+		lblQuotes = new JLabel("");
+		ImageIcon quoteIcon = new ImageIcon("images/quotes.png", "");
+		lblQuotes.setIcon(quoteIcon);
+		GridBagConstraints gbc_lblQuotes = new GridBagConstraints();
+		gbc_lblQuotes.fill = GridBagConstraints.VERTICAL;
+		gbc_lblQuotes.insets = new Insets(0, 0, 5, 5);
+		gbc_lblQuotes.gridx = 1;
+		gbc_lblQuotes.gridy = 0;
+		sellPaneBottomPanel.add(lblQuotes, gbc_lblQuotes);
 		
-		lblNewLabel_1 = new JLabel("IMG");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.fill = GridBagConstraints.VERTICAL;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_1.gridx = 2;
-		gbc_lblNewLabel_1.gridy = 0;
-		sellPaneBottomPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		lblOrder = new JLabel();
+		ImageIcon orderIcon = new ImageIcon("images/order.png");
+		lblOrder.setIcon(orderIcon);
+		GridBagConstraints gbc_lblOrder = new GridBagConstraints();
+		gbc_lblOrder.fill = GridBagConstraints.VERTICAL;
+		gbc_lblOrder.insets = new Insets(0, 0, 5, 0);
+		gbc_lblOrder.gridx = 2;
+		gbc_lblOrder.gridy = 0;
+		sellPaneBottomPanel.add(lblOrder, gbc_lblOrder);
 		
 		
 		btnSellItems = new JButton("Sell items");
