@@ -8,44 +8,43 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import controller.OrderController;
 import controller.QuoteController;
+import model.Order;
 import model.Quote;
 
 /**
  * @author Daniels Kanepe
  *
  */
-public class QuotesTableModel extends AbstractTableModel {
+public class OrdersTableModel extends AbstractTableModel {
 	
 	private final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	private static final long serialVersionUID = -2367962812967993282L;
 
 	protected static final String COLUMN_NAMES[] = {
-        "ID", "Created", "subtotal", "customer type discount", "Price"
+        "ID", "Created", "subtotal", "customer type discount", "Price", "status"
     };
 
-    private List<Quote> quotes;
-    private QuoteController quoteCtrl;
+    private List<Order> orders;
+    private OrderController orderCtrl;
 
     
-
     /**
-     * Instantiates a new quotes table model.
-     *
-     * @param quotes the quotes
+     * Constructor
      */
-    public QuotesTableModel(List<Quote> quotes) {
-    	this.quoteCtrl = new QuoteController();
+    public OrdersTableModel(List<Order> orders) {
+    	this.orderCtrl = new OrderController();
         // Copying due to accidental mutation (theoretically all fields are constants),
     	//but also consistent order
-        this.quotes = new ArrayList<Quote>(quotes);
+        this.orders = new ArrayList<Order>(orders);
     }
     
 
     @Override
     public int getRowCount() {
-        return quotes.size();
+        return orders.size();
     }
 
     @Override
@@ -67,15 +66,16 @@ public class QuotesTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    	Quote quote = quotes.get(rowIndex);
+    	Order order = orders.get(rowIndex);
         switch (columnIndex) {
-            case 0: return "#" + quote.ID;
-            case 1: return quote.getCreationDate().format(DateTimeFormatter.ofPattern(DATETIME_FORMAT));
-            case 2: return String.format("%.2f DKK", quote.getSubtotal());
+            case 0: return "#" + order.ID;
+            case 1: return order.getCreationDate().format(DateTimeFormatter.ofPattern(DATETIME_FORMAT));
+            case 2: return String.format("%.2f DKK", order.getSubtotal());
             case 3: return String.format("%s: -%d%%", 
-            		quote.getCUSTOMER_TYPE(),
-            		quote.getCUSTOMER_TYPE_DISCOUNT_PERCENTAGE());
-            case 4: return String.format("%.2f DKK", quote.getTotalPrice());
+            		order.getCustomerType(),
+            		order.getCustomerTypeDiscountPercentage());
+            case 4: return String.format("%.2f DKK", order.getTotalPrice());
+            case 5: return order.getStatus();
             default: return null;
         }
     }
@@ -87,30 +87,30 @@ public class QuotesTableModel extends AbstractTableModel {
     }
     
     /**
-     * Gets the quote object by row
+     * Gets the order object by row
      *
      * @param row the row
-     * @return the quote
+     * @return the order
      */
-    public Quote getQuote(int row) {
-    	return quotes.get(row);
+    public Order getOrder(int row) {
+    	return orders.get(row);
     }
     
     /**
-     * Adds a quote to the table.
+     * Adds a order to the table.
      *
-     * @param quote the quote
-     * @return the row that the quote was inserted in
+     * @param order the order
+     * @return the row that the order was inserted in
      */
-    public int addQuote(Quote quote) {
-    	int row = quotes.size();
-        this.quotes.add(quote);
+    public int addOrder(Order order) {
+    	int row = orders.size();
+        this.orders.add(order);
         fireTableRowsInserted(row, row);
         return row;
     }
     
-    public void removeQuote(int row) {
-    	this.quotes.remove(row);
+    public void removeOrder(int row) {
+    	this.orders.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }
 

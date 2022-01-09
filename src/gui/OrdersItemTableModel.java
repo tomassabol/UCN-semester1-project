@@ -7,13 +7,14 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import model.OrderLine;
 import model.QuoteItemLine;
 
 /**
  * @author Daniels Kanepe
  *
  */
-public class QuotesItemTableModel extends AbstractTableModel {
+public class OrdersItemTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -2367962812967993282L;
 
@@ -21,14 +22,15 @@ public class QuotesItemTableModel extends AbstractTableModel {
         "ID", "Product", "Price", "Quantity", "Subtotal", "Bulk discount", "Total", "Description"
     };
 
-    private List<QuoteItemLine> itemLines;
+    private List<OrderLine> itemLines;
+
 
     /**
-     * Instantiates a new shopping cart table model.
+     * Instantiates a new orders item table model.
      *
      * @param itemLines the item lines
      */
-    public QuotesItemTableModel(List<QuoteItemLine> itemLines) {
+    public OrdersItemTableModel(List<OrderLine> itemLines) {
         // Prevent possible external mutation
         this.itemLines = new ArrayList<>(itemLines);
     }
@@ -57,7 +59,7 @@ public class QuotesItemTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    	QuoteItemLine itemLine = itemLines.get(rowIndex);
+    	OrderLine itemLine = itemLines.get(rowIndex);
         switch (columnIndex) {
             case 0: return "#" + itemLine.getPRODUCT().ID;
             case 1: return itemLine.getPRODUCT().getName();
@@ -81,12 +83,12 @@ public class QuotesItemTableModel extends AbstractTableModel {
     }
     
     /**
-     * Gets the quote item line object from a row
+     * Gets the order item line object from a row
      *
      * @param row the row
      * @return the item line
      */
-    public QuoteItemLine getItemLine(int row) {
+    public OrderLine getItemLine(int row) {
     	return itemLines.get(row);
     }
 

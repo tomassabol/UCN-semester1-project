@@ -284,6 +284,10 @@ public class DashboardUI extends JFrame {
 				if (frame.isSubmitPressed()) {
 					QuotesUI quoteFrame = new QuotesUI(auth, customer);
 					quoteFrame.setVisible(true);
+					if (quoteFrame.isSubmitPressed()) {
+						OrdersUI orderFrame = new OrdersUI(auth, customer);
+						orderFrame.setVisible(true);
+					}
 				}
 			}
 
@@ -295,8 +299,23 @@ public class DashboardUI extends JFrame {
 			} else {
 				QuotesUI frame = new QuotesUI(auth, customer);
 				frame.setVisible(true);
+				if (frame.isSubmitPressed()) {
+					OrdersUI orderFrame = new OrdersUI(auth, customer);
+					orderFrame.setVisible(true);
+				}
 			}
 		});
+		
+		btnViewOrders.addActionListener(e -> {
+			if (this.customer == null) {
+				Messages.info(this, "Please choose a customer", "Choose a customer");
+			} else {
+				OrdersUI orderFrame = new OrdersUI(auth, customer);
+				orderFrame.setVisible(true);
+			}
+		});
+		
+		
 		
 		
 		

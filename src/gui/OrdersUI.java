@@ -13,50 +13,46 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JPanel;
 import controller.AuthenticationController;
 import controller.OrderController;
-import controller.QuoteController;
 import model.Customer;
 import model.Order;
-import model.Quote;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe
  *
  */
-public class QuotesUI extends JDialog {
+public class OrdersUI extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8989354887857964136L;
 	private AuthenticationController auth;
 	private Customer customer;
 	private JPanel contentPane;
 	private JTable table;
-	private QuotesTableModel quotesTableModel;
-	private QuotesItemTableModel itemTableModel;
+	private OrdersTableModel ordersTableModel;
+	private OrdersItemTableModel itemTableModel;
 	
-	QuoteController quoteCtrl;
+	OrderController orderCtrl;
 	private JTextField txtSearch;
-	private JButton btnCreateQuote;
-	private JButton btnPay;
-	private JTable tableQuotes;
+	private JButton btnCreateOrder;
+	private JTable tableOrders;
 	private JTable tableItems;
-	
-	private boolean isSubmitPressed = false;
-	private Order createdOrder = null;
 	
 
 	/**
 	 * Create the dialog.
 	 */
-	public QuotesUI(AuthenticationController auth, Customer customer) {
+	public OrdersUI(AuthenticationController auth, Customer customer) {
 		this.auth = auth;
-		setTitle("Quotes");
+		setTitle("Orders");
 		if (customer == null) {
 			throw new IllegalArgumentException("Customer cannot be null!");
 		}
 		this.customer = customer;
 		
-		quoteCtrl = new QuoteController();
+		orderCtrl = new OrderController();
 		
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -66,9 +62,9 @@ public class QuotesUI extends JDialog {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{451, 0};
-		gbl_contentPane.rowHeights = new int[]{50, 84, 0, 49, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{50, 84, 0, 49, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		// ***** TOP PANEL *****
@@ -88,7 +84,7 @@ public class QuotesUI extends JDialog {
 		topPanel.setLayout(gbl_topPanel);
 		// ***** Title *****
 		JLabel lblTitle = new JLabel(
-				String.format("%s %s's quotes", 
+				String.format("%s %s's orders", 
 						customer.getFirstName(), 
 						customer.getLastName()
 				)
@@ -110,12 +106,12 @@ public class QuotesUI extends JDialog {
 		topPanel.add(txtSearch, gbc_txtSearch);
 		txtSearch.setColumns(10);
 		
-		btnCreateQuote = new JButton("Create quote");
-		GridBagConstraints gbc_btnCreateQuote = new GridBagConstraints();
-		gbc_btnCreateQuote.insets = new Insets(0, 0, 5, 0);
-		gbc_btnCreateQuote.gridx = 2;
-		gbc_btnCreateQuote.gridy = 1;
-		topPanel.add(btnCreateQuote, gbc_btnCreateQuote);
+		btnCreateOrder = new JButton("Create order");
+		GridBagConstraints gbc_btnCreateOrder = new GridBagConstraints();
+		gbc_btnCreateOrder.insets = new Insets(0, 0, 5, 0);
+		gbc_btnCreateOrder.gridx = 2;
+		gbc_btnCreateOrder.gridy = 1;
+		topPanel.add(btnCreateOrder, gbc_btnCreateOrder);
 		
 		
 		JScrollPane scrollPanel = new JScrollPane();
@@ -126,22 +122,21 @@ public class QuotesUI extends JDialog {
 		gbc_scrollPanel.gridy = 1;
 		contentPane.add(scrollPanel, gbc_scrollPanel);
 		
-		tableQuotes = new JTable();
-		tableQuotes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		quotesTableModel = new QuotesTableModel(quoteCtrl.getQuotes(customer));
-		tableQuotes.setModel(quotesTableModel);
-		scrollPanel.setViewportView(tableQuotes);
+		tableOrders = new JTable();
+		tableOrders.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ordersTableModel = new OrdersTableModel(orderCtrl.getOrders(customer));
+		tableOrders.setModel(ordersTableModel);
+		scrollPanel.setViewportView(tableOrders);
 		
-		JLabel lblItemsInQuote = new JLabel("Items in quote");
-		GridBagConstraints gbc_lblItemsInQuote = new GridBagConstraints();
-		gbc_lblItemsInQuote.insets = new Insets(0, 0, 5, 0);
-		gbc_lblItemsInQuote.gridx = 0;
-		gbc_lblItemsInQuote.gridy = 2;
-		contentPane.add(lblItemsInQuote, gbc_lblItemsInQuote);
+		JLabel lblItemsInOrder = new JLabel("Items in Order");
+		GridBagConstraints gbc_lblItemsInOrder = new GridBagConstraints();
+		gbc_lblItemsInOrder.insets = new Insets(0, 0, 5, 0);
+		gbc_lblItemsInOrder.gridx = 0;
+		gbc_lblItemsInOrder.gridy = 2;
+		contentPane.add(lblItemsInOrder, gbc_lblItemsInOrder);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 3;
@@ -152,22 +147,14 @@ public class QuotesUI extends JDialog {
 		tableItems.setRowSelectionAllowed(false);
 		tableItems.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(tableItems);
-		
-		btnPay = new JButton("Pay");
-		btnPay.setEnabled(false);
-		GridBagConstraints gbc_btnPay = new GridBagConstraints();
-		gbc_btnPay.anchor = GridBagConstraints.EAST;
-		gbc_btnPay.gridx = 0;
-		gbc_btnPay.gridy = 4;
-		contentPane.add(btnPay, gbc_btnPay);
 	
 		// Attach event handlers
 		this.addEventHandlers();
 		
-		// Automatically select latest quote, if any exist
-		int row = quotesTableModel.getRowCount() - 1;
+		// Automatically select latest order, if any exist
+		int row = ordersTableModel.getRowCount() - 1;
 		if (row >= 0) {
-			tableQuotes.setRowSelectionInterval(0, row);
+			tableOrders.setRowSelectionInterval(0, row);
 		}
 	}
 
@@ -178,14 +165,6 @@ public class QuotesUI extends JDialog {
 	 * *******************************************************
 	 */
 	
-	public boolean isSubmitPressed() {
-		return this.isSubmitPressed;
-	}
-	
-	public Order getCreatedOrder() {
-		return this.createdOrder;
-	}
-	
 	
 	
 	/*
@@ -195,54 +174,33 @@ public class QuotesUI extends JDialog {
 	 */
 	public void addEventHandlers() {
 		
-		btnPay.addActionListener(e -> {
-			if (!tableQuotes.getSelectionModel().isSelectionEmpty()) {
-				if (Messages.confirm(this, "Has the customer paid for the quote?")) {
-					this.isSubmitPressed = true;
-					Quote quote = quotesTableModel.getQuote(tableQuotes.getSelectedRow());
-					Order order = new OrderController().payForQuote(quote);
-					if (order != null) {
-						quotesTableModel.removeQuote(tableQuotes.getSelectedRow());
-						this.createdOrder = order;
-						this.dispose();
-					} else {
-						Messages.error(this, "Could not create an order for this quote :(");
-					}
-				}
-
-			}
-		});
-		
-		// Create quote button -> redirect to shopping cart
-		btnCreateQuote.addActionListener(e -> {
-			ShoppingCartUI frame = new ShoppingCartUI(auth, customer);
+		// Create order button -> redirect to Orders
+		btnCreateOrder.addActionListener(e -> {
+			QuotesUI frame = new QuotesUI(auth, customer);
 			frame.setVisible(true);
-			if (frame.isSubmitPressed()) {
-				int row = quotesTableModel.addQuote(frame.getCreatedQuote());
-				tableQuotes.setRowSelectionInterval(0, row);
+			if (frame.isSubmitPressed() && frame.getCreatedOrder() != null) {
+				int row = ordersTableModel.addOrder(frame.getCreatedOrder());
+				tableOrders.setRowSelectionInterval(0, row);
 			}
 		});
 		
-		// If a quote is selected
-		tableQuotes.getSelectionModel().addListSelectionListener(e -> {
-			if (tableQuotes.getSelectionModel().isSelectionEmpty()) {
+		// If an order is selected
+		tableOrders.getSelectionModel().addListSelectionListener(e -> {
+			if (tableOrders.getSelectionModel().isSelectionEmpty()) {
 				// ***** NOT SELECTED *****
 				
-				// Disable pay button
-				btnPay.setEnabled(false);
+
 				
 				// clear item lines
 				tableItems.setModel(new DefaultTableModel());
 			} else {
 				// ***** SELECTED *****
 				
-				// Enable pay button
-				btnPay.setEnabled(true);
 				
 				// Show the item lines
-				int selectedRow = tableQuotes.getSelectedRow();
-				Quote quote = quotesTableModel.getQuote(selectedRow);
-				itemTableModel = new QuotesItemTableModel(quote.getItemLines());
+				int selectedRow = tableOrders.getSelectedRow();
+				Order order = ordersTableModel.getOrder(selectedRow);
+				itemTableModel = new OrdersItemTableModel(order.getItemLines());
 				tableItems.setModel(itemTableModel);
 			}
 		});

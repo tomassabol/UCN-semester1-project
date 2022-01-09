@@ -21,6 +21,8 @@ public class Order {
 	public final ArrayList<OrderLine> ITEM_LINES;
 	public final String CUSTOMER_TYPE;
 	public final int CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
+	public final BigDecimal SUBTOTAL_PRICE;
+	public final BigDecimal TOTAL_PRICE;
 	
 	/*
 	 * Constructor
@@ -35,6 +37,8 @@ public class Order {
 		this.CREATION_DATE = LocalDateTime.now();
 		this.CUSTOMER_TYPE = customer.getCustomerType().getName();
 		this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE = customer.getCustomerType().getDiscountPercentage();
+		this.SUBTOTAL_PRICE = this.calculateSubtotal();
+		this.TOTAL_PRICE = this.calculateTotalPrice();
 		
 	}
 	public IFEmployee getEmployee() {
@@ -51,17 +55,17 @@ public class Order {
 		this.status = status;
 	}
 	
-	public LocalDateTime getCREATION_DATE() {
+	public LocalDateTime getCreationDate() {
 		return CREATION_DATE;
 	}
 	public int getID() {
 		return ID;
 	}
 	
-	public String getCUSTOMER_TYPE() {
+	public String getCustomerType() {
 		return CUSTOMER_TYPE;
 	}
-	public int getCUSTOMER_TYPE_DISCOUNT_PERCENTAGE() {
+	public int getCustomerTypeDiscountPercentage() {
 		return CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
 	}
 	public List<OrderLine> getItemLines() {
@@ -69,20 +73,45 @@ public class Order {
 	}
 	
 	/**
-	 * Calculate the total price with bulk discounts & customer type discount applied
+	 * Calculate the total price
+	 * includes: Bulk discounts & customer type discount
 	 *
 	 * @return BigDecimal the calculated price
 	 */
-	public BigDecimal calculateTotalPriceWithDiscountsApplied() {
+	private BigDecimal calculateTotalPrice() {
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		// Count total price with bulk discounts applied
 		for(OrderLine itemLine: this.ITEM_LINES) {
-			totalPrice = totalPrice.add(itemLine.getTotalPriceWithBulkDiscount());
+			totalPrice = totalPrice.add(itemLine.getFixedPriceWithBulkDiscount());
 		}
 		// Apply customer type discount
 		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100.0));
 		
 		return totalPrice;
+	}
+	
+	/**
+	 * Calculate the sub-total price
+	 * includes: Bulk discounts
+	 * Does NOT include: customer type discount
+	 *
+	 * @return BigDecimal the calculated price
+	 */
+	private BigDecimal calculateSubtotal() {
+		BigDecimal totalPrice = BigDecimal.ZERO;
+		// Count total price with bulk discounts applied
+		for(OrderLine itemLine: this.ITEM_LINES) {
+			totalPrice = totalPrice.add(itemLine.getFixedPriceWithBulkDiscount());
+		}
+		return totalPrice;
+	}
+	
+	public BigDecimal getTotalPrice() {
+		return this.TOTAL_PRICE;
+	}
+	
+	public BigDecimal getSubtotal() {
+		return this.SUBTOTAL_PRICE;
 	}
 
 }

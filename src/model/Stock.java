@@ -235,16 +235,16 @@ public class Stock {
     		while (stockBatchIt.hasNext()) {
     			StockBatch stockBatch = stockBatchIt.next();
     			
-    			// remove untrackable, buable
+    			// remove untrackable, buyable
     			if (removedTotalquantity < quantity) {
-    				stockBatch.popUntrackableBuyableItems(quantity - removedTotalquantity);
+    				removedUntrackableItemQuantity += stockBatch.popUntrackableBuyableItems(quantity - removedTotalquantity);
     				// update the removed total quantity
     				removedTotalquantity = removedUntrackableItemQuantity + removedTrackableBuyableItems.size();
     			}
     			
     			// remove trackable, buyable
     			if (removedTotalquantity < quantity) {
-    				stockBatch.popTrackableBuyableItems(quantity - removedTotalquantity);
+    				removedTrackableBuyableItems.addAll(stockBatch.popTrackableBuyableItems(quantity - removedTotalquantity));
     				// update the removed total quantity
     				removedTotalquantity = removedUntrackableItemQuantity + removedTrackableBuyableItems.size();
     			}
@@ -257,10 +257,11 @@ public class Stock {
 
     	}
     	
+    	
+    	
     	if (removedTotalquantity <= 0) {
     		return null;
     	}
-    	
     	// Create an orderline from the removed stock items and return it
     	return new OrderLine(product, removedUntrackableItemQuantity, 
     			removedTrackableBuyableItems, product.getLatestSellingPrice(), 

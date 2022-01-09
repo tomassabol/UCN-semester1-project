@@ -89,8 +89,4 @@ public class OrderContainer {
     	return customerOrders;
     }
 
-    public BigDecimal calculateTotalPriceWithDiscountsApplied(Order order) {
-        return order.calculateTotalPriceWithDiscountsApplied();
-    }
-
 }

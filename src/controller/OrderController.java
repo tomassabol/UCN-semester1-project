@@ -43,18 +43,21 @@ public class OrderController {
 		return null;
 	}
 	
-	public boolean payForQuote(Quote quote) {
+	public Order payForQuote(Quote quote) {
+		// TODO: Don't allow paying if not in stock
 		IFCustomer customer = quote.getCustomer();
 		IFEmployee employee = quote.getEmployee();
 		ArrayList<OrderLine> orderLines = new ArrayList<>();
 		for (model.QuoteItemLine itemLine: quote.getItemLines()) {
+			
 			orderLines.add(Stock.getInstance().stockToOrderlineBuyable(itemLine.getPRODUCT(), itemLine.getQuantity()));
 		}
 		Order order = new Order(PrimaryKey.getNextOrderID(), 
 				customer, employee, orderLines);
 		new QuoteController().removeQuote(quote);
-		return true;
-		// TODO: return false if not enough quantity (e.g. somebody else bought it), and put back in shelves
+		OrderContainer.getInstance().addOrder(order);
+		return order;
+		// TODO: return null if items < than requested.
 	}
 
 	/**

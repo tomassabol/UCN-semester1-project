@@ -39,7 +39,6 @@ public class OrderLine {
 		
 		// An orderline must contain at least one item
 		if (trackableItems.size() == 0 && untrackableItemQuantity == 0) {
-			System.out.println(product);
 			throw new IllegalArgumentException("An orderline must contain at least one item!");
 		}
 		
@@ -54,28 +53,27 @@ public class OrderLine {
 	
 	
 	/**
-	 * Calculates the total price for all items in this ItemLine
-	 * without applying the bulk discount (if exists)
+	 * Gets the fixed price without bulk discount applied.
 	 *
-	 * @return the price as BigDecimal
+	 * @return the fixed price without bulk discount
 	 */
-	public BigDecimal getTotalPriceWithoutBulkDiscount() {
-
-		return this.FIXED_PRODUCT_PRICE.multiply(BigDecimal.valueOf(UNTRACKABLE_ITEM_QUANTITY));
+	public BigDecimal getFixedPriceWithoutBulkDiscount() {
+		return FIXED_PRODUCT_PRICE.multiply(BigDecimal.valueOf(this.getQuantity()));
 	}
 	
 	/**
-	 * Gets the total price with bulk discount for all items in this ItemLine
-	 * If no bulk discount is set, normal price is returned
+	 * Gets the fixed price with bulk discount applied (if bulk discount applies)
 	 *
-	 * @return the total price with bulk discount
+	 * @return the fixed price with bulk discount applied
 	 */
-	public BigDecimal getTotalPriceWithBulkDiscount() {
-		BigDecimal rawPrice = this.getTotalPriceWithoutBulkDiscount();
+	public BigDecimal getFixedPriceWithBulkDiscount() {
+		System.out.println("Price: " + this.getFixedPriceWithoutBulkDiscount());
+		BigDecimal rawPrice = this.getFixedPriceWithoutBulkDiscount();
 		if (this.getBulkDiscount() == null) {
 			return rawPrice;
 		}
-		return rawPrice.multiply(BigDecimal.valueOf((100 - FIXED_BULK_DISCOUNT.getDiscountPercentage() / 100.0)));
+		return rawPrice.multiply(BigDecimal.valueOf(((100 - this.FIXED_BULK_DISCOUNT.getDiscountPercentage()) / 100.0)));
+	
 	}
 
 	/**
