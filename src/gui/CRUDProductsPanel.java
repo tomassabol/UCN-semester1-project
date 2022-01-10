@@ -227,5 +227,21 @@ public class CRUDProductsPanel extends JPanel {
 				tableModel.remove(row);
 			}
 		});
+		
+		// View product
+		btnView.addActionListener(e -> {
+			int row = tableMain.getSelectedRow();
+			Product product = tableModel.getProduct(row);
+			ProductUI frame = new ProductUI(product, true);
+			frame.setVisible(true);
+		});
+		
+		// Edit product
+		btnEdit.addActionListener(e -> {
+			int row = tableMain.getSelectedRow();
+			Product product = tableModel.getProduct(row);
+			ProductUI frame = new ProductUI(product, false);
+			frame.setVisible(true);
+		});
 	}
 }
