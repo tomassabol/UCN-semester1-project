@@ -41,7 +41,7 @@ public class AddProductToCartUI extends JDialog {
 	
 	private static final long serialVersionUID = 2968937670159813565L;
 	private final JPanel contentPane;
-	private CRUDCustomersPanel productsPanel;
+	private CRUDProductsPanel productsPanel;
 	private JButton btnChoose;
 	private JSpinner spinnerQuantity;
 	
@@ -68,7 +68,7 @@ public class AddProductToCartUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		productsPanel = new CRUDCustomersPanel();
+		productsPanel = new CRUDProductsPanel(Mode.BUYABLE);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridwidth = 3;
 		gbc_panel.fill = GridBagConstraints.BOTH;
@@ -128,8 +128,38 @@ public class AddProductToCartUI extends JDialog {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
+		productsPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
+			JTable table = productsPanel.getTable();
+			if (table.getSelectionModel().isSelectionEmpty()) {
+				spinnerQuantity.setEnabled(false);
+				btnChoose.setEnabled(false);
+			} else {
+				ProductTableModel tableModel = productsPanel.getTableModel();
+				Product product = tableModel.getProduct(table.getSelectedRow());
+				// Enable only if buyable quantity > 0
+				int buyableQuantity = stockCtrl.getBuyableQuantityInStock(product);
+				if (buyableQuantity > 0) {
+					btnChoose.setEnabled(true);
+					spinnerQuantity.setEnabled(true);
+					spinnerQuantity.setModel(
+							new SpinnerNumberModel(1, 1, buyableQuantity, 1)
+					);
+				}
+			}
+			
+		});
+		
+		// Choose button
+		btnChoose.addActionListener(e -> {
+			JTable table = productsPanel.getTable();
+			if (!table.getSelectionModel().isSelectionEmpty()) {
+				ProductTableModel tableModel = productsPanel.getTableModel();
+				Product product = tableModel.getProduct(table.getSelectedRow());
+				selectedProduct = product;
+				selectedQuantity = (int) spinnerQuantity.getValue();
+				this.dispose();
+			}
+		});
 	}
 	
 }
-
-
