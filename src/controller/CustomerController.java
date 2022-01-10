@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Customer;
@@ -13,9 +14,6 @@ public class CustomerController {
 
 	private CustomerTypeContainer customerTypeContainer;
 
-	public CustomerController() {
-		customerTypeContainer = CustomerTypeContainer.getInstance();
-	}
 	
 	/**
 	 * Creates the customer

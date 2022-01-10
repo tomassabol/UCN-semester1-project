@@ -265,12 +265,16 @@ public class DashboardUI extends JFrame {
 		
 		// ***** Choose customer button *****
 		btnChooseCustomer.addActionListener(e -> {
-			customer = new CustomerController().findCustomerByID(0);
-			if (customer != null) {
-				txtCustomer.setText(String.format("(%s) %s %s", 
-						customer.ID,
-						customer.getFirstName(),
-						customer.getLastName()));
+			ChooseCustomerUI frame = new ChooseCustomerUI();
+			frame.setVisible(true);
+			if (frame.isCustomerSelected()) {
+				customer = frame.getSelectedCustomer();
+				if (customer != null) {
+					txtCustomer.setText(String.format("(%s) %s %s", 
+							customer.ID,
+							customer.getFirstName(),
+							customer.getLastName()));
+				}
 			}
 		});
 		
