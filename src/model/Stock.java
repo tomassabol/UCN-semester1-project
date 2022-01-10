@@ -253,6 +253,7 @@ public class Stock {
     			if (stockBatch.getTotalQuantity() == 0) {
     				stockBatchIt.remove();
     			}
+    			System.out.println();
     		}
 
     	}

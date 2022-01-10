@@ -234,7 +234,9 @@ public class StockBatch {
     		this.setUntrackableItemQuantity(this.untrackableItemQuantity - quantity);
     		return quantity;
     	} else {
-    		return this.untrackableItemQuantity;
+    		quantity = this.untrackableItemQuantity;
+    		this.setUntrackableItemQuantity(0);
+    		return quantity;
     	}
     }
     

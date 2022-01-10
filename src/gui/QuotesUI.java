@@ -35,6 +35,8 @@ public class QuotesUI extends JDialog {
 	private QuotesItemTableModel itemTableModel;
 	
 	QuoteController quoteCtrl;
+	OrderController orderCtrl;
+	
 	private JTextField txtSearch;
 	private JButton btnCreateQuote;
 	private JButton btnPay;
@@ -57,6 +59,7 @@ public class QuotesUI extends JDialog {
 		this.customer = customer;
 		
 		quoteCtrl = new QuoteController();
+		orderCtrl = new OrderController();
 		
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -200,7 +203,7 @@ public class QuotesUI extends JDialog {
 				if (Messages.confirm(this, "Has the customer paid for the quote?")) {
 					this.isSubmitPressed = true;
 					Quote quote = quotesTableModel.getQuote(tableQuotes.getSelectedRow());
-					Order order = new OrderController().payForQuote(quote);
+					Order order = orderCtrl.payForQuote(quote);
 					if (order != null) {
 						quotesTableModel.removeQuote(tableQuotes.getSelectedRow());
 						this.createdOrder = order;
