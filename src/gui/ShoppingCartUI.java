@@ -346,10 +346,12 @@ public class ShoppingCartUI extends JDialog {
 		// toggle bottom table buttons depending on whether a table row is selected
 		tableMain.getSelectionModel().addListSelectionListener(e -> {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
+				// NOT SELECTED
 				btnView.setEnabled(false);
 				btnEditQuantity.setEnabled(false);
 				btnRemove.setEnabled(false);
 			} else {
+				// SELECTED
 				btnView.setEnabled(true);
 				btnEditQuantity.setEnabled(true);
 				btnRemove.setEnabled(true);

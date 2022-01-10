@@ -136,11 +136,15 @@ public class AddProductToCartUI extends JDialog {
 			} else {
 				ProductTableModel tableModel = productsPanel.getTableModel();
 				Product product = tableModel.getProduct(table.getSelectedRow());
-				btnChoose.setEnabled(true);
-				spinnerQuantity.setEnabled(true);
-				spinnerQuantity.setModel(
-						new SpinnerNumberModel(1, 1, stockCtrl.getBuyableQuantityInStock(product), 1)
-				);
+				// Enable only if buyable quantity > 0
+				int buyableQuantity = stockCtrl.getBuyableQuantityInStock(product);
+				if (buyableQuantity > 0) {
+					btnChoose.setEnabled(true);
+					spinnerQuantity.setEnabled(true);
+					spinnerQuantity.setModel(
+							new SpinnerNumberModel(1, 1, buyableQuantity, 1)
+					);
+				}
 			}
 			
 		});
