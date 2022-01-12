@@ -75,6 +75,12 @@ public class JLink extends JButton {
 		this(text, COLORS.INDIGO);
 	}
 	
+	@Override
+	public void setText(String text) {
+		super.setText(text);
+		this.text = text;
+	}
+	
 
 
 }
