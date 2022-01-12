@@ -190,7 +190,7 @@ public class ProductUI extends JDialog {
 		gbc_lblSelling.gridy = 7;
 		contentPane.add(lblSelling, gbc_lblSelling);
 		
-		txtSelling = new JTextField(Objects.toString(product.getLatestSellingPrice()(), ""));
+		txtSelling = new JTextField(Objects.toString(product.getLatestSellingPrice(), ""));
 		txtSelling.setColumns(10);
 		GridBagConstraints gbc_txtSelling = new GridBagConstraints();
 		gbc_txtSelling.insets = new Insets(0, 0, 5, 5);
