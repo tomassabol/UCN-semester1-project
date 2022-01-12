@@ -213,9 +213,17 @@ public class CRUDProductsPanel extends JPanel {
 				btnDisable.setEnabled(false);
 			} else {
 				// Selected
+				int row = tableMain.getSelectedRow();
+				Product product = tableModel.getProduct(row);
 				btnView.setEnabled(true);
 				btnEdit.setEnabled(true);
 				btnDisable.setEnabled(true);
+				if (!product.isEnabled()) {
+					btnDisable.setText("Enable");
+				} else {
+					btnDisable.setText("Disable");
+				}
+
 			}
 		});
 		
@@ -226,6 +234,7 @@ public class CRUDProductsPanel extends JPanel {
 			if (Messages.confirm(this, String.format("Are you sure you wish to disable the product '%s'?", product.getName()))) {
 				productCtrl.setEnabled(product, false);
 				tableModel.fireTableRowsUpdated(row, row);
+				tableMain.getSelectionModel().clearSelection();
 			}
 		});
 		
