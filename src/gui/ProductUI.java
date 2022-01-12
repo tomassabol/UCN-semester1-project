@@ -141,7 +141,7 @@ public class ProductUI extends JDialog {
 		gbc_lblMin.gridy = 4;
 		contentPane.add(lblMin, gbc_lblMin);
 		
-		txtMin = new JTextField(product.getMinStock());
+		txtMin = new JTextField(Objects.toString(product.getMinStock()));
 		txtMin.setColumns(10);
 		GridBagConstraints gbc_txtMin = new GridBagConstraints();
 		gbc_txtMin.insets = new Insets(0, 0, 5, 5);
@@ -158,7 +158,7 @@ public class ProductUI extends JDialog {
 		gbc_lblMax.gridy = 4;
 		contentPane.add(lblMax, gbc_lblMax);
 		
-		txtMax = new JTextField(product.getMaxStock());
+		txtMax = new JTextField(Objects.toString(product.getMaxStock()));
 		txtMax.setColumns(10);
 		GridBagConstraints gbc_txtMax = new GridBagConstraints();
 		gbc_txtMax.insets = new Insets(0, 0, 5, 0);
