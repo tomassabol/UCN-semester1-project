@@ -232,7 +232,7 @@ public class CRUDProductsPanel extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			Product product = tableModel.getProduct(row);
-			ProductUI frame = new ProductUI(product, true);
+			ProductUI frame = new ProductUI(product, ProductUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 		
@@ -240,8 +240,9 @@ public class CRUDProductsPanel extends JPanel {
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			Product product = tableModel.getProduct(row);
-			ProductUI frame = new ProductUI(product, false);
+			ProductUI frame = new ProductUI(product, ProductUI.Mode.EDIT);
 			frame.setVisible(true);
+			tableModel.fireTableRowsUpdated(row, row);
 		});
 	}
 }
