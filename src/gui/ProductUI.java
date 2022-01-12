@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JDialog;
@@ -225,20 +226,20 @@ public class ProductUI extends JDialog {
 		gbc_btnOk.gridy = 9;
 		contentPane.add(btnOk, gbc_btnOk);
 		
-		// Hide 'Update' button if in view mode
-		if (mode == Mode.VIEW) {
-			btnOk.setVisible(false);
+		switch (mode) {
+			case VIEW:
+				// Set title
+				setTitle("View product - " + product.getName());
+				// Hide 'Update' button if in view mode
+				btnOk.setVisible(false);
+				break;
+			case EDIT: 
+				// Set title
+				setTitle("Edit product");
+				break;
 		}
-
 		
-		// Check if the page is for viewing or editing
-		if(view == true) {
-			view();
-			setTitle("View product");
-		}else {
-			edit();
-			setTitle("Edit product");
-		}
+		
 		
 		addEventHandlers();
 	}
@@ -250,27 +251,24 @@ public class ProductUI extends JDialog {
 	 */
 	
 	
-	// Makes the textfields uneditable
-	private void view() {
-		txtId.setEnabled(false);
-		txtName.setEditable(false);
-		txtDescription.setEditable(false);
-		txtMin.setEditable(false);
-		txtMax.setEditable(false);
-		txtSelling.setEditable(false);
-		txtLoaning.setEditable(false);
+	// Makes the text fields uneditable
+	private void disableFields() {
+		for (Component c : this.getContentPane().getComponents()) {
+			   if (c instanceof JTextField) {
+			      c.setEnabled(false);
+			   }
+			}
 	}
 	
 	
-	// Makes the textfields editable
-	private void edit() {
+	// Makes the text fields editable except ID field
+	private void enableFields() {
+		for (Component c : this.getContentPane().getComponents()) {
+			   if (c instanceof JTextField) {
+			      c.setEnabled(true);
+			   }
+			}
 		txtId.setEnabled(false);
-		txtName.setEditable(true);
-		txtDescription.setEditable(true);
-		txtMin.setEditable(true);
-		txtMax.setEditable(true);
-		txtSelling.setEditable(true);
-		txtLoaning.setEditable(true);
 	}
 	
 	// Currently you cannot change selling and loaning price to null, but you can save it if they are null by default
