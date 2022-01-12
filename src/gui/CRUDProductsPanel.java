@@ -208,8 +208,8 @@ public class CRUDProductsPanel extends JPanel {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				// Not selected
 				btnView.setEnabled(false);
-				btnEdit.setEnabled(true);
-				btnDisable.setEnabled(true);
+				btnEdit.setEnabled(false);
+				btnDisable.setEnabled(false);
 			} else {
 				// Selected
 				btnView.setEnabled(true);
