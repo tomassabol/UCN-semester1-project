@@ -25,6 +25,7 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Objects;
 import java.awt.event.ActionEvent;
 
 public class ProductUI extends JDialog {
@@ -189,8 +190,7 @@ public class ProductUI extends JDialog {
 		gbc_lblSelling.gridy = 7;
 		contentPane.add(lblSelling, gbc_lblSelling);
 		
-		txtSelling = new JTextField();
-		txtSelling.setText(String.valueOf(product.getLatestSellingPrice()));
+		txtSelling = new JTextField(Objects.toString(product.getLatestSellingPrice()(), ""));
 		txtSelling.setColumns(10);
 		GridBagConstraints gbc_txtSelling = new GridBagConstraints();
 		gbc_txtSelling.insets = new Insets(0, 0, 5, 5);
@@ -208,8 +208,7 @@ public class ProductUI extends JDialog {
 		contentPane.add(lblLoaning, gbc_lblLoaning);
 		
 		
-		txtLoaning = new JTextField();
-		txtLoaning.setText(loaningPrice);
+		txtLoaning = new JTextField(Objects.toString(product.getLatestLoaningPrice(), ""));
 		txtLoaning.setColumns(10);
 		GridBagConstraints gbc_txtLoaning = new GridBagConstraints();
 		gbc_txtLoaning.insets = new Insets(0, 0, 5, 0);
