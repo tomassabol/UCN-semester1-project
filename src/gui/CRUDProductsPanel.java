@@ -75,7 +75,8 @@ public class CRUDProductsPanel extends JPanel {
 							Column.ID,
 							Column.NAME,
 							Column.BUYABLE_STOCK,
-							Column.DESCRIPTION
+							Column.DESCRIPTION,
+							Column.ENABLED
 							)
 					);
 		} else if (shownColumns == Mode.LOANABLE) {
@@ -208,13 +209,21 @@ public class CRUDProductsPanel extends JPanel {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				// Not selected
 				btnView.setEnabled(false);
-				btnEdit.setEnabled(true);
-				btnDisable.setEnabled(true);
+				btnEdit.setEnabled(false);
+				btnDisable.setEnabled(false);
 			} else {
 				// Selected
+				int row = tableMain.getSelectedRow();
+				Product product = tableModel.getProduct(row);
 				btnView.setEnabled(true);
 				btnEdit.setEnabled(true);
 				btnDisable.setEnabled(true);
+				if (product.isEnabled()) {
+					btnDisable.setText("Disable");
+				} else {
+					btnDisable.setText("Enable");
+				}
+
 			}
 		});
 		
@@ -222,9 +231,13 @@ public class CRUDProductsPanel extends JPanel {
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			Product product = tableModel.getProduct(row);
-			if (Messages.confirm(this, String.format("Are you sure you wish to disable the product '%s'?", product.getName()))) {
-				productCtrl.setEnabled(product, false);
-				tableModel.remove(row);
+			String keyword = product.isEnabled() ? "disable" : "enable";
+			if (Messages.confirm(this, String.format("Are you sure you wish to %s the product '%s'?",
+					keyword,
+					product.getName()))) {
+				productCtrl.setEnabled(product, !product.isEnabled());
+				tableModel.fireTableRowsUpdated(row, row);
+				tableMain.getSelectionModel().clearSelection();
 			}
 		});
 		
