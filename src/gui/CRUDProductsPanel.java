@@ -75,7 +75,8 @@ public class CRUDProductsPanel extends JPanel {
 							Column.ID,
 							Column.NAME,
 							Column.BUYABLE_STOCK,
-							Column.DESCRIPTION
+							Column.DESCRIPTION,
+							Column.ENABLED
 							)
 					);
 		} else if (shownColumns == Mode.LOANABLE) {
@@ -224,7 +225,7 @@ public class CRUDProductsPanel extends JPanel {
 			Product product = tableModel.getProduct(row);
 			if (Messages.confirm(this, String.format("Are you sure you wish to disable the product '%s'?", product.getName()))) {
 				productCtrl.setEnabled(product, false);
-				tableModel.remove(row);
+				tableModel.fireTableRowsUpdated(row, row);
 			}
 		});
 		
