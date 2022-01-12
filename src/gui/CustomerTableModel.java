@@ -19,16 +19,15 @@ import model.Quote;
  */
 public class CustomerTableModel extends AbstractTableModel {
 	
-	private final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
 	private static final long serialVersionUID = -2367962812947993282L;
 
-	protected static final String COLUMN_NAMES[] = {
+	protected static final String[] COLUMN_NAMES = {
         "ID", "First name", "Last name", "Address", "Mobile", "Type", "Birth"
     };
 
     private List<Customer> customers;
-    private CustomerController customerCtrl;
 
     
     /**
@@ -37,9 +36,8 @@ public class CustomerTableModel extends AbstractTableModel {
      * @param customers the customers
      */
     public CustomerTableModel(List<Customer> customers) {
-    	this.customerCtrl = new CustomerController();
         // Prevent possible mutation
-        this.customers = new ArrayList<Customer>(customers);
+        this.customers = new ArrayList<>(customers);
     }
     
 
@@ -75,7 +73,7 @@ public class CustomerTableModel extends AbstractTableModel {
             case 3: return customer.getAddress();
             case 4: return customer.getMobile();
             case 5: return customer.getCustomerType();
-            case 6: return customer.getBirthDate().format(DateTimeFormatter.ofPattern(DATETIME_FORMAT));
+            case 6: return customer.getBirthDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
             default: return "Error retrieving column name";
         }
     }
@@ -92,7 +90,7 @@ public class CustomerTableModel extends AbstractTableModel {
      * @param row the row
      * @return the customer
      */
-    public Customer getCustomer(int row) {
+    public Customer getObj(int row) {
     	return customers.get(row);
     }
     
@@ -103,7 +101,7 @@ public class CustomerTableModel extends AbstractTableModel {
      * @param customer the customer
      * @return the int
      */
-    public int addCustomer(Customer customer) {
+    public int add(Customer customer) {
     	int row = customers.size();
         this.customers.add(customer);
         fireTableRowsInserted(row, row);
@@ -115,7 +113,7 @@ public class CustomerTableModel extends AbstractTableModel {
      *
      * @param row the row
      */
-    public void removeCustomer(int row) {
+    public void remove(int row) {
     	this.customers.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }

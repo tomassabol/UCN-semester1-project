@@ -163,5 +163,3 @@ public class AddProductToCartUI extends JDialog {
 	}
 	
 }
-
-
