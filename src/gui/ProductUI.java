@@ -27,6 +27,11 @@ import java.math.BigInteger;
 import java.awt.event.ActionEvent;
 
 public class ProductUI extends JDialog {
+	
+	public enum Mode {
+		VIEW,
+		EDIT
+	}
 
 	private JPanel contentPane;
 	private JTextField txtId;
@@ -40,13 +45,18 @@ public class ProductUI extends JDialog {
 	private Product product;
 	private String loaningPrice;
 	private boolean view;
+	ProductController productCtrl;
+	private Mode mode;
 
 	/**
 	 * Create the frame.
 	 */
-	public ProductUI(Product product, boolean view) {
-		this.view = view;
+	public ProductUI(Product product, Mode mode) {
+		this.mode = mode;
 		this.product = product;
+		
+		productCtrl = new ProductController();
+		
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 330);
@@ -115,7 +125,7 @@ public class ProductUI extends JDialog {
 		gbc_txtName.gridy = 2;
 		contentPane.add(txtName, gbc_txtName);
 		
-		JLabel lblDescription = new JLabel("Description:");
+		JLabel lblDescription = new JLabel("Description");
 		GridBagConstraints gbc_lblDescription = new GridBagConstraints();
 		gbc_lblDescription.anchor = GridBagConstraints.WEST;
 		gbc_lblDescription.insets = new Insets(0, 0, 5, 5);
@@ -178,7 +188,6 @@ public class ProductUI extends JDialog {
 		gbc_lblSelling.gridy = 7;
 		contentPane.add(lblSelling, gbc_lblSelling);
 		
-		// For selling price make a button, where you can check previous selling prices as well
 		txtSelling = new JTextField();
 		txtSelling.setText(String.valueOf(product.getLatestSellingPrice()));
 		txtSelling.setColumns(10);
@@ -208,12 +217,16 @@ public class ProductUI extends JDialog {
 		gbc_txtLoaning.gridy = 8;
 		contentPane.add(txtLoaning, gbc_txtLoaning);
 		
-		btnOk = new JButton("Ok");
-		GridBagConstraints gbc_btnOk = new GridBagConstraints();
-		gbc_btnOk.anchor = GridBagConstraints.EAST;
-		gbc_btnOk.gridx = 1;
-		gbc_btnOk.gridy = 9;
-		contentPane.add(btnOk, gbc_btnOk);
+		// Add edit button if edit mode
+		if (mode == Mode.EDIT) {
+			btnOk = new JButton("Ok");
+			GridBagConstraints gbc_btnOk = new GridBagConstraints();
+			gbc_btnOk.anchor = GridBagConstraints.EAST;
+			gbc_btnOk.gridx = 1;
+			gbc_btnOk.gridy = 9;
+			contentPane.add(btnOk, gbc_btnOk);
+		}
+
 		
 		// Check if the page is for viewing or editing
 		if(view == true) {
@@ -259,7 +272,7 @@ public class ProductUI extends JDialog {
 	
 	// Currently you cannot change selling and loaning price to null, but you can save it if they are null by default
 	private void save() {
-		ProductController productCtrl = new ProductController();
+		
 		productCtrl.updateProductName(this.product, txtName.getText());
 		productCtrl.updateProductDescription(this.product, txtDescription.getText());
 		
@@ -282,9 +295,9 @@ public class ProductUI extends JDialog {
 				return;
 			}
 			sellingPrice = BigDecimal.valueOf(sell);
-			if(checkChange(sellingPrice)) {
-				productCtrl.createSellingPrice(sellingPrice, this.product);
-			}
+//			if(checkChange(sellingPrice)) {
+//				productCtrl.createSellingPrice(sellingPrice, this.product);
+//			}
 		}
 		
 		//Check loaning price
@@ -301,9 +314,9 @@ public class ProductUI extends JDialog {
 				return;
 			}
 			loaningPrice = BigDecimal.valueOf(loan);
-			if(checkChange(loaningPrice)) {
-				productCtrl.createLoaningPrice(loaningPrice, this.product);
-			}
+//			if(checkChange(loaningPrice)) {
+//				productCtrl.createLoaningPrice(loaningPrice, this.product);
+//			}
 		}
 		
 		//Throw error if minimum and maximum aren't numbers
@@ -330,12 +343,6 @@ public class ProductUI extends JDialog {
 		} else {
 			productCtrl.updateProductMaxStock(this.product, max);
 		}
-	}
-	
-	private boolean checkChange(BigDecimal price) {
-		boolean result = true;
-		if(price == this.product.getLatestSellingPrice() || price == this.product.getLatestLoaningPrice()) result = false;
-		return result;
 	}
 	
 	/*
