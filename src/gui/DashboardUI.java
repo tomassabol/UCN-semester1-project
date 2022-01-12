@@ -48,6 +48,10 @@ public class DashboardUI extends JFrame {
 	private JButton btnViewOrders;
 	private JPanel loanPanel;
 	private JPanel statisticsPanel;
+	private JButton btnEmployee;
+	private JButton btnCustomer;
+	private JLabel lblEmployee;
+	private JLabel lblCustomer;
 
 	/**
 	 * Create the frame.
@@ -232,7 +236,45 @@ public class DashboardUI extends JFrame {
 	 */
 	public void initPeopleTab() {
 		JPanel peoplePanel = new JPanel();
+		peoplePanel.setBorder(new EmptyBorder(5, 0, 0, 0));
 		tabsPane.addTab("People", null, peoplePanel, null);
+		GridBagLayout gbl_peoplePanel = new GridBagLayout();
+		gbl_peoplePanel.columnWidths = new int[]{0, 0, 0};
+		gbl_peoplePanel.rowHeights = new int[]{0, 0, 0};
+		gbl_peoplePanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_peoplePanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		peoplePanel.setLayout(gbl_peoplePanel);
+		
+		lblEmployee = new JLabel();
+		ImageIcon employeeIcon = new ImageIcon("images/employee.png", "");
+		lblEmployee.setIcon(employeeIcon);
+		GridBagConstraints gbc_lblEmployee = new GridBagConstraints();
+		gbc_lblEmployee.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEmployee.gridx = 0;
+		gbc_lblEmployee.gridy = 0;
+		peoplePanel.add(lblEmployee, gbc_lblEmployee);
+		
+		lblCustomer = new JLabel();
+		ImageIcon customerIcon = new ImageIcon("images/customer.png", "");
+		lblCustomer.setIcon(customerIcon);
+		GridBagConstraints gbc_lblCustomer = new GridBagConstraints();
+		gbc_lblCustomer.insets = new Insets(0, 0, 5, 0);
+		gbc_lblCustomer.gridx = 1;
+		gbc_lblCustomer.gridy = 0;
+		peoplePanel.add(lblCustomer, gbc_lblCustomer);
+		
+		btnEmployee = new JButton("Employees");
+		GridBagConstraints gbc_btnEmployee = new GridBagConstraints();
+		gbc_btnEmployee.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEmployee.gridx = 0;
+		gbc_btnEmployee.gridy = 1;
+		peoplePanel.add(btnEmployee, gbc_btnEmployee);
+		
+		btnCustomer = new JButton("Customers");
+		GridBagConstraints gbc_btnCustomer = new GridBagConstraints();
+		gbc_btnCustomer.gridx = 1;
+		gbc_btnCustomer.gridy = 1;
+		peoplePanel.add(btnCustomer, gbc_btnCustomer);
 	}
 	
 	/*
@@ -317,6 +359,22 @@ public class DashboardUI extends JFrame {
 				OrdersUI orderFrame = new OrdersUI(auth, customer);
 				orderFrame.setVisible(true);
 			}
+		});
+		
+		///////////////////////////////////////////////////////
+		////////////////     People tab     //////////////////
+		/////////////////////////////////////////////////////
+		
+		// ***** Customer button *****
+		btnCustomer.addActionListener(e -> {
+			ChooseCustomerUI frame = new ChooseCustomerUI();
+			frame.setVisible(true);
+		});
+		
+		// we need to create CRUDEmployeesPanel
+		btnEmployee.addActionListener(e -> {
+			ChooseEmployeeUI frame = new ChooseEmployeeUI();
+			frame.setVisible(true);
 		});
 		
 		
