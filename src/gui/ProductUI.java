@@ -271,81 +271,6 @@ public class ProductUI extends JDialog {
 		txtId.setEnabled(false);
 	}
 	
-	// Currently you cannot change selling and loaning price to null, but you can save it if they are null by default
-	private void save() {
-		
-		productCtrl.updateProductName(this.product, txtName.getText());
-		productCtrl.updateProductDescription(this.product, txtDescription.getText());
-		
-		BigDecimal sellingPrice;
-		BigDecimal loaningPrice;
-		int min;
-		int max;
-		
-		//Check selling price
-		if(txtSelling.getText().equals("null")) {
-		//	if (choosenProduct.getLatestSellingPrice() != null) {
-		//		productCtrl.createSellingPrice(null, choosenProduct);
-		//	}
-		}else {
-			int sell;
-			try {
-				sell = Integer.parseInt(txtSelling.getText());
-			} catch (NumberFormatException e1) {
-				Messages.error(this, "The entered quantity must be a positive, whole number!");
-				return;
-			}
-			sellingPrice = BigDecimal.valueOf(sell);
-//			if(checkChange(sellingPrice)) {
-//				productCtrl.createSellingPrice(sellingPrice, this.product);
-//			}
-		}
-		
-		//Check loaning price
-		if(txtLoaning.getText().equals("null")) {
-			//if (choosenProduct.getLatestLoaningPrice() != null) {
-			//	productCtrl.createLoaningPrice(null, choosenProduct);
-			//}
-		}else {
-			int loan;
-			try {
-				loan = Integer.parseInt(txtLoaning.getText());
-			} catch (NumberFormatException e1) {
-				Messages.error(this, "The entered quantity must be a positive, whole number!");
-				return;
-			}
-			loaningPrice = BigDecimal.valueOf(loan);
-//			if(checkChange(loaningPrice)) {
-//				productCtrl.createLoaningPrice(loaningPrice, this.product);
-//			}
-		}
-		
-		//Throw error if minimum and maximum aren't numbers
-		try {
-			min = Integer.parseInt(txtMin.getText());
-			max = Integer.parseInt(txtMax.getText());
-		} catch (NumberFormatException e1) {
-			Messages.error(this, "The entered quantities must be positive, whole numbers!");
-			return;
-		}
-		
-		// Throw error if minimum < 0
-		if (min < 0) {
-			Messages.error(this, "The entered quantity at minimum must be a positive number!");
-			return;
-		} else {
-			productCtrl.updateProductMinStock(this.product, min);
-		}
-		
-		//Throw error if max < min
-		if (max < min) {
-			Messages.error(this, "The entered quantity at maximum must be a more than the minimum!");
-			return;
-		} else {
-			productCtrl.updateProductMaxStock(this.product, max);
-		}
-	}
-	
 	/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
@@ -353,12 +278,82 @@ public class ProductUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 		
-		// Save the changes or dispose the window
+		// 'update' button: Update the product
 		btnOk.addActionListener(e -> {
-			if(view != true) {
-				if (Messages.confirm(ProductUI.this, "Are you sure you want to save the changes?", "Save")) save();
+			if (Messages.confirm(ProductUI.this, "Are you sure you want to save the changes?", "Save")) {
+				productCtrl.updateProductName(this.product, txtName.getText());
+				productCtrl.updateProductDescription(this.product, txtDescription.getText());
+				
+				BigDecimal sellingPrice;
+				BigDecimal loaningPrice;
+				int min;
+				int max;
+				
+				//Check selling price
+				if(txtSelling.getText().equals("null")) {
+				//	if (choosenProduct.getLatestSellingPrice() != null) {
+				//		productCtrl.createSellingPrice(null, choosenProduct);
+				//	}
+				}else {
+					int sell;
+					try {
+						sell = Integer.parseInt(txtSelling.getText());
+					} catch (NumberFormatException e1) {
+						Messages.error(this, "The entered quantity must be a positive, whole number!");
+						return;
+					}
+					sellingPrice = BigDecimal.valueOf(sell);
+//					if(checkChange(sellingPrice)) {
+//						productCtrl.createSellingPrice(sellingPrice, this.product);
+//					}
+				}
+				
+				//Check loaning price
+				if(txtLoaning.getText().equals("null")) {
+					//if (choosenProduct.getLatestLoaningPrice() != null) {
+					//	productCtrl.createLoaningPrice(null, choosenProduct);
+					//}
+				}else {
+					int loan;
+					try {
+						loan = Integer.parseInt(txtLoaning.getText());
+					} catch (NumberFormatException e1) {
+						Messages.error(this, "The entered quantity must be a positive, whole number!");
+						return;
+					}
+					loaningPrice = BigDecimal.valueOf(loan);
+//					if(checkChange(loaningPrice)) {
+//						productCtrl.createLoaningPrice(loaningPrice, this.product);
+//					}
+				}
+				
+				//Throw error if minimum and maximum aren't numbers
+				try {
+					min = Integer.parseInt(txtMin.getText());
+					max = Integer.parseInt(txtMax.getText());
+				} catch (NumberFormatException e1) {
+					Messages.error(this, "The entered quantities must be positive, whole numbers!");
+					return;
+				}
+				
+				// Throw error if minimum < 0
+				if (min < 0) {
+					Messages.error(this, "The entered quantity at minimum must be a positive number!");
+					return;
+				} else {
+					productCtrl.updateProductMinStock(this.product, min);
+				}
+				
+				//Throw error if max < min
+				if (max < min) {
+					Messages.error(this, "The entered quantity at maximum must be a more than the minimum!");
+					return;
+				} else {
+					productCtrl.updateProductMaxStock(this.product, max);
+				}
 			}
-			dispose();
+			// Dispose of the window
+			this.dispose();
 		});
 	}
 }
