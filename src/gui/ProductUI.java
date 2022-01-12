@@ -217,14 +217,17 @@ public class ProductUI extends JDialog {
 		gbc_txtLoaning.gridy = 8;
 		contentPane.add(txtLoaning, gbc_txtLoaning);
 		
-		// Add edit button if edit mode
-		if (mode == Mode.EDIT) {
-			btnOk = new JButton("Ok");
-			GridBagConstraints gbc_btnOk = new GridBagConstraints();
-			gbc_btnOk.anchor = GridBagConstraints.EAST;
-			gbc_btnOk.gridx = 1;
-			gbc_btnOk.gridy = 9;
-			contentPane.add(btnOk, gbc_btnOk);
+		
+		btnOk = new JButton("Update");
+		GridBagConstraints gbc_btnOk = new GridBagConstraints();
+		gbc_btnOk.anchor = GridBagConstraints.EAST;
+		gbc_btnOk.gridx = 1;
+		gbc_btnOk.gridy = 9;
+		contentPane.add(btnOk, gbc_btnOk);
+		
+		// Hide 'Update' button if in view mode
+		if (mode == Mode.VIEW) {
+			btnOk.setVisible(false);
 		}
 
 		
