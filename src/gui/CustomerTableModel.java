@@ -8,10 +8,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import controller.CustomerController;
-import controller.QuoteController;
 import model.Customer;
-import model.Quote;
 
 /**
  * @author Daniels Kanepe

@@ -211,5 +211,22 @@ public class CRUDCustomersPanel extends JPanel {
 				tableModel.remove(row);
 			}
 		});
+
+		// View Customer
+		btnView.addActionListener(e -> {
+			int row = tableMain.getSelectedRow();
+			Customer customer = tableModel.getObj(row);
+			CustomerUI frame = new CustomerUI(customer, CustomerUI.Mode.VIEW);
+			frame.setVisible(true);
+		});
+
+		// Edit product
+		btnEdit.addActionListener(e -> {
+			int row = tableMain.getSelectedRow();
+			Customer customer = tableModel.getObj(row);
+			CustomerUI frame = new CustomerUI(customer, CustomerUI.Mode.EDIT);
+			frame.setVisible(true);
+			tableModel.fireTableRowsUpdated(row, row);
+		});
 	}
 }
