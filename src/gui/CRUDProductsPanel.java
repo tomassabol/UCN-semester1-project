@@ -242,6 +242,7 @@ public class CRUDProductsPanel extends JPanel {
 			Product product = tableModel.getProduct(row);
 			ProductUI frame = new ProductUI(product, false);
 			frame.setVisible(true);
+			tableModel.fireTableRowsUpdated(row, row);
 		});
 	}
 }

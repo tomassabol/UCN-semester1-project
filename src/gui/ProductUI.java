@@ -37,7 +37,7 @@ public class ProductUI extends JDialog {
 	private JTextField txtSelling;
 	private JButton btnOk;
 	private JTextArea txtDescription;
-	private Product choosenProduct;
+	private Product product;
 	private String loaningPrice;
 	private boolean view;
 
@@ -46,7 +46,7 @@ public class ProductUI extends JDialog {
 	 */
 	public ProductUI(Product product, boolean view) {
 		this.view = view;
-		choosenProduct = product;
+		this.product = product;
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 330);
@@ -260,8 +260,8 @@ public class ProductUI extends JDialog {
 	// Currently you cannot change selling and loaning price to null, but you can save it if they are null by default
 	private void save() {
 		ProductController productCtrl = new ProductController();
-		productCtrl.updateProductName(choosenProduct, txtName.getText());
-		productCtrl.updateProductDescription(choosenProduct, txtDescription.getText());
+		productCtrl.updateProductName(this.product, txtName.getText());
+		productCtrl.updateProductDescription(this.product, txtDescription.getText());
 		
 		BigDecimal sellingPrice;
 		BigDecimal loaningPrice;
@@ -283,7 +283,7 @@ public class ProductUI extends JDialog {
 			}
 			sellingPrice = BigDecimal.valueOf(sell);
 			if(checkChange(sellingPrice)) {
-				productCtrl.createSellingPrice(sellingPrice, choosenProduct);
+				productCtrl.createSellingPrice(sellingPrice, this.product);
 			}
 		}
 		
@@ -302,7 +302,7 @@ public class ProductUI extends JDialog {
 			}
 			loaningPrice = BigDecimal.valueOf(loan);
 			if(checkChange(loaningPrice)) {
-				productCtrl.createLoaningPrice(loaningPrice, choosenProduct);
+				productCtrl.createLoaningPrice(loaningPrice, this.product);
 			}
 		}
 		
@@ -320,7 +320,7 @@ public class ProductUI extends JDialog {
 			Messages.error(this, "The entered quantity at minimum must be a positive number!");
 			return;
 		} else {
-			productCtrl.updateProductMinStock(choosenProduct, min);
+			productCtrl.updateProductMinStock(this.product, min);
 		}
 		
 		//Throw error if max < min
@@ -328,13 +328,13 @@ public class ProductUI extends JDialog {
 			Messages.error(this, "The entered quantity at maximum must be a more than the minimum!");
 			return;
 		} else {
-			productCtrl.updateProductMaxStock(choosenProduct, max);
+			productCtrl.updateProductMaxStock(this.product, max);
 		}
 	}
 	
 	private boolean checkChange(BigDecimal price) {
 		boolean result = true;
-		if(price == choosenProduct.getLatestSellingPrice() || price == choosenProduct.getLatestLoaningPrice()) result = false;
+		if(price == this.product.getLatestSellingPrice() || price == this.product.getLatestLoaningPrice()) result = false;
 		return result;
 	}
 	
