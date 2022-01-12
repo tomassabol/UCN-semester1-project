@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
+import controller.ProductController;
 import model.Product;
+import model.SellingPrice;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -19,6 +21,10 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.awt.event.ActionEvent;
 
 public class ProductUI extends JDialog {
 
@@ -31,12 +37,16 @@ public class ProductUI extends JDialog {
 	private JTextField txtSelling;
 	private JButton btnOk;
 	private JTextArea txtDescription;
+	private Product choosenProduct;
 	private String loaningPrice;
+	private boolean view;
 
 	/**
 	 * Create the frame.
 	 */
 	public ProductUI(Product product, boolean view) {
+		this.view = view;
+		choosenProduct = product;
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 330);
@@ -213,6 +223,8 @@ public class ProductUI extends JDialog {
 			edit();
 			setTitle("Edit product");
 		}
+		
+		addEventHandlers();
 	}
 	
 	/*
@@ -221,10 +233,9 @@ public class ProductUI extends JDialog {
 	 * *******************************************************
 	 */
 	
-	/*
-	 * Makes the textfields uneditable
-	 */
-	public void view() {
+	
+	// Makes the textfields uneditable
+	private void view() {
 		txtId.setEnabled(false);
 		txtName.setEditable(false);
 		txtDescription.setEditable(false);
@@ -234,10 +245,9 @@ public class ProductUI extends JDialog {
 		txtLoaning.setEditable(false);
 	}
 	
-	/*
-	 * Makes the textfields editable
-	 */
-	public void edit() {
+	
+	// Makes the textfields editable
+	private void edit() {
 		txtId.setEnabled(false);
 		txtName.setEditable(true);
 		txtDescription.setEditable(true);
@@ -247,10 +257,100 @@ public class ProductUI extends JDialog {
 		txtLoaning.setEditable(true);
 	}
 	
+	// Currently you cannot change selling and loaning price to null, but you can save it if they are null by default
+	private void save() {
+		ProductController productCtrl = new ProductController();
+		productCtrl.updateProductName(choosenProduct, txtName.getText());
+		productCtrl.updateProductDescription(choosenProduct, txtDescription.getText());
+		
+		BigDecimal sellingPrice;
+		BigDecimal loaningPrice;
+		int min;
+		int max;
+		
+		//Check selling price
+		if(txtSelling.getText().equals("null")) {
+		//	if (choosenProduct.getLatestSellingPrice() != null) {
+		//		productCtrl.createSellingPrice(null, choosenProduct);
+		//	}
+		}else {
+			int sell;
+			try {
+				sell = Integer.parseInt(txtSelling.getText());
+			} catch (NumberFormatException e1) {
+				Messages.error(this, "The entered quantity must be a positive, whole number!");
+				return;
+			}
+			sellingPrice = BigDecimal.valueOf(sell);
+			if(checkChange(sellingPrice)) {
+				productCtrl.createSellingPrice(sellingPrice, choosenProduct);
+			}
+		}
+		
+		//Check loaning price
+		if(txtLoaning.getText().equals("null")) {
+			//if (choosenProduct.getLatestLoaningPrice() != null) {
+			//	productCtrl.createLoaningPrice(null, choosenProduct);
+			//}
+		}else {
+			int loan;
+			try {
+				loan = Integer.parseInt(txtLoaning.getText());
+			} catch (NumberFormatException e1) {
+				Messages.error(this, "The entered quantity must be a positive, whole number!");
+				return;
+			}
+			loaningPrice = BigDecimal.valueOf(loan);
+			if(checkChange(loaningPrice)) {
+				productCtrl.createLoaningPrice(loaningPrice, choosenProduct);
+			}
+		}
+		
+		//Throw error if minimum and maximum aren't numbers
+		try {
+			min = Integer.parseInt(txtMin.getText());
+			max = Integer.parseInt(txtMax.getText());
+		} catch (NumberFormatException e1) {
+			Messages.error(this, "The entered quantities must be positive, whole numbers!");
+			return;
+		}
+		
+		// Throw error if minimum < 0
+		if (min < 0) {
+			Messages.error(this, "The entered quantity at minimum must be a positive number!");
+			return;
+		} else {
+			productCtrl.updateProductMinStock(choosenProduct, min);
+		}
+		
+		//Throw error if max < min
+		if (max < min) {
+			Messages.error(this, "The entered quantity at maximum must be a more than the minimum!");
+			return;
+		} else {
+			productCtrl.updateProductMaxStock(choosenProduct, max);
+		}
+	}
+	
+	private boolean checkChange(BigDecimal price) {
+		boolean result = true;
+		if(price == choosenProduct.getLatestSellingPrice() || price == choosenProduct.getLatestLoaningPrice()) result = false;
+		return result;
+	}
+	
 	/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
 	 * *******************************************************
 	 */
-
+	private void addEventHandlers() {
+		
+		// Save the changes or dispose the window
+		btnOk.addActionListener(e -> {
+			if(view != true) {
+				if (Messages.confirm(ProductUI.this, "Are you sure you want to save the changes?", "Save")) save();
+			}
+			dispose();
+		});
+	}
 }
