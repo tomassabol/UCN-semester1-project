@@ -231,10 +231,14 @@ public class ProductUI extends JDialog {
 				setTitle("View product - " + product.getName());
 				// Hide 'Update' button if in view mode
 				btnOk.setVisible(false);
+				// Disable fields
+				this.disableFields();
 				break;
 			case EDIT: 
 				// Set title
 				setTitle("Edit product");
+				// Enable fields for editing
+				this.enableFields();
 				break;
 		}
 		
@@ -253,9 +257,9 @@ public class ProductUI extends JDialog {
 	// Makes the text fields uneditable
 	private void disableFields() {
 		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField) {
-			      c.setEnabled(false);
-			   }
+			   if (c instanceof JTextField || c instanceof JTextArea) {
+				      c.setEnabled(false);
+				   }
 			}
 	}
 	
@@ -263,7 +267,7 @@ public class ProductUI extends JDialog {
 	// Makes the text fields editable except ID field
 	private void enableFields() {
 		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField) {
+			   if (c instanceof JTextField || c instanceof JTextArea) {
 			      c.setEnabled(true);
 			   }
 			}
