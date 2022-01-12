@@ -1,42 +1,22 @@
 package gui;
 
-import javax.swing.JDialog;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
-import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import controller.AuthenticationController;
 import controller.CustomerController;
-import controller.ProductController;
-import controller.QuoteController;
-import controller.ShoppingCartController;
-import controller.StockController;
 import model.Customer;
-import model.OutOfStockException;
-import model.Product;
-import model.Quote;
-import model.ShoppingItemLine;
 
 import javax.swing.ListSelectionModel;
 import gui.JLink.COLORS;
-import gui.ProductTableModel.Column;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe
@@ -220,7 +200,7 @@ public class CRUDCustomersPanel extends JPanel {
 			frame.setVisible(true);
 		});
 
-		// Edit product
+		// Edit customer
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			Customer customer = tableModel.getObj(row);

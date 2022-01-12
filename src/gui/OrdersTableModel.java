@@ -9,9 +9,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import controller.OrderController;
-import controller.QuoteController;
 import model.Order;
-import model.Quote;
 
 /**
  * @author Daniels Kanepe

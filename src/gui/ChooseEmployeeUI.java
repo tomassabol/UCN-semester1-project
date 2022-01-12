@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -14,8 +12,6 @@ import javax.swing.border.EmptyBorder;
 
 
 import controller.EmployeeController;
-import model.Customer;
-import model.Employee;
 import model.IFEmployee;
 
 public class ChooseEmployeeUI extends JDialog {

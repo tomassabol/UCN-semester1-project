@@ -3,15 +3,12 @@
  */
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.ProductController;
 import controller.StockController;
 import gui.CRUDProductsPanel.Mode;
 import model.Product;
@@ -22,11 +19,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
-import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe
