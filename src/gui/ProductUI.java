@@ -87,8 +87,7 @@ public class ProductUI extends JDialog {
 		gbc_lblId.gridy = 0;
 		contentPane.add(lblId, gbc_lblId);
 		
-		txtId = new JTextField();
-		txtId.setText(String.valueOf(product.ID));
+		txtId = new JTextField(String.valueOf(product.ID));
 		txtId.setColumns(10);
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
 		gbc_txtId.anchor = GridBagConstraints.WEST;
@@ -106,8 +105,7 @@ public class ProductUI extends JDialog {
 		gbc_lblName.gridy = 0;
 		contentPane.add(lblName, gbc_lblName);
 		
-		txtName = new JTextField();
-		txtName.setText(product.getName());
+		txtName = new JTextField(product.getName());
 		txtName.setColumns(10);
 		GridBagConstraints gbc_txtName = new GridBagConstraints();
 		gbc_txtName.anchor = GridBagConstraints.WEST;
@@ -125,8 +123,7 @@ public class ProductUI extends JDialog {
 		gbc_lblDescription.gridy = 2;
 		contentPane.add(lblDescription, gbc_lblDescription);
 		
-		txtDescription = new JTextArea();
-		txtDescription.setText(product.getDescription());
+		txtDescription = new JTextArea(product.getDescription());
 		txtDescription.setLineWrap(true);
 		GridBagConstraints gbc_txtDescription = new GridBagConstraints();
 		gbc_txtDescription.gridwidth = 2;
@@ -144,8 +141,7 @@ public class ProductUI extends JDialog {
 		gbc_lblMin.gridy = 4;
 		contentPane.add(lblMin, gbc_lblMin);
 		
-		txtMin = new JTextField();
-		txtMin.setText(String.valueOf(product.getMinStock()));
+		txtMin = new JTextField(product.getMinStock());
 		txtMin.setColumns(10);
 		GridBagConstraints gbc_txtMin = new GridBagConstraints();
 		gbc_txtMin.insets = new Insets(0, 0, 5, 5);
@@ -162,8 +158,7 @@ public class ProductUI extends JDialog {
 		gbc_lblMax.gridy = 4;
 		contentPane.add(lblMax, gbc_lblMax);
 		
-		txtMax = new JTextField();
-		txtMax.setText(String.valueOf(product.getMaxStock()));
+		txtMax = new JTextField(product.getMaxStock());
 		txtMax.setColumns(10);
 		GridBagConstraints gbc_txtMax = new GridBagConstraints();
 		gbc_txtMax.insets = new Insets(0, 0, 5, 0);
