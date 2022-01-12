@@ -280,77 +280,91 @@ public class ProductUI extends JDialog {
 		
 		// 'update' button: Update the product
 		btnOk.addActionListener(e -> {
-			if (Messages.confirm(ProductUI.this, "Are you sure you want to save the changes?", "Save")) {
-				productCtrl.updateProductName(this.product, txtName.getText());
-				productCtrl.updateProductDescription(this.product, txtDescription.getText());
+			if (Messages.confirm(ProductUI.this, "Are you sure you want to update the changes to product?", "Update")) {
 				
-				BigDecimal sellingPrice;
-				BigDecimal loaningPrice;
-				int min;
-				int max;
-				
-				//Check selling price
-				if(txtSelling.getText().equals("null")) {
-				//	if (choosenProduct.getLatestSellingPrice() != null) {
-				//		productCtrl.createSellingPrice(null, choosenProduct);
-				//	}
-				}else {
-					int sell;
-					try {
-						sell = Integer.parseInt(txtSelling.getText());
-					} catch (NumberFormatException e1) {
-						Messages.error(this, "The entered quantity must be a positive, whole number!");
-						return;
-					}
-					sellingPrice = BigDecimal.valueOf(sell);
-//					if(checkChange(sellingPrice)) {
-//						productCtrl.createSellingPrice(sellingPrice, this.product);
-//					}
+				// Validate name
+				String name = txtName.getText().strip();
+				if (name.isEmpty()) {
+					Messages.error(this, "Product name cannot be empty!");
+					return;
 				}
 				
-				//Check loaning price
-				if(txtLoaning.getText().equals("null")) {
-					//if (choosenProduct.getLatestLoaningPrice() != null) {
-					//	productCtrl.createLoaningPrice(null, choosenProduct);
-					//}
-				}else {
-					int loan;
-					try {
-						loan = Integer.parseInt(txtLoaning.getText());
-					} catch (NumberFormatException e1) {
-						Messages.error(this, "The entered quantity must be a positive, whole number!");
-						return;
-					}
-					loaningPrice = BigDecimal.valueOf(loan);
-//					if(checkChange(loaningPrice)) {
-//						productCtrl.createLoaningPrice(loaningPrice, this.product);
-//					}
+				// Validate description
+				String desc = txtDescription.getText().strip();
+				if (desc.isEmpty()) {
+					Messages.error(this, "Product description cannot be empty!");
+					return;
 				}
 				
-				//Throw error if minimum and maximum aren't numbers
+				// Validate Min Stock
+				int minStock;
 				try {
-					min = Integer.parseInt(txtMin.getText());
-					max = Integer.parseInt(txtMax.getText());
+					minStock = Integer.parseInt(txtMin.getText());
 				} catch (NumberFormatException e1) {
-					Messages.error(this, "The entered quantities must be positive, whole numbers!");
+					Messages.error(this, "Minimum stock must be a positive, whole number!");
 					return;
 				}
 				
-				// Throw error if minimum < 0
-				if (min < 0) {
-					Messages.error(this, "The entered quantity at minimum must be a positive number!");
+				// Validate Max Stock
+				int maxStock;
+				try {
+					maxStock = Integer.parseInt(txtMax.getText());
+				} catch (NumberFormatException e1) {
+					Messages.error(this, "Maximum stock must be a positive, whole numbers!");
 					return;
-				} else {
-					productCtrl.updateProductMinStock(this.product, min);
 				}
 				
-				//Throw error if max < min
-				if (max < min) {
-					Messages.error(this, "The entered quantity at maximum must be a more than the minimum!");
-					return;
+				// Validate buy/sell price
+				String stringBuyPrice = txtSelling.getText().strip();
+				BigDecimal buyPrice;
+				if (stringBuyPrice.isEmpty()) {
+					buyPrice = null;
 				} else {
-					productCtrl.updateProductMaxStock(this.product, max);
+					try {
+						buyPrice = new BigDecimal(stringBuyPrice);
+					} catch (NumberFormatException e1) {
+						Messages.error(this, "Sell price must be a positive decimal number, separated by dots");
+						return;
+					}
 				}
+				// if less than zero
+				if (buyPrice.compareTo(BigDecimal.ZERO) == -1) {
+					Messages.error(this, "Sell price must be a positive decimal number, separated by dots");
+				}
+				
+				
+				// Validate loan price
+				String stringLoanPrice = txtSelling.getText().strip();
+				BigDecimal loanPrice;
+				if (stringLoanPrice.isEmpty()) {
+					loanPrice = null;
+				} else {
+					try {
+						loanPrice = new BigDecimal(stringLoanPrice);
+					} catch (NumberFormatException e1) {
+						Messages.error(this, "Loan price must be a positive decimal number, separated by dots");
+						return;
+					}
+				}
+				// if less than zero
+				if (buyPrice.compareTo(BigDecimal.ZERO) == -1) {
+					Messages.error(this, "Loan price must be a positive decimal number, separated by dots");
+				}
+				
+				// Update data
+				productCtrl.updateProductName(this.product, name);
+				productCtrl.updateProductDescription(this.product, desc);
+				productCtrl.updateProductMinStock(this.product, minStock);
+				productCtrl.updateProductMinStock(this.product, maxStock);
+				// create new (thus update) buy price if not same as current
+				if (buyPrice == product.getLatestSellingPrice()) {
+					productCtrl.createSellingPrice(buyPrice, product);
+				}
+				// create new (thus update) loan price if not same as current
+				if (buyPrice == product.getLatestLoaningPrice()) {
+					productCtrl.createLoaningPrice(loanPrice, product);
+				}
+				
 			}
 			// Dispose of the window
 			this.dispose();
