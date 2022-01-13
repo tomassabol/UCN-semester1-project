@@ -60,9 +60,9 @@ public class EmployeeUI extends JDialog {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPanel);
 		
 		JLabel lblNewLabel_1 = new JLabel("ID");
@@ -72,6 +72,15 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_1.gridx = 0;
 		gbc_lblNewLabel_1.gridy = 0;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+		
+		JLabel lblNewLabel_2 = new JLabel("First Name");
+		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel_2.gridx = 1;
+		gbc_lblNewLabel_2.gridy = 0;
+		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		
 		txtID = new JTextField(String.valueOf(employee.getID()));
@@ -84,58 +93,49 @@ public class EmployeeUI extends JDialog {
 		txtID.setColumns(10);
 		
 		
-		JLabel lblNewLabel_2 = new JLabel("First Name");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 2;
-		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		txtFirstName = new JTextField(employee.getFirstName());
+		GridBagConstraints gbc_txtFirstName = new GridBagConstraints();
+		gbc_txtFirstName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtFirstName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtFirstName.gridx = 1;
+		gbc_txtFirstName.gridy = 1;
+		contentPane.add(txtFirstName, gbc_txtFirstName);
+		txtFirstName.setColumns(10);
 		
 		
 		JLabel lblNewLabel_3 = new JLabel("Last Name");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_3.gridx = 1;
+		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_3.gridx = 0;
 		gbc_lblNewLabel_3.gridy = 2;
 		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		
-		
-		txtFirstName = new JTextField(employee.getFirstName());
-		GridBagConstraints gbc_txtFirstName = new GridBagConstraints();
-		gbc_txtFirstName.insets = new Insets(0, 0, 5, 5);
-		gbc_txtFirstName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFirstName.gridx = 0;
-		gbc_txtFirstName.gridy = 3;
-		contentPane.add(txtFirstName, gbc_txtFirstName);
-		txtFirstName.setColumns(10);
-		
-		
-		txtLastName = new JTextField(employee.getLastName());
-		GridBagConstraints gbc_txtLastName = new GridBagConstraints();
-		gbc_txtLastName.insets = new Insets(0, 0, 5, 0);
-		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLastName.gridx = 1;
-		gbc_txtLastName.gridy = 3;
-		contentPane.add(txtLastName, gbc_txtLastName);
-		txtLastName.setColumns(10);
 		
 		
 		JLabel lblNewLabel_4 = new JLabel("Address");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4.gridx = 0;
-		gbc_lblNewLabel_4.gridy = 4;
+		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel_4.gridx = 1;
+		gbc_lblNewLabel_4.gridy = 2;
 		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		
+		
+		txtLastName = new JTextField(employee.getLastName());
+		GridBagConstraints gbc_txtLastName = new GridBagConstraints();
+		gbc_txtLastName.insets = new Insets(0, 0, 5, 5);
+		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLastName.gridx = 0;
+		gbc_txtLastName.gridy = 3;
+		contentPane.add(txtLastName, gbc_txtLastName);
+		txtLastName.setColumns(10);
 		
 		txtAddress = new JTextField(employee.getAddress());
 		GridBagConstraints gbc_txtAddress = new GridBagConstraints();
-		gbc_txtAddress.insets = new Insets(0, 0, 5, 5);
+		gbc_txtAddress.insets = new Insets(0, 0, 5, 0);
 		gbc_txtAddress.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtAddress.gridx = 0;
-		gbc_txtAddress.gridy = 5;
+		gbc_txtAddress.gridx = 1;
+		gbc_txtAddress.gridy = 3;
 		contentPane.add(txtAddress, gbc_txtAddress);
 		txtAddress.setColumns(10);
 		
@@ -145,7 +145,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_5.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_5.gridx = 0;
-		gbc_lblNewLabel_5.gridy = 6;
+		gbc_lblNewLabel_5.gridy = 4;
 		contentPane.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
 		
@@ -154,7 +154,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_6.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_6.gridx = 1;
-		gbc_lblNewLabel_6.gridy = 6;
+		gbc_lblNewLabel_6.gridy = 4;
 		contentPane.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
 		txtPhone = new JTextField(employee.getMobile());
@@ -162,7 +162,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtPhone.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPhone.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtPhone.gridx = 0;
-		gbc_txtPhone.gridy = 7;
+		gbc_txtPhone.gridy = 5;
 		contentPane.add(txtPhone, gbc_txtPhone);
 		txtPhone.setColumns(10);
 		
@@ -172,7 +172,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtEmail.insets = new Insets(0, 0, 5, 0);
 		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtEmail.gridx = 1;
-		gbc_txtEmail.gridy = 7;
+		gbc_txtEmail.gridy = 5;
 		contentPane.add(txtEmail, gbc_txtEmail);
 		txtEmail.setColumns(10);
 		
@@ -182,7 +182,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_7.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_7.gridx = 0;
-		gbc_lblNewLabel_7.gridy = 8;
+		gbc_lblNewLabel_7.gridy = 6;
 		contentPane.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
 		
@@ -191,7 +191,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtBirth.insets = new Insets(0, 0, 0, 5);
 		gbc_txtBirth.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtBirth.gridx = 0;
-		gbc_txtBirth.gridy = 9;
+		gbc_txtBirth.gridy = 7;
 		contentPane.add(txtBirth, gbc_txtBirth);
 		txtBirth.setColumns(10);
 		
@@ -200,7 +200,7 @@ public class EmployeeUI extends JDialog {
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
 		gbc_btnOk.anchor = GridBagConstraints.EAST;
 		gbc_btnOk.gridx = 1;
-		gbc_btnOk.gridy = 9;
+		gbc_btnOk.gridy = 7;
 		contentPane.add(btnOk, gbc_btnOk);
 		
 		switch (mode) {
