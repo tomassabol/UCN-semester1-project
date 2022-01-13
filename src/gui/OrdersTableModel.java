@@ -16,8 +16,6 @@ import model.Order;
  *
  */
 public class OrdersTableModel extends AbstractTableModel {
-	
-	private final static String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	private static final long serialVersionUID = -2367962812967993282L;
 
