@@ -7,13 +7,20 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.AuthenticationController;
+import controller.CustomerController;
 import model.Customer;
+import model.CustomerType;
+import model.IFCustomer;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
@@ -24,126 +31,143 @@ public class CustomerUI extends JDialog {
 		EDIT
 	}
 
-	private final JPanel contentPanel = new JPanel();
 	private JPanel contentPane;
 	private JTextField txtID;
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
 	private JTextField txtAddress;
 	private JTextField txtPhone;
-	private JTextField txtType;
 	private JTextField txtBirth;
 	private JButton btnOk;
+	private JPanel typePanel;
+	private JTextField txtType;
+	private JButton btnChooseType;
+	
+	CustomerType customerType;
+	CustomerController customerCtrl;
+	IFCustomer customer;
+	Mode mode;
+	AuthenticationController auth;
 
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public CustomerUI(Customer customer, Mode mode) {
+	public CustomerUI(AuthenticationController auth, IFCustomer customer, Mode mode) {
+		this.mode = mode;
+		this.customer = customer;
+		this.auth = auth;
+		
+		customerCtrl = new CustomerController();
+		// This can be changed with the 'choose' button
+		customerType = customer.getCustomerType();
+		
+		setModal(true);
 		setBounds(100, 100, 450, 341);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+		setContentPane(contentPane);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		contentPanel.setLayout(gbl_contentPanel);
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		contentPane.setLayout(gbl_contentPanel);
 		
-		JLabel lblNewLabel_1 = new JLabel("ID");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 0;
-		contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel lblID = new JLabel("ID");
+		GridBagConstraints gbc_lblID = new GridBagConstraints();
+		gbc_lblID.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblID.insets = new Insets(0, 0, 5, 5);
+		gbc_lblID.gridx = 0;
+		gbc_lblID.gridy = 0;
+		contentPane.add(lblID, gbc_lblID);
 		
 		
-		txtID = new JTextField(String.valueOf(customer.ID));
+		JLabel lblFirstName = new JLabel("First Name *");
+		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
+		gbc_lblFirstName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblFirstName.insets = new Insets(0, 0, 5, 0);
+		gbc_lblFirstName.gridx = 1;
+		gbc_lblFirstName.gridy = 0;
+		contentPane.add(lblFirstName, gbc_lblFirstName);
+		
+		
+		txtID = new JTextField(String.valueOf(customer.getID()));
+		txtID.setEnabled(false);
 		GridBagConstraints gbc_txtID = new GridBagConstraints();
 		gbc_txtID.insets = new Insets(0, 0, 5, 5);
 		gbc_txtID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtID.gridx = 0;
 		gbc_txtID.gridy = 1;
-		contentPanel.add(txtID, gbc_txtID);
+		contentPane.add(txtID, gbc_txtID);
 		txtID.setColumns(10);
-		
-		
-		JLabel lblNewLabel_2 = new JLabel("First Name");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 2;
-		contentPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
-		
-		JLabel lblNewLabel_3 = new JLabel("Last Name");
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 2;
-		contentPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		
 		txtFirstName = new JTextField(customer.getFirstName());
 		GridBagConstraints gbc_txtFirstName = new GridBagConstraints();
-		gbc_txtFirstName.insets = new Insets(0, 0, 5, 5);
+		gbc_txtFirstName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFirstName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFirstName.gridx = 0;
-		gbc_txtFirstName.gridy = 3;
-		contentPanel.add(txtFirstName, gbc_txtFirstName);
+		gbc_txtFirstName.gridx = 1;
+		gbc_txtFirstName.gridy = 1;
+		contentPane.add(txtFirstName, gbc_txtFirstName);
 		txtFirstName.setColumns(10);
+		
+		
+		JLabel lblLastName = new JLabel("Last Name *");
+		GridBagConstraints gbc_lblLastName = new GridBagConstraints();
+		gbc_lblLastName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblLastName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLastName.gridx = 0;
+		gbc_lblLastName.gridy = 2;
+		contentPane.add(lblLastName, gbc_lblLastName);
+		
+		
+		JLabel lblAddress = new JLabel("Address *");
+		GridBagConstraints gbc_lblAddress = new GridBagConstraints();
+		gbc_lblAddress.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblAddress.insets = new Insets(0, 0, 5, 0);
+		gbc_lblAddress.gridx = 1;
+		gbc_lblAddress.gridy = 2;
+		contentPane.add(lblAddress, gbc_lblAddress);
 		
 		
 		txtLastName = new JTextField(customer.getLastName());
 		GridBagConstraints gbc_txtLastName = new GridBagConstraints();
-		gbc_txtLastName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtLastName.insets = new Insets(0, 0, 5, 5);
 		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLastName.gridx = 1;
+		gbc_txtLastName.gridx = 0;
 		gbc_txtLastName.gridy = 3;
-		contentPanel.add(txtLastName, gbc_txtLastName);
+		contentPane.add(txtLastName, gbc_txtLastName);
 		txtLastName.setColumns(10);
-		
-		
-		JLabel lblNewLabel_4 = new JLabel("Address");
-		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4.gridx = 0;
-		gbc_lblNewLabel_4.gridy = 4;
-		contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		
 		txtAddress = new JTextField(customer.getAddress());
 		GridBagConstraints gbc_txtAddress = new GridBagConstraints();
-		gbc_txtAddress.insets = new Insets(0, 0, 5, 5);
+		gbc_txtAddress.insets = new Insets(0, 0, 5, 0);
 		gbc_txtAddress.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtAddress.gridx = 0;
-		gbc_txtAddress.gridy = 5;
-		contentPanel.add(txtAddress, gbc_txtAddress);
+		gbc_txtAddress.gridx = 1;
+		gbc_txtAddress.gridy = 3;
+		contentPane.add(txtAddress, gbc_txtAddress);
 		txtAddress.setColumns(10);
 		
 		
-		JLabel lblNewLabel_5 = new JLabel("Phone");
-		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_5.gridx = 0;
-		gbc_lblNewLabel_5.gridy = 6;
-		contentPanel.add(lblNewLabel_5, gbc_lblNewLabel_5);
+		JLabel lblPhone = new JLabel("Mobile *");
+		GridBagConstraints gbc_lblPhone = new GridBagConstraints();
+		gbc_lblPhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblPhone.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPhone.gridx = 0;
+		gbc_lblPhone.gridy = 4;
+		contentPane.add(lblPhone, gbc_lblPhone);
 		
 		
-		JLabel lblNewLabel_6 = new JLabel("Type");
-		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
-		gbc_lblNewLabel_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_6.gridx = 1;
-		gbc_lblNewLabel_6.gridy = 6;
-		contentPanel.add(lblNewLabel_6, gbc_lblNewLabel_6);
+		JLabel lblType = new JLabel("Type *");
+		GridBagConstraints gbc_lblType = new GridBagConstraints();
+		gbc_lblType.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblType.insets = new Insets(0, 0, 5, 0);
+		gbc_lblType.gridx = 1;
+		gbc_lblType.gridy = 4;
+		contentPane.add(lblType, gbc_lblType);
 		
 		
 		txtPhone = new JTextField(String.valueOf(customer.getMobile()));
@@ -151,46 +175,67 @@ public class CustomerUI extends JDialog {
 		gbc_txtPhone.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPhone.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtPhone.gridx = 0;
-		gbc_txtPhone.gridy = 7;
-		contentPanel.add(txtPhone, gbc_txtPhone);
+		gbc_txtPhone.gridy = 5;
+		contentPane.add(txtPhone, gbc_txtPhone);
 		txtPhone.setColumns(10);
 		
+		typePanel = new JPanel();
+		GridBagConstraints gbc_typePanel = new GridBagConstraints();
+		gbc_typePanel.insets = new Insets(0, 0, 5, 0);
+		gbc_typePanel.fill = GridBagConstraints.BOTH;
+		gbc_typePanel.gridx = 1;
+		gbc_typePanel.gridy = 5;
+		contentPane.add(typePanel, gbc_typePanel);
+		GridBagLayout gbl_typePanel = new GridBagLayout();
+		gbl_typePanel.columnWidths = new int[]{0, 0, 0};
+		gbl_typePanel.rowHeights = new int[]{0, 0};
+		gbl_typePanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_typePanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		typePanel.setLayout(gbl_typePanel);
 		
-		txtType = new JTextField(customer.getCustomerType().getName());
+		txtType = new JTextField(customerType.getName());
+		txtType.setEnabled(false);
 		GridBagConstraints gbc_txtType = new GridBagConstraints();
-		gbc_txtType.insets = new Insets(0, 0, 5, 0);
-		gbc_txtType.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtType.gridx = 1;
-		gbc_txtType.gridy = 7;
-		contentPanel.add(txtType, gbc_txtType);
+		gbc_txtType.insets = new Insets(0, 0, 0, 5);
+		gbc_txtType.fill = GridBagConstraints.BOTH;
+		gbc_txtType.gridx = 0;
+		gbc_txtType.gridy = 0;
+		typePanel.add(txtType, gbc_txtType);
 		txtType.setColumns(10);
 		
-		
-		JLabel lblNewLabel_7 = new JLabel("Birth");
-		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
-		gbc_lblNewLabel_7.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_7.gridx = 0;
-		gbc_lblNewLabel_7.gridy = 8;
-		contentPanel.add(lblNewLabel_7, gbc_lblNewLabel_7);
+		btnChooseType = new JButton("Choose...");
+		GridBagConstraints gbc_btnChooseType = new GridBagConstraints();
+		gbc_btnChooseType.fill = GridBagConstraints.BOTH;
+		gbc_btnChooseType.gridx = 1;
+		gbc_btnChooseType.gridy = 0;
+		typePanel.add(btnChooseType, gbc_btnChooseType);
 		
 		
-		txtBirth = new JTextField(String.valueOf(customer.getBirthDate()));
+		JLabel lblBirth = new JLabel("Birth ("+ Common.getDateFormat() + ") *");
+		GridBagConstraints gbc_lblBirth = new GridBagConstraints();
+		gbc_lblBirth.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblBirth.insets = new Insets(0, 0, 5, 5);
+		gbc_lblBirth.gridx = 0;
+		gbc_lblBirth.gridy = 6;
+		contentPane.add(lblBirth, gbc_lblBirth);
+		
+		
+		txtBirth = new JTextField(Common.dateToString(customer.getBirthDate()));
 		GridBagConstraints gbc_txtBirth = new GridBagConstraints();
 		gbc_txtBirth.insets = new Insets(0, 0, 0, 5);
 		gbc_txtBirth.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtBirth.gridx = 0;
-		gbc_txtBirth.gridy = 9;
-		contentPanel.add(txtBirth, gbc_txtBirth);
+		gbc_txtBirth.gridy = 7;
+		contentPane.add(txtBirth, gbc_txtBirth);
 		txtBirth.setColumns(10);
 		
 		
-		btnOk = new JButton("OK");
+		btnOk = new JButton("Update");
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
-		gbc_btnOk.anchor = GridBagConstraints.EAST;
+		gbc_btnOk.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnOk.gridx = 1;
-		gbc_btnOk.gridy = 9;
-		contentPanel.add(btnOk, gbc_btnOk);
+		gbc_btnOk.gridy = 7;
+		contentPane.add(btnOk, gbc_btnOk);
 		
 		switch (mode) {
 			case VIEW:
@@ -198,6 +243,8 @@ public class CustomerUI extends JDialog {
 				setTitle("View Customer - " + customer.getFirstName() + " " + customer.getLastName());
 				// Hide 'Update' button if in view mode
 				btnOk.setVisible(false);
+				// Disable 'choose' button if in view mode.
+				btnChooseType.setEnabled(false);
 				// Disable fields
 				this.disableFields();
 				break;
@@ -230,7 +277,7 @@ public class CustomerUI extends JDialog {
 	}
 	
 	
-	// Makes the text fields editable except ID field
+	// Makes the text fields editable except ID & Type field
 	private void enableFields() {
 		for (Component c : this.getContentPane().getComponents()) {
 			   if (c instanceof JTextField || c instanceof JTextArea) {
@@ -238,6 +285,7 @@ public class CustomerUI extends JDialog {
 			   }
 			}
 		txtID.setEnabled(false);
+		txtType.setEnabled(false);
 	}
 	
 		/*
@@ -249,49 +297,61 @@ public class CustomerUI extends JDialog {
 		
 		// 'update' button: Update the product
 		btnOk.addActionListener(e -> {
-			if (Messages.confirm(CustomerUI.this, "Are you sure you want to update the changes to Customer?", "Update")) {
+			if (Messages.confirm(CustomerUI.this, "Are you sure you want to update the customer's details?", "Update")) {
 				
 				// Validate First name
 				String fname = txtFirstName.getText().strip();
 				if (fname.isEmpty()) {
-					Messages.error(this, "Customer First Name name cannot be empty!");
+					Messages.error(this, "First Name name cannot be empty!");
 					return;
 				}
 	
 				// Validate Last name
-				String lname = txtFirstName.getText().strip();
+				String lname = txtLastName.getText().strip();
 				if (lname.isEmpty()) {
-					Messages.error(this, "Customer Last Name name cannot be empty!");
+					Messages.error(this, "Last Name name cannot be empty!");
 					return;
 				}
 				
 				// Validate address
 				String address = txtAddress.getText().strip();
 				if (address.isEmpty()) {
-					Messages.error(this, "Customer Address cannot be empty!");
+					Messages.error(this, "Address cannot be empty!");
 					return;
 				}
 				
-				// Validate phone
-				String phone = txtPhone.getText().strip();
-				if (phone.isEmpty()) {
-					Messages.error(this, "Customer Phone cannot be empty!");
+				// Validate mobile
+				String mobile = txtPhone.getText().strip();
+				if (mobile.isEmpty()) {
+					Messages.error(this, "Mobile cannot be empty!");
 					return;
 				}
 				
-				// Validate Type
-				String type = txtType.getText().strip();
-				if (type.isEmpty()) {
-					Messages.error(this, "Customer Type cannot be empty!");
-					return;
-				}
+				// Validate Type - no validation needed!
+				
 	
-				// Validate Birthdate
-				String birthdate = txtBirth.getText().strip();
-				if (birthdate.isEmpty()) {
-					Messages.error(this, "Customer Birth cannot be empty!");
+				// Validate Birth date
+				String birthDateString = txtBirth.getText().strip();
+				if (birthDateString.isEmpty()) {
+					Messages.error(this, "Birth Date cannot be empty!");
 					return;
 				}
+				// Parse birth date
+				LocalDate birthDate;
+				try {
+					birthDate = Common.stringToDate(birthDateString);
+				} catch (DateTimeParseException e1) {
+					Messages.error(this, "Please enter a valid birth date in the format of: " + Common.getDateFormat());
+					return;
+				}
+				
+				// UPDATE
+				customerCtrl.updateFirstName(customer, fname);
+				customerCtrl.updateLastName(customer, lname);
+				customerCtrl.updateAddress(customer, address);
+				customerCtrl.updateMobile(customer, mobile);
+				customerCtrl.updateBirthDate(customer, birthDate);
+				customerCtrl.updateCustomerType(customer, this.customerType);
 				
 			}
 			// Dispose of the window

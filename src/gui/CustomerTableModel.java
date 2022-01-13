@@ -9,14 +9,13 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import model.Customer;
+import gui.Common;
 
 /**
  * @author Daniels Kanepe
  *
  */
 public class CustomerTableModel extends AbstractTableModel {
-	
-	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
 	private static final long serialVersionUID = -2367962812947993282L;
 
@@ -69,8 +68,10 @@ public class CustomerTableModel extends AbstractTableModel {
             case 2: return customer.getLastName();
             case 3: return customer.getAddress();
             case 4: return customer.getMobile();
-            case 5: return customer.getCustomerType();
-            case 6: return customer.getBirthDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+            case 5: return String.format("%s (%d%% discount)", 
+            		customer.getCustomerType().getName(),
+            		customer.getCustomerType().getDiscountPercentage());
+            case 6: return Common.dateToString(customer.getBirthDate());
             default: return "Error retrieving column name";
         }
     }

@@ -8,6 +8,7 @@ import model.Customer;
 import model.CustomerContainer;
 import model.CustomerType;
 import model.CustomerTypeContainer;
+import model.IFCustomer;
 import model.PrimaryKey;
 
 public class CustomerController {
@@ -104,7 +105,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param firstName - the new first name the first name to be updated to
 	 */
-	public void updateFirstName(Customer customer, String firstName){
+	public void updateFirstName(IFCustomer customer, String firstName){
 		customer.setFirstName(firstName);
 	}
 
@@ -113,7 +114,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param lastName - the new last name the last name to be updated to
 	 */
-	public void updateLastName(Customer customer, String lastName){
+	public void updateLastName(IFCustomer customer, String lastName){
 		customer.setLastName(lastName);
 	}
 
@@ -122,7 +123,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param address - the new address the address to be updated to
 	 */
-	public void updateAddress(Customer customer, String address){
+	public void updateAddress(IFCustomer customer, String address){
 		customer.setAddress(address);
 	}
 
@@ -131,7 +132,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param mobile - the new phone number the phone number to be updated to
 	 */
-	public void updateMobile(Customer customer, String mobile){
+	public void updateMobile(IFCustomer customer, String mobile){
 		customer.setMobile(mobile);
 	}
 
@@ -140,7 +141,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param customerType - the new customer type the customer type to be updated to
 	 */
-	public void updateCustomerType(Customer customer, CustomerType customerType){
+	public void updateCustomerType(IFCustomer customer, CustomerType customerType){
 		customer.setCustomerType(customerType);
 	}
 
@@ -149,7 +150,7 @@ public class CustomerController {
 	 * @param id - The id of the customer whose first name is to be updated
 	 * @param birthDate - the new birth date the birth date to be updated to
 	 */
-	public void updateBirthDate(Customer customer, LocalDate birthDate){
+	public void updateBirthDate(IFCustomer customer, LocalDate birthDate){
 		customer.setBirthDate(birthDate);
 	}
 

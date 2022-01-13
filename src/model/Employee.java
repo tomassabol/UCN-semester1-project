@@ -40,11 +40,6 @@ implements IFEmployee {
 	public void setCPRNumber(String CPRNumber){
 		this.CPRNumber = CPRNumber;
 	}
-	
-	
-	public int getID() {
-		return this.ID;
-	}
 
 	public String getEmail() {
 		return email;

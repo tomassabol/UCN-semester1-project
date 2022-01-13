@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
-
+import controller.AuthenticationController;
 import controller.EmployeeController;
 import model.IFEmployee;
 
@@ -24,11 +24,14 @@ public class ChooseEmployeeUI extends JDialog {
 	private JButton btnChoose;
 	
 	private IFEmployee selectedEmployee = null;
+	
+	AuthenticationController auth;
 
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseEmployeeUI() {
+	public ChooseEmployeeUI(AuthenticationController auth) {
+		this.auth = auth;
 		this.setTitle("Choose a employee...");
 		employeeCtrl = new EmployeeController();
 		setModal(true);
@@ -44,7 +47,7 @@ public class ChooseEmployeeUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		employeesPanel = new CRUDEmployeesPanel();
+		employeesPanel = new CRUDEmployeesPanel(auth);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);

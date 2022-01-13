@@ -64,7 +64,7 @@ public class EmployeeTableModel extends AbstractTableModel {
             case 3: return employee.getAddress();
             case 4: return employee.getMobile();
             case 5: return employee.getEmail();
-            case 6: return employee.getBirthDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+            case 6: return Common.dateToString(employee.getBirthDate());
             default: return "Error retrieving column name";
         }
     }
