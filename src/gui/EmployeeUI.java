@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
@@ -117,8 +120,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_4.gridy = 4;
 		contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		// missing getaddress method
-		txtAddress = new JTextField();
+		txtAddress = new JTextField(employee.getAddress());
 		GridBagConstraints gbc_txtAddress = new GridBagConstraints();
 		gbc_txtAddress.insets = new Insets(0, 0, 5, 5);
 		gbc_txtAddress.fill = GridBagConstraints.HORIZONTAL;
@@ -145,8 +147,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_6.gridy = 6;
 		contentPanel.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
-		// missing get mobile method
-		txtPhone = new JTextField();
+		txtPhone = new JTextField(employee.getMobile());
 		GridBagConstraints gbc_txtPhone = new GridBagConstraints();
 		gbc_txtPhone.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPhone.fill = GridBagConstraints.HORIZONTAL;
@@ -254,42 +255,45 @@ public class EmployeeUI extends JDialog {
 				// Validate First name
 				String fname = txtFirstName.getText().strip();
 				if (fname.isEmpty()) {
-					Messages.error(this, "Employee First Name name cannot be empty!");
+					Messages.error(this, "First Name name cannot be empty!");
 					return;
 				}
 	
 				// Validate Last name
 				String lname = txtFirstName.getText().strip();
 				if (lname.isEmpty()) {
-					Messages.error(this, "Employee Last Name name cannot be empty!");
+					Messages.error(this, "Last Name name cannot be left empty!");
 					return;
 				}
 				
 				// Validate address
 				String address = txtAddress.getText().strip();
 				if (address.isEmpty()) {
-					Messages.error(this, "Employee Address cannot be empty!");
+					Messages.error(this, "Address cannot be left empty!");
 					return;
 				}
 				
-				// Validate phone
-				String phone = txtPhone.getText().strip();
-				if (phone.isEmpty()) {
-					Messages.error(this, "Employee Phone cannot be empty!");
+				// Validate mmobile
+				String mobile = txtPhone.getText().strip();
+				if (mobile.isEmpty()) {
+					Messages.error(this, "Mobile cannot be left empty!");
 					return;
 				}
 				
-				// Validate Type
-				String type = txtEmail.getText().strip();
-				if (type.isEmpty()) {
-					Messages.error(this, "Employee Type cannot be empty!");
-					return;
-				}
+				// Validate Type - no validation needed!
 	
-				// Validate Birthdate
-				String birthdate = txtBirth.getText().strip();
-				if (birthdate.isEmpty()) {
-					Messages.error(this, "Employee Birth cannot be empty!");
+				// Validate Birth date
+				String birthDateString = txtBirth.getText().strip();
+				if (birthDateString.isEmpty()) {
+					Messages.error(this, "Birth Date cannot be left empty!");
+					return;
+				}
+				// Parse birth date
+				LocalDate birthDate;
+				try {
+					birthDate = Common.stringToDate(birthDateString);
+				} catch (DateTimeParseException e1) {
+					Messages.error(this, "Please enter a valid birth date in the format of: " + Common.getDateFormat());
 					return;
 				}
 				

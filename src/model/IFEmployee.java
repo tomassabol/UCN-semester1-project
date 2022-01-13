@@ -24,5 +24,7 @@ public interface IFEmployee {
 	public void setAddress(String address);
 	public void setBirthDate(LocalDate birthDate);
 	public LocalDate getBirthDate();
+	public String getAddress();
+	public String getMobile();
 
 }
