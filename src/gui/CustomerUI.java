@@ -16,6 +16,9 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
@@ -204,7 +207,7 @@ public class CustomerUI extends JDialog {
 		typePanel.add(btnChooseType, gbc_btnChooseType);
 		
 		
-		JLabel lblBirth = new JLabel("Birth *");
+		JLabel lblBirth = new JLabel("Birth ("+ Common.getDateFormat() + ") *");
 		GridBagConstraints gbc_lblBirth = new GridBagConstraints();
 		gbc_lblBirth.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblBirth.insets = new Insets(0, 0, 5, 5);
@@ -324,19 +327,26 @@ public class CustomerUI extends JDialog {
 				
 	
 				// Validate Birth date
-				String birthDate = txtBirth.getText().strip();
-				if (birthDate.isEmpty()) {
+				String birthDateString = txtBirth.getText().strip();
+				if (birthDateString.isEmpty()) {
 					Messages.error(this, "Birth Date cannot be empty!");
 					return;
 				}
-				// TODO: Parse birth date
+				// Parse birth date
+				LocalDate birthDate;
+				try {
+					birthDate = Common.stringToDate(birthDateString);
+				} catch (DateTimeParseException e1) {
+					Messages.error(this, "Please enter a valid birth date in the format of: " + Common.getDateFormat());
+					return;
+				}
 				
 				// UPDATE
 				customerCtrl.updateFirstName(customer, fname);
 				customerCtrl.updateLastName(customer, lname);
 				customerCtrl.updateAddress(customer, address);
 				customerCtrl.updateMobile(customer, mobile);
-				//customerCtrl.updateBirthDate(customer, birthDate);
+				customerCtrl.updateBirthDate(customer, birthDate);
 				customerCtrl.updateCustomerType(customer, this.customerType);
 				
 			}
