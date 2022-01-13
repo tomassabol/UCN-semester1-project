@@ -67,7 +67,7 @@ public class OrdersTableModel extends AbstractTableModel {
     	Order order = orders.get(rowIndex);
         switch (columnIndex) {
             case 0: return "#" + order.ID;
-            case 1: return order.getCreationDate().format(DateTimeFormatter.ofPattern(DATETIME_FORMAT));
+            case 1: return Common.datetimeToString(order.getCreationDate());
             case 2: return String.format("%.2f DKK", order.getSubtotal());
             case 3: return String.format("%s: -%d%%", 
             		order.getCustomerType(),
