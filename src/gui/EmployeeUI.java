@@ -28,7 +28,6 @@ public class EmployeeUI extends JDialog {
 		EDIT
 	}
 
-	private final JPanel contentPanel = new JPanel();
 	private JPanel contentPane;
 	private JTextField txtID;
 	private JTextField txtFirstName;
@@ -56,15 +55,15 @@ public class EmployeeUI extends JDialog {
 		
 		setModal(true);
 		setBounds(100, 100, 450, 341);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+		setContentPane(contentPane);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		contentPanel.setLayout(gbl_contentPanel);
+		contentPane.setLayout(gbl_contentPanel);
 		
 		JLabel lblNewLabel_1 = new JLabel("ID");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -72,7 +71,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 0;
 		gbc_lblNewLabel_1.gridy = 0;
-		contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		
 		txtID = new JTextField(String.valueOf(employee.getID()));
@@ -81,7 +80,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtID.gridx = 0;
 		gbc_txtID.gridy = 1;
-		contentPanel.add(txtID, gbc_txtID);
+		contentPane.add(txtID, gbc_txtID);
 		txtID.setColumns(10);
 		
 		
@@ -91,7 +90,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.gridx = 0;
 		gbc_lblNewLabel_2.gridy = 2;
-		contentPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		
 		JLabel lblNewLabel_3 = new JLabel("Last Name");
@@ -100,7 +99,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_3.gridx = 1;
 		gbc_lblNewLabel_3.gridy = 2;
-		contentPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
+		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		
 		txtFirstName = new JTextField(employee.getFirstName());
@@ -109,7 +108,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtFirstName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFirstName.gridx = 0;
 		gbc_txtFirstName.gridy = 3;
-		contentPanel.add(txtFirstName, gbc_txtFirstName);
+		contentPane.add(txtFirstName, gbc_txtFirstName);
 		txtFirstName.setColumns(10);
 		
 		
@@ -119,7 +118,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtLastName.gridx = 1;
 		gbc_txtLastName.gridy = 3;
-		contentPanel.add(txtLastName, gbc_txtLastName);
+		contentPane.add(txtLastName, gbc_txtLastName);
 		txtLastName.setColumns(10);
 		
 		
@@ -129,7 +128,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_4.gridx = 0;
 		gbc_lblNewLabel_4.gridy = 4;
-		contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		txtAddress = new JTextField(employee.getAddress());
 		GridBagConstraints gbc_txtAddress = new GridBagConstraints();
@@ -137,7 +136,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtAddress.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtAddress.gridx = 0;
 		gbc_txtAddress.gridy = 5;
-		contentPanel.add(txtAddress, gbc_txtAddress);
+		contentPane.add(txtAddress, gbc_txtAddress);
 		txtAddress.setColumns(10);
 		
 		
@@ -147,7 +146,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_5.gridx = 0;
 		gbc_lblNewLabel_5.gridy = 6;
-		contentPanel.add(lblNewLabel_5, gbc_lblNewLabel_5);
+		contentPane.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
 		
 		JLabel lblNewLabel_6 = new JLabel("Email");
@@ -156,7 +155,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_6.gridx = 1;
 		gbc_lblNewLabel_6.gridy = 6;
-		contentPanel.add(lblNewLabel_6, gbc_lblNewLabel_6);
+		contentPane.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
 		txtPhone = new JTextField(employee.getMobile());
 		GridBagConstraints gbc_txtPhone = new GridBagConstraints();
@@ -164,7 +163,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtPhone.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtPhone.gridx = 0;
 		gbc_txtPhone.gridy = 7;
-		contentPanel.add(txtPhone, gbc_txtPhone);
+		contentPane.add(txtPhone, gbc_txtPhone);
 		txtPhone.setColumns(10);
 		
 		
@@ -174,7 +173,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtEmail.gridx = 1;
 		gbc_txtEmail.gridy = 7;
-		contentPanel.add(txtEmail, gbc_txtEmail);
+		contentPane.add(txtEmail, gbc_txtEmail);
 		txtEmail.setColumns(10);
 		
 		
@@ -184,7 +183,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_7.gridx = 0;
 		gbc_lblNewLabel_7.gridy = 8;
-		contentPanel.add(lblNewLabel_7, gbc_lblNewLabel_7);
+		contentPane.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
 		
 		txtBirth = new JTextField(Common.dateToString(employee.getBirthDate()));
@@ -193,7 +192,7 @@ public class EmployeeUI extends JDialog {
 		gbc_txtBirth.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtBirth.gridx = 0;
 		gbc_txtBirth.gridy = 9;
-		contentPanel.add(txtBirth, gbc_txtBirth);
+		contentPane.add(txtBirth, gbc_txtBirth);
 		txtBirth.setColumns(10);
 		
 		
@@ -202,7 +201,7 @@ public class EmployeeUI extends JDialog {
 		gbc_btnOk.anchor = GridBagConstraints.EAST;
 		gbc_btnOk.gridx = 1;
 		gbc_btnOk.gridy = 9;
-		contentPanel.add(btnOk, gbc_btnOk);
+		contentPane.add(btnOk, gbc_btnOk);
 		
 		switch (mode) {
 			case VIEW:
