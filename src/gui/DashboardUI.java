@@ -306,7 +306,7 @@ public class DashboardUI extends JFrame {
 		
 		// ***** Choose customer button *****
 		btnChooseCustomer.addActionListener(e -> {
-			ChooseCustomerUI frame = new ChooseCustomerUI();
+			ChooseCustomerUI frame = new ChooseCustomerUI(auth);
 			frame.setVisible(true);
 			if (frame.isCustomerSelected()) {
 				customer = frame.getSelectedCustomer();
@@ -366,13 +366,13 @@ public class DashboardUI extends JFrame {
 		
 		// ***** Customer button *****
 		btnCustomer.addActionListener(e -> {
-			ManageCustomerUI frame = new ManageCustomerUI();
+			ManageCustomerUI frame = new ManageCustomerUI(auth);
 			frame.setVisible(true);
 		});
 		
 		// we need to create CRUDEmployeesPanel
 		btnEmployee.addActionListener(e -> {
-			ManageEmployeeUI frame = new ManageEmployeeUI();
+			ManageEmployeeUI frame = new ManageEmployeeUI(auth);
 			frame.setVisible(true);
 		});
 		

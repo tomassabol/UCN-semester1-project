@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.AuthenticationController;
 import controller.CustomerController;
 import model.Customer;
 import model.CustomerType;
@@ -46,15 +47,17 @@ public class CustomerUI extends JDialog {
 	CustomerController customerCtrl;
 	IFCustomer customer;
 	Mode mode;
+	AuthenticationController auth;
 
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public CustomerUI(IFCustomer customer, Mode mode) {
+	public CustomerUI(AuthenticationController auth, IFCustomer customer, Mode mode) {
 		this.mode = mode;
 		this.customer = customer;
+		this.auth = auth;
 		
 		customerCtrl = new CustomerController();
 		// This can be changed with the 'choose' button

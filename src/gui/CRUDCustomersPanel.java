@@ -12,6 +12,8 @@ import javax.swing.JTable;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+
+import controller.AuthenticationController;
 import controller.CustomerController;
 import model.Customer;
 
@@ -37,11 +39,14 @@ public class CRUDCustomersPanel extends JPanel {
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+	
+	AuthenticationController auth;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CRUDCustomersPanel() {
+	public CRUDCustomersPanel(AuthenticationController auth) {
+		this.auth = auth;
 		customerCtrl = new CustomerController();
 		setLayout(new BorderLayout(0, 0));
 		
@@ -196,7 +201,7 @@ public class CRUDCustomersPanel extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(customer, CustomerUI.Mode.VIEW);
+			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 
@@ -204,7 +209,7 @@ public class CRUDCustomersPanel extends JPanel {
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(customer, CustomerUI.Mode.EDIT);
+			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});

@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.AuthenticationController;
 import controller.EmployeeController;
 import model.IFEmployee;
 
@@ -41,15 +42,17 @@ public class EmployeeUI extends JDialog {
 	private IFEmployee employee;
 	private Mode mode;
 	private EmployeeController employeeCtrl;
+	AuthenticationController auth;
 
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public EmployeeUI(IFEmployee employee, Mode mode) {
+	public EmployeeUI(AuthenticationController auth, IFEmployee employee, Mode mode) {
 		this.mode = mode;
 		this.employee = employee;
+		this.auth = auth;
 		
 		employeeCtrl = new EmployeeController();
 		

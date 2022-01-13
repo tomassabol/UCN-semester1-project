@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.AuthenticationController;
 import controller.CustomerController;
 import model.Customer;
 
@@ -33,12 +34,15 @@ public class ChooseCustomerUI extends JDialog {
 	private JButton btnChoose;
 	
 	private Customer selectedCustomer = null;
+	
+	AuthenticationController auth;
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseCustomerUI() {
+	public ChooseCustomerUI(AuthenticationController auth) {
+		this.auth = auth;
 		this.setTitle("Choose a customer...");
 		customerCtrl = new CustomerController();
 		setModal(true);
@@ -54,7 +58,7 @@ public class ChooseCustomerUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		customersPanel = new CRUDCustomersPanel();
+		customersPanel = new CRUDCustomersPanel(auth);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);

@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import controller.AuthenticationController;
 import controller.EmployeeController;
 import gui.JLink.COLORS;
 import model.Employee;
@@ -34,11 +35,13 @@ public class CRUDEmployeesPanel extends JPanel {
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+	AuthenticationController auth;
 
 	/**
 	 * Create the dialog.
 	*/
-	public CRUDEmployeesPanel() {
+	public CRUDEmployeesPanel(AuthenticationController auth) {
+		this.auth = auth;
 		employeeCtrl = new EmployeeController();
 		setLayout(new BorderLayout(0, 0));
 		
@@ -195,7 +198,7 @@ public class CRUDEmployeesPanel extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			IFEmployee employee = tableModel.getObj(row);
-			EmployeeUI frame = new EmployeeUI(employee, EmployeeUI.Mode.VIEW);
+			EmployeeUI frame = new EmployeeUI(auth, employee, EmployeeUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 
@@ -203,7 +206,7 @@ public class CRUDEmployeesPanel extends JPanel {
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			IFEmployee employee = tableModel.getObj(row);
-			EmployeeUI frame = new EmployeeUI(employee, EmployeeUI.Mode.EDIT);
+			EmployeeUI frame = new EmployeeUI(auth, employee, EmployeeUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});
