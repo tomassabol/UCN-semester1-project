@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import controller.CustomerController;
 import model.Customer;
 import model.CustomerType;
+import model.IFCustomer;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -43,7 +44,7 @@ public class CustomerUI extends JDialog {
 	
 	CustomerType customerType;
 	CustomerController customerCtrl;
-	Customer customer;
+	IFCustomer customer;
 	Mode mode;
 
 
@@ -51,7 +52,7 @@ public class CustomerUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CustomerUI(Customer customer, Mode mode) {
+	public CustomerUI(IFCustomer customer, Mode mode) {
 		this.mode = mode;
 		this.customer = customer;
 		
@@ -89,7 +90,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblFirstName, gbc_lblFirstName);
 		
 		
-		txtID = new JTextField(String.valueOf(customer.ID));
+		txtID = new JTextField(String.valueOf(customer.getID()));
 		txtID.setEnabled(false);
 		GridBagConstraints gbc_txtID = new GridBagConstraints();
 		gbc_txtID.insets = new Insets(0, 0, 5, 5);

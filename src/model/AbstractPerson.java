@@ -65,6 +65,10 @@ public abstract class AbstractPerson {
 		this.birthDate = birthDate;
 	}
 	
+	public int getID() {
+		return this.ID;
+	}
+	
 	
 
 }
