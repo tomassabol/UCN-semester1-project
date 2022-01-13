@@ -6,7 +6,8 @@ import java.awt.Component;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import model.IFEmployee;
+
+import model.Customer;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -16,7 +17,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
-public class EmployeeUI extends JDialog {
+public class CustomerUI extends JDialog {
 	
 	public enum Mode {
 		VIEW,
@@ -30,7 +31,7 @@ public class EmployeeUI extends JDialog {
 	private JTextField txtLastName;
 	private JTextField txtAddress;
 	private JTextField txtPhone;
-	private JTextField txtEmail;
+	private JTextField txtType;
 	private JTextField txtBirth;
 	private JButton btnOk;
 
@@ -39,7 +40,7 @@ public class EmployeeUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EmployeeUI(IFEmployee employee, Mode mode) {
+	public CustomerUI(Customer customer, Mode mode) {
 		setBounds(100, 100, 450, 341);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -60,7 +61,7 @@ public class EmployeeUI extends JDialog {
 		contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		
-		txtID = new JTextField(String.valueOf(employee.getID()));
+		txtID = new JTextField(String.valueOf(customer.ID));
 		GridBagConstraints gbc_txtID = new GridBagConstraints();
 		gbc_txtID.insets = new Insets(0, 0, 5, 5);
 		gbc_txtID.fill = GridBagConstraints.HORIZONTAL;
@@ -88,7 +89,7 @@ public class EmployeeUI extends JDialog {
 		contentPanel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		
-		txtFirstName = new JTextField(employee.getFirstName());
+		txtFirstName = new JTextField(customer.getFirstName());
 		GridBagConstraints gbc_txtFirstName = new GridBagConstraints();
 		gbc_txtFirstName.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFirstName.fill = GridBagConstraints.HORIZONTAL;
@@ -98,7 +99,7 @@ public class EmployeeUI extends JDialog {
 		txtFirstName.setColumns(10);
 		
 		
-		txtLastName = new JTextField(employee.getLastName());
+		txtLastName = new JTextField(customer.getLastName());
 		GridBagConstraints gbc_txtLastName = new GridBagConstraints();
 		gbc_txtLastName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
@@ -116,8 +117,8 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_4.gridy = 4;
 		contentPanel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		// missing getaddress method
-		txtAddress = new JTextField();
+		
+		txtAddress = new JTextField(customer.getAddress());
 		GridBagConstraints gbc_txtAddress = new GridBagConstraints();
 		gbc_txtAddress.insets = new Insets(0, 0, 5, 5);
 		gbc_txtAddress.fill = GridBagConstraints.HORIZONTAL;
@@ -136,7 +137,7 @@ public class EmployeeUI extends JDialog {
 		contentPanel.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
 		
-		JLabel lblNewLabel_6 = new JLabel("Email");
+		JLabel lblNewLabel_6 = new JLabel("Type");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
 		gbc_lblNewLabel_6.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 0);
@@ -144,8 +145,8 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_6.gridy = 6;
 		contentPanel.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
-		// missing get mobile method
-		txtPhone = new JTextField();
+		
+		txtPhone = new JTextField(String.valueOf(customer.getMobile()));
 		GridBagConstraints gbc_txtPhone = new GridBagConstraints();
 		gbc_txtPhone.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPhone.fill = GridBagConstraints.HORIZONTAL;
@@ -155,14 +156,14 @@ public class EmployeeUI extends JDialog {
 		txtPhone.setColumns(10);
 		
 		
-		txtEmail = new JTextField(employee.getEmail());
-		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
-		gbc_txtEmail.insets = new Insets(0, 0, 5, 0);
-		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtEmail.gridx = 1;
-		gbc_txtEmail.gridy = 7;
-		contentPanel.add(txtEmail, gbc_txtEmail);
-		txtEmail.setColumns(10);
+		txtType = new JTextField(customer.getCustomerType().getName());
+		GridBagConstraints gbc_txtType = new GridBagConstraints();
+		gbc_txtType.insets = new Insets(0, 0, 5, 0);
+		gbc_txtType.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtType.gridx = 1;
+		gbc_txtType.gridy = 7;
+		contentPanel.add(txtType, gbc_txtType);
+		txtType.setColumns(10);
 		
 		
 		JLabel lblNewLabel_7 = new JLabel("Birth");
@@ -174,7 +175,7 @@ public class EmployeeUI extends JDialog {
 		contentPanel.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
 		
-		txtBirth = new JTextField(String.valueOf(employee.getBirthDate()));
+		txtBirth = new JTextField(String.valueOf(customer.getBirthDate()));
 		GridBagConstraints gbc_txtBirth = new GridBagConstraints();
 		gbc_txtBirth.insets = new Insets(0, 0, 0, 5);
 		gbc_txtBirth.fill = GridBagConstraints.HORIZONTAL;
@@ -194,7 +195,7 @@ public class EmployeeUI extends JDialog {
 		switch (mode) {
 			case VIEW:
 				// Set title
-				setTitle("View Employee - " + employee.getFirstName() + " " + employee.getLastName());
+				setTitle("View Customer - " + customer.getFirstName() + " " + customer.getLastName());
 				// Hide 'Update' button if in view mode
 				btnOk.setVisible(false);
 				// Disable fields
@@ -202,7 +203,7 @@ public class EmployeeUI extends JDialog {
 				break;
 			case EDIT: 
 				// Set title
-				setTitle("Edit Employee");
+				setTitle("Edit Customer");
 				// Enable fields for editing
 				this.enableFields();
 				break;
@@ -248,47 +249,47 @@ public class EmployeeUI extends JDialog {
 		
 		// 'update' button: Update the product
 		btnOk.addActionListener(e -> {
-			if (Messages.confirm(EmployeeUI.this, "Are you sure you want to update the changes to Employee?", "Update")) {
+			if (Messages.confirm(CustomerUI.this, "Are you sure you want to update the changes to Customer?", "Update")) {
 				
 				// Validate First name
 				String fname = txtFirstName.getText().strip();
 				if (fname.isEmpty()) {
-					Messages.error(this, "Employee First Name name cannot be empty!");
+					Messages.error(this, "Customer First Name name cannot be empty!");
 					return;
 				}
 	
 				// Validate Last name
 				String lname = txtFirstName.getText().strip();
 				if (lname.isEmpty()) {
-					Messages.error(this, "Employee Last Name name cannot be empty!");
+					Messages.error(this, "Customer Last Name name cannot be empty!");
 					return;
 				}
 				
 				// Validate address
 				String address = txtAddress.getText().strip();
 				if (address.isEmpty()) {
-					Messages.error(this, "Employee Address cannot be empty!");
+					Messages.error(this, "Customer Address cannot be empty!");
 					return;
 				}
 				
 				// Validate phone
 				String phone = txtPhone.getText().strip();
 				if (phone.isEmpty()) {
-					Messages.error(this, "Employee Phone cannot be empty!");
+					Messages.error(this, "Customer Phone cannot be empty!");
 					return;
 				}
 				
 				// Validate Type
-				String type = txtEmail.getText().strip();
+				String type = txtType.getText().strip();
 				if (type.isEmpty()) {
-					Messages.error(this, "Employee Type cannot be empty!");
+					Messages.error(this, "Customer Type cannot be empty!");
 					return;
 				}
 	
 				// Validate Birthdate
 				String birthdate = txtBirth.getText().strip();
 				if (birthdate.isEmpty()) {
-					Messages.error(this, "Employee Birth cannot be empty!");
+					Messages.error(this, "Customer Birth cannot be empty!");
 					return;
 				}
 				

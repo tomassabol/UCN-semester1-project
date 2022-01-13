@@ -1,32 +1,23 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.EventQueue;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controller.ProductController;
 import model.Product;
-import model.SellingPrice;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Objects;
-import java.awt.event.ActionEvent;
 
 public class ProductUI extends JDialog {
 	

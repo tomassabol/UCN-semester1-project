@@ -15,7 +15,7 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import controller.AuthenticationController;
-import controller.ProductController;
+
 import controller.QuoteController;
 import controller.ShoppingCartController;
 import controller.StockController;

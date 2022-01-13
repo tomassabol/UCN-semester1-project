@@ -183,11 +183,28 @@ public class CRUDEmployeesPanel extends JPanel {
 	// Delete employee
 	btnDisable.addActionListener(e -> {
 		int row = tableMain.getSelectedRow();
-		IFEmployee employee= tableModel.getObj(row);
+		IFEmployee employee = tableModel.getObj(row);
 		if (Messages.confirm(this, String.format("Are you sure you wish to delete the employee '%s %s'?", employee.getFirstName(), employee.getLastName()))) {
 			employeeCtrl.removeEmployee(employee);
 			tableModel.remove(row);
 		}
+		});
+
+		// View Employee
+		btnView.addActionListener(e -> {
+			int row = tableMain.getSelectedRow();
+			IFEmployee employee = tableModel.getObj(row);
+			EmployeeUI frame = new EmployeeUI(employee, EmployeeUI.Mode.VIEW);
+			frame.setVisible(true);
+		});
+
+		// Edit employee
+		btnEdit.addActionListener(e -> {
+			int row = tableMain.getSelectedRow();
+			IFEmployee employee = tableModel.getObj(row);
+			EmployeeUI frame = new EmployeeUI(employee, EmployeeUI.Mode.EDIT);
+			frame.setVisible(true);
+			tableModel.fireTableRowsUpdated(row, row);
 		});
 }
 

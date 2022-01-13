@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.CustomerController;
 import model.Customer;
 
 import java.awt.GridBagLayout;

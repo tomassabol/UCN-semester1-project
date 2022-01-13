@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import model.OrderLine;
-import model.QuoteItemLine;
 
 /**
  * @author Daniels Kanepe
