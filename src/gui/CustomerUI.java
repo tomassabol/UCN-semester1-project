@@ -216,7 +216,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblBirth, gbc_lblBirth);
 		
 		
-		txtBirth = new JTextField(String.valueOf(customer.getBirthDate()));
+		txtBirth = new JTextField(Common.dateToString(customer.getBirthDate()));
 		GridBagConstraints gbc_txtBirth = new GridBagConstraints();
 		gbc_txtBirth.insets = new Insets(0, 0, 0, 5);
 		gbc_txtBirth.fill = GridBagConstraints.HORIZONTAL;

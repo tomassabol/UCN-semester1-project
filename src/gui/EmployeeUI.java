@@ -166,7 +166,7 @@ public class EmployeeUI extends JDialog {
 		txtEmail.setColumns(10);
 		
 		
-		JLabel lblNewLabel_7 = new JLabel("Birth");
+		JLabel lblNewLabel_7 = new JLabel("Birth ("+ Common.getDateFormat() + ") *");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
 		gbc_lblNewLabel_7.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
@@ -175,7 +175,7 @@ public class EmployeeUI extends JDialog {
 		contentPanel.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
 		
-		txtBirth = new JTextField(String.valueOf(employee.getBirthDate()));
+		txtBirth = new JTextField(Common.dateToString(employee.getBirthDate()));
 		GridBagConstraints gbc_txtBirth = new GridBagConstraints();
 		gbc_txtBirth.insets = new Insets(0, 0, 0, 5);
 		gbc_txtBirth.fill = GridBagConstraints.HORIZONTAL;

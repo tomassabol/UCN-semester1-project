@@ -134,7 +134,6 @@ public class CRUDEmployeesPanel extends JPanel {
 		return tableMain;
 	}
 	
-	// TODO: create EmployeeTableModel
 	public EmployeeTableModel getTableModel() {
 		return tableModel;
 	}
@@ -184,7 +183,9 @@ public class CRUDEmployeesPanel extends JPanel {
 	btnDisable.addActionListener(e -> {
 		int row = tableMain.getSelectedRow();
 		IFEmployee employee = tableModel.getObj(row);
-		if (Messages.confirm(this, String.format("Are you sure you wish to delete the employee '%s %s'?", employee.getFirstName(), employee.getLastName()))) {
+		if (Messages.confirm(this, String.format("Are you sure you wish to delete the employee '%s %s'?",
+				employee.getFirstName(),
+				employee.getLastName()))) {
 			employeeCtrl.removeEmployee(employee);
 			tableModel.remove(row);
 		}

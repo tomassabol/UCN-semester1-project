@@ -372,7 +372,7 @@ public class DashboardUI extends JFrame {
 		
 		// we need to create CRUDEmployeesPanel
 		btnEmployee.addActionListener(e -> {
-			CRUDEmployeesPanel frame = new CRUDEmployeesPanel();
+			ManageEmployeeUI frame = new ManageEmployeeUI();
 			frame.setVisible(true);
 		});
 		
