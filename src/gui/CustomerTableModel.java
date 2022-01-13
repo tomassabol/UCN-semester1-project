@@ -69,7 +69,9 @@ public class CustomerTableModel extends AbstractTableModel {
             case 2: return customer.getLastName();
             case 3: return customer.getAddress();
             case 4: return customer.getMobile();
-            case 5: return customer.getCustomerType();
+            case 5: return String.format("%s (%d%% discount)", 
+            		customer.getCustomerType().getName(),
+            		customer.getCustomerType().getDiscountPercentage());
             case 6: return customer.getBirthDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
             default: return "Error retrieving column name";
         }
