@@ -1,24 +1,24 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import model.Customer;
-
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JTabbedPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 
 /**
  * @author Daniels Kanepe
@@ -51,6 +51,11 @@ public class DashboardUI extends JFrame {
 	private JButton btnCustomer;
 	private JLabel lblEmployee;
 	private JLabel lblCustomer;
+	private JPanel InventoryPanel;
+	private JButton btnContractor;
+	private JButton btnSupplyOrder;
+	private JButton btnStock;
+	private JButton btnSupplyOffer;
 
 	/**
 	 * Create the frame.
@@ -224,9 +229,80 @@ public class DashboardUI extends JFrame {
 	 * -------------------------------------------------------
 	 */
 	public void initInventoryTab() {
-		JPanel inventoryPanel = new JPanel();
-		tabsPane.addTab("Inventory", null, inventoryPanel, null);
+		InventoryPanel = new JPanel();
+		InventoryPanel.setToolTipText("");
+		InventoryPanel.setBorder(null);
+		tabsPane.addTab("Inventory", null, InventoryPanel, "Inventory");
+		InventoryPanel.setLayout(new BorderLayout(0, 0));
+		
+		JPanel contractorPaneTopPanel = new JPanel();
+		InventoryPanel.add(contractorPaneTopPanel, BorderLayout.NORTH);
+		contractorPaneTopPanel.setLayout(new BorderLayout(0, 0));
+		
+		
+		txtCustomer = new JTextField();
+		txtCustomer.setEditable(false);
+		sellPaneTopPanel.add(txtCustomer, BorderLayout.SOUTH);
+		txtCustomer.setColumns(10); 
+		
+		Container contractorPaneBottomPanel = new JPanel();
+		InventoryPanel.add(contractorPaneBottomPanel, BorderLayout.CENTER);
+		GridBagLayout gbl_contractorPaneBottomPanel = new GridBagLayout();
+		gbl_contractorPaneBottomPanel.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_contractorPaneBottomPanel.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_contractorPaneBottomPanel.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contractorPaneBottomPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		contractorPaneBottomPanel.setLayout(gbl_contractorPaneBottomPanel);
+		
+		lblSell = new JLabel();
+		ImageIcon sellIcon = new ImageIcon("images/coins.png", "");
+		lblSell.setIcon(sellIcon);
+		GridBagConstraints gbc_lblSell = new GridBagConstraints();
+		gbc_lblSell.fill = GridBagConstraints.VERTICAL;
+		gbc_lblSell.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSell.gridx = 0;
+		gbc_lblSell.gridy = 0;
+		sellPaneBottomPanel.add(lblSell, gbc_lblSell);
+		
+		btnSupplyOffer = new JButton("Supply Offer");
+		GridBagConstraints gbc_btnSupplyOffer = new GridBagConstraints();
+		gbc_btnSupplyOffer.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSupplyOffer.gridx = 1;
+		gbc_btnSupplyOffer.gridy = 1;
+		contractorPaneBottomPanel.add(btnSupplyOffer, gbc_btnSupplyOffer);
+		
+		
+		
+		
+		
+		
+		btnContractor = new JButton("Contractor");
+		GridBagConstraints gbc_btnContractor = new GridBagConstraints();
+		gbc_btnContractor.insets = new Insets(0, 0, 0, 5);
+		gbc_btnContractor.gridx = 0;
+		gbc_btnContractor.gridy = 2;
+		contractorPaneBottomPanel.add(btnContractor, gbc_btnContractor);
+		
+		btnSupplyOrder = new JButton("Supply Order");
+		btnSupplyOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		GridBagConstraints gbc_btnSupplyOrder = new GridBagConstraints();
+		gbc_btnSupplyOrder.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSupplyOrder.gridx = 1;
+		gbc_btnSupplyOrder.gridy = 2;
+		contractorPaneBottomPanel.add(btnSupplyOrder, gbc_btnSupplyOrder);
+		
+		btnStock = new JButton("Stock");
+		GridBagConstraints gbc_btnStock = new GridBagConstraints();
+		gbc_btnStock.gridx = 2;
+		gbc_btnStock.gridy = 2;
+		contractorPaneBottomPanel.add(btnStock, gbc_btnStock);
+		
+		
 	}
+	
 	
 	/*
 	 * -------------------------------------------------------
@@ -361,8 +437,19 @@ public class DashboardUI extends JFrame {
 		});
 		
 		///////////////////////////////////////////////////////
+		////////////////     Inventory     //////////////////
+		/////////////////////////////////////////////////////
+		
+		// ***** Contractor button *****
+				btnContractor.addActionListener(e -> {
+					ManageContractorUI frame = new ManageContractorUI(auth);
+					frame.setVisible(true);
+				});
+				
+		///////////////////////////////////////////////////////
 		////////////////     People tab     //////////////////
 		/////////////////////////////////////////////////////
+		
 		
 		// ***** Customer button *****
 		btnCustomer.addActionListener(e -> {
