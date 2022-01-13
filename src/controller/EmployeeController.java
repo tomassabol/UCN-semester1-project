@@ -79,14 +79,22 @@ public class EmployeeController {
 		employee.setAddress(address);
 	}
 
-	public void updataBirthDate(IFEmployee employee, LocalDate birthDate) {
+	public void updateBirthDate(IFEmployee employee, LocalDate birthDate) {
 		employee.setBirthDate(birthDate);
 	}
 
 	public void updateCPRNumber(IFEmployee employee, String CPRNumber) {
 		employee.setCPRNumber(CPRNumber);
 	}
+	
+	public void updateMobile(IFEmployee employee, String mobile) {
+		employee.setMobile(mobile);
+	}
 
+	public void updateEmail(IFEmployee employee, String email) {
+		employee.setEmail(email);
+	}
+	
 	public void removeEmployee(IFEmployee employee) {
 		EmployeeContainer.getInstance().removeEmployee(employee);
 	}

@@ -6,6 +6,8 @@ import java.awt.Component;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.EmployeeController;
 import model.IFEmployee;
 
 import java.awt.GridBagLayout;
@@ -36,6 +38,10 @@ public class EmployeeUI extends JDialog {
 	private JTextField txtEmail;
 	private JTextField txtBirth;
 	private JButton btnOk;
+	
+	private IFEmployee employee;
+	private Mode mode;
+	private EmployeeController employeeCtrl;
 
 
 
@@ -43,6 +49,11 @@ public class EmployeeUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public EmployeeUI(IFEmployee employee, Mode mode) {
+		this.mode = mode;
+		this.employee = employee;
+		
+		employeeCtrl = new EmployeeController();
+		
 		setModal(true);
 		setBounds(100, 100, 450, 341);
 		getContentPane().setLayout(new BorderLayout());
@@ -260,7 +271,7 @@ public class EmployeeUI extends JDialog {
 				}
 	
 				// Validate Last name
-				String lname = txtFirstName.getText().strip();
+				String lname = txtLastName.getText().strip();
 				if (lname.isEmpty()) {
 					Messages.error(this, "Last Name name cannot be left empty!");
 					return;
@@ -273,10 +284,17 @@ public class EmployeeUI extends JDialog {
 					return;
 				}
 				
-				// Validate mmobile
+				// Validate mobile
 				String mobile = txtPhone.getText().strip();
 				if (mobile.isEmpty()) {
 					Messages.error(this, "Mobile cannot be left empty!");
+					return;
+				}
+				
+				// Validate email
+				String email = txtEmail.getText().strip();
+				if (email.isEmpty()) {
+					Messages.error(this, "Email field cannot be left empty!");
 					return;
 				}
 				
@@ -296,6 +314,14 @@ public class EmployeeUI extends JDialog {
 					Messages.error(this, "Please enter a valid birth date in the format of: " + Common.getDateFormat());
 					return;
 				}
+				
+				// UPDATE
+				employeeCtrl.updateFirstName(employee, fname);
+				employeeCtrl.updateLastName(employee, lname);
+				employeeCtrl.updateAddress(employee, address);
+				employeeCtrl.updateMobile(employee, mobile);
+				employeeCtrl.updateEmail(employee, email);
+				employeeCtrl.updateBirthDate(employee, birthDate);
 				
 			}
 			// Dispose of the window

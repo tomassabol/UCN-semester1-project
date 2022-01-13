@@ -23,6 +23,8 @@ public interface IFEmployee {
 	public void setLastName(String lastName);
 	public void setAddress(String address);
 	public void setBirthDate(LocalDate birthDate);
+	public void setMobile(String mobile);
+	public void setEmail(String email);
 	public LocalDate getBirthDate();
 	public String getAddress();
 	public String getMobile();
