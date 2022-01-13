@@ -303,7 +303,7 @@ public class CustomerUI extends JDialog {
 				}
 	
 				// Validate Last name
-				String lname = txtFirstName.getText().strip();
+				String lname = txtLastName.getText().strip();
 				if (lname.isEmpty()) {
 					Messages.error(this, "Last Name name cannot be empty!");
 					return;
