@@ -41,6 +41,7 @@ public class CustomerUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public CustomerUI(Customer customer, Mode mode) {
+		setModal(true);
 		setBounds(100, 100, 450, 341);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
