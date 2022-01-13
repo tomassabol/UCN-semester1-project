@@ -186,11 +186,15 @@ public class CRUDEmployeesPanel extends JPanel {
 	btnDisable.addActionListener(e -> {
 		int row = tableMain.getSelectedRow();
 		IFEmployee employee = tableModel.getObj(row);
-		if (Messages.confirm(this, String.format("Are you sure you wish to delete the employee '%s %s'?",
-				employee.getFirstName(),
-				employee.getLastName()))) {
-			employeeCtrl.removeEmployee(employee);
-			tableModel.remove(row);
+		if (employee == auth.getLoggedInUser()) {
+			Messages.error(this, "You cannot delete currently logged in employee!");
+		} else {
+			if (Messages.confirm(this, String.format("Are you sure you wish to delete the employee '%s %s'?",
+					employee.getFirstName(),
+					employee.getLastName()))) {
+				employeeCtrl.removeEmployee(employee);
+				tableModel.remove(row);
+			}
 		}
 		});
 
