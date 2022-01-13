@@ -185,7 +185,7 @@ public class EmployeeUI extends JDialog {
 		txtBirth.setColumns(10);
 		
 		
-		btnOk = new JButton("OK");
+		btnOk = new JButton("Update");
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
 		gbc_btnOk.anchor = GridBagConstraints.EAST;
 		gbc_btnOk.gridx = 1;
