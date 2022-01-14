@@ -29,8 +29,6 @@ public class ManageContractorUI extends JDialog {
 	private static final long serialVersionUID = 2968937622159813565L;
 	private final JPanel contentPane;
 	private CRUDContractorPanel contractorPanel;
-	
-	private Contractor selectedContractor = null;
 
 	AuthenticationController auth;
 

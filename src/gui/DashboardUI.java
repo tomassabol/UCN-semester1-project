@@ -440,11 +440,11 @@ public class DashboardUI extends JFrame {
 		////////////////     Inventory     //////////////////
 		/////////////////////////////////////////////////////
 		
-		// ***** Contractor button *****
-				btnContractor.addActionListener(e -> {
-					ManageContractorUI frame = new ManageContractorUI(auth);
-					frame.setVisible(true);
-				});
+		// ***** Manage Contractors *****
+		btnContractor.addActionListener(e -> {
+			ManageContractorUI frame = new ManageContractorUI(auth);
+			frame.setVisible(true);
+		});
 				
 		///////////////////////////////////////////////////////
 		////////////////     People tab     //////////////////

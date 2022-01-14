@@ -14,8 +14,6 @@ import model.Contractor;
  *
  */
 public class ContractorTableModel extends AbstractTableModel {
-	
-	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
 	private static final long serialVersionUID = -2367962812947993282L;
 

@@ -81,7 +81,7 @@ public class MenuContractor extends GenericMenuInterface{
         String name = terminal.getStringInput("The new company name: ");
         
         if (terminal.confirmInput("Update " + contractor.getCompanyName() + " to " + name + "?")) {
-        	contractorCtrl.updateContractorCompanyName(contractor, name);
+        	contractorCtrl.updateCompanyName(contractor, name);
         	super.show("Successfully updated contractor's company name");
         }
         

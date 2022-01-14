@@ -59,9 +59,7 @@ public class CRUDContractorPanel extends JPanel {
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
 			// ***** Title *****
-			JLabel lblTitle = new JLabel(
-					String.format("Contractors")
-			);
+			JLabel lblTitle = new JLabel("Contractors");
 			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 			gbc_lblTitle.gridwidth = 2;
 			gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
@@ -145,7 +143,7 @@ public class CRUDContractorPanel extends JPanel {
 	
 
 	/**
-	 * Select a customer in the CRUD table.
+	 * Select a contractor in the CRUD table.
 	 *
 	 * @param customer the customer
 	 * @return true, if successful
@@ -194,12 +192,12 @@ public class CRUDContractorPanel extends JPanel {
 			}
 		});
 		// View Contractor
-				btnView.addActionListener(e -> {
-					int row = tableMain.getSelectedRow();
-					Contractor contractor = tableModel.getObj(row);
-					ContractorUI frame = new ContractorUI(auth, contractor, ContractorUI.Mode.VIEW);
-					frame.setVisible(true);
-				});
+		btnView.addActionListener(e -> {
+			int row = tableMain.getSelectedRow();
+			Contractor contractor = tableModel.getObj(row);
+			ContractorUI frame = new ContractorUI(auth, contractor, ContractorUI.Mode.VIEW);
+			frame.setVisible(true);
+		});
 		// Edit Contractor
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
