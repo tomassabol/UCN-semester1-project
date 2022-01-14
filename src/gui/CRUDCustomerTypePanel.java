@@ -202,7 +202,7 @@ public class CRUDCustomerTypePanel extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			CustomerType customerType = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
+			//CustomerUI frame = new CustomerTypeUI(auth, customerType, CustomerUI.Mode.VIEW);
 			//frame.setVisible(true);
 		});
 
@@ -210,7 +210,7 @@ public class CRUDCustomerTypePanel extends JPanel {
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			CustomerType customerType = tableModel.getObj(row);
-			//CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.EDIT);
+			//CustomerUI frame = new CustomerTypeUI(auth, customerType, CustomerUI.Mode.EDIT);
 			//frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});
