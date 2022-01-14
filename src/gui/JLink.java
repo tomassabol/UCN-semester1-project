@@ -56,7 +56,7 @@ public class JLink extends JButton {
 		    public void mouseEntered(MouseEvent e) {
 				if (JLink.this.isEnabled()) {
 			        // the mouse is on the label: underline it
-			    	JLink.this.setText("<HTML><U>" + text +"</U></HTML>");
+					JLink.super.setText("<HTML><U>" + JLink.this.text +"</U></HTML>");
 				}
 
 		    }
@@ -65,7 +65,8 @@ public class JLink extends JButton {
 		    public void mouseExited(MouseEvent e) {
 				if (JLink.this.isEnabled()) {
 			        // the mouse has exited the label: set back to original
-			    	JLink.this.setText(text);
+					System.out.println(JLink.this.text);
+			    	JLink.super.setText(JLink.this.text);
 				}
 		    }
 		});
