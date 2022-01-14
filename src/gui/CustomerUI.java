@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.CustomerController;
+import model.Customer;
 import model.CustomerType;
 import model.IFCustomer;
 
@@ -45,9 +46,9 @@ public class CustomerUI extends JDialog {
 	private JTextField txtType;
 	private JButton btnChooseType;
 	
+	Customer customer;
 	CustomerType customerType;
 	CustomerController customerCtrl;
-	IFCustomer customer;
 	Mode mode;
 	AuthenticationController auth;
 
@@ -56,14 +57,13 @@ public class CustomerUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CustomerUI(AuthenticationController auth, IFCustomer customer, Mode mode) {
+	public CustomerUI(AuthenticationController auth, Customer customer, Mode mode) {
 		this.mode = mode;
-		this.customer = customer;
 		this.auth = auth;
 		
 		customerCtrl = new CustomerController();
-		// This can be changed with the 'choose' button
-		customerType = customer.getCustomerType();
+		this.customer = customer;
+		this.customerType = customer.getCustomerType();
 		
 		setModal(true);
 		setBounds(100, 100, 450, 341);
@@ -195,7 +195,7 @@ public class CustomerUI extends JDialog {
 		gbl_typePanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		typePanel.setLayout(gbl_typePanel);
 		
-		txtType = new JTextField(customerType.getName());
+		txtType = new JTextField(customer.getCustomerType().getName());
 		txtType.setEnabled(false);
 		GridBagConstraints gbc_txtType = new GridBagConstraints();
 		gbc_txtType.insets = new Insets(0, 0, 0, 5);
@@ -361,7 +361,7 @@ public class CustomerUI extends JDialog {
 		});
 
 		btnChooseType.addActionListener(e -> {
-			CRUDCustomerTypePanel frame = new CRUDCustomerTypePanel();
+			CRUDCustomerTypePanel frame = new CRUDCustomerTypePanel(auth);
 			frame.setVisible(true);
 		});
 	}

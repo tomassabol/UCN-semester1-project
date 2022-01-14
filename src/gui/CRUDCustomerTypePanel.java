@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
+import controller.AuthenticationController;
 import controller.CustomerController;
 import model.CustomerType;
 
@@ -38,11 +39,14 @@ public class CRUDCustomerTypePanel extends JPanel {
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+	
+	AuthenticationController auth;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CRUDCustomerTypePanel() {
+	public CRUDCustomerTypePanel(AuthenticationController auth) {
+		this.auth = auth;
 		customerCtrl = new CustomerController();
 		setLayout(new BorderLayout(0, 0));
 
@@ -144,7 +148,7 @@ public class CRUDCustomerTypePanel extends JPanel {
 	
 
 	/**
-	 * Select a customer in the CRUD table.
+	 * Select a customer type in the CRUD table.
 	 *
 	 * @param customer the customer
 	 * @return true, if successful
@@ -161,14 +165,7 @@ public class CRUDCustomerTypePanel extends JPanel {
 		return false;
 	}
 
-	/**
-	 * 'Add customer' button code
-	 */
-	private void addCustomer() {
-		AddCustomerUI frame = new AddCustomerUI();
-		frame.setVisible(true);
-	}
-	
+
 	
 	/*
 	 * *******************************************************
@@ -205,7 +202,7 @@ public class CRUDCustomerTypePanel extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			CustomerType customerType = tableModel.getObj(row);
-			//CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
+			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
 			//frame.setVisible(true);
 		});
 
@@ -220,8 +217,8 @@ public class CRUDCustomerTypePanel extends JPanel {
 
 		// 'ADD Customer Type' button
 		btnAddCustomerType.addActionListener(e -> {
-            System.out.println("add customer button");
-			this.addCustomer();
+			AddCustomerUI frame = new AddCustomerUI();
+			frame.setVisible(true);
 		});
 	}
 }
