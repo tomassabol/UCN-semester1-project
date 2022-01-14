@@ -4,6 +4,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.AuthenticationController;
 import controller.CustomerController;
 import model.CustomerType;
 import model.PrimaryKey;
@@ -38,13 +39,15 @@ public class AddCustomerUI extends JDialog {
 	
 	CustomerType customerType;
 	CustomerController customerCtrl;
+	AuthenticationController auth;
 
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public AddCustomerUI() {
+	public AddCustomerUI(AuthenticationController auth) {
+		this.auth = auth;
 
 		customerCtrl = new CustomerController();
 		

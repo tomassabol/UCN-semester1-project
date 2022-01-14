@@ -169,7 +169,7 @@ public class CRUDCustomersPanel extends JPanel {
 	 * 'Add customer' button code
 	 */
 	private void addCustomer() {
-		AddCustomerUI frame = new AddCustomerUI();
+		AddCustomerUI frame = new AddCustomerUI(auth);
 		frame.setVisible(true);
 	}
 	
