@@ -16,32 +16,26 @@ public class LoaningPrice {
      * @exception IllegalArgumentException if pricePerHour < 0
      */
     public LoaningPrice(BigDecimal pricePerHour, LocalDateTime dateAdded) {
-    	this.setPricePerHour(pricePerHour);
+    	if (pricePerHour != null && (pricePerHour.compareTo(BigDecimal.valueOf(0)) < 0)) {
+        	// if not null and price below zero, throw exception
+        	throw new IllegalArgumentException("Price per hour cannot be below zero!");
+    	}
         this.pricePerHour = pricePerHour;
         this.dateAdded = dateAdded;
     }
 
-    // get/set pricePerHour
+    /**
+     * Gets the price per hour. Note: it can be null!
+     *
+     * @return the price per hour
+     */
     public BigDecimal getPricePerHour() {
         return this.pricePerHour;
     }
 
-    /**
-     * Sets the price per hour.
-     *
-     * @param pricePerHour the new price per hour
-     * 
-     * @exception IllegalArgumentException if pricePerHour < 0
-     */
-    public void setPricePerHour(BigDecimal pricePerHour) {
-    	// Check that price per hour is not below zero
-    	if (pricePerHour.compareTo(BigDecimal.ZERO) < 0) {
-    		throw new IllegalArgumentException("Price per hour shouldn't be below 0");
-    	}
-        this.pricePerHour = pricePerHour;
-    }
+    // No set price by design!!!! If you want to edit the price, add a new one to the container!!!
+    private void setPricePerHour() {};
 
-    // get/set dateAdded
     public LocalDateTime getDateAdded() {
         return this.dateAdded;
     }

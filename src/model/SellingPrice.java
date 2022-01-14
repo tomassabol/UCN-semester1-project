@@ -16,35 +16,30 @@ public class SellingPrice {
 	 * @exception IllegalArgumentException If price < 0
      */
     public SellingPrice(BigDecimal price, LocalDateTime dateAdded) {
-    	setPrice(price);
-        this.price = price;
+    	if (price != null && (price.compareTo(BigDecimal.valueOf(0)) < 0)) {
+        	// if not null and price below zero, throw exception
+        	throw new IllegalArgumentException("Price cannot be below zero!");
+    	}
+    	this.price = price;
         this.dateAdded = dateAdded;
     }
 
-    // get/set price
+    /**
+     * Gets the price. Note: price can be null!
+     *
+     *
+     * @return the price
+     */
     public BigDecimal getPrice() {
         return this.price;
     }
-
-    /**
-     * Sets the price.
-     *
-     * @param price the new price
-     * 
-     * @exception IllegalArgumentException If price < 0
-     */
-    public void setPrice(BigDecimal price) {
-    	// if below zero, throw exception
-    	if (price.compareTo(BigDecimal.valueOf(0)) == -1) {
-    		throw new IllegalArgumentException("Price cannot be below zero!");
-    	}
-        this.price = price;
-    }
-
-    // get/set dateAdded
+    
     public LocalDateTime getDateAdded() {
         return this.dateAdded;
     }
+    
+    // No set price by design!!!! If you want to edit the price, add a new one to the container!!!
+    private void setPrice() {};
 
     public void setDateAdded(LocalDateTime dateAdded) {
         this.dateAdded = dateAdded;

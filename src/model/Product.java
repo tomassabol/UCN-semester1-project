@@ -120,10 +120,6 @@ public class Product {
 	 * @return true if successfully added
 	 */
 	public boolean addSellingPrice(SellingPrice sellingPrice) {
-		// if below 0, return False
-		if (sellingPrice.getPrice().compareTo(BigDecimal.ZERO) == -1) {
-			return false;
-		}
 		return this.sellingPrices.add(sellingPrice);
 	}
 
@@ -153,10 +149,6 @@ public class Product {
 	 * @return true if successfully added
 	 */
 	public boolean addLoaningPrice(LoaningPrice loaningPrice) {
-		// If below 0, return false
-		if (loaningPrice.getPricePerHour().compareTo(BigDecimal.ZERO) == -1) {
-			return false;
-		}
 		return this.loaningPrices.add(loaningPrice);
 	}
 

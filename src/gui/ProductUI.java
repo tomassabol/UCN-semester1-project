@@ -357,11 +357,12 @@ public class ProductUI extends JDialog {
 				
 				
 				// Validate loan price
-				String stringLoanPrice = txtSelling.getText().strip();
+				String stringLoanPrice = txtLoaning.getText().strip();
 				BigDecimal loanPrice;
 				if (stringLoanPrice.isEmpty()) {
 					loanPrice = null;
 				} else {
+					System.out.println("Loan price: " + stringLoanPrice);
 					try {
 						loanPrice = new BigDecimal(stringLoanPrice);
 					} catch (NumberFormatException e1) {
@@ -369,7 +370,7 @@ public class ProductUI extends JDialog {
 						return;
 					}
 					// if less than zero
-					if (buyPrice.compareTo(BigDecimal.ZERO) == -1) {
+					if (loanPrice.compareTo(BigDecimal.ZERO) == -1) {
 						Messages.error(this, "Loan price must be a positive decimal number, separated by dots");
 					}
 				}
@@ -382,11 +383,11 @@ public class ProductUI extends JDialog {
 					productCtrl.updateProductMinStock(this.product, minStock);
 					productCtrl.updateProductMinStock(this.product, maxStock);
 					// create new (thus update) buy price if not same as current
-					if (buyPrice == product.getLatestSellingPrice()) {
+					if (buyPrice != product.getLatestSellingPrice()) {
 						productCtrl.createSellingPrice(buyPrice, product);
 					}
 					// create new (thus update) loan price if not same as current
-					if (buyPrice == product.getLatestLoaningPrice()) {
+					if (loanPrice != product.getLatestLoaningPrice()) {
 						productCtrl.createLoaningPrice(loanPrice, product);
 					}
 				} else if (mode == Mode.CREATE) {
