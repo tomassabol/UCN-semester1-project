@@ -141,6 +141,9 @@ public class AddProductToCartUI extends JDialog {
 					spinnerQuantity.setModel(
 							new SpinnerNumberModel(1, 1, buyableQuantity, 1)
 					);
+				} else {
+					spinnerQuantity.setEnabled(false);
+					btnChoose.setEnabled(false);
 				}
 			}
 			
