@@ -210,7 +210,7 @@ public class CRUDCustomerTypePanel extends JPanel {
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			CustomerType customerType = tableModel.getObj(row);
-			//CustomerUI frame = new CustomerTypeUI(auth, customerType, CustomerUI.Mode.EDIT);
+			//nameCustomerUI frame = new CustomerTypeUI(auth, customerType, CustomerUI.Mode.EDIT);
 			//frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});

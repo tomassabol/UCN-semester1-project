@@ -52,10 +52,6 @@ public class CustomerTypeUI extends JDialog {
 		this(auth, null, Mode.CREATE);
 	}
 	
-	/**
-	 * Create the frame.
-	 * @wbp.parser.constructor
-	 */
 	public CustomerTypeUI(AuthenticationController auth, CustomerType customerType, Mode mode) {
 		this.auth = auth;
 		this.mode = mode;

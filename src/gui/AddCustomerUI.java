@@ -304,7 +304,7 @@ public class AddCustomerUI extends JDialog {
 		}); 
 
 		btnChooseType.addActionListener(e -> {
-			CRUDCustomerTypePanel frame = new CRUDCustomerTypePanel();
+			CRUDCustomerTypePanel frame = new CRUDCustomerTypePanel(auth);
 			frame.setVisible(true);
 		});
 	}
