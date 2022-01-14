@@ -245,6 +245,9 @@ public class CRUDProductsPanel extends JPanel {
 			ProductUI frame = new ProductUI(auth, product, ProductUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
+			// Refresh selection (e.g. in case sell price is now set to nothing)
+			tableMain.clearSelection();
+			tableMain.getSelectionModel().setSelectionInterval(0, row);
 		});
 		
 		// Create product

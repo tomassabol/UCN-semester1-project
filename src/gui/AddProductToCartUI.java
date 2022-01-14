@@ -135,7 +135,7 @@ public class AddProductToCartUI extends JDialog {
 				Product product = tableModel.getProduct(table.getSelectedRow());
 				// Enable only if buyable quantity > 0 & product is enabled
 				int buyableQuantity = stockCtrl.getBuyableQuantityInStock(product);
-				if (buyableQuantity > 0 && product.isEnabled()) {
+				if (buyableQuantity > 0 && product.isEnabled() && product.getLatestSellingPrice() != null) {
 					btnChoose.setEnabled(true);
 					spinnerQuantity.setEnabled(true);
 					spinnerQuantity.setModel(
