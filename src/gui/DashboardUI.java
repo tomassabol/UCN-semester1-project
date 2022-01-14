@@ -54,12 +54,15 @@ public class DashboardUI extends JFrame {
 	private JPanel InventoryPanel;
 	private JButton btnContractor;
 	private JButton btnSupplyOrder;
-	private JButton btnStock;
+	private JButton btnStockASupplyOrder;
 	private JButton btnSupplyOffer;
-	private JLabel lblStockItems;
+	private JLabel lblRestockItems;
 	private JLabel lblManage;
 	private JButton btnStorageLocations;
 	private JButton btnShelves;
+	private JLabel lblInventoryManagePic;
+	private JLabel lblInventoryRestockPic;
+	private JButton btnProducts;
 
 	/**
 	 * Create the frame.
@@ -239,10 +242,24 @@ public class DashboardUI extends JFrame {
 		tabsPane.addTab("Inventory", null, InventoryPanel, "Inventory");
 		GridBagLayout gbl_InventoryPanel = new GridBagLayout();
 		gbl_InventoryPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_InventoryPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_InventoryPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_InventoryPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_InventoryPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_InventoryPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		InventoryPanel.setLayout(gbl_InventoryPanel);
+		
+		lblInventoryManagePic = new JLabel("IMG");
+		GridBagConstraints gbc_lblInventoryManagePic = new GridBagConstraints();
+		gbc_lblInventoryManagePic.insets = new Insets(0, 0, 5, 5);
+		gbc_lblInventoryManagePic.gridx = 0;
+		gbc_lblInventoryManagePic.gridy = 0;
+		InventoryPanel.add(lblInventoryManagePic, gbc_lblInventoryManagePic);
+		
+		lblInventoryRestockPic = new JLabel("IMG");
+		GridBagConstraints gbc_lblInventoryRestockPic = new GridBagConstraints();
+		gbc_lblInventoryRestockPic.insets = new Insets(0, 0, 5, 0);
+		gbc_lblInventoryRestockPic.gridx = 1;
+		gbc_lblInventoryRestockPic.gridy = 0;
+		InventoryPanel.add(lblInventoryRestockPic, gbc_lblInventoryRestockPic);
 		
 		lblManage = new JLabel("Manage");
 		GridBagConstraints gbc_lblManage = new GridBagConstraints();
@@ -251,24 +268,19 @@ public class DashboardUI extends JFrame {
 		gbc_lblManage.gridy = 1;
 		InventoryPanel.add(lblManage, gbc_lblManage);
 		
-		lblStockItems = new JLabel("Re-stock items");
-		GridBagConstraints gbc_lblStockItems = new GridBagConstraints();
-		gbc_lblStockItems.insets = new Insets(0, 0, 5, 0);
-		gbc_lblStockItems.gridx = 1;
-		gbc_lblStockItems.gridy = 1;
-		InventoryPanel.add(lblStockItems, gbc_lblStockItems);
+		lblRestockItems = new JLabel("Re-stock items");
+		GridBagConstraints gbc_lblRestockItems = new GridBagConstraints();
+		gbc_lblRestockItems.insets = new Insets(0, 0, 5, 0);
+		gbc_lblRestockItems.gridx = 1;
+		gbc_lblRestockItems.gridy = 1;
+		InventoryPanel.add(lblRestockItems, gbc_lblRestockItems);
 		
-		
-		
-		
-		
-		
-		btnContractor = new JButton("Contractors");
-		GridBagConstraints gbc_btnContractor = new GridBagConstraints();
-		gbc_btnContractor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnContractor.gridx = 0;
-		gbc_btnContractor.gridy = 2;
-		InventoryPanel.add(btnContractor, gbc_btnContractor);
+		btnProducts = new JButton("Products");
+		GridBagConstraints gbc_btnProducts = new GridBagConstraints();
+		gbc_btnProducts.insets = new Insets(0, 0, 5, 5);
+		gbc_btnProducts.gridx = 0;
+		gbc_btnProducts.gridy = 2;
+		InventoryPanel.add(btnProducts, gbc_btnProducts);
 		
 		btnSupplyOffer = new JButton("Supply Offers");
 		GridBagConstraints gbc_btnSupplyOffer = new GridBagConstraints();
@@ -278,35 +290,39 @@ public class DashboardUI extends JFrame {
 		InventoryPanel.add(btnSupplyOffer, gbc_btnSupplyOffer);
 		
 		btnSupplyOrder = new JButton("Supply Orders");
-		btnSupplyOrder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		
-		btnStorageLocations = new JButton("Storage locations");
-		GridBagConstraints gbc_btnStorageLocations = new GridBagConstraints();
-		gbc_btnStorageLocations.insets = new Insets(0, 0, 5, 5);
-		gbc_btnStorageLocations.gridx = 0;
-		gbc_btnStorageLocations.gridy = 3;
-		InventoryPanel.add(btnStorageLocations, gbc_btnStorageLocations);
+		btnContractor = new JButton("Contractors");
+		GridBagConstraints gbc_btnContractor = new GridBagConstraints();
+		gbc_btnContractor.insets = new Insets(0, 0, 5, 5);
+		gbc_btnContractor.gridx = 0;
+		gbc_btnContractor.gridy = 3;
+		InventoryPanel.add(btnContractor, gbc_btnContractor);
 		GridBagConstraints gbc_btnSupplyOrder = new GridBagConstraints();
 		gbc_btnSupplyOrder.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSupplyOrder.gridx = 1;
 		gbc_btnSupplyOrder.gridy = 3;
 		InventoryPanel.add(btnSupplyOrder, gbc_btnSupplyOrder);
 		
+		btnStorageLocations = new JButton("Storage locations");
+		GridBagConstraints gbc_btnStorageLocations = new GridBagConstraints();
+		gbc_btnStorageLocations.insets = new Insets(0, 0, 5, 5);
+		gbc_btnStorageLocations.gridx = 0;
+		gbc_btnStorageLocations.gridy = 4;
+		InventoryPanel.add(btnStorageLocations, gbc_btnStorageLocations);
+		
+		btnStockASupplyOrder = new JButton("Stock a supply order");
+		GridBagConstraints gbc_btnStockASupplyOrder = new GridBagConstraints();
+		gbc_btnStockASupplyOrder.insets = new Insets(0, 0, 5, 0);
+		gbc_btnStockASupplyOrder.gridx = 1;
+		gbc_btnStockASupplyOrder.gridy = 4;
+		InventoryPanel.add(btnStockASupplyOrder, gbc_btnStockASupplyOrder);
+		
 		btnShelves = new JButton("Shelves");
 		GridBagConstraints gbc_btnShelves = new GridBagConstraints();
 		gbc_btnShelves.insets = new Insets(0, 0, 0, 5);
 		gbc_btnShelves.gridx = 0;
-		gbc_btnShelves.gridy = 4;
+		gbc_btnShelves.gridy = 5;
 		InventoryPanel.add(btnShelves, gbc_btnShelves);
-		
-		btnStock = new JButton("Stock a supply order");
-		GridBagConstraints gbc_btnStock = new GridBagConstraints();
-		gbc_btnStock.gridx = 1;
-		gbc_btnStock.gridy = 4;
-		InventoryPanel.add(btnStock, gbc_btnStock);
 		
 		
 		txtCustomer = new JTextField();
@@ -323,8 +339,6 @@ public class DashboardUI extends JFrame {
 		gbc_lblSell.gridx = 0;
 		gbc_lblSell.gridy = 0;
 		sellPaneBottomPanel.add(lblSell, gbc_lblSell);
-		
-		
 	}
 	
 	
