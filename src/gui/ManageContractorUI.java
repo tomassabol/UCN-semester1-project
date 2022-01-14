@@ -38,7 +38,7 @@ public class ManageContractorUI extends JDialog {
 	 */
 	public ManageContractorUI(AuthenticationController auth) {
 		this.auth = auth;
-		this.setTitle("Manage contractor");
+		this.setTitle("Manage contractors");
 		contractorCtrl = new ContractorController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
