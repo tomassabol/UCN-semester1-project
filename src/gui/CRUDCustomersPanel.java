@@ -164,14 +164,6 @@ public class CRUDCustomersPanel extends JPanel {
 		}
 		return false;
 	}
-
-	/**
-	 * 'Add customer' button code
-	 */
-	private void addCustomer() {
-		AddCustomerUI frame = new AddCustomerUI(auth);
-		frame.setVisible(true);
-	}
 	
 	
 	/*
@@ -222,9 +214,10 @@ public class CRUDCustomersPanel extends JPanel {
 			tableModel.fireTableRowsUpdated(row, row);
 		});
 
-		// 'ADD ITEM' button
+		// 'ADD customer' button
 		btnAddCustomer.addActionListener(e -> {
-			this.addCustomer();
+			CustomerUI frame = new CustomerUI(auth);
+			frame.setVisible(true);
 		});
 	}
 }

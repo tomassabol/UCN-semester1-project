@@ -22,6 +22,7 @@ import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
 
 /**
  * @author Daniels Kanepe
@@ -361,7 +362,7 @@ public class CustomerUI extends JDialog {
 		});
 
 		btnChooseType.addActionListener(e -> {
-			CRUDCustomerTypePanel frame = new CRUDCustomerTypePanel(auth);
+			ChooseCustomerTypeUI frame = new ChooseCustomerTypeUI(auth);
 			frame.setVisible(true);
 		});
 	}
