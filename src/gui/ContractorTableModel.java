@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 import model.Contractor;
 
 /**
- * @author Attila Bako
+ * @author Daniels Kanepe
  *
  */
 public class ContractorTableModel extends AbstractTableModel {

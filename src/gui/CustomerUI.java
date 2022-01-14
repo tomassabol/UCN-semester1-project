@@ -22,6 +22,10 @@ import java.time.format.DateTimeParseException;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class CustomerUI extends JDialog {
 	
 	public enum Mode {

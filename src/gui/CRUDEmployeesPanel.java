@@ -18,6 +18,10 @@ import gui.JLink.COLORS;
 import model.Employee;
 import model.IFEmployee;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class CRUDEmployeesPanel extends JPanel {
 
 	/**

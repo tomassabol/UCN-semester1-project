@@ -16,7 +16,7 @@ import controller.ContractorController;
 import controller.CustomerController;
 import model.Contractor;
 /**
- * @author Attila Bako
+ * @author Daniels Kanepe
  *
  */
 public class ManageContractorUI extends JDialog {

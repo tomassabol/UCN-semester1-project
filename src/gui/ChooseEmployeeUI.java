@@ -13,6 +13,10 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import model.IFEmployee;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class ChooseEmployeeUI extends JDialog {
 	
 	private static final long serialVersionUID = 2968937672159813565L;

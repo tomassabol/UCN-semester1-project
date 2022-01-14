@@ -9,6 +9,10 @@ import javax.swing.table.AbstractTableModel;
 import model.Employee;
 import model.IFEmployee;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class EmployeeTableModel extends AbstractTableModel {
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
 

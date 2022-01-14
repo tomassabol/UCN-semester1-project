@@ -18,6 +18,10 @@ import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class AddEmployeeUI extends JDialog {
 
 	private JPanel contentPane;

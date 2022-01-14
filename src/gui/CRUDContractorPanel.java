@@ -19,7 +19,7 @@ import model.Contractor;
 import model.Customer;
 
 /**
- * @author Attila Bako
+ * @author Daniels Kanepe
  *
  */
 public class CRUDContractorPanel extends JPanel {

@@ -20,6 +20,10 @@ import javax.swing.JTextArea;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class ProductUI extends JDialog {
 	
 	public enum Mode {
