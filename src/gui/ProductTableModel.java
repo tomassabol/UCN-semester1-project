@@ -30,7 +30,9 @@ public class ProductTableModel extends AbstractTableModel {
 		BUYABLE_STOCK("Buyable stock"),
 		LOANABLE_STOCK("Loanable stock"),
 		DATE_ADDED("Added"),
-		ENABLED("Enabled");
+		ENABLED("Enabled"),
+		BUY_PRICE("Buy price"),
+		LOAN_PRICE("Loan price / h");
 		
 		private String value;
 		
@@ -117,6 +119,18 @@ public class ProductTableModel extends AbstractTableModel {
 		case MIN_STOCK: return product.getMinStock();
 		case NAME: return product.getName();
 		case ENABLED: return product.isEnabled();
+		case BUY_PRICE: 
+			if (product.getLatestSellingPrice() == null) {
+				return "-";
+			} else {
+				return product.getLatestSellingPrice() + " DKK";
+			}
+		case LOAN_PRICE: 
+			if (product.getLatestLoaningPrice() == null) {
+				return "-";
+			} else {
+				return product.getLatestLoaningPrice() + " DKK";
+			}
 		default: return "Error retrieving column name";
     	}
     }

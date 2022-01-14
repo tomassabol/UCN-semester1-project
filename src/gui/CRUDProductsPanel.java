@@ -64,6 +64,7 @@ public class CRUDProductsPanel extends JPanel {
 					Arrays.asList(
 							Column.ID,
 							Column.NAME,
+							Column.BUY_PRICE,
 							Column.BUYABLE_STOCK,
 							Column.DESCRIPTION,
 							Column.ENABLED
