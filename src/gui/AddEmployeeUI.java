@@ -1,14 +1,12 @@
 package gui;
 
-import java.awt.Component;
-
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.EmployeeController;
-import model.IFEmployee;
+import model.PrimaryKey;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -19,14 +17,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
-import javax.swing.JTextArea;
 
-public class EmployeeUI extends JDialog {
-	
-	public enum Mode {
-		VIEW,
-		EDIT
-	}
+public class AddEmployeeUI extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField txtID;
@@ -38,8 +30,6 @@ public class EmployeeUI extends JDialog {
 	private JTextField txtBirth;
 	private JButton btnOk;
 	
-	private IFEmployee employee;
-	private Mode mode;
 	private EmployeeController employeeCtrl;
 	AuthenticationController auth;
 
@@ -48,10 +38,7 @@ public class EmployeeUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EmployeeUI(AuthenticationController auth, IFEmployee employee, Mode mode) {
-		this.mode = mode;
-		this.employee = employee;
-		this.auth = auth;
+	public AddEmployeeUI() {
 		
 		employeeCtrl = new EmployeeController();
 		
@@ -85,7 +72,7 @@ public class EmployeeUI extends JDialog {
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		
-		txtID = new JTextField(String.valueOf(employee.getID()));
+		txtID = new JTextField();
 		GridBagConstraints gbc_txtID = new GridBagConstraints();
 		gbc_txtID.insets = new Insets(0, 0, 5, 5);
 		gbc_txtID.fill = GridBagConstraints.HORIZONTAL;
@@ -95,7 +82,7 @@ public class EmployeeUI extends JDialog {
 		txtID.setColumns(10);
 		
 		
-		txtFirstName = new JTextField(employee.getFirstName());
+		txtFirstName = new JTextField();
 		GridBagConstraints gbc_txtFirstName = new GridBagConstraints();
 		gbc_txtFirstName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFirstName.fill = GridBagConstraints.HORIZONTAL;
@@ -123,7 +110,7 @@ public class EmployeeUI extends JDialog {
 		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		
-		txtLastName = new JTextField(employee.getLastName());
+		txtLastName = new JTextField();
 		GridBagConstraints gbc_txtLastName = new GridBagConstraints();
 		gbc_txtLastName.insets = new Insets(0, 0, 5, 5);
 		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
@@ -132,7 +119,7 @@ public class EmployeeUI extends JDialog {
 		contentPane.add(txtLastName, gbc_txtLastName);
 		txtLastName.setColumns(10);
 		
-		txtAddress = new JTextField(employee.getAddress());
+		txtAddress = new JTextField();
 		GridBagConstraints gbc_txtAddress = new GridBagConstraints();
 		gbc_txtAddress.insets = new Insets(0, 0, 5, 0);
 		gbc_txtAddress.fill = GridBagConstraints.HORIZONTAL;
@@ -159,7 +146,7 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_6.gridy = 4;
 		contentPane.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
-		txtPhone = new JTextField(employee.getMobile());
+		txtPhone = new JTextField();
 		GridBagConstraints gbc_txtPhone = new GridBagConstraints();
 		gbc_txtPhone.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPhone.fill = GridBagConstraints.HORIZONTAL;
@@ -169,7 +156,7 @@ public class EmployeeUI extends JDialog {
 		txtPhone.setColumns(10);
 		
 		
-		txtEmail = new JTextField(employee.getEmail());
+		txtEmail = new JTextField();
 		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
 		gbc_txtEmail.insets = new Insets(0, 0, 5, 0);
 		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
@@ -187,8 +174,9 @@ public class EmployeeUI extends JDialog {
 		gbc_lblNewLabel_7.gridy = 6;
 		contentPane.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
-		
-		txtBirth = new JTextField(Common.dateToString(employee.getBirthDate()));
+
+		// Common.dateToString()
+		txtBirth = new JTextField();
 		GridBagConstraints gbc_txtBirth = new GridBagConstraints();
 		gbc_txtBirth.insets = new Insets(0, 0, 0, 5);
 		gbc_txtBirth.fill = GridBagConstraints.HORIZONTAL;
@@ -198,31 +186,15 @@ public class EmployeeUI extends JDialog {
 		txtBirth.setColumns(10);
 		
 		
-		btnOk = new JButton("Update");
+		btnOk = new JButton("OK");
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
 		gbc_btnOk.anchor = GridBagConstraints.EAST;
 		gbc_btnOk.gridx = 1;
 		gbc_btnOk.gridy = 7;
 		contentPane.add(btnOk, gbc_btnOk);
 		
-		switch (mode) {
-			case VIEW:
-				// Set title
-				setTitle("View Employee - " + employee.getFirstName() + " " + employee.getLastName());
-				// Hide 'Update' button if in view mode
-				btnOk.setVisible(false);
-				// Disable fields
-				this.disableFields();
-				break;
-			case EDIT: 
-				// Set title
-				setTitle("Edit Employee");
-				// Enable fields for editing
-				this.enableFields();
-				break;
-		}	
-
-		addEventHandlers();
+        this.addEventHandlers();
+        txtID.setEnabled(false);
 	
 	}
 
@@ -233,26 +205,6 @@ public class EmployeeUI extends JDialog {
 	 */
 	
 	
-	// Makes the text fields uneditable
-	private void disableFields() {
-		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField || c instanceof JTextArea) {
-				      c.setEnabled(false);
-				   }
-			}
-	}
-	
-	
-	// Makes the text fields editable except ID field
-	private void enableFields() {
-		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField || c instanceof JTextArea) {
-			      c.setEnabled(true);
-			   }
-			}
-		txtID.setEnabled(false);
-	}
-	
 		/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
@@ -262,7 +214,7 @@ public class EmployeeUI extends JDialog {
 		
 		// 'update' button: Update the product
 		btnOk.addActionListener(e -> {
-			if (Messages.confirm(EmployeeUI.this, "Are you sure you want to update the changes to Employee?", "Update")) {
+			if (Messages.confirm(AddEmployeeUI.this, "Are you sure you want to create this Employee?", "OK")) {
 				
 				// Validate First name
 				String fname = txtFirstName.getText().strip();
@@ -317,12 +269,8 @@ public class EmployeeUI extends JDialog {
 				}
 				
 				// UPDATE
-				employeeCtrl.updateFirstName(employee, fname);
-				employeeCtrl.updateLastName(employee, lname);
-				employeeCtrl.updateAddress(employee, address);
-				employeeCtrl.updateMobile(employee, mobile);
-				employeeCtrl.updateEmail(employee, email);
-				employeeCtrl.updateBirthDate(employee, birthDate);
+				employeeCtrl.createEmployee(String.valueOf(PrimaryKey.getNextEmployeeID()), email, "admin", fname, lname, address, mobile, birthDate);
+                Messages.info(this, "New Employee was successfully created!");
 				
 			}
 			// Dispose of the window
@@ -330,4 +278,5 @@ public class EmployeeUI extends JDialog {
 		});
 	}
 }
+
 

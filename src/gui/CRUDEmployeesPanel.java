@@ -23,7 +23,7 @@ public class CRUDEmployeesPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	private JButton btnAddItem;
+	private JButton btnAddEmployee;
 	private EmployeeController employeeCtrl;
 	
 	/**
@@ -68,12 +68,12 @@ public class CRUDEmployeesPanel extends JPanel {
 		topPanel.add(lblTitle, gbc_lblTitle);
 				
 		// ***** button: Add product  *****
-		btnAddItem = new JButton("Add Employee");
+		btnAddEmployee = new JButton("Add Employee");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 1;
-		topPanel.add(btnAddItem, gbc_btnNewButton);
+		topPanel.add(btnAddEmployee, gbc_btnNewButton);
 			
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
@@ -159,6 +159,14 @@ public class CRUDEmployeesPanel extends JPanel {
 		}
 		return false;
 	}
+
+	/**
+	 * 'Add customer' button code
+	 */
+	private void addEmployee() {
+		AddEmployeeUI frame = new AddEmployeeUI();
+		frame.setVisible(true);
+	}
 		
 		
 	/*
@@ -214,6 +222,12 @@ public class CRUDEmployeesPanel extends JPanel {
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});
-}
 
+		// 'ADD ITEM' button
+		btnAddEmployee.addActionListener(e -> {
+			this.addEmployee();
+		});
+	}
+
+		
 }

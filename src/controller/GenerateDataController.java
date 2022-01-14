@@ -22,6 +22,7 @@ public class GenerateDataController {
         // Create customers
         CustomerController ctrl = new CustomerController();
         Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", customerType, LocalDate.now());
+        CustomerType customerType1 = ctrl.createCustomerType("VIP", 20);
         System.out.println("Generated customer data!");
         // Create products
         ProductController productCtrl = new ProductController();

@@ -1,15 +1,12 @@
 package gui;
 
-import java.awt.Component;
-
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.AuthenticationController;
 import controller.CustomerController;
 import model.CustomerType;
-import model.IFCustomer;
+import model.PrimaryKey;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -20,14 +17,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
-import javax.swing.JTextArea;
 
-public class CustomerUI extends JDialog {
-	
-	public enum Mode {
-		VIEW,
-		EDIT
-	}
+public class AddCustomerUI extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField txtID;
@@ -43,23 +34,15 @@ public class CustomerUI extends JDialog {
 	
 	CustomerType customerType;
 	CustomerController customerCtrl;
-	IFCustomer customer;
-	Mode mode;
-	AuthenticationController auth;
 
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public CustomerUI(AuthenticationController auth, IFCustomer customer, Mode mode) {
-		this.mode = mode;
-		this.customer = customer;
-		this.auth = auth;
-		
+	public AddCustomerUI() {
+
 		customerCtrl = new CustomerController();
-		// This can be changed with the 'choose' button
-		customerType = customer.getCustomerType();
 		
 		setModal(true);
 		setBounds(100, 100, 450, 341);
@@ -91,7 +74,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblFirstName, gbc_lblFirstName);
 		
 		
-		txtID = new JTextField(String.valueOf(customer.getID()));
+		txtID = new JTextField();
 		txtID.setEnabled(false);
 		GridBagConstraints gbc_txtID = new GridBagConstraints();
 		gbc_txtID.insets = new Insets(0, 0, 5, 5);
@@ -102,7 +85,7 @@ public class CustomerUI extends JDialog {
 		txtID.setColumns(10);
 		
 		
-		txtFirstName = new JTextField(customer.getFirstName());
+		txtFirstName = new JTextField();
 		GridBagConstraints gbc_txtFirstName = new GridBagConstraints();
 		gbc_txtFirstName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFirstName.fill = GridBagConstraints.HORIZONTAL;
@@ -130,7 +113,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblAddress, gbc_lblAddress);
 		
 		
-		txtLastName = new JTextField(customer.getLastName());
+		txtLastName = new JTextField();
 		GridBagConstraints gbc_txtLastName = new GridBagConstraints();
 		gbc_txtLastName.insets = new Insets(0, 0, 5, 5);
 		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
@@ -140,7 +123,7 @@ public class CustomerUI extends JDialog {
 		txtLastName.setColumns(10);
 		
 		
-		txtAddress = new JTextField(customer.getAddress());
+		txtAddress = new JTextField();
 		GridBagConstraints gbc_txtAddress = new GridBagConstraints();
 		gbc_txtAddress.insets = new Insets(0, 0, 5, 0);
 		gbc_txtAddress.fill = GridBagConstraints.HORIZONTAL;
@@ -168,7 +151,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblType, gbc_lblType);
 		
 		
-		txtPhone = new JTextField(String.valueOf(customer.getMobile()));
+		txtPhone = new JTextField();
 		GridBagConstraints gbc_txtPhone = new GridBagConstraints();
 		gbc_txtPhone.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPhone.fill = GridBagConstraints.HORIZONTAL;
@@ -191,8 +174,8 @@ public class CustomerUI extends JDialog {
 		gbl_typePanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		typePanel.setLayout(gbl_typePanel);
 		
-		txtType = new JTextField(customerType.getName());
-		txtType.setEnabled(false);
+		txtType = new JTextField();
+		txtType.setEnabled(true);
 		GridBagConstraints gbc_txtType = new GridBagConstraints();
 		gbc_txtType.insets = new Insets(0, 0, 0, 5);
 		gbc_txtType.fill = GridBagConstraints.BOTH;
@@ -200,7 +183,7 @@ public class CustomerUI extends JDialog {
 		gbc_txtType.gridy = 0;
 		typePanel.add(txtType, gbc_txtType);
 		txtType.setColumns(10);
-		
+
 		btnChooseType = new JButton("Choose...");
 		GridBagConstraints gbc_btnChooseType = new GridBagConstraints();
 		gbc_btnChooseType.fill = GridBagConstraints.BOTH;
@@ -218,7 +201,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblBirth, gbc_lblBirth);
 		
 		
-		txtBirth = new JTextField(Common.dateToString(customer.getBirthDate()));
+		txtBirth = new JTextField();
 		GridBagConstraints gbc_txtBirth = new GridBagConstraints();
 		gbc_txtBirth.insets = new Insets(0, 0, 0, 5);
 		gbc_txtBirth.fill = GridBagConstraints.HORIZONTAL;
@@ -228,33 +211,15 @@ public class CustomerUI extends JDialog {
 		txtBirth.setColumns(10);
 		
 		
-		btnOk = new JButton("Update");
+		btnOk = new JButton("OK");
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
 		gbc_btnOk.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnOk.gridx = 1;
 		gbc_btnOk.gridy = 7;
 		contentPane.add(btnOk, gbc_btnOk);
-		
-		switch (mode) {
-			case VIEW:
-				// Set title
-				setTitle("View Customer - " + customer.getFirstName() + " " + customer.getLastName());
-				// Hide 'Update' button if in view mode
-				btnOk.setVisible(false);
-				// Disable 'choose' button if in view mode.
-				btnChooseType.setEnabled(false);
-				// Disable fields
-				this.disableFields();
-				break;
-			case EDIT: 
-				// Set title
-				setTitle("Edit Customer");
-				// Enable fields for editing
-				this.enableFields();
-				break;
-		}	
 
 		addEventHandlers();
+        txtID.setEnabled(false);
 	
 	}
 
@@ -265,28 +230,7 @@ public class CustomerUI extends JDialog {
 	 */
 	
 	
-	// Makes the text fields uneditable
-	private void disableFields() {
-		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField || c instanceof JTextArea) {
-				      c.setEnabled(false);
-				   }
-			}
-	}
-	
-	
-	// Makes the text fields editable except ID & Type field
-	private void enableFields() {
-		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField || c instanceof JTextArea) {
-			      c.setEnabled(true);
-			   }
-			}
-		txtID.setEnabled(false);
-		txtType.setEnabled(false);
-	}
-	
-		/*
+	/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
 	 * *******************************************************
@@ -295,7 +239,7 @@ public class CustomerUI extends JDialog {
 		
 		// 'update' button: Update the product
 		btnOk.addActionListener(e -> {
-			if (Messages.confirm(CustomerUI.this, "Are you sure you want to update the customer's details?", "Update")) {
+			if (Messages.confirm(AddCustomerUI.this, "Are you sure you want to create this customer?", "Add Customer")) {
 				
 				// Validate First name
 				String fname = txtFirstName.getText().strip();
@@ -343,18 +287,17 @@ public class CustomerUI extends JDialog {
 					return;
 				}
 				
-				// UPDATE
-				customerCtrl.updateFirstName(customer, fname);
-				customerCtrl.updateLastName(customer, lname);
-				customerCtrl.updateAddress(customer, address);
-				customerCtrl.updateMobile(customer, mobile);
-				customerCtrl.updateBirthDate(customer, birthDate);
-				customerCtrl.updateCustomerType(customer, this.customerType);
+                // generating customer type, just so the program doesnt crash
+                // needs better solution  
+                CustomerType cType = new CustomerType(PrimaryKey.getNextCustomerTypeID(), "VIP", 20);
+                //create customer in controller
+                customerCtrl.createCustomer(fname, lname, address, mobile, cType, birthDate);
+                Messages.info(this, "New customer was successfully created!");
 				
 			}
 			// Dispose of the window
 			this.dispose();
-		});
+		}); 
 
 		btnChooseType.addActionListener(e -> {
 			CRUDCustomerTypePanel frame = new CRUDCustomerTypePanel();

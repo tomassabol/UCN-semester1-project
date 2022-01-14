@@ -11,12 +11,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.EmployeeController;
 import model.IFEmployee;
 
 public class ChooseEmployeeUI extends JDialog {
-
-	private EmployeeController employeeCtrl;
 	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
@@ -33,7 +30,6 @@ public class ChooseEmployeeUI extends JDialog {
 	public ChooseEmployeeUI(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Choose a employee...");
-		employeeCtrl = new EmployeeController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

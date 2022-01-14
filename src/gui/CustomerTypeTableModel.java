@@ -6,22 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+import model.CustomerType;
 
-import model.Customer;
 
-/**
- * @author Daniels Kanepe
- *
- */
-public class CustomerTableModel extends AbstractTableModel {
+public class CustomerTypeTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -2367962812947993282L;
 
 	protected static final String[] COLUMN_NAMES = {
-        "ID", "First name", "Last name", "Address", "Mobile", "Type", "Birth"
+        "ID", "Name", "Discount Percentage"
     };
 
-    private List<Customer> customers;
+    private List<CustomerType> customerTypes;
 
     
     /**
@@ -29,15 +25,15 @@ public class CustomerTableModel extends AbstractTableModel {
      *
      * @param customers the customers
      */
-    public CustomerTableModel(List<Customer> customers) {
+    public CustomerTypeTableModel(List<CustomerType> customerTypes) {
         // Prevent possible mutation
-        this.customers = new ArrayList<>(customers);
+        this.customerTypes = new ArrayList<>(customerTypes);
     }
     
 
     @Override
     public int getRowCount() {
-        return customers.size();
+        return customerTypes.size();
     }
 
     @Override
@@ -59,17 +55,11 @@ public class CustomerTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    	Customer customer = customers.get(rowIndex);
+    	CustomerType customerType = customerTypes.get(rowIndex);
         switch (columnIndex) {
-            case 0: return "#" + customer.ID;
-            case 1: return customer.getFirstName();
-            case 2: return customer.getLastName();
-            case 3: return customer.getAddress();
-            case 4: return customer.getMobile();
-            case 5: return String.format("%s (%d%% discount)", 
-            		customer.getCustomerType().getName(),
-            		customer.getCustomerType().getDiscountPercentage());
-            case 6: return Common.dateToString(customer.getBirthDate());
+            case 0: return "#" + customerType.ID;
+            case 1: return customerType.getName();
+            case 2: return customerType.getDiscountPercentage();
             default: return "Error retrieving column name";
         }
     }
@@ -86,8 +76,8 @@ public class CustomerTableModel extends AbstractTableModel {
      * @param row the row
      * @return the customer
      */
-    public Customer getObj(int row) {
-    	return customers.get(row);
+    public CustomerType getObj(int row) {
+    	return customerTypes.get(row);
     }
     
   
@@ -97,9 +87,9 @@ public class CustomerTableModel extends AbstractTableModel {
      * @param customer the customer
      * @return the int
      */
-    public int add(Customer customer) {
-    	int row = customers.size();
-        this.customers.add(customer);
+    public int add(CustomerType customerType) {
+    	int row = customerTypes.size();
+        this.customerTypes.add(customerType);
         fireTableRowsInserted(row, row);
         return row;
     }
@@ -110,7 +100,7 @@ public class CustomerTableModel extends AbstractTableModel {
      * @param row the row
      */
     public void remove(int row) {
-    	this.customers.remove(row);
+    	this.customerTypes.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }
 
