@@ -6,6 +6,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.AuthenticationController;
 import controller.ProductController;
 import model.Product;
 
@@ -23,7 +24,8 @@ public class ProductUI extends JDialog {
 	
 	public enum Mode {
 		VIEW,
-		EDIT
+		EDIT,
+		CREATE
 	}
 
 	private JPanel contentPane;
@@ -33,17 +35,27 @@ public class ProductUI extends JDialog {
 	private JTextField txtMin;
 	private JTextField txtLoaning;
 	private JTextField txtSelling;
-	private JButton btnOk;
+	private JButton btnSubmit;
 	private JTextArea txtDescription;
 	private Product product;
-	private boolean view;
-	ProductController productCtrl;
+	private ProductController productCtrl;
 	private Mode mode;
+	private AuthenticationController auth;
 
+	/**
+	 * Constructor: create new product
+	 *
+	 * @param auth the auth controller 
+	 */
+	public ProductUI(AuthenticationController auth) {
+		this(auth, null, Mode.CREATE);
+	}
+	
 	/**
 	 * Create the frame.
 	 */
-	public ProductUI(Product product, Mode mode) {
+	public ProductUI(AuthenticationController auth, Product product, Mode mode) {
+		this.auth = auth;
 		this.mode = mode;
 		this.product = product;
 		
@@ -70,7 +82,7 @@ public class ProductUI extends JDialog {
 		gbc_lblId.gridy = 0;
 		contentPane.add(lblId, gbc_lblId);
 		
-		txtId = new JTextField(String.valueOf(product.ID));
+		txtId = new JTextField();
 		txtId.setColumns(10);
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
 		gbc_txtId.anchor = GridBagConstraints.WEST;
@@ -88,7 +100,7 @@ public class ProductUI extends JDialog {
 		gbc_lblName.gridy = 0;
 		contentPane.add(lblName, gbc_lblName);
 		
-		txtName = new JTextField(product.getName());
+		txtName = new JTextField();
 		txtName.setColumns(10);
 		GridBagConstraints gbc_txtName = new GridBagConstraints();
 		gbc_txtName.anchor = GridBagConstraints.WEST;
@@ -106,7 +118,7 @@ public class ProductUI extends JDialog {
 		gbc_lblDescription.gridy = 2;
 		contentPane.add(lblDescription, gbc_lblDescription);
 		
-		txtDescription = new JTextArea(product.getDescription());
+		txtDescription = new JTextArea();
 		txtDescription.setLineWrap(true);
 		GridBagConstraints gbc_txtDescription = new GridBagConstraints();
 		gbc_txtDescription.gridwidth = 2;
@@ -124,7 +136,7 @@ public class ProductUI extends JDialog {
 		gbc_lblMin.gridy = 4;
 		contentPane.add(lblMin, gbc_lblMin);
 		
-		txtMin = new JTextField(Objects.toString(product.getMinStock()));
+		txtMin = new JTextField();
 		txtMin.setColumns(10);
 		GridBagConstraints gbc_txtMin = new GridBagConstraints();
 		gbc_txtMin.insets = new Insets(0, 0, 5, 5);
@@ -141,7 +153,7 @@ public class ProductUI extends JDialog {
 		gbc_lblMax.gridy = 4;
 		contentPane.add(lblMax, gbc_lblMax);
 		
-		txtMax = new JTextField(Objects.toString(product.getMaxStock()));
+		txtMax = new JTextField();
 		txtMax.setColumns(10);
 		GridBagConstraints gbc_txtMax = new GridBagConstraints();
 		gbc_txtMax.insets = new Insets(0, 0, 5, 0);
@@ -158,7 +170,7 @@ public class ProductUI extends JDialog {
 		gbc_lblSelling.gridy = 6;
 		contentPane.add(lblSelling, gbc_lblSelling);
 		
-		txtSelling = new JTextField(Objects.toString(product.getLatestSellingPrice(), ""));
+		txtSelling = new JTextField();
 		txtSelling.setColumns(10);
 		GridBagConstraints gbc_txtSelling = new GridBagConstraints();
 		gbc_txtSelling.insets = new Insets(0, 0, 5, 5);
@@ -176,7 +188,7 @@ public class ProductUI extends JDialog {
 		contentPane.add(lblLoaning, gbc_lblLoaning);
 		
 		
-		txtLoaning = new JTextField(Objects.toString(product.getLatestLoaningPrice(), ""));
+		txtLoaning = new JTextField();
 		txtLoaning.setColumns(10);
 		GridBagConstraints gbc_txtLoaning = new GridBagConstraints();
 		gbc_txtLoaning.insets = new Insets(0, 0, 5, 0);
@@ -186,28 +198,42 @@ public class ProductUI extends JDialog {
 		contentPane.add(txtLoaning, gbc_txtLoaning);
 		
 		
-		btnOk = new JButton("Update");
+		btnSubmit = new JButton("Submit");
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
 		gbc_btnOk.anchor = GridBagConstraints.EAST;
 		gbc_btnOk.gridx = 1;
 		gbc_btnOk.gridy = 8;
-		contentPane.add(btnOk, gbc_btnOk);
+		contentPane.add(btnSubmit, gbc_btnOk);
+		
 		
 		switch (mode) {
 			case VIEW:
 				// Set title
 				setTitle("View product - " + product.getName());
 				// Hide 'Update' button if in view mode
-				btnOk.setVisible(false);
+				btnSubmit.setVisible(false);
 				// Disable fields
 				this.disableFields();
+				// Fill fields with content
+				this.fillFields(product);
 				break;
 			case EDIT: 
 				// Set title
 				setTitle("Edit product");
+				// Change submit button text to 'Update'
+				btnSubmit.setText("Update");
 				// Enable fields for editing
 				this.enableFields();
+				// Fill fields with content
+				this.fillFields(product);
 				break;
+			case CREATE:
+				// Set title
+				setTitle("Add new product - ");
+				// Change submit button text to 'Create'
+				btnSubmit.setText("Create");
+				// Enable fields
+				this.enableFields();
 		}
 		
 		
@@ -221,6 +247,15 @@ public class ProductUI extends JDialog {
 	 * *******************************************************
 	 */
 	
+	/**
+	 * Gets the product.
+	 * Useful for Create mode (to get the created product)
+	 *
+	 * @return the product
+	 */
+	public Product getProduct() {
+		return this.product;
+	}
 	
 	// Makes the text fields uneditable
 	private void disableFields() {
@@ -242,6 +277,17 @@ public class ProductUI extends JDialog {
 		txtId.setEnabled(false);
 	}
 	
+	// FIll in the fields
+	private void fillFields(Product product) {
+		txtId.setText(String.valueOf(product.ID));
+		txtName.setText(product.getName());
+		txtDescription.setText(product.getDescription());
+		txtMax.setText(Objects.toString(product.getMaxStock()));
+		txtMin.setText(Objects.toString(product.getMinStock()));
+		txtSelling.setText(Objects.toString(product.getLatestSellingPrice(), ""));
+		txtLoaning.setText(Objects.toString(product.getLatestLoaningPrice(), ""));
+	}
+	
 	/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
@@ -250,8 +296,14 @@ public class ProductUI extends JDialog {
 	private void addEventHandlers() {
 		
 		// 'update' button: Update the product
-		btnOk.addActionListener(e -> {
-			if (Messages.confirm(ProductUI.this, "Are you sure you want to update the changes to product?", "Update")) {
+		btnSubmit.addActionListener(e -> {
+			String message = "";
+			if (mode == Mode.EDIT) {
+				message = "Are you sure you want to update the changes to product?";
+			} else if (mode == Mode.CREATE) {
+				message = "Create product?";
+			}
+			if (Messages.confirm(ProductUI.this, message)) {
 				
 				// Validate name
 				String name = txtName.getText().strip();
@@ -322,19 +374,27 @@ public class ProductUI extends JDialog {
 					Messages.error(this, "Loan price must be a positive decimal number, separated by dots");
 				}
 				
-				// Update data
-				productCtrl.updateProductName(this.product, name);
-				productCtrl.updateProductDescription(this.product, desc);
-				productCtrl.updateProductMinStock(this.product, minStock);
-				productCtrl.updateProductMinStock(this.product, maxStock);
-				// create new (thus update) buy price if not same as current
-				if (buyPrice == product.getLatestSellingPrice()) {
-					productCtrl.createSellingPrice(buyPrice, product);
+				// if mode == view, update data
+				if (mode == Mode.EDIT) {
+					
+					productCtrl.updateProductName(this.product, name);
+					productCtrl.updateProductDescription(this.product, desc);
+					productCtrl.updateProductMinStock(this.product, minStock);
+					productCtrl.updateProductMinStock(this.product, maxStock);
+					// create new (thus update) buy price if not same as current
+					if (buyPrice == product.getLatestSellingPrice()) {
+						productCtrl.createSellingPrice(buyPrice, product);
+					}
+					// create new (thus update) loan price if not same as current
+					if (buyPrice == product.getLatestLoaningPrice()) {
+						productCtrl.createLoaningPrice(loanPrice, product);
+					}
+				} else if (mode == Mode.CREATE) {
+					// if mode == Create, create a new product
+					this.product = productCtrl.createProduct(name, desc, minStock, maxStock, false);
 				}
-				// create new (thus update) loan price if not same as current
-				if (buyPrice == product.getLatestLoaningPrice()) {
-					productCtrl.createLoaningPrice(loanPrice, product);
-				}
+
+
 				
 			}
 			// Dispose of the window

@@ -135,5 +135,10 @@ public class ProductTableModel extends AbstractTableModel {
     	this.products.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }
+    
+    public void add(Product product) {
+    	this.products.add(product);
+    	this.fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+    }
 
 }
