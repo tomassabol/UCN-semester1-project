@@ -36,7 +36,6 @@ public class ProductUI extends JDialog {
 	private JButton btnOk;
 	private JTextArea txtDescription;
 	private Product product;
-	private String loaningPrice;
 	private boolean view;
 	ProductController productCtrl;
 	private Mode mode;
@@ -62,13 +61,6 @@ public class ProductUI extends JDialog {
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		
-		// Check if the product has a loaning price
-		if(product.getLatestLoaningPrice() == null) {
-			loaningPrice = "null";
-		} else {
-			loaningPrice = String.valueOf(product.getLatestLoaningPrice());
-		}
 		
 		JLabel lblId = new JLabel("Id");
 		GridBagConstraints gbc_lblId = new GridBagConstraints();
