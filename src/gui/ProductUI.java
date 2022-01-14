@@ -349,10 +349,10 @@ public class ProductUI extends JDialog {
 						Messages.error(this, "Sell price must be a positive decimal number, separated by dots");
 						return;
 					}
-				}
-				// if less than zero
-				if (buyPrice.compareTo(BigDecimal.ZERO) == -1) {
-					Messages.error(this, "Sell price must be a positive decimal number, separated by dots");
+					// if less than zero
+					if (buyPrice.compareTo(BigDecimal.ZERO) == -1) {
+						Messages.error(this, "Sell price must be a positive decimal number, separated by dots");
+					}
 				}
 				
 				
@@ -368,10 +368,10 @@ public class ProductUI extends JDialog {
 						Messages.error(this, "Loan price must be a positive decimal number, separated by dots");
 						return;
 					}
-				}
-				// if less than zero
-				if (buyPrice.compareTo(BigDecimal.ZERO) == -1) {
-					Messages.error(this, "Loan price must be a positive decimal number, separated by dots");
+					// if less than zero
+					if (buyPrice.compareTo(BigDecimal.ZERO) == -1) {
+						Messages.error(this, "Loan price must be a positive decimal number, separated by dots");
+					}
 				}
 				
 				// if mode == view, update data
