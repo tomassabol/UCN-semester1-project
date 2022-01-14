@@ -53,6 +53,7 @@ public class ProductUI extends JDialog {
 	 */
 	public ProductUI(AuthenticationController auth) {
 		this(auth, null, Mode.CREATE);
+		this.product = null;
 	}
 	
 	/**
@@ -213,7 +214,7 @@ public class ProductUI extends JDialog {
 		switch (mode) {
 			case VIEW:
 				// Set title
-				setTitle("View product - " + product.getName());
+				setTitle("View Product - " + product.getName());
 				// Hide 'Update' button if in view mode
 				btnSubmit.setVisible(false);
 				// Disable fields
@@ -223,7 +224,7 @@ public class ProductUI extends JDialog {
 				break;
 			case EDIT: 
 				// Set title
-				setTitle("Edit product");
+				setTitle("Edit Product");
 				// Change submit button text to 'Update'
 				btnSubmit.setText("Update");
 				// Enable fields for editing
@@ -233,7 +234,7 @@ public class ProductUI extends JDialog {
 				break;
 			case CREATE:
 				// Set title
-				setTitle("Add new product - ");
+				setTitle("Add New Product");
 				// Change submit button text to 'Create'
 				btnSubmit.setText("Create");
 				// Enable fields
