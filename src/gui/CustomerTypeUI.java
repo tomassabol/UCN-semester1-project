@@ -140,7 +140,7 @@ public class CustomerTypeUI extends JDialog {
 				break;
 			case CREATE:
 				// Set title
-				setTitle("Add new customer type - ");
+				setTitle("Add new customer type");
 				// Change submit button text to 'Create'
 				btnSubmit.setText("Create");
 				// Enable fields
