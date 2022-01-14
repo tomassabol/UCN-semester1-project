@@ -65,7 +65,6 @@ public class JLink extends JButton {
 		    public void mouseExited(MouseEvent e) {
 				if (JLink.this.isEnabled()) {
 			        // the mouse has exited the label: set back to original
-					System.out.println(JLink.this.text);
 			    	JLink.super.setText(JLink.this.text);
 				}
 		    }
