@@ -218,6 +218,9 @@ public class CRUDCustomersPanel extends JPanel {
 		btnAddCustomer.addActionListener(e -> {
 			CustomerUI frame = new CustomerUI(auth);
 			frame.setVisible(true);
+			if (frame.getCustomer() != null) {
+				tableModel.add(frame.getCustomer());
+			}
 		});
 	}
 }

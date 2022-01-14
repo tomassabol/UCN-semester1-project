@@ -331,6 +331,15 @@ public class CustomerUI extends JDialog {
 		txtType.setText(customer.getCustomerType().getName());
 	}
 	
+	/**
+	 * Gets the customer used in view/edit, or one created in 'create' mode. Can be null!
+	 *
+	 * @return the customer
+	 */
+	public Customer getCustomer() {
+		return this.customer;
+	}
+ 	
 		/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
@@ -376,7 +385,11 @@ public class CustomerUI extends JDialog {
 					return;
 				}
 				
-				// Validate Type - no validation needed!
+				// Validate Customer Type
+				if (customerType == null) {
+					Messages.error(this, "You must choose a customer type!");
+					return;
+				}
 				
 	
 				// Validate Birth date
@@ -396,7 +409,6 @@ public class CustomerUI extends JDialog {
 				
 				// if mode == view, update data
 				if (mode == Mode.EDIT) {
-					
 					customerCtrl.updateFirstName(customer, fname);
 					customerCtrl.updateLastName(customer, lname);
 					customerCtrl.updateAddress(customer, address);
@@ -407,8 +419,6 @@ public class CustomerUI extends JDialog {
 					// if mode == Create, create a new product
 					this.customer = customerCtrl.createCustomer(fname, lname, address, mobile, customerType, birthDate);
 				}
-				
-				
 			}
 			// Dispose of the window
 			this.dispose();
@@ -417,6 +427,10 @@ public class CustomerUI extends JDialog {
 		btnChooseType.addActionListener(e -> {
 			ChooseCustomerTypeUI frame = new ChooseCustomerTypeUI(auth);
 			frame.setVisible(true);
+			if (frame.getSelectedCustomerType() != null) {
+				this.customerType = frame.getSelectedCustomerType();
+				txtType.setText(customerType.getName());
+			}
 		});
 	}
 }

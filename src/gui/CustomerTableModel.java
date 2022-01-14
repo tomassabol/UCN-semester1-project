@@ -95,13 +95,10 @@ public class CustomerTableModel extends AbstractTableModel {
      * Adds a customer to the table
      *
      * @param customer the customer
-     * @return the int
      */
-    public int add(Customer customer) {
-    	int row = customers.size();
+    public void add(Customer customer) {
         this.customers.add(customer);
-        fireTableRowsInserted(row, row);
-        return row;
+        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
     }
     
     /**
