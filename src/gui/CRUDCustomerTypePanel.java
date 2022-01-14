@@ -192,8 +192,8 @@ public class CRUDCustomerTypePanel extends JPanel {
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			CustomerType customerType = tableModel.getObj(row);
-			if (Messages.confirm(this, String.format("Are you sure you wish to delete the customer '%s %s'?", customerType.getName()))) {
-				//customerCtrl.removeCustomer(customerType);
+			if (Messages.confirm(this, String.format("Are you sure you wish to delete the customer type '%s'?", customerType.getName()))) {
+				customerCtrl.deleteCustomerType(customerType);
 				tableModel.remove(row);
 			}
 		});
@@ -202,16 +202,16 @@ public class CRUDCustomerTypePanel extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			CustomerType customerType = tableModel.getObj(row);
-			//CustomerUI frame = new CustomerTypeUI(auth, customerType, CustomerUI.Mode.VIEW);
-			//frame.setVisible(true);
+			CustomerTypeUI frame = new CustomerTypeUI(auth, customerType, CustomerTypeUI.Mode.VIEW);
+			frame.setVisible(true);
 		});
 
 		// Edit customer
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			CustomerType customerType = tableModel.getObj(row);
-			//nameCustomerUI frame = new CustomerTypeUI(auth, customerType, CustomerUI.Mode.EDIT);
-			//frame.setVisible(true);
+			CustomerTypeUI frame = new CustomerTypeUI(auth, customerType, CustomerTypeUI.Mode.EDIT);
+			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});
 
