@@ -294,6 +294,7 @@ public class AddCustomerUI extends JDialog {
 					return;
 				}
 				
+				// TODO: FIX
                 // generating customer type, just so the program doesnt crash
                 // needs better solution  
                 CustomerType cType = new CustomerType(PrimaryKey.getNextCustomerTypeID(), "VIP", 20);
@@ -307,7 +308,7 @@ public class AddCustomerUI extends JDialog {
 		}); 
 
 		btnChooseType.addActionListener(e -> {
-			CRUDCustomerTypePanel frame = new CRUDCustomerTypePanel(auth);
+			ManageCustomerType frame = new ManageCustomerType(auth);
 			frame.setVisible(true);
 		});
 	}

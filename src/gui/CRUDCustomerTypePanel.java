@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -49,7 +50,6 @@ public class CRUDCustomerTypePanel extends JPanel {
 		this.auth = auth;
 		customerCtrl = new CustomerController();
 		setLayout(new BorderLayout(0, 0));
-
 		tableModel = new CustomerTypeTableModel(customerCtrl.getCustomerTypes());
 		
 		// ***** TOP PANEL *****
