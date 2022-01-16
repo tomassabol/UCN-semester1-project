@@ -1,7 +1,6 @@
 package controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Customer;
@@ -12,8 +11,6 @@ import model.IFCustomer;
 import model.PrimaryKey;
 
 public class CustomerController {
-
-	private CustomerTypeContainer customerTypeContainer;
 
 	
 	/**
@@ -88,7 +85,7 @@ public class CustomerController {
 	 * @return a list of the customer types
 	 */
 	public List<CustomerType> getCustomerTypes(){
-		return customerTypeContainer.getCustomerTypes();
+		return CustomerTypeContainer.getInstance().getCustomerTypes();
 	}
 
 	/**
@@ -97,7 +94,7 @@ public class CustomerController {
 	 * @return the customer type if it was found
 	 */
 	public CustomerType findCustomerTypeById(int id){
-		return customerTypeContainer.findCustomerTypeById(id);
+		return CustomerTypeContainer.getInstance().findCustomerTypeById(id);
 	}
 	
 	/**
@@ -159,7 +156,7 @@ public class CustomerController {
 	 * @param name - The name of the customer type to be removed from the container
 	 */
 	public void deleteCustomerType(CustomerType customerType){
-		customerTypeContainer.removeCustomerType(customerType);
+		CustomerTypeContainer.getInstance().removeCustomerType(customerType);
 	}
 
 	/**

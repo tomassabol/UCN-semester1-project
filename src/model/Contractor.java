@@ -17,4 +17,8 @@ public class Contractor {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+    
+    public int getID() {
+    	return this.ID;
+    }
 }

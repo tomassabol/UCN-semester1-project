@@ -2,14 +2,12 @@ package gui;
 
 
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
 import model.Customer;
-import gui.Common;
 
 /**
  * @author Daniels Kanepe
@@ -97,13 +95,10 @@ public class CustomerTableModel extends AbstractTableModel {
      * Adds a customer to the table
      *
      * @param customer the customer
-     * @return the int
      */
-    public int add(Customer customer) {
-    	int row = customers.size();
+    public void add(Customer customer) {
         this.customers.add(customer);
-        fireTableRowsInserted(row, row);
-        return row;
+        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
     }
     
     /**

@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.AuthenticationController;
 import controller.StockController;
 import gui.CRUDProductsPanel.Mode;
 import model.Product;
@@ -41,12 +42,14 @@ public class AddProductToCartUI extends JDialog {
 	
 	private Product selectedProduct = null;
 	private int selectedQuantity;
+	private AuthenticationController auth;
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public AddProductToCartUI() {
+	public AddProductToCartUI(AuthenticationController auth) {
+		this.auth = auth;
 		this.setTitle("Choose product to add to cart");
 		stockCtrl = new StockController();
 		setModal(true);
@@ -62,7 +65,7 @@ public class AddProductToCartUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		productsPanel = new CRUDProductsPanel(Mode.BUYABLE);
+		productsPanel = new CRUDProductsPanel(auth, Mode.BUYABLE);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridwidth = 3;
 		gbc_panel.fill = GridBagConstraints.BOTH;
@@ -132,12 +135,15 @@ public class AddProductToCartUI extends JDialog {
 				Product product = tableModel.getProduct(table.getSelectedRow());
 				// Enable only if buyable quantity > 0 & product is enabled
 				int buyableQuantity = stockCtrl.getBuyableQuantityInStock(product);
-				if (buyableQuantity > 0 && product.isEnabled()) {
+				if (buyableQuantity > 0 && product.isEnabled() && product.getLatestSellingPrice() != null) {
 					btnChoose.setEnabled(true);
 					spinnerQuantity.setEnabled(true);
 					spinnerQuantity.setModel(
 							new SpinnerNumberModel(1, 1, buyableQuantity, 1)
 					);
+				} else {
+					spinnerQuantity.setEnabled(false);
+					btnChoose.setEnabled(false);
 				}
 			}
 			

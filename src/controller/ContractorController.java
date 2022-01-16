@@ -60,7 +60,7 @@ public class ContractorController {
 				ContractorContainer.getInstance().removeContractor(contractor);
 		}
 
-		public void updateContractorCompanyName(Contractor contractor, String name){
+		public void updateCompanyName(Contractor contractor, String name){
 			contractor.setCompanyName(name);
 		}
 			

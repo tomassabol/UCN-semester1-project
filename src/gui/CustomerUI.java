@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 
 import javax.swing.JDialog;
@@ -9,9 +8,11 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.CustomerController;
+import gui.ProductUI.Mode;
 import model.Customer;
 import model.CustomerType;
 import model.IFCustomer;
+import model.Product;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -20,15 +21,22 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class CustomerUI extends JDialog {
 	
 	public enum Mode {
 		VIEW,
-		EDIT
+		EDIT,
+		CREATE
 	}
 
 	private JPanel contentPane;
@@ -38,30 +46,43 @@ public class CustomerUI extends JDialog {
 	private JTextField txtAddress;
 	private JTextField txtPhone;
 	private JTextField txtBirth;
-	private JButton btnOk;
+	private JButton btnSubmit;
 	private JPanel typePanel;
 	private JTextField txtType;
 	private JButton btnChooseType;
 	
+	Customer customer;
 	CustomerType customerType;
 	CustomerController customerCtrl;
-	IFCustomer customer;
 	Mode mode;
 	AuthenticationController auth;
 
 
+	/**
+	 * Constructor for Create
+	 *
+	 * @param auth the auth
+	 */
+	public CustomerUI(AuthenticationController auth) {
+		this(auth, null, Mode.CREATE);
+		this.customer = null;
+		this.customerType = null;
+	}
 
 	/**
-	 * Create the dialog.
+	 * Constructor for view/edit
+	 *
+	 * @param auth the auth
+	 * @param customer the customer
+	 * @param mode the mode
 	 */
-	public CustomerUI(AuthenticationController auth, IFCustomer customer, Mode mode) {
+	public CustomerUI(AuthenticationController auth, Customer customer, Mode mode) {
 		this.mode = mode;
-		this.customer = customer;
 		this.auth = auth;
 		
 		customerCtrl = new CustomerController();
-		// This can be changed with the 'choose' button
-		customerType = customer.getCustomerType();
+		this.customer = customer;
+		this.customerType = customer != null ? customer.getCustomerType() : null;
 		
 		setModal(true);
 		setBounds(100, 100, 450, 341);
@@ -93,7 +114,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblFirstName, gbc_lblFirstName);
 		
 		
-		txtID = new JTextField(String.valueOf(customer.getID()));
+		txtID = new JTextField();
 		txtID.setEnabled(false);
 		GridBagConstraints gbc_txtID = new GridBagConstraints();
 		gbc_txtID.insets = new Insets(0, 0, 5, 5);
@@ -104,7 +125,7 @@ public class CustomerUI extends JDialog {
 		txtID.setColumns(10);
 		
 		
-		txtFirstName = new JTextField(customer.getFirstName());
+		txtFirstName = new JTextField();
 		GridBagConstraints gbc_txtFirstName = new GridBagConstraints();
 		gbc_txtFirstName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFirstName.fill = GridBagConstraints.HORIZONTAL;
@@ -132,7 +153,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblAddress, gbc_lblAddress);
 		
 		
-		txtLastName = new JTextField(customer.getLastName());
+		txtLastName = new JTextField();
 		GridBagConstraints gbc_txtLastName = new GridBagConstraints();
 		gbc_txtLastName.insets = new Insets(0, 0, 5, 5);
 		gbc_txtLastName.fill = GridBagConstraints.HORIZONTAL;
@@ -142,7 +163,7 @@ public class CustomerUI extends JDialog {
 		txtLastName.setColumns(10);
 		
 		
-		txtAddress = new JTextField(customer.getAddress());
+		txtAddress = new JTextField();
 		GridBagConstraints gbc_txtAddress = new GridBagConstraints();
 		gbc_txtAddress.insets = new Insets(0, 0, 5, 0);
 		gbc_txtAddress.fill = GridBagConstraints.HORIZONTAL;
@@ -170,7 +191,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblType, gbc_lblType);
 		
 		
-		txtPhone = new JTextField(String.valueOf(customer.getMobile()));
+		txtPhone = new JTextField();
 		GridBagConstraints gbc_txtPhone = new GridBagConstraints();
 		gbc_txtPhone.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPhone.fill = GridBagConstraints.HORIZONTAL;
@@ -193,7 +214,7 @@ public class CustomerUI extends JDialog {
 		gbl_typePanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		typePanel.setLayout(gbl_typePanel);
 		
-		txtType = new JTextField(customerType.getName());
+		txtType = new JTextField();
 		txtType.setEnabled(false);
 		GridBagConstraints gbc_txtType = new GridBagConstraints();
 		gbc_txtType.insets = new Insets(0, 0, 0, 5);
@@ -220,7 +241,7 @@ public class CustomerUI extends JDialog {
 		contentPane.add(lblBirth, gbc_lblBirth);
 		
 		
-		txtBirth = new JTextField(Common.dateToString(customer.getBirthDate()));
+		txtBirth = new JTextField();
 		GridBagConstraints gbc_txtBirth = new GridBagConstraints();
 		gbc_txtBirth.insets = new Insets(0, 0, 0, 5);
 		gbc_txtBirth.fill = GridBagConstraints.HORIZONTAL;
@@ -230,30 +251,41 @@ public class CustomerUI extends JDialog {
 		txtBirth.setColumns(10);
 		
 		
-		btnOk = new JButton("Update");
+		btnSubmit = new JButton("Update");
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
 		gbc_btnOk.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnOk.gridx = 1;
 		gbc_btnOk.gridy = 7;
-		contentPane.add(btnOk, gbc_btnOk);
+		contentPane.add(btnSubmit, gbc_btnOk);
 		
 		switch (mode) {
 			case VIEW:
 				// Set title
 				setTitle("View Customer - " + customer.getFirstName() + " " + customer.getLastName());
 				// Hide 'Update' button if in view mode
-				btnOk.setVisible(false);
+				btnSubmit.setVisible(false);
 				// Disable 'choose' button if in view mode.
 				btnChooseType.setEnabled(false);
 				// Disable fields
 				this.disableFields();
+				// Fill fields with content
+				this.fillFields(customer);
 				break;
 			case EDIT: 
 				// Set title
 				setTitle("Edit Customer");
 				// Enable fields for editing
 				this.enableFields();
+				// Fill fields with content
+				this.fillFields(customer);
 				break;
+			case CREATE:
+				// Set title
+				setTitle("Add New Customer");
+				// Change submit button text to 'Create'
+				btnSubmit.setText("Create");
+				// Enable fields
+				this.enableFields();
 		}	
 
 		addEventHandlers();
@@ -288,6 +320,26 @@ public class CustomerUI extends JDialog {
 		txtType.setEnabled(false);
 	}
 	
+	// FIll in the fields
+	private void fillFields(Customer customer) {
+		txtID.setText(String.valueOf(customer.getID()));
+		txtFirstName.setText(customer.getFirstName());
+		txtLastName.setText(customer.getLastName());
+		txtAddress.setText(customer.getAddress());
+		txtPhone.setText(customer.getMobile());
+		txtBirth.setText(Common.dateToString(customer.getBirthDate()));
+		txtType.setText(customer.getCustomerType().getName());
+	}
+	
+	/**
+	 * Gets the customer used in view/edit, or one created in 'create' mode. Can be null!
+	 *
+	 * @return the customer
+	 */
+	public Customer getCustomer() {
+		return this.customer;
+	}
+ 	
 		/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
@@ -296,8 +348,14 @@ public class CustomerUI extends JDialog {
 	private void addEventHandlers() {
 		
 		// 'update' button: Update the product
-		btnOk.addActionListener(e -> {
-			if (Messages.confirm(CustomerUI.this, "Are you sure you want to update the customer's details?", "Update")) {
+		btnSubmit.addActionListener(e -> {
+			String message = "";
+			if (mode == Mode.EDIT) {
+				message = "Are you sure you want to update the customer's details?";
+			} else if (mode == Mode.CREATE) {
+				message = "Create customer?";
+			}
+			if (Messages.confirm(CustomerUI.this, message)) {
 				
 				// Validate First name
 				String fname = txtFirstName.getText().strip();
@@ -327,7 +385,11 @@ public class CustomerUI extends JDialog {
 					return;
 				}
 				
-				// Validate Type - no validation needed!
+				// Validate Customer Type
+				if (customerType == null) {
+					Messages.error(this, "You must choose a customer type!");
+					return;
+				}
 				
 	
 				// Validate Birth date
@@ -345,17 +407,30 @@ public class CustomerUI extends JDialog {
 					return;
 				}
 				
-				// UPDATE
-				customerCtrl.updateFirstName(customer, fname);
-				customerCtrl.updateLastName(customer, lname);
-				customerCtrl.updateAddress(customer, address);
-				customerCtrl.updateMobile(customer, mobile);
-				customerCtrl.updateBirthDate(customer, birthDate);
-				customerCtrl.updateCustomerType(customer, this.customerType);
-				
+				// if mode == view, update data
+				if (mode == Mode.EDIT) {
+					customerCtrl.updateFirstName(customer, fname);
+					customerCtrl.updateLastName(customer, lname);
+					customerCtrl.updateAddress(customer, address);
+					customerCtrl.updateMobile(customer, mobile);
+					customerCtrl.updateBirthDate(customer, birthDate);
+					customerCtrl.updateCustomerType(customer, this.customerType);
+				} else if (mode == Mode.CREATE) {
+					// if mode == Create, create a new product
+					this.customer = customerCtrl.createCustomer(fname, lname, address, mobile, customerType, birthDate);
+				}
 			}
 			// Dispose of the window
 			this.dispose();
+		});
+
+		btnChooseType.addActionListener(e -> {
+			ChooseCustomerTypeUI frame = new ChooseCustomerTypeUI(auth);
+			frame.setVisible(true);
+			if (frame.getSelectedCustomerType() != null) {
+				this.customerType = frame.getSelectedCustomerType();
+				txtType.setText(customerType.getName());
+			}
 		});
 	}
 }

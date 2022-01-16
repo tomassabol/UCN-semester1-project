@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -15,7 +16,7 @@ import javax.swing.JPanel;
 
 import controller.AuthenticationController;
 import controller.CustomerController;
-import model.Customer;
+import model.CustomerType;
 
 import javax.swing.ListSelectionModel;
 import gui.JLink.COLORS;
@@ -24,10 +25,10 @@ import gui.JLink.COLORS;
  * @author Daniels Kanepe
  *
  */
-public class CRUDCustomersPanel extends JPanel {
+public class CRUDCustomerTypePanel extends JPanel {
 	
 	
-	private JButton btnAddCustomer;
+	private JButton btnAddCustomerType;
 	private CustomerController customerCtrl;
 	
 	/**
@@ -35,7 +36,7 @@ public class CRUDCustomersPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
-	private CustomerTableModel tableModel;
+	private CustomerTypeTableModel tableModel;
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
@@ -45,12 +46,11 @@ public class CRUDCustomersPanel extends JPanel {
 	/**
 	 * Create the dialog.
 	 */
-	public CRUDCustomersPanel(AuthenticationController auth) {
+	public CRUDCustomerTypePanel(AuthenticationController auth) {
 		this.auth = auth;
 		customerCtrl = new CustomerController();
 		setLayout(new BorderLayout(0, 0));
-		
-		tableModel = new CustomerTableModel(customerCtrl.getCustomers());
+		tableModel = new CustomerTypeTableModel(customerCtrl.getCustomerTypes());
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
@@ -63,7 +63,7 @@ public class CRUDCustomersPanel extends JPanel {
 		topPanel.setLayout(gbl_topPanel);
 			// ***** Title *****
 			JLabel lblTitle = new JLabel(
-					String.format("Customers")
+					String.format("Customer Types")
 			);
 			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 			gbc_lblTitle.gridwidth = 2;
@@ -73,12 +73,12 @@ public class CRUDCustomersPanel extends JPanel {
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
 			// ***** button: Add product  *****
-			btnAddCustomer = new JButton("Add Customer");
-			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-			gbc_btnNewButton.gridx = 1;
-			gbc_btnNewButton.gridy = 1;
-			topPanel.add(btnAddCustomer, gbc_btnNewButton);
+			btnAddCustomerType = new JButton("Add Customer Type");
+			GridBagConstraints gbc_btnAddCustomerType = new GridBagConstraints();
+			gbc_btnAddCustomerType.insets = new Insets(0, 0, 5, 0);
+			gbc_btnAddCustomerType.gridx = 1;
+			gbc_btnAddCustomerType.gridy = 1;
+			topPanel.add(btnAddCustomerType, gbc_btnAddCustomerType);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
@@ -142,29 +142,30 @@ public class CRUDCustomersPanel extends JPanel {
 		return tableMain;
 	}
 	
-	public CustomerTableModel getTableModel() {
+	public CustomerTypeTableModel getTableModel() {
 		return tableModel;
 	}
 	
 
 	/**
-	 * Select a customer in the CRUD table.
+	 * Select a customer type in the CRUD table.
 	 *
 	 * @param customer the customer
 	 * @return true, if successful
 	 */
-	public boolean selectCustomer(Customer customer) {
+	public boolean selectCustomerType(CustomerType customerType) {
 		int rows = tableModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			Customer foundCustomer = tableModel.getObj(i);
-			if (foundCustomer == customer) {
+			CustomerType foundCustomerType = tableModel.getObj(i);
+			if (foundCustomerType == customerType) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
+
 	
 	/*
 	 * *******************************************************
@@ -190,9 +191,9 @@ public class CRUDCustomersPanel extends JPanel {
 		// Delete customer
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			if (Messages.confirm(this, String.format("Are you sure you wish to delete the customer '%s %s'?", customer.getFirstName(), customer.getLastName()))) {
-				customerCtrl.removeCustomer(customer);
+			CustomerType customerType = tableModel.getObj(row);
+			if (Messages.confirm(this, String.format("Are you sure you wish to delete the customer type '%s'?", customerType.getName()))) {
+				customerCtrl.deleteCustomerType(customerType);
 				tableModel.remove(row);
 			}
 		});
@@ -200,27 +201,24 @@ public class CRUDCustomersPanel extends JPanel {
 		// View Customer
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
+			CustomerType customerType = tableModel.getObj(row);
+			CustomerTypeUI frame = new CustomerTypeUI(auth, customerType, CustomerTypeUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 
 		// Edit customer
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.EDIT);
+			CustomerType customerType = tableModel.getObj(row);
+			CustomerTypeUI frame = new CustomerTypeUI(auth, customerType, CustomerTypeUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});
 
-		// 'ADD customer' button
-		btnAddCustomer.addActionListener(e -> {
-			CustomerUI frame = new CustomerUI(auth);
+		// 'ADD Customer Type' button
+		btnAddCustomerType.addActionListener(e -> {
+			CustomerTypeUI frame = new CustomerTypeUI(auth);
 			frame.setVisible(true);
-			if (frame.getCustomer() != null) {
-				tableModel.add(frame.getCustomer());
-			}
 		});
 	}
 }

@@ -1,56 +1,53 @@
 package gui;
 
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 
 import controller.AuthenticationController;
-import controller.CustomerController;
-import model.Customer;
-
-import javax.swing.ListSelectionModel;
+import controller.ContractorController;
 import gui.JLink.COLORS;
+import model.Contractor;
+import model.Customer;
 
 /**
  * @author Daniels Kanepe
  *
  */
-public class CRUDCustomersPanel extends JPanel {
+public class CRUDContractorPanel extends JPanel {
 	
 	
-	private JButton btnAddCustomer;
-	private CustomerController customerCtrl;
+	private JButton btnAddContractor;
+	private ContractorController contractorCtrl;
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
-	private CustomerTableModel tableModel;
+	private ContractorTableModel tableModel;
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
-	
-	AuthenticationController auth;
 
+	AuthenticationController auth;
 	/**
 	 * Create the dialog.
 	 */
-	public CRUDCustomersPanel(AuthenticationController auth) {
+	public CRUDContractorPanel(AuthenticationController auth) {
 		this.auth = auth;
-		customerCtrl = new CustomerController();
+		contractorCtrl = new ContractorController();
 		setLayout(new BorderLayout(0, 0));
 		
-		tableModel = new CustomerTableModel(customerCtrl.getCustomers());
+		tableModel = new ContractorTableModel(contractorCtrl.getContractors());
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
@@ -62,9 +59,7 @@ public class CRUDCustomersPanel extends JPanel {
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
 			// ***** Title *****
-			JLabel lblTitle = new JLabel(
-					String.format("Customers")
-			);
+			JLabel lblTitle = new JLabel("Contractors");
 			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 			gbc_lblTitle.gridwidth = 2;
 			gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
@@ -73,12 +68,12 @@ public class CRUDCustomersPanel extends JPanel {
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
 			// ***** button: Add product  *****
-			btnAddCustomer = new JButton("Add Customer");
+			btnAddContractor = new JButton("Add Contractor");
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
 			gbc_btnNewButton.gridx = 1;
 			gbc_btnNewButton.gridy = 1;
-			topPanel.add(btnAddCustomer, gbc_btnNewButton);
+			topPanel.add(btnAddContractor, gbc_btnNewButton);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
@@ -142,22 +137,22 @@ public class CRUDCustomersPanel extends JPanel {
 		return tableMain;
 	}
 	
-	public CustomerTableModel getTableModel() {
+	public ContractorTableModel getTableModel() {
 		return tableModel;
 	}
 	
 
 	/**
-	 * Select a customer in the CRUD table.
+	 * Select a contractor in the CRUD table.
 	 *
 	 * @param customer the customer
 	 * @return true, if successful
 	 */
-	public boolean selectCustomer(Customer customer) {
+	public boolean selectContractor(Contractor contractor) {
 		int rows = tableModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			Customer foundCustomer = tableModel.getObj(i);
-			if (foundCustomer == customer) {
+			Contractor foundContractor = tableModel.getObj(i);
+			if (foundContractor == contractor) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
 			}
@@ -187,40 +182,29 @@ public class CRUDCustomersPanel extends JPanel {
 			}
 		});
 		
-		// Delete customer
+		// Delete Contractor
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			if (Messages.confirm(this, String.format("Are you sure you wish to delete the customer '%s %s'?", customer.getFirstName(), customer.getLastName()))) {
-				customerCtrl.removeCustomer(customer);
+			Contractor contractor = tableModel.getObj(row);
+			if (Messages.confirm(this, String.format("Are you sure you wish to delete the contractor '%s'?", contractor.getCompanyName()))) {
+				contractorCtrl.removeContractor(contractor);
 				tableModel.remove(row);
 			}
 		});
-
-		// View Customer
+		// View Contractor
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
+			Contractor contractor = tableModel.getObj(row);
+			ContractorUI frame = new ContractorUI(auth, contractor, ContractorUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
-
-		// Edit customer
+		// Edit Contractor
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.EDIT);
+			Contractor contractor = tableModel.getObj(row);
+			ContractorUI frame = new ContractorUI(auth, contractor, ContractorUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
-		});
-
-		// 'ADD customer' button
-		btnAddCustomer.addActionListener(e -> {
-			CustomerUI frame = new CustomerUI(auth);
-			frame.setVisible(true);
-			if (frame.getCustomer() != null) {
-				tableModel.add(frame.getCustomer());
-			}
 		});
 	}
 }

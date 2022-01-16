@@ -1,44 +1,43 @@
 package gui;
 
-import java.time.format.DateTimeFormatter;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.Employee;
-import model.IFEmployee;
+import model.Contractor;
 
 /**
  * @author Daniels Kanepe
  *
  */
-public class EmployeeTableModel extends AbstractTableModel {
-	private static final String DATE_FORMAT = "yyyy-MM-dd";
+public class ContractorTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -2367962812947993282L;
 
 	protected static final String[] COLUMN_NAMES = {
-        "ID", "First name", "Last name", "Address", "Mobile", "Email", "Birth"
+        "ID", "Company name"
     };
 
-    private List<IFEmployee> employees;
+    private List<Contractor> contractors;
 
     
     /**
-     * Instantiates a new employee table model.
+     * Instantiates a new customer table model.
      *
-     * @param employees the employees
+     * @param customers the customers
      */
-    public EmployeeTableModel(List<IFEmployee> employees) {
+    public ContractorTableModel(List<Contractor> contractors) {
         // Prevent possible mutation
-        this.employees = new ArrayList<>(employees);
+        this.contractors = new ArrayList<>(contractors);
     }
     
 
     @Override
     public int getRowCount() {
-        return employees.size();
+        return contractors.size();
     }
 
     @Override
@@ -60,15 +59,10 @@ public class EmployeeTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    	Employee employee = (Employee) employees.get(rowIndex);
+    	Contractor contractor = contractors.get(rowIndex);
         switch (columnIndex) {
-            case 0: return "#" + employee.ID;
-            case 1: return employee.getFirstName();
-            case 2: return employee.getLastName();
-            case 3: return employee.getAddress();
-            case 4: return employee.getMobile();
-            case 5: return employee.getEmail();
-            case 6: return Common.dateToString(employee.getBirthDate());
+            case 0: return "#" + contractor.ID;
+            case 1: return contractor.getCompanyName();
             default: return "Error retrieving column name";
         }
     }
@@ -80,36 +74,37 @@ public class EmployeeTableModel extends AbstractTableModel {
     }
     
     /**
-     * Gets the employee object by row
+     * Gets the contractor object by row
      *
      * @param row the row
-     * @return the employee
+     * @return the contractor
      */
-    public IFEmployee getObj(int row) {
-    	return employees.get(row);
+    public Contractor getObj(int row) {
+    	return contractors.get(row);
     }
     
   
     /**
-     * Adds an employee to the table
+     * Adds a contractor to the table
      *
-     * @param employee the employee
+     * @param contractor the contractor
      * @return the int
      */
-    public int add(Employee employee) {
-    	int row = employees.size();
-        this.employees.add(employee);
+    public int add(Contractor contractor) {
+    	int row = contractors.size();
+        this.contractors.add(contractor);
         fireTableRowsInserted(row, row);
         return row;
     }
     
     /**
-     * Removes the employee from the table by row
+     * Removes the customer from the table by row
      *
      * @param row the row
      */
     public void remove(int row) {
-    	this.employees.remove(row);
+    	this.contractors.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }
+
 }

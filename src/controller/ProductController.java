@@ -114,7 +114,7 @@ public class ProductController {
 
 	/**
 	 * creates a selling price, which is also the latest selling price
-	 * @param price - new price entered by user
+	 * @param price - new price entered by user. Can be null!
 	 * @param product - product for which is this new price set
 	 * @return selling price entered by user
 	 */
@@ -126,7 +126,7 @@ public class ProductController {
 
 	/**
 	 * creates new loaning price, which becomes the latest loaning price for the product
-	 * @param price new price entered by user
+	 * @param price new price entered by user. Can be null!
 	 * @param product - for which is this new price set
 	 * @return loaning price created by user
 	 */

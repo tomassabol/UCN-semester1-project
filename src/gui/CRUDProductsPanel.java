@@ -14,12 +14,16 @@ import javax.swing.JTable;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+
+import controller.AuthenticationController;
 import controller.ProductController;
 import model.Product;
 
 import javax.swing.ListSelectionModel;
 import gui.JLink.COLORS;
 import gui.ProductTableModel.Column;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe
@@ -45,26 +49,27 @@ public class CRUDProductsPanel extends JPanel {
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+	private AuthenticationController auth;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CRUDProductsPanel(Mode shownColumns) {
+	public CRUDProductsPanel(AuthenticationController auth, Mode shownColumns) {
+		this.auth = auth;
 		productCtrl = new ProductController();
 		setLayout(new BorderLayout(0, 0));
 		
 		if (shownColumns == Mode.BUYABLE) {
-			tableModel = new ProductTableModel(productCtrl.getBuyableProducts(), 
+			tableModel = new ProductTableModel(productCtrl.getProducts(), 
 					Arrays.asList(
 							Column.ID,
 							Column.NAME,
+							Column.BUY_PRICE,
 							Column.BUYABLE_STOCK,
 							Column.DESCRIPTION,
 							Column.ENABLED
 							)
 					);
-		} else if (shownColumns == Mode.LOANABLE) {
-			tableModel = new ProductTableModel(new ArrayList<>());
 		} else {
 			tableModel = new ProductTableModel(productCtrl.getProducts());
 		}
@@ -229,7 +234,7 @@ public class CRUDProductsPanel extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			Product product = tableModel.getProduct(row);
-			ProductUI frame = new ProductUI(product, ProductUI.Mode.VIEW);
+			ProductUI frame = new ProductUI(auth, product, ProductUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 		
@@ -237,9 +242,21 @@ public class CRUDProductsPanel extends JPanel {
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			Product product = tableModel.getProduct(row);
-			ProductUI frame = new ProductUI(product, ProductUI.Mode.EDIT);
+			ProductUI frame = new ProductUI(auth, product, ProductUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
+			// Refresh selection (e.g. in case sell price is now set to nothing)
+			tableMain.clearSelection();
+			tableMain.getSelectionModel().setSelectionInterval(0, row);
+		});
+		
+		// Create product
+		btnAddItem.addActionListener(e -> {
+			ProductUI frame = new ProductUI(auth);
+			frame.setVisible(true);
+			if (frame.getProduct() != null) {
+				tableModel.add(frame.getProduct());
+			}
 		});
 	}
 }

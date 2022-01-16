@@ -306,7 +306,7 @@ public class ShoppingCartUI extends JDialog {
 	 * 'Add item' button code
 	 */
 	private void addItem() {
-		AddProductToCartUI frame = new AddProductToCartUI();
+		AddProductToCartUI frame = new AddProductToCartUI(auth);
 		frame.setVisible(true);
 		
 		if (frame.isProductSelected()) {

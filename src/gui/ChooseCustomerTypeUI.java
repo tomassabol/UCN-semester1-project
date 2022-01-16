@@ -1,39 +1,50 @@
+/**
+ * 
+ */
 package gui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import model.IFEmployee;
+import controller.CustomerController;
+import model.CustomerType;
 
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JTable;
 /**
  * @author Daniels Kanepe
  *
  */
-public class ChooseEmployeeUI extends JDialog {
+public class ChooseCustomerTypeUI extends JDialog {
+
+	/**
+	 * 
+	 */
+	private CustomerController customerCtrl;
 	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
-	private CRUDEmployeesPanel employeesPanel;
+	private CRUDCustomerTypePanel customerTypesPanel;
 	private JButton btnChoose;
 	
-	private IFEmployee selectedEmployee = null;
+	private CustomerType selectedCustomerType = null;
 	
 	AuthenticationController auth;
+
 
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseEmployeeUI(AuthenticationController auth) {
+	public ChooseCustomerTypeUI(AuthenticationController auth) {
 		this.auth = auth;
-		this.setTitle("Choose a employee...");
+		this.setTitle("Choose customer type...");
+		customerCtrl = new CustomerController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -47,13 +58,13 @@ public class ChooseEmployeeUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		employeesPanel = new CRUDEmployeesPanel(auth);
+		customerTypesPanel = new CRUDCustomerTypePanel(auth);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		getContentPane().add(employeesPanel, gbc_panel);
+		getContentPane().add(customerTypesPanel, gbc_panel);
 		
 		btnChoose = new JButton("Choose...");
 		btnChoose.setEnabled(false);
@@ -71,12 +82,12 @@ public class ChooseEmployeeUI extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
-		public boolean isEmployeeSelected() {
-			return selectedEmployee != null;
+		public boolean isCustomerTypeSelected() {
+			return selectedCustomerType != null;
 		}
 	
-		public IFEmployee getSelectedEmployee() {
-			return selectedEmployee;
+		public CustomerType getSelectedCustomerType() {
+			return selectedCustomerType;
 		}
 	
 	/*
@@ -85,8 +96,8 @@ public class ChooseEmployeeUI extends JDialog {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
-		employeesPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
-			JTable table = employeesPanel.getTable();
+		customerTypesPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
+			JTable table = customerTypesPanel.getTable();
 			if (table.getSelectionModel().isSelectionEmpty()) {
 				btnChoose.setEnabled(false);
 			} else {
@@ -97,14 +108,16 @@ public class ChooseEmployeeUI extends JDialog {
 		
 		// Choose button
 		btnChoose.addActionListener(e -> {
-			JTable table = employeesPanel.getTable();
+			JTable table = customerTypesPanel.getTable();
 			if (!table.getSelectionModel().isSelectionEmpty()) {
-				EmployeeTableModel tableModel = employeesPanel.getTableModel();
-				IFEmployee employee = tableModel.getObj(table.getSelectedRow());
-				selectedEmployee = employee;
+				CustomerTypeTableModel tableModel = customerTypesPanel.getTableModel();
+				CustomerType customerType = tableModel.getObj(table.getSelectedRow());
+				selectedCustomerType = customerType;
 				this.dispose();
 			}
 		});
 	}
-
+	
 }
+
+
