@@ -511,7 +511,7 @@ public class Terminal {
 
 	/**
 	* print bulk discount info for specific product
-	* @param product to print bulk discount info for
+	* @param PRODUCT to print bulk discount info for
 	*/
 	public void printBulkDiscounts(ArrayList<BulkDiscount> bulkDiscounts){
 		for (int i = 0; i < bulkDiscounts.size(); i++) {
@@ -836,7 +836,7 @@ public class Terminal {
         	SupplyOffer supplyOffer = supplyOffers.get(i);
           System.out.println(String.format("(%d): ", i));
           System.out.println("Price per Item: " + String.format(("%.2f"), supplyOffer.getPRICE_PER_PRODUCT()));
-          System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.minQuantity));
+          System.out.println("Min Quantity: " + String.format(("%d"), supplyOffer.MIN_QUANTITY));
           System.out.println("Date added: " + String.format(("%s"), supplyOffer.DATE_ADDED));
           System.out.println("Supply offer is active: " + String.format(("%s"), supplyOffer.isActive()));
           System.out.println();
