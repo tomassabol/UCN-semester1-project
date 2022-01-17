@@ -5,10 +5,11 @@ import java.time.LocalDateTime;
 
 public class SupplyOffer {
     public final int ID;
-    public final BigDecimal PRICE_PER_ITEM;
-    public final int MIN_QUANTITY;
+    public Product product;
+    public  BigDecimal pricePerItem;
+    public int minQuantity;
     public final LocalDateTime DATE_ADDED;
-    public final Contractor CONTRACTOR;
+    public Contractor contractor;
     private boolean active;
 
 
@@ -26,9 +27,9 @@ public class SupplyOffer {
     		int minQuantity, Contractor contractor,
     		boolean active, LocalDateTime dateAdded) {
         this.ID = Id;
-        this.PRICE_PER_ITEM = pricePerItem;
-        this.MIN_QUANTITY = minQuantity;
-        this.CONTRACTOR = contractor;
+        this.pricePerItem = pricePerItem;
+        this.minQuantity = minQuantity;
+        this.contractor = contractor;
         this.active = active;
         this.DATE_ADDED = dateAdded;
     }
@@ -48,24 +49,40 @@ public class SupplyOffer {
 		return ID;
 	}
 
-
-	public BigDecimal getPRICE_PER_PRODUCT() {
-		return PRICE_PER_ITEM;
-	}
-
-
-	public int getMIN_QUANTITY() {
-		return MIN_QUANTITY;
-	}
-
-
-	public LocalDateTime getDATE_ADDED() {
+	public LocalDateTime getDateAdded() {
 		return DATE_ADDED;
 	}
 
 
-	public Contractor getCONTRACTOR() {
-		return CONTRACTOR;
+	public BigDecimal getPricePerItem() {
+		return pricePerItem;
 	}
+
+
+	public void setPricePerItem(BigDecimal pricePerItem) {
+		this.pricePerItem = pricePerItem;
+	}
+
+
+	public int getMinQuantity() {
+		return minQuantity;
+	}
+
+
+	public void setMinQuantity(int minQuantity) {
+		this.minQuantity = minQuantity;
+	}
+
+
+	public Contractor getContractor() {
+		return contractor;
+	}
+
+
+	public void setContractor(Contractor contractor) {
+		this.contractor = contractor;
+	}
+	
+	
 
 }
