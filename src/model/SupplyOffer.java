@@ -40,9 +40,10 @@ public class SupplyOffer {
      * @param active the active
      * @param dateAdded the date added
      */
-    public SupplyOffer(int Id, BigDecimal pricePerItem,
+    public SupplyOffer(int Id, Product product, BigDecimal pricePerItem,
     		int minQuantity, Contractor contractor,
     		boolean active, LocalDateTime dateAdded) {
+    	this.product = product;
         this.ID = Id;
         this.pricePerItem = pricePerItem;
         this.minQuantity = minQuantity;

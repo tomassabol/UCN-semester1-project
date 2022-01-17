@@ -26,23 +26,21 @@ public class SupplyController {
 		productCtrl = new ProductController();
 	}
 	
+
 	/**
-	 * Creates a supply offer and adds it to the container
-	 *
-	 * @param product the product
-	 * @param contractor the contractor
-	 * @param Id the id
-	 * @param pricePerItem the price per item
-	 * @param minQuantity the minimum order quantity
-	 * @param active the active
-	 * @param dateAdded the date added
-	 * @return the supply offer
+	 * Creates a new supply offer and adds it to the container
+	 * 
+	 * @param product
+	 * @param contractor
+	 * @param pricePerItem
+	 * @param minQuantity
+	 * @return
 	 */
 	public SupplyOffer createSupplyOffer(Product product,
 			Contractor contractor, BigDecimal pricePerItem,
 			int minQuantity) {
 		
-		SupplyOffer supplyOffer = new SupplyOffer(PrimaryKey.getNextSupplyOfferID(),
+		SupplyOffer supplyOffer = new SupplyOffer(PrimaryKey.getNextSupplyOfferID(), product,
 				pricePerItem, minQuantity, contractor, true, LocalDateTime.now());
 		SupplyOfferContainer.getInstance().addSupplyOffer(product, supplyOffer);
 		
