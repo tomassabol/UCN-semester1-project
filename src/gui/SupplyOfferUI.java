@@ -415,19 +415,15 @@ public class SupplyOfferUI extends JDialog {
 				// Validate min order quantity
 				String stringMinQuantity = txtMinQuantity.getText().strip();
 				int minQuantity;
-				if (stringMinQuantity.isEmpty()) {
-					minQuantity = null;
-				} else {
-					try {
-						minQuantity = Integer.parseInt(stringMinQuantity);
-					} catch (NumberFormatException e2) {
-						Messages.error(this, "Min order quanity must be a whole, positive number");
-						return;
-					}
-					// if less than zero
-					if (minQuantity < 0) {
-						Messages.error(this, "Min order quanity must be a whole, positive number");
-					}
+				try {
+					minQuantity = Integer.parseInt(stringMinQuantity);
+				} catch (NumberFormatException e2) {
+					Messages.error(this, "Min order quanity must be a whole, positive number");
+					return;
+				}
+				// if less than zero
+				if (minQuantity < 0) {
+					Messages.error(this, "Min order quanity must be a whole, positive number");
 				}
 				
 				// get 'active' status
