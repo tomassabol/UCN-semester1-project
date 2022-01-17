@@ -266,7 +266,7 @@ public class EmployeeUI extends JDialog {
 		
 		// 'update' button: Update the product
 		btnOk.addActionListener(e -> {
-			if (Messages.confirm(EmployeeUI.this, "Are you sure you want to update the changes to Employee?", "Update")) {
+			if (Messages.confirm(EmployeeUI.this, "Are you sure you want to update the employee's details?", "Update")) {
 				
 				// Validate First name
 				String fname = txtFirstName.getText().strip();
