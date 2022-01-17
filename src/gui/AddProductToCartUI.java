@@ -132,7 +132,7 @@ public class AddProductToCartUI extends JDialog {
 				btnChoose.setEnabled(false);
 			} else {
 				ProductTableModel tableModel = productsPanel.getTableModel();
-				Product product = tableModel.getProduct(table.getSelectedRow());
+				Product product = tableModel.getObj(table.getSelectedRow());
 				// Enable only if buyable quantity > 0 & product is enabled
 				int buyableQuantity = stockCtrl.getBuyableQuantityInStock(product);
 				if (buyableQuantity > 0 && product.isEnabled() && product.getLatestSellingPrice() != null) {
@@ -154,7 +154,7 @@ public class AddProductToCartUI extends JDialog {
 			JTable table = productsPanel.getTable();
 			if (!table.getSelectionModel().isSelectionEmpty()) {
 				ProductTableModel tableModel = productsPanel.getTableModel();
-				Product product = tableModel.getProduct(table.getSelectedRow());
+				Product product = tableModel.getObj(table.getSelectedRow());
 				selectedProduct = product;
 				selectedQuantity = (int) spinnerQuantity.getValue();
 				this.dispose();

@@ -178,7 +178,7 @@ public class CRUDProductsPanel extends JPanel {
 	public boolean selectProduct(Product product) {
 		int rows = tableModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			Product foundProduct = tableModel.getProduct(i);
+			Product foundProduct = tableModel.getObj(i);
 			if (foundProduct == product) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
@@ -203,7 +203,7 @@ public class CRUDProductsPanel extends JPanel {
 			} else {
 				// Selected
 				int row = tableMain.getSelectedRow();
-				Product product = tableModel.getProduct(row);
+				Product product = tableModel.getObj(row);
 				btnView.setEnabled(true);
 				btnEdit.setEnabled(true);
 				btnDisable.setEnabled(true);
@@ -219,7 +219,7 @@ public class CRUDProductsPanel extends JPanel {
 		// Disable product
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Product product = tableModel.getProduct(row);
+			Product product = tableModel.getObj(row);
 			String keyword = product.isEnabled() ? "disable" : "enable";
 			if (Messages.confirm(this, String.format("Are you sure you wish to %s the product '%s'?",
 					keyword,
@@ -233,7 +233,7 @@ public class CRUDProductsPanel extends JPanel {
 		// View product
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Product product = tableModel.getProduct(row);
+			Product product = tableModel.getObj(row);
 			ProductUI frame = new ProductUI(auth, product, ProductUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
@@ -241,7 +241,7 @@ public class CRUDProductsPanel extends JPanel {
 		// Edit product
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Product product = tableModel.getProduct(row);
+			Product product = tableModel.getObj(row);
 			ProductUI frame = new ProductUI(auth, product, ProductUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
