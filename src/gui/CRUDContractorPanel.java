@@ -16,7 +16,6 @@ import controller.AuthenticationController;
 import controller.ContractorController;
 import gui.JLink.COLORS;
 import model.Contractor;
-import model.Customer;
 
 /**
  * @author Daniels Kanepe
@@ -39,8 +38,10 @@ public class CRUDContractorPanel extends JPanel {
 	private JLink btnDisable;
 
 	AuthenticationController auth;
+
 	/**
 	 * Create the dialog.
+	 * Constructor class CRUDContractorPanel
 	 */
 	public CRUDContractorPanel(AuthenticationController auth) {
 		this.auth = auth;
@@ -205,6 +206,14 @@ public class CRUDContractorPanel extends JPanel {
 			ContractorUI frame = new ContractorUI(auth, contractor, ContractorUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
+		});
+		// Add Contractor
+		btnAddContractor.addActionListener(e -> {
+			ContractorUI frame = new ContractorUI(auth);
+			frame.setVisible(true);
+			if (frame.getContractor() != null) {
+				tableModel.add(frame.getContractor());
+			}
 		});
 	}
 }

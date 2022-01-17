@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 
 import javax.swing.JDialog;
@@ -9,19 +8,13 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.ContractorController;
-import controller.CustomerController;
 import model.Contractor;
-import model.Customer;
-import model.CustomerType;
-import model.IFCustomer;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -34,7 +27,8 @@ public class ContractorUI extends JDialog {
 	
 	public enum Mode {
 		VIEW,
-		EDIT
+		EDIT,
+		CREATE
 	}
 
 	private JPanel contentPane;
@@ -48,9 +42,21 @@ public class ContractorUI extends JDialog {
 	AuthenticationController auth;
 
 
+	/**
+	 * Constructor for Create contractor
+	 *
+	 * @param auth the auth
+	 */
+	public ContractorUI(AuthenticationController auth) {
+		this(auth, null, Mode.CREATE);
+		this.contractor = null;
+	}
 
 	/**
-	 * Create the dialog.
+	 * Constructor for View/Edit contractor
+	 * @param auth the auth
+	 * @param contractor the contractor
+	 * @param mode the mode
 	 */
 	public ContractorUI(AuthenticationController auth, Contractor contractor, Mode mode) {
 		this.mode = mode;
@@ -88,7 +94,7 @@ public class ContractorUI extends JDialog {
 		contentPane.add(lblCompanyName, gbc_lblCompanyName);
 		
 		
-		txtID = new JTextField(String.valueOf(contractor.getID()));
+		txtID = new JTextField();
 		txtID.setEnabled(false);
 		GridBagConstraints gbc_txtID = new GridBagConstraints();
 		gbc_txtID.insets = new Insets(0, 0, 5, 5);
@@ -99,7 +105,7 @@ public class ContractorUI extends JDialog {
 		txtID.setColumns(10);
 		
 		
-		txtCompanyName = new JTextField(contractor.getCompanyName());
+		txtCompanyName = new JTextField();
 		GridBagConstraints gbc_txtCompanyName = new GridBagConstraints();
 		gbc_txtCompanyName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtCompanyName.fill = GridBagConstraints.HORIZONTAL;
@@ -124,10 +130,22 @@ public class ContractorUI extends JDialog {
 				btnUpdate.setVisible(false);
 				// Disable fields
 				this.disableFields();
+				// Fill fields with content
+				this.fillFields(contractor);
 				break;
 			case EDIT: 
 				// Set title
 				setTitle("Edit contractor - " + contractor.getCompanyName());
+				// Enable fields for editing
+				this.enableFields();
+				// Fill fields with content
+				this.fillFields(contractor);
+				break;
+			case CREATE:
+				// Set title
+				setTitle("Create new contractor");
+				// Change button text
+				btnUpdate.setText("Create");
 				// Enable fields for editing
 				this.enableFields();
 				break;
@@ -163,6 +181,19 @@ public class ContractorUI extends JDialog {
 			}
 		txtID.setEnabled(false);
 	}
+
+	// FIll in the fields
+	private void fillFields(Contractor contractor) {
+		txtID.setText(String.valueOf(contractor.getID()));
+		txtCompanyName.setText(contractor.getCompanyName());
+	}
+
+	/**
+	 * @return contractor
+	 */
+	public Contractor getContractor() {
+		return this.contractor;
+	}
 	
 		/*
 	 * *******************************************************
@@ -171,7 +202,7 @@ public class ContractorUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 		
-		// 'update' button: Update the product
+		// 'update' button: Update the contractor
 		btnUpdate.addActionListener(e -> {
 			if (Messages.confirm(ContractorUI.this, "Are you sure you want to update the contractor's details?", "Update")) {
 				
@@ -183,7 +214,12 @@ public class ContractorUI extends JDialog {
 				}
 				
 				// UPDATE
-				contractorCtrl.updateCompanyName(contractor, companyName);
+				if (mode == Mode.EDIT) {
+					contractorCtrl.updateCompanyName(contractor, companyName);
+				} else if (mode == Mode.CREATE) {
+
+					this.contractor = contractorCtrl.createContractor(companyName);
+				}
 				
 			}
 			// Dispose of the window
