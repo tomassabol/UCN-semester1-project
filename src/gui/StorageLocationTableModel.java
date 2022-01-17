@@ -9,25 +9,31 @@ import javax.swing.table.AbstractTableModel;
 
 import model.StorageLocation;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Daniels Kanepe
+ * The Class StorageLocationTableModel.
  *
+ * @author Daniels Kanepe
  */
 public class StorageLocationTableModel extends AbstractTableModel {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2367962812947993282L;
 
+	/** The Constant COLUMN_NAMES. */
 	protected static final String[] COLUMN_NAMES = {
         "ID", "Name", "Address", "Is a store?"
     };
 
+    /** The storage locations. */
     private List<StorageLocation> storageLocations;
 
     
+
     /**
-     * Instantiates a new customer table model.
+     * Instantiates a new storage location table model.
      *
-     * @param customers the customers
+     * @param storageLocations the storage locations
      */
     public StorageLocationTableModel(List<StorageLocation> storageLocations) {
         // Prevent possible mutation
@@ -35,21 +41,43 @@ public class StorageLocationTableModel extends AbstractTableModel {
     }
     
 
+    /**
+     * Gets the row count.
+     *
+     * @return the row count
+     */
     @Override
     public int getRowCount() {
         return storageLocations.size();
     }
 
+    /**
+     * Gets the column count.
+     *
+     * @return the column count
+     */
     @Override
     public int getColumnCount() {
         return COLUMN_NAMES.length;
     }
 
+    /**
+     * Gets the column name.
+     *
+     * @param column the column
+     * @return the column name
+     */
     @Override
     public String getColumnName(int column) {
         return COLUMN_NAMES[column];
     }
 
+    /**
+     * Gets the column class.
+     *
+     * @param columnIndex the column index
+     * @return the column class
+     */
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
@@ -57,6 +85,13 @@ public class StorageLocationTableModel extends AbstractTableModel {
         }
     }
 
+    /**
+     * Gets the value at.
+     *
+     * @param rowIndex the row index
+     * @param columnIndex the column index
+     * @return the value at
+     */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
     	StorageLocation storageLocation = storageLocations.get(rowIndex);
@@ -69,6 +104,13 @@ public class StorageLocationTableModel extends AbstractTableModel {
         }
     }
     
+    /**
+     * Checks if is cell editable.
+     *
+     * @param row the row
+     * @param column the column
+     * @return true, if is cell editable
+     */
     // Make cells uneditable
     @Override
     public boolean isCellEditable(int row, int column) {       
@@ -76,7 +118,7 @@ public class StorageLocationTableModel extends AbstractTableModel {
     }
     
     /**
-     * Gets the Storage Location object by row
+     * Gets the Storage Location object by row.
      *
      * @param row the row
      * @return the StorageLocation
@@ -87,9 +129,9 @@ public class StorageLocationTableModel extends AbstractTableModel {
     
   
     /**
-     * Adds a StorageLocation to the table
+     * Adds a StorageLocation to the table.
      *
-     * @param StorageLocation the storage location
+     * @param storageLocation the storage location
      */
     public void add(StorageLocation storageLocation) {
         this.storageLocations.add(storageLocation);
@@ -97,7 +139,7 @@ public class StorageLocationTableModel extends AbstractTableModel {
     }
     
     /**
-     * Removes the storage location from the table by row
+     * Removes the storage location from the table by row.
      *
      * @param row the row
      */
