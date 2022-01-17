@@ -199,7 +199,7 @@ public class CRUDStorageLocationPanel extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			StorageLocation storageLocation = tableModel.getObj(row);
-			CustomerUI frame = new StorageLocationUI(auth, storageLocation, CustomerUI.Mode.VIEW);
+			StorageLocationUI frame = new StorageLocationUI(auth, storageLocation, StorageLocationUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 
@@ -207,14 +207,14 @@ public class CRUDStorageLocationPanel extends JPanel {
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			StorageLocation storageLocation = tableModel.getObj(row);
-			CustomerUI frame = new StorageLocationUI(auth, storageLocation, CustomerUI.Mode.EDIT);
+			StorageLocationUI frame = new StorageLocationUI(auth, storageLocation, StorageLocationUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});
 
 		// 'ADD' storage location button
 		btnAdd.addActionListener(e -> {
-			CustomerUI frame = new StorageLocationUI(auth);
+			StorageLocationUI frame = new StorageLocationUI(auth);
 			frame.setVisible(true);
 			if (frame.getStorageLocation() != null) {
 				tableModel.add(frame.getStorageLocation());
