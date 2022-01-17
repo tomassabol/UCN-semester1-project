@@ -5,6 +5,11 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -15,6 +20,8 @@ import controller.AuthenticationController;
 import controller.OrderController;
 import model.Customer;
 import model.Order;
+import model.Quote;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
 
@@ -205,6 +212,27 @@ public class OrdersUI extends JDialog {
 			}
 		});
 		
+		// Searches for an order by id
+		txtSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				int id;
+				
+				try {
+					id = Integer.parseInt(txtSearch.getText());
+				} catch (NumberFormatException e1) {
+					ordersTableModel = new OrdersTableModel(orderCtrl.getOrders(customer));
+					tableOrders.setModel(ordersTableModel);
+					return;
+				}
+				
+				List<Order> orders = new ArrayList<Order>();
+				orders.add(orderCtrl.findOrderByIdForCustomer(id, customer));
+				ordersTableModel = new OrdersTableModel(orders);
+				tableOrders.setModel(ordersTableModel);
+				
+			}
+		});
 		
 		
 	}
