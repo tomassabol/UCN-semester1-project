@@ -54,7 +54,7 @@ public class CustomerUI extends JDialog {
 
 
 	/**
-	 * Constructor for Create
+	 * Constructor for Create Customer
 	 *
 	 * @param auth the auth
 	 */
@@ -342,7 +342,7 @@ public class CustomerUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 		
-		// 'update' button: Update the product
+		// 'update' button: Update the customer
 		btnSubmit.addActionListener(e -> {
 			String message = "";
 			if (mode == Mode.EDIT) {
@@ -411,7 +411,7 @@ public class CustomerUI extends JDialog {
 					customerCtrl.updateBirthDate(customer, birthDate);
 					customerCtrl.updateCustomerType(customer, this.customerType);
 				} else if (mode == Mode.CREATE) {
-					// if mode == Create, create a new product
+					// if mode == Create, create a new customer
 					this.customer = customerCtrl.createCustomer(fname, lname, address, mobile, customerType, birthDate);
 				}
 			}

@@ -90,11 +90,9 @@ public class ContractorTableModel extends AbstractTableModel {
      * @param contractor the contractor
      * @return the int
      */
-    public int add(Contractor contractor) {
-    	int row = contractors.size();
+    public void add(Contractor contractor) {
         this.contractors.add(contractor);
-        fireTableRowsInserted(row, row);
-        return row;
+        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
     }
     
     /**
