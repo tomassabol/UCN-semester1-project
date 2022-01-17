@@ -496,13 +496,13 @@ public class DashboardUI extends JFrame {
 		/////////////////////////////////////////////////////
 		
 		
-		// ***** Customer button *****
+		// ***** Manage customers *****
 		btnCustomer.addActionListener(e -> {
 			ManageCustomerUI frame = new ManageCustomerUI(auth);
 			frame.setVisible(true);
 		});
 		
-		// we need to create CRUDEmployeesPanel
+		// ***** Manage employees *****
 		btnEmployee.addActionListener(e -> {
 			ManageEmployeeUI frame = new ManageEmployeeUI(auth);
 			frame.setVisible(true);
