@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import model.Customer;
+import model.Product;
 
 /**
  * @author Daniels Kanepe
@@ -26,7 +27,7 @@ import model.Customer;
 public class DashboardUI extends JFrame {
 	
 	private Customer customer = null;
-	
+	private Product product = null;
 
 	private JPanel contentPane;
 	private AuthenticationController auth;
@@ -489,7 +490,7 @@ public class DashboardUI extends JFrame {
 			frame.setVisible(true);
 		});
 		
-		// ***** Manage Storage locations *****
+		// ***** Manage Products *****
 		btnProducts.addActionListener(e -> {
 			ManageProductUI frame = new ManageProductUI(auth);
 			frame.setVisible(true);
@@ -499,6 +500,19 @@ public class DashboardUI extends JFrame {
 		btnShelves.addActionListener(e -> {
 			ManageShelfUI frame = new ManageShelfUI(auth);
 			frame.setVisible(true);
+		});
+		
+		// ***** Manage Supply Offers *****
+		btnSupplyOffers.addActionListener(e -> {
+			ChooseProductUI productFrame = new ChooseProductUI(auth);
+			productFrame.setVisible(true);
+			if (productFrame.isProductSelected()) {
+				product = productFrame.getSelectedProduct();
+				if (product != null) {
+					ManageSupplyOfferUI frame = new ManageSupplyOfferUI(auth, product);
+					frame.setVisible(true);
+				}
+			}
 		});
 		
 		
