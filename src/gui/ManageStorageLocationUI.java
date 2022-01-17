@@ -21,7 +21,7 @@ import javax.swing.JTable;
  * @author Daniels Kanepe
  *
  */
-public class ManageStorageLocation extends JDialog {
+public class ManageStorageLocationUI extends JDialog {
 
 	/**
 	 * 
@@ -40,7 +40,7 @@ public class ManageStorageLocation extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ManageStorageLocation(AuthenticationController auth) {
+	public ManageStorageLocationUI(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Manage storage locations");
 		customerCtrl = new CustomerController();

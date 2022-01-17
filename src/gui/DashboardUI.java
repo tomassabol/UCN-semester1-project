@@ -52,7 +52,7 @@ public class DashboardUI extends JFrame {
 	private JLabel lblEmployee;
 	private JLabel lblCustomer;
 	private JPanel InventoryPanel;
-	private JButton btnContractor;
+	private JButton btnContractors;
 	private JButton btnSupplyOrder;
 	private JButton btnStockASupplyOrder;
 	private JButton btnSupplyOffer;
@@ -291,12 +291,12 @@ public class DashboardUI extends JFrame {
 		
 		btnSupplyOrder = new JButton("Supply Orders");
 		
-		btnContractor = new JButton("Contractors");
-		GridBagConstraints gbc_btnContractor = new GridBagConstraints();
-		gbc_btnContractor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnContractor.gridx = 0;
-		gbc_btnContractor.gridy = 3;
-		InventoryPanel.add(btnContractor, gbc_btnContractor);
+		btnContractors = new JButton("Contractors");
+		GridBagConstraints gbc_btnContractors = new GridBagConstraints();
+		gbc_btnContractors.insets = new Insets(0, 0, 5, 5);
+		gbc_btnContractors.gridx = 0;
+		gbc_btnContractors.gridy = 3;
+		InventoryPanel.add(btnContractors, gbc_btnContractors);
 		GridBagConstraints gbc_btnSupplyOrder = new GridBagConstraints();
 		gbc_btnSupplyOrder.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSupplyOrder.gridx = 1;
@@ -479,11 +479,18 @@ public class DashboardUI extends JFrame {
 		/////////////////////////////////////////////////////
 		
 		// ***** Manage Contractors *****
-		btnContractor.addActionListener(e -> {
+		btnContractors.addActionListener(e -> {
 			ManageContractorUI frame = new ManageContractorUI(auth);
 			frame.setVisible(true);
 		});
-				
+		
+		// ***** Manage Storage locations *****
+		btnStorageLocations.addActionListener(e -> {
+			ManageStorageLocationUI frame = new ManageStorageLocationUI(auth);
+			frame.setVisible(true);
+		});
+		
+		
 		///////////////////////////////////////////////////////
 		////////////////     People tab     //////////////////
 		/////////////////////////////////////////////////////
