@@ -4,6 +4,7 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -35,7 +36,7 @@ public class StorageLocationTableModel extends AbstractTableModel {
      *
      * @param storageLocations the storage locations
      */
-    public StorageLocationTableModel(List<StorageLocation> storageLocations) {
+    public StorageLocationTableModel(Set<StorageLocation> storageLocations) {
         // Prevent possible mutation
         this.storageLocations = new ArrayList<>(storageLocations);
     }

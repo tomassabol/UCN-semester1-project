@@ -123,4 +123,8 @@ public class StockController {
     	return Stock.getInstance().quoteIsInStock(quote);
     }
     
+    public void removeStorageLocation(StorageLocation storageLocation) {
+    	Stock.getInstance().removeStorageLocation(storageLocation);
+    }
+    
 }
