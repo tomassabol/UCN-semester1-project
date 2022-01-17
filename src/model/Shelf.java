@@ -144,4 +144,16 @@ public class Shelf {
 		}
 		return availableQuantity;
     }
+
+    /**
+     *  get products out of hashmap
+     */ 
+    public ArrayList<Product> getProducts(){
+        ArrayList<Product> products = new ArrayList<>();
+        stockBatches.forEach((key, value) -> products.add(key));
+        for (Product product : products) {
+            System.out.println(product.getName());
+        }
+        return products;
+    }
 }

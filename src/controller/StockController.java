@@ -138,4 +138,13 @@ public class StockController {
     public void updateStorageLocationIsAStore(StorageLocation storageLocation, boolean isAStore) {
     	storageLocation.setIsAStore(isAStore);
     }
+
+
+    public void removeShelf(Shelf shelf) {
+    	Stock.getInstance().removeShelf(shelf);
+    }
+
+    public void updateShalfName(Shelf shelf, String name) {
+        shelf.setName(name);
+    }
 }

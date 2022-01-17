@@ -64,7 +64,7 @@ public class ShelfTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case 0: return "#" + shelf.ID;
             case 1: return shelf.getName();
-            case 2: return shelf.getStorageLocation();
+            case 2: return shelf.getStorageLocation().getName();
             case 3: return "Implement getQuantityOfProducts";
             default: return "Error retrieving column name";
         }

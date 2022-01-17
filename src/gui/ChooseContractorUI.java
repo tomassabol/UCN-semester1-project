@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.ContractorController;
 import model.Contractor;
 
 import java.awt.GridBagLayout;
@@ -22,11 +21,6 @@ import javax.swing.JTable;
  *
  */
 public class ChooseContractorUI extends JDialog {
-
-	/**
-	 * 
-	 */
-	private ContractorController contractorCtrl;
 	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
@@ -44,7 +38,6 @@ public class ChooseContractorUI extends JDialog {
 	public ChooseContractorUI(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Choose a contractor...");
-		contractorCtrl = new ContractorController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

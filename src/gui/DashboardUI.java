@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -493,6 +492,12 @@ public class DashboardUI extends JFrame {
 		// ***** Manage Storage locations *****
 		btnProducts.addActionListener(e -> {
 			ManageProductUI frame = new ManageProductUI(auth);
+			frame.setVisible(true);
+		});
+
+		//btnShelves
+		btnShelves.addActionListener(e -> {
+			ManageShelfUI frame = new ManageShelfUI(auth);
 			frame.setVisible(true);
 		});
 		

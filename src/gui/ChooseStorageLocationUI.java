@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.StockController;
 import model.StorageLocation;
 
 import java.awt.GridBagLayout;
@@ -23,11 +22,6 @@ import javax.swing.JTable;
  *
  */
 public class ChooseStorageLocationUI extends JDialog {
-
-	/**
-	 * 
-	 */
-	private StockController stockCtrl;
 	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
@@ -45,7 +39,6 @@ public class ChooseStorageLocationUI extends JDialog {
 	public ChooseStorageLocationUI(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Choose a storage location...");
-		stockCtrl = new StockController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

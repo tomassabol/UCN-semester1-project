@@ -1,6 +1,3 @@
-/**
- * 
- */
 package gui;
 
 
@@ -10,12 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.ProductController;
 import model.Product;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JTable;
 /**
  * @author Daniels Kanepe
@@ -23,11 +20,6 @@ import javax.swing.JTable;
  */
 public class ChooseProductUI extends JDialog {
 
-	/**
-	 * 
-	 */
-	private ProductController productCtrl;
-	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
 	private CRUDProductsPanel CRUDPanel;
@@ -44,7 +36,6 @@ public class ChooseProductUI extends JDialog {
 	public ChooseProductUI(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Choose a product...");
-		productCtrl = new ProductController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -89,6 +80,7 @@ public class ChooseProductUI extends JDialog {
 		public Product getSelectedProduct() {
 			return selectedProduct;
 		}
+
 	
 	/*
 	 * *******************************************************
