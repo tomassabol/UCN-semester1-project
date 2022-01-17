@@ -29,21 +29,17 @@ public class CRUDCustomersPanel extends JPanel {
 	
 	private JButton btnAddCustomer;
 	private CustomerController customerCtrl;
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
 	private CustomerTableModel tableModel;
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
-	
 	AuthenticationController auth;
 
 	/**
 	 * Create the dialog.
+	 * Constructor class CRUDCustomersPanel
 	 */
 	public CRUDCustomersPanel(AuthenticationController auth) {
 		this.auth = auth;
@@ -72,7 +68,7 @@ public class CRUDCustomersPanel extends JPanel {
 			gbc_lblTitle.gridy = 0;
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
-			// ***** button: Add product  *****
+			// ***** button: Add customer  *****
 			btnAddCustomer = new JButton("Add Customer");
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
@@ -138,10 +134,16 @@ public class CRUDCustomersPanel extends JPanel {
 	 * *******************************************************
 	 */
 	
+	/**
+	 * @return JTable tableMain
+	 */
 	public JTable getTable() {
 		return tableMain;
 	}
 	
+	/**
+	 * @return CustomerTableModel tableModel
+	 */
 	public CustomerTableModel getTableModel() {
 		return tableModel;
 	}

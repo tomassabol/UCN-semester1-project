@@ -1,6 +1,5 @@
 package gui;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,14 +92,12 @@ public class EmployeeTableModel extends AbstractTableModel {
     /**
      * Adds an employee to the table
      *
-     * @param employee the employee
+     * @param ifEmployee the employee
      * @return the int
      */
-    public int add(Employee employee) {
-    	int row = employees.size();
-        this.employees.add(employee);
-        fireTableRowsInserted(row, row);
-        return row;
+    public void add(IFEmployee ifEmployee) {
+        this.employees.add(ifEmployee);
+        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
     }
     
     /**

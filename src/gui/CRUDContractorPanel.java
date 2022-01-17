@@ -67,7 +67,7 @@ public class CRUDContractorPanel extends JPanel {
 			gbc_lblTitle.gridy = 0;
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
-			// ***** button: Add product  *****
+			// ***** button: Add contractor  *****
 			btnAddContractor = new JButton("Add Contractor");
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);

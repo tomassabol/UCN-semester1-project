@@ -72,7 +72,7 @@ public class CRUDCustomerTypePanel extends JPanel {
 			gbc_lblTitle.gridy = 0;
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
-			// ***** button: Add product  *****
+			// ***** button: Add customer type  *****
 			btnAddCustomerType = new JButton("Add Customer Type");
 			GridBagConstraints gbc_btnAddCustomerType = new GridBagConstraints();
 			gbc_btnAddCustomerType.insets = new Insets(0, 0, 5, 0);

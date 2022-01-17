@@ -8,11 +8,8 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.CustomerController;
-import gui.ProductUI.Mode;
 import model.Customer;
 import model.CustomerType;
-import model.IFCustomer;
-import model.Product;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -21,11 +18,9 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
 
 /**
  * @author Daniels Kanepe

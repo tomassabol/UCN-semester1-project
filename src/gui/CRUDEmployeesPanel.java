@@ -24,15 +24,8 @@ import model.IFEmployee;
  */
 public class CRUDEmployeesPanel extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
 	private JButton btnAddEmployee;
 	private EmployeeController employeeCtrl;
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
 	private EmployeeTableModel tableModel;
@@ -43,7 +36,8 @@ public class CRUDEmployeesPanel extends JPanel {
 
 	/**
 	 * Create the dialog.
-	*/
+	 * constructor class CRUDEmployeesPanel
+	 */
 	public CRUDEmployeesPanel(AuthenticationController auth) {
 		this.auth = auth;
 		employeeCtrl = new EmployeeController();
@@ -71,7 +65,7 @@ public class CRUDEmployeesPanel extends JPanel {
 		gbc_lblTitle.gridy = 0;
 		topPanel.add(lblTitle, gbc_lblTitle);
 				
-		// ***** button: Add product  *****
+		// ***** button: Add employee  *****
 		btnAddEmployee = new JButton("Add Employee");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
@@ -137,10 +131,16 @@ public class CRUDEmployeesPanel extends JPanel {
 	 * *******************************************************
 	 */
 		
+	/**
+	 * @return JTable tableMain
+	 */  
 	public JTable getTable() {
 		return tableMain;
 	}
 	
+	/**
+	 *  @return EmployeeTableModel tableModel
+	 */
 	public EmployeeTableModel getTableModel() {
 		return tableModel;
 	}
@@ -162,14 +162,6 @@ public class CRUDEmployeesPanel extends JPanel {
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * 'Add customer' button code
-	 */
-	private void addEmployee() {
-		AddEmployeeUI frame = new AddEmployeeUI();
-		frame.setVisible(true);
 	}
 		
 		
@@ -227,9 +219,13 @@ public class CRUDEmployeesPanel extends JPanel {
 			tableModel.fireTableRowsUpdated(row, row);
 		});
 
-		// 'ADD ITEM' button
+		// 'ADD Employee' button
 		btnAddEmployee.addActionListener(e -> {
-			this.addEmployee();
+			EmployeeUI frame = new EmployeeUI(auth);
+			frame.setVisible(true);
+			if (frame.getEmployee() != null) {
+				tableModel.add(frame.getEmployee());
+			}
 		});
 	}
 
