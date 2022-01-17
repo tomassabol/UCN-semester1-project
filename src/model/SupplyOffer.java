@@ -30,8 +30,7 @@ public class SupplyOffer {
     private boolean active;
 
 
-
-    /**
+	/**
      * Instantiates a new supply offer.
      *
      * @param Id the id
@@ -149,6 +148,15 @@ public class SupplyOffer {
 	 */
 	public void setContractor(Contractor contractor) {
 		this.contractor = contractor;
+	}
+	
+    public Product getProduct() {
+		return product;
+	}
+
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	
 	
