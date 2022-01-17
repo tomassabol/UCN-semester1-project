@@ -12,24 +12,26 @@ public class SupplyOffer {
     public final int ID;
     
     /** The product. */
-    public Product product;
+    public final Product PRODUCT;
     
     /** The price per item. */
-    public BigDecimal pricePerItem;
+    public final BigDecimal PRICE_PER_ITEM;
     
     /** The min quantity. */
-    public int minQuantity;
+    public final int MIN_QUANTITY;
     
     /** The date added. */
     public final LocalDateTime DATE_ADDED;
     
     /** The contractor. */
-    public Contractor contractor;
+    public final Contractor CONTRACTOR;
     
     /** The active. */
     private boolean active;
 
 
+    // NOTE: TO EDIT A SUPPLY OFFER, CREATE A NEW ONE!
+    
 	/**
      * Instantiates a new supply offer.
      *
@@ -43,11 +45,11 @@ public class SupplyOffer {
     public SupplyOffer(int Id, Product product, BigDecimal pricePerItem,
     		int minQuantity, Contractor contractor,
     		boolean active, LocalDateTime dateAdded) {
-    	this.product = product;
+    	this.PRODUCT = product;
         this.ID = Id;
-        this.pricePerItem = pricePerItem;
-        this.minQuantity = minQuantity;
-        this.contractor = contractor;
+        this.PRICE_PER_ITEM = pricePerItem;
+        this.MIN_QUANTITY = minQuantity;
+        this.CONTRACTOR = contractor;
         this.active = active;
         this.DATE_ADDED = dateAdded;
     }
@@ -98,18 +100,10 @@ public class SupplyOffer {
 	 * @return the price per item
 	 */
 	public BigDecimal getPricePerItem() {
-		return pricePerItem;
+		return PRICE_PER_ITEM;
 	}
 
 
-	/**
-	 * Sets the price per item.
-	 *
-	 * @param pricePerItem the new price per item
-	 */
-	public void setPricePerItem(BigDecimal pricePerItem) {
-		this.pricePerItem = pricePerItem;
-	}
 
 
 	/**
@@ -118,18 +112,10 @@ public class SupplyOffer {
 	 * @return the min quantity
 	 */
 	public int getMinQuantity() {
-		return minQuantity;
+		return MIN_QUANTITY;
 	}
 
 
-	/**
-	 * Sets the min quantity.
-	 *
-	 * @param minQuantity the new min quantity
-	 */
-	public void setMinQuantity(int minQuantity) {
-		this.minQuantity = minQuantity;
-	}
 
 
 	/**
@@ -138,28 +124,13 @@ public class SupplyOffer {
 	 * @return the contractor
 	 */
 	public Contractor getContractor() {
-		return contractor;
+		return CONTRACTOR;
 	}
 
-
-	/**
-	 * Sets the contractor.
-	 *
-	 * @param contractor the new contractor
-	 */
-	public void setContractor(Contractor contractor) {
-		this.contractor = contractor;
-	}
 	
     public Product getProduct() {
-		return product;
+		return PRODUCT;
 	}
-
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-	
 	
 
 }
