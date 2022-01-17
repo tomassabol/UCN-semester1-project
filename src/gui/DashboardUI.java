@@ -53,9 +53,9 @@ public class DashboardUI extends JFrame {
 	private JLabel lblCustomer;
 	private JPanel InventoryPanel;
 	private JButton btnContractors;
-	private JButton btnSupplyOrder;
+	private JButton btnSupplyOrders;
 	private JButton btnStockASupplyOrder;
-	private JButton btnSupplyOffer;
+	private JButton btnSupplyOffers;
 	private JLabel lblRestockItems;
 	private JLabel lblManage;
 	private JButton btnStorageLocations;
@@ -282,14 +282,14 @@ public class DashboardUI extends JFrame {
 		gbc_btnProducts.gridy = 2;
 		InventoryPanel.add(btnProducts, gbc_btnProducts);
 		
-		btnSupplyOffer = new JButton("Supply Offers");
-		GridBagConstraints gbc_btnSupplyOffer = new GridBagConstraints();
-		gbc_btnSupplyOffer.insets = new Insets(0, 0, 5, 0);
-		gbc_btnSupplyOffer.gridx = 1;
-		gbc_btnSupplyOffer.gridy = 2;
-		InventoryPanel.add(btnSupplyOffer, gbc_btnSupplyOffer);
+		btnSupplyOffers = new JButton("Supply Offers");
+		GridBagConstraints gbc_btnSupplyOffers = new GridBagConstraints();
+		gbc_btnSupplyOffers.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSupplyOffers.gridx = 1;
+		gbc_btnSupplyOffers.gridy = 2;
+		InventoryPanel.add(btnSupplyOffers, gbc_btnSupplyOffers);
 		
-		btnSupplyOrder = new JButton("Supply Orders");
+		btnSupplyOrders = new JButton("Supply Orders");
 		
 		btnContractors = new JButton("Contractors");
 		GridBagConstraints gbc_btnContractors = new GridBagConstraints();
@@ -297,11 +297,11 @@ public class DashboardUI extends JFrame {
 		gbc_btnContractors.gridx = 0;
 		gbc_btnContractors.gridy = 3;
 		InventoryPanel.add(btnContractors, gbc_btnContractors);
-		GridBagConstraints gbc_btnSupplyOrder = new GridBagConstraints();
-		gbc_btnSupplyOrder.insets = new Insets(0, 0, 5, 0);
-		gbc_btnSupplyOrder.gridx = 1;
-		gbc_btnSupplyOrder.gridy = 3;
-		InventoryPanel.add(btnSupplyOrder, gbc_btnSupplyOrder);
+		GridBagConstraints gbc_btnSupplyOrders = new GridBagConstraints();
+		gbc_btnSupplyOrders.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSupplyOrders.gridx = 1;
+		gbc_btnSupplyOrders.gridy = 3;
+		InventoryPanel.add(btnSupplyOrders, gbc_btnSupplyOrders);
 		
 		btnStorageLocations = new JButton("Storage locations");
 		GridBagConstraints gbc_btnStorageLocations = new GridBagConstraints();
@@ -495,6 +495,7 @@ public class DashboardUI extends JFrame {
 			ManageProductUI frame = new ManageProductUI(auth);
 			frame.setVisible(true);
 		});
+		
 		
 		///////////////////////////////////////////////////////
 		////////////////     People tab     //////////////////
