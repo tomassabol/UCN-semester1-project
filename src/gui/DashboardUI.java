@@ -490,6 +490,11 @@ public class DashboardUI extends JFrame {
 			frame.setVisible(true);
 		});
 		
+		// ***** Manage Storage locations *****
+		btnProducts.addActionListener(e -> {
+			ManageProductUI frame = new ManageProductUI(auth);
+			frame.setVisible(true);
+		});
 		
 		///////////////////////////////////////////////////////
 		////////////////     People tab     //////////////////
