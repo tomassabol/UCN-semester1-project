@@ -131,11 +131,9 @@ public class CustomerTypeTableModel extends AbstractTableModel {
      * @param customerType the customer type
      * @return the int
      */
-    public int add(CustomerType customerType) {
-    	int row = customerTypes.size();
+    public void add(CustomerType customerType) {
         this.customerTypes.add(customerType);
-        fireTableRowsInserted(row, row);
-        return row;
+        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
     }
     
     /**

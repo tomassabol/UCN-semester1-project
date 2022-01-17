@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;

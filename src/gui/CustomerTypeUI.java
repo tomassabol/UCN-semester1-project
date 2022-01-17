@@ -5,27 +5,23 @@ import java.awt.Component;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.NumberFormatter;
 
 import controller.AuthenticationController;
 import controller.CustomerController;
-import controller.ProductController;
 import model.CustomerType;
-import model.Product;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.text.NumberFormat;
+
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-import java.math.BigDecimal;
-import java.util.Objects;
+import javax.swing.JFormattedTextField;
 
-/**
- * @author Daniels Kanepe
- *
- */
 public class CustomerTypeUI extends JDialog {
 	
 	public enum Mode {
@@ -42,6 +38,8 @@ public class CustomerTypeUI extends JDialog {
 	private Mode mode;
 	private AuthenticationController auth;
 	private CustomerType customerType;
+	private JLabel lblDiscount;
+	private JFormattedTextField txtDiscount;
 
 	/**
 	 * Constructor: create new product
@@ -52,6 +50,14 @@ public class CustomerTypeUI extends JDialog {
 		this(auth, null, Mode.CREATE);
 	}
 	
+	/**
+	 * Constructor: create new product
+	 *
+	 * @param auth the auth controller 
+	 * @param customerType the customer type
+	 * @param mode the mode
+	 * @wbp.parser.constructor
+	 */
 	public CustomerTypeUI(AuthenticationController auth, CustomerType customerType, Mode mode) {
 		this.auth = auth;
 		this.mode = mode;
@@ -67,9 +73,9 @@ public class CustomerTypeUI extends JDialog {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{208, 208, 0};
-		gbl_contentPane.rowHeights = new int[]{19, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{19, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblId = new JLabel("Id");
@@ -108,12 +114,36 @@ public class CustomerTypeUI extends JDialog {
 		gbc_txtName.gridy = 1;
 		contentPane.add(txtName, gbc_txtName);
 		
+		lblDiscount = new JLabel("Discount Percentage");
+		GridBagConstraints gbc_lblDiscount = new GridBagConstraints();
+		gbc_lblDiscount.anchor = GridBagConstraints.WEST;
+		gbc_lblDiscount.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDiscount.gridx = 0;
+		gbc_lblDiscount.gridy = 2;
+		contentPane.add(lblDiscount, gbc_lblDiscount);
+		
+		// restrict txtDiscount input field to only numbers
+		NumberFormat format = NumberFormat.getInstance();
+		NumberFormatter formatter = new NumberFormatter(format);
+		formatter.setValueClass(Integer.class);
+		formatter.setMinimum(0);
+		formatter.setMaximum(Integer.MAX_VALUE);
+		formatter.setAllowsInvalid(false);
+		//
+		txtDiscount = new JFormattedTextField(formatter);
+		GridBagConstraints gbc_formattedTextField = new GridBagConstraints();
+		gbc_formattedTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_formattedTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_formattedTextField.gridx = 0;
+		gbc_formattedTextField.gridy = 3;
+		contentPane.add(txtDiscount, gbc_formattedTextField);
+		
 		
 		btnSubmit = new JButton("Submit");
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
 		gbc_btnOk.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnOk.gridx = 1;
-		gbc_btnOk.gridy = 2;
+		gbc_btnOk.gridy = 5;
 		contentPane.add(btnSubmit, gbc_btnOk);
 		
 		
@@ -192,6 +222,7 @@ public class CustomerTypeUI extends JDialog {
 	private void fillFields(CustomerType customerType) {
 		txtId.setText(String.valueOf(customerType.ID));
 		txtName.setText(customerType.getName());
+		txtDiscount.setText(String.valueOf(customerType.getDiscountPercentage()));
 	}
 	
 	/*
@@ -215,6 +246,12 @@ public class CustomerTypeUI extends JDialog {
 				String name = txtName.getText().strip();
 				if (name.isEmpty()) {
 					Messages.error(this, "Customer type name cannot be empty!");
+					return;
+				}
+				// Validate customer discount percentage
+				String discount = txtDiscount.getText().strip();
+				if (discount.isEmpty()) {
+					Messages.error(this, "Customer type discount percentage cannot be empty!");
 					return;
 				}
 				
