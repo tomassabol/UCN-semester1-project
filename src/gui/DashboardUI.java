@@ -144,6 +144,7 @@ public class DashboardUI extends JFrame {
 		sellPanel.setLayout(new BorderLayout(0, 0));
 		
 		sellPaneTopPanel = new JPanel();
+		sellPaneTopPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
 		sellPanel.add(sellPaneTopPanel, BorderLayout.NORTH);
 		sellPaneTopPanel.setLayout(new BorderLayout(0, 0));
 		
