@@ -14,39 +14,40 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import controller.AuthenticationController;
-import controller.CustomerController;
-import model.Customer;
+import controller.StockController;
 
 import javax.swing.ListSelectionModel;
 import gui.JLink.COLORS;
+import model.StorageLocation;
 
 /**
  * @author Daniels Kanepe
  *
  */
-public class CRUDCustomersPanel extends JPanel {
+public class CRUDStorageLocationPanel extends JPanel {
 	
 	
-	private JButton btnAddCustomer;
-	private CustomerController customerCtrl;
+	private JButton btnAdd;
+	private StockController stockCtrl;
+	
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
-	private CustomerTableModel tableModel;
+	private StorageLocationTableModel tableModel;
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+	
 	AuthenticationController auth;
 
 	/**
 	 * Create the dialog.
-	 * Constructor class CRUDCustomersPanel
 	 */
-	public CRUDCustomersPanel(AuthenticationController auth) {
+	public CRUDStorageLocationPanel(AuthenticationController auth) {
 		this.auth = auth;
-		customerCtrl = new CustomerController();
+		stockCtrl = new StockController();
 		setLayout(new BorderLayout(0, 0));
 		
-		tableModel = new CustomerTableModel(customerCtrl.getCustomers());
+		tableModel = new StorageLocationTableModel(stockCtrl.getStorageLocations());
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
@@ -59,7 +60,7 @@ public class CRUDCustomersPanel extends JPanel {
 		topPanel.setLayout(gbl_topPanel);
 			// ***** Title *****
 			JLabel lblTitle = new JLabel(
-					String.format("Customers")
+					String.format("Storage Locations")
 			);
 			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 			gbc_lblTitle.gridwidth = 2;
@@ -68,13 +69,13 @@ public class CRUDCustomersPanel extends JPanel {
 			gbc_lblTitle.gridy = 0;
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
-			// ***** button: Add customer  *****
-			btnAddCustomer = new JButton("Add Customer");
-			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-			gbc_btnNewButton.gridx = 1;
-			gbc_btnNewButton.gridy = 1;
-			topPanel.add(btnAddCustomer, gbc_btnNewButton);
+			// ***** button: Add product  *****
+			btnAdd = new JButton("Add Storage Location");
+			GridBagConstraints gbc_btnAdd = new GridBagConstraints();
+			gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
+			gbc_btnAdd.gridx = 1;
+			gbc_btnAdd.gridy = 1;
+			topPanel.add(btnAdd, gbc_btnAdd);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
@@ -134,32 +135,26 @@ public class CRUDCustomersPanel extends JPanel {
 	 * *******************************************************
 	 */
 	
-	/**
-	 * @return JTable tableMain
-	 */
 	public JTable getTable() {
 		return tableMain;
 	}
 	
-	/**
-	 * @return CustomerTableModel tableModel
-	 */
-	public CustomerTableModel getTableModel() {
+	public StorageLocationTableModel getTableModel() {
 		return tableModel;
 	}
 	
 
 	/**
-	 * Select a customer in the CRUD table.
+	 * Select a storage location in the CRUD table.
 	 *
-	 * @param customer the customer
+	 * @param StorageLocation
 	 * @return true, if successful
 	 */
-	public boolean selectCustomer(Customer customer) {
+	public boolean selectCustomer(StorageLocation storageLocation) {
 		int rows = tableModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			Customer foundCustomer = tableModel.getObj(i);
-			if (foundCustomer == customer) {
+			StorageLocation foundStorageLocation = tableModel.getObj(i);
+			if (foundStorageLocation == storageLocation) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
 			}
@@ -189,39 +184,40 @@ public class CRUDCustomersPanel extends JPanel {
 			}
 		});
 		
-		// Delete customer
+		// Delete storage location
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			if (Messages.confirm(this, String.format("Are you sure you wish to delete the customer '%s %s'?", customer.getFirstName(), customer.getLastName()))) {
-				customerCtrl.removeCustomer(customer);
+			StorageLocation storageLocation = tableModel.getObj(row);
+			if (Messages.confirm(this, String.format("Are you sure you wish to delete the storage location '%s'?",
+					storageLocation.getName()))) {
+				stockCtrl.removeStorageLocation(storageLocation);
 				tableModel.remove(row);
 			}
 		});
 
-		// View Customer
+		// View storage location
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
+			StorageLocation storageLocation = tableModel.getObj(row);
+			StorageLocationUI frame = new StorageLocationUI(auth, storageLocation, StorageLocationUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 
-		// Edit customer
+		// Edit storage location
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.EDIT);
+			StorageLocation storageLocation = tableModel.getObj(row);
+			StorageLocationUI frame = new StorageLocationUI(auth, storageLocation, StorageLocationUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});
 
-		// 'ADD customer' button
-		btnAddCustomer.addActionListener(e -> {
-			CustomerUI frame = new CustomerUI(auth);
+		// 'ADD' storage location button
+		btnAdd.addActionListener(e -> {
+			StorageLocationUI frame = new StorageLocationUI(auth);
 			frame.setVisible(true);
-			if (frame.getCustomer() != null) {
-				tableModel.add(frame.getCustomer());
+			if (frame.getStorageLocation() != null) {
+				tableModel.add(frame.getStorageLocation());
 			}
 		});
 	}

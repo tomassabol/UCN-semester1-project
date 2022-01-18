@@ -4,33 +4,46 @@
 package gui;
 
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
+import controller.StockController;
+import model.Product;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JTable;
 /**
  * @author Daniels Kanepe
  *
  */
-public class ManageContractorUI extends JDialog {
+public class ManageProductUI extends JDialog {
 
+	/**
+	 * 
+	 */
+	private StockController stockCtrl;
+	
 	private static final long serialVersionUID = 2968937622159813565L;
 	private final JPanel contentPane;
-	private CRUDContractorPanel contractorPanel;
-
+	private CRUDProductsPanel CRUDPanel;
+	
+	private Product selectedProduct = null;
+	
 	AuthenticationController auth;
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public ManageContractorUI(AuthenticationController auth) {
+	public ManageProductUI(AuthenticationController auth) {
 		this.auth = auth;
-		this.setTitle("Manage contractors");
+		this.setTitle("Manage products");
+		stockCtrl = new StockController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -44,12 +57,12 @@ public class ManageContractorUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		contractorPanel = new CRUDContractorPanel(auth);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 0;
-		getContentPane().add(contractorPanel, gbc_panel);
+		CRUDPanel = new CRUDProductsPanel(auth, CRUDProductsPanel.Mode.ALL);
+		GridBagConstraints gbc_CRUDPanel = new GridBagConstraints();
+		gbc_CRUDPanel.fill = GridBagConstraints.BOTH;
+		gbc_CRUDPanel.gridx = 0;
+		gbc_CRUDPanel.gridy = 0;
+		getContentPane().add(CRUDPanel, gbc_CRUDPanel);
 		
 		// Attach event handlers
 		this.addEventHandlers();
@@ -67,6 +80,7 @@ public class ManageContractorUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 	}
+	
 }
-	
-	
+
+

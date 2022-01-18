@@ -1,52 +1,47 @@
 package gui;
 
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 
 import controller.AuthenticationController;
-import controller.CustomerController;
-import model.Customer;
-
-import javax.swing.ListSelectionModel;
+import controller.SupplyController;
 import gui.JLink.COLORS;
+import model.Product;
+import model.SupplyOffer;
 
-/**
- * @author Daniels Kanepe
- *
- */
-public class CRUDCustomersPanel extends JPanel {
+public class CRUDSupplyOfferPanel extends JPanel {
+
+	private JButton btnAdd;
+	private SupplyController supplyCtrl;
 	
-	
-	private JButton btnAddCustomer;
-	private CustomerController customerCtrl;
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
-	private CustomerTableModel tableModel;
+	private SupplyOfferTableModel tableModel;
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+	
 	AuthenticationController auth;
 
 	/**
 	 * Create the dialog.
-	 * Constructor class CRUDCustomersPanel
+	 * Currently you can only get the supply offers for only a specific product
 	 */
-	public CRUDCustomersPanel(AuthenticationController auth) {
+	public CRUDSupplyOfferPanel(AuthenticationController auth, Product product) {
 		this.auth = auth;
-		customerCtrl = new CustomerController();
+		supplyCtrl = new SupplyController();
 		setLayout(new BorderLayout(0, 0));
 		
-		tableModel = new CustomerTableModel(customerCtrl.getCustomers());
+		tableModel = new SupplyOfferTableModel(supplyCtrl.getSupplyOffers(product));
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
@@ -59,7 +54,7 @@ public class CRUDCustomersPanel extends JPanel {
 		topPanel.setLayout(gbl_topPanel);
 			// ***** Title *****
 			JLabel lblTitle = new JLabel(
-					String.format("Customers")
+					String.format("Supply Offers")
 			);
 			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 			gbc_lblTitle.gridwidth = 2;
@@ -68,13 +63,13 @@ public class CRUDCustomersPanel extends JPanel {
 			gbc_lblTitle.gridy = 0;
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
-			// ***** button: Add customer  *****
-			btnAddCustomer = new JButton("Add Customer");
-			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-			gbc_btnNewButton.gridx = 1;
-			gbc_btnNewButton.gridy = 1;
-			topPanel.add(btnAddCustomer, gbc_btnNewButton);
+			// ***** button: Add product  *****
+			btnAdd = new JButton("Add Supply Offer");
+			GridBagConstraints gbc_btnAdd = new GridBagConstraints();
+			gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
+			gbc_btnAdd.gridx = 1;
+			gbc_btnAdd.gridy = 1;
+			topPanel.add(btnAdd, gbc_btnAdd);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
@@ -134,32 +129,26 @@ public class CRUDCustomersPanel extends JPanel {
 	 * *******************************************************
 	 */
 	
-	/**
-	 * @return JTable tableMain
-	 */
 	public JTable getTable() {
 		return tableMain;
 	}
 	
-	/**
-	 * @return CustomerTableModel tableModel
-	 */
-	public CustomerTableModel getTableModel() {
+	public SupplyOfferTableModel getTableModel() {
 		return tableModel;
 	}
 	
 
 	/**
-	 * Select a customer in the CRUD table.
+	 * Select a supply offer in the CRUD table.
 	 *
-	 * @param customer the customer
+	 * @param supplyOffer
 	 * @return true, if successful
 	 */
-	public boolean selectCustomer(Customer customer) {
+	public boolean selectCustomer(SupplyOffer supplyOffer) {
 		int rows = tableModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			Customer foundCustomer = tableModel.getObj(i);
-			if (foundCustomer == customer) {
+			SupplyOffer foundStorageLocation = tableModel.getObj(i);
+			if (foundStorageLocation == supplyOffer) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
 			}
@@ -189,40 +178,45 @@ public class CRUDCustomersPanel extends JPanel {
 			}
 		});
 		
-		// Delete customer
+		// Delete supply offer
+		// TODO: Need to create a delete method 
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			if (Messages.confirm(this, String.format("Are you sure you wish to delete the customer '%s %s'?", customer.getFirstName(), customer.getLastName()))) {
-				customerCtrl.removeCustomer(customer);
-				tableModel.remove(row);
+			SupplyOffer supplyOffer = tableModel.getObj(row);
+			if (Messages.confirm(this, String.format("Are you sure you wish to delete the supply offer with the ID of '%s'?",
+					supplyOffer.ID))) {
+				//supplyCtrl.setStatus(supplyOffer, false);
 			}
 		});
 
-		// View Customer
+		// View supply offer
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
+			SupplyOffer supplyOffer = tableModel.getObj(row);
+			SupplyOfferUI frame = new SupplyOfferUI(auth, supplyOffer, SupplyOfferUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 
-		// Edit customer
+		// Edit supply offer
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.EDIT);
+			SupplyOffer supplyOffer = tableModel.getObj(row);
+			SupplyOfferUI frame = new SupplyOfferUI(auth, supplyOffer, SupplyOfferUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
+			//Refresh
+			tableMain.clearSelection();
+			tableMain.getSelectionModel().setSelectionInterval(0, row);
 		});
 
-		// 'ADD customer' button
-		btnAddCustomer.addActionListener(e -> {
-			CustomerUI frame = new CustomerUI(auth);
+		// 'ADD' supply offer button
+		btnAdd.addActionListener(e -> {
+			SupplyOfferUI frame = new SupplyOfferUI(auth);
 			frame.setVisible(true);
-			if (frame.getCustomer() != null) {
-				tableModel.add(frame.getCustomer());
+			if (frame.getSupplyOffer() != null) {
+				tableModel.add(frame.getSupplyOffer());
 			}
 		});
 	}
+
 }

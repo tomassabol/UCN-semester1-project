@@ -7,37 +7,38 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.Contractor;
+import model.Shelf;
 
 /**
  * @author Daniels Kanepe
  *
  */
-public class ContractorTableModel extends AbstractTableModel {
+public class ShelfTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -2367962812947993282L;
 
 	protected static final String[] COLUMN_NAMES = {
-        "ID", "Company name"
+        "ID", "Name", "Storage Location", "Products"
     };
 
-    private List<Contractor> contractors;
+    private List<Shelf> shelves;
 
     
+
     /**
-     * Instantiates a new customer table model.
+     * Instantiates a new shelf table model.
      *
-     * @param customers the customers
+     * @param shelves the shelves
      */
-    public ContractorTableModel(List<Contractor> contractors) {
+    public ShelfTableModel(List<Shelf> shelves) {
         // Prevent possible mutation
-        this.contractors = new ArrayList<>(contractors);
+        this.shelves = new ArrayList<>(shelves);
     }
     
 
     @Override
     public int getRowCount() {
-        return contractors.size();
+        return shelves.size();
     }
 
     @Override
@@ -59,10 +60,12 @@ public class ContractorTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    	Contractor contractor = contractors.get(rowIndex);
+    	Shelf shelf = shelves.get(rowIndex);
         switch (columnIndex) {
-            case 0: return "#" + contractor.ID;
-            case 1: return contractor.getCompanyName();
+            case 0: return "#" + shelf.ID;
+            case 1: return shelf.getName();
+            case 2: return shelf.getStorageLocation().getName();
+            case 3: return "Implement getQuantityOfProducts";
             default: return "Error retrieving column name";
         }
     }
@@ -74,34 +77,33 @@ public class ContractorTableModel extends AbstractTableModel {
     }
     
     /**
-     * Gets the contractor object by row
+     * Gets the Shelf object by row
      *
      * @param row the row
-     * @return the contractor
+     * @return the Shelf
      */
-    public Contractor getObj(int row) {
-    	return contractors.get(row);
+    public Shelf getObj(int row) {
+    	return shelves.get(row);
     }
     
   
     /**
-     * Adds a contractor to the table
+     * Adds a Shelf to the table
      *
-     * @param contractor the contractor
-     * @return the int
+     * @param Shelf
      */
-    public void add(Contractor contractor) {
-        this.contractors.add(contractor);
+    public void add(Shelf storageLocation) {
+        this.shelves.add(storageLocation);
         fireTableRowsInserted(this.getRowCount(), this.getRowCount());
     }
     
     /**
-     * Removes the customer from the table by row
+     * Removes the shelf from the table by row
      *
      * @param row the row
      */
     public void remove(int row) {
-    	this.contractors.remove(row);
+    	this.shelves.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }
 

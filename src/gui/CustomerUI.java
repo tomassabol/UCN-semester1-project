@@ -8,11 +8,8 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.CustomerController;
-import gui.ProductUI.Mode;
 import model.Customer;
 import model.CustomerType;
-import model.IFCustomer;
-import model.Product;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -21,11 +18,9 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
 
 /**
  * @author Daniels Kanepe
@@ -59,7 +54,7 @@ public class CustomerUI extends JDialog {
 
 
 	/**
-	 * Constructor for Create
+	 * Constructor for Create Customer
 	 *
 	 * @param auth the auth
 	 */
@@ -347,7 +342,7 @@ public class CustomerUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 		
-		// 'update' button: Update the product
+		// 'update' button: Update the customer
 		btnSubmit.addActionListener(e -> {
 			String message = "";
 			if (mode == Mode.EDIT) {
@@ -416,7 +411,7 @@ public class CustomerUI extends JDialog {
 					customerCtrl.updateBirthDate(customer, birthDate);
 					customerCtrl.updateCustomerType(customer, this.customerType);
 				} else if (mode == Mode.CREATE) {
-					// if mode == Create, create a new product
+					// if mode == Create, create a new customer
 					this.customer = customerCtrl.createCustomer(fname, lname, address, mobile, customerType, birthDate);
 				}
 			}

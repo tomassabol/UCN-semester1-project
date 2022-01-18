@@ -141,7 +141,7 @@ public class ProductTableModel extends AbstractTableModel {
         return false;
     }
     
-    public Product getProduct(int row) {
+    public Product getObj(int row) {
     	return products.get(row);
     }
     

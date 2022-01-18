@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.CustomerController;
 import model.CustomerType;
 
 import java.awt.GridBagLayout;
@@ -26,7 +25,6 @@ public class ChooseCustomerTypeUI extends JDialog {
 	/**
 	 * 
 	 */
-	private CustomerController customerCtrl;
 	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
@@ -44,7 +42,6 @@ public class ChooseCustomerTypeUI extends JDialog {
 	public ChooseCustomerTypeUI(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Choose customer type...");
-		customerCtrl = new CustomerController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

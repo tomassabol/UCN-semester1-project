@@ -511,7 +511,7 @@ public class Terminal {
 
 	/**
 	* print bulk discount info for specific product
-	* @param product to print bulk discount info for
+	* @param PRODUCT to print bulk discount info for
 	*/
 	public void printBulkDiscounts(ArrayList<BulkDiscount> bulkDiscounts){
 		for (int i = 0; i < bulkDiscounts.size(); i++) {

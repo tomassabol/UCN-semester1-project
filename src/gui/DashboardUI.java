@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -19,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import model.Customer;
+import model.Product;
 
 /**
  * @author Daniels Kanepe
@@ -27,7 +27,7 @@ import model.Customer;
 public class DashboardUI extends JFrame {
 	
 	private Customer customer = null;
-	
+	private Product product = null;
 
 	private JPanel contentPane;
 	private AuthenticationController auth;
@@ -52,10 +52,10 @@ public class DashboardUI extends JFrame {
 	private JLabel lblEmployee;
 	private JLabel lblCustomer;
 	private JPanel InventoryPanel;
-	private JButton btnContractor;
-	private JButton btnSupplyOrder;
+	private JButton btnContractors;
+	private JButton btnSupplyOrders;
 	private JButton btnStockASupplyOrder;
-	private JButton btnSupplyOffer;
+	private JButton btnSupplyOffers;
 	private JLabel lblRestockItems;
 	private JLabel lblManage;
 	private JButton btnStorageLocations;
@@ -73,7 +73,7 @@ public class DashboardUI extends JFrame {
 		
 		// Window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 350);
 		// *Content pane
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -144,6 +144,7 @@ public class DashboardUI extends JFrame {
 		sellPanel.setLayout(new BorderLayout(0, 0));
 		
 		sellPaneTopPanel = new JPanel();
+		sellPaneTopPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
 		sellPanel.add(sellPaneTopPanel, BorderLayout.NORTH);
 		sellPaneTopPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -247,14 +248,18 @@ public class DashboardUI extends JFrame {
 		gbl_InventoryPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		InventoryPanel.setLayout(gbl_InventoryPanel);
 		
-		lblInventoryManagePic = new JLabel("IMG");
+		lblInventoryManagePic = new JLabel();
+		ImageIcon manage = new ImageIcon("images/manage.png");
+		lblInventoryManagePic.setIcon(manage);
 		GridBagConstraints gbc_lblInventoryManagePic = new GridBagConstraints();
 		gbc_lblInventoryManagePic.insets = new Insets(0, 0, 5, 5);
 		gbc_lblInventoryManagePic.gridx = 0;
 		gbc_lblInventoryManagePic.gridy = 0;
 		InventoryPanel.add(lblInventoryManagePic, gbc_lblInventoryManagePic);
 		
-		lblInventoryRestockPic = new JLabel("IMG");
+		lblInventoryRestockPic = new JLabel();
+		ImageIcon restock = new ImageIcon("images/restock.png");
+		lblInventoryRestockPic.setIcon(restock);
 		GridBagConstraints gbc_lblInventoryRestockPic = new GridBagConstraints();
 		gbc_lblInventoryRestockPic.insets = new Insets(0, 0, 5, 0);
 		gbc_lblInventoryRestockPic.gridx = 1;
@@ -282,26 +287,26 @@ public class DashboardUI extends JFrame {
 		gbc_btnProducts.gridy = 2;
 		InventoryPanel.add(btnProducts, gbc_btnProducts);
 		
-		btnSupplyOffer = new JButton("Supply Offers");
-		GridBagConstraints gbc_btnSupplyOffer = new GridBagConstraints();
-		gbc_btnSupplyOffer.insets = new Insets(0, 0, 5, 0);
-		gbc_btnSupplyOffer.gridx = 1;
-		gbc_btnSupplyOffer.gridy = 2;
-		InventoryPanel.add(btnSupplyOffer, gbc_btnSupplyOffer);
+		btnSupplyOffers = new JButton("Supply Offers");
+		GridBagConstraints gbc_btnSupplyOffers = new GridBagConstraints();
+		gbc_btnSupplyOffers.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSupplyOffers.gridx = 1;
+		gbc_btnSupplyOffers.gridy = 2;
+		InventoryPanel.add(btnSupplyOffers, gbc_btnSupplyOffers);
 		
-		btnSupplyOrder = new JButton("Supply Orders");
+		btnSupplyOrders = new JButton("Supply Orders");
 		
-		btnContractor = new JButton("Contractors");
-		GridBagConstraints gbc_btnContractor = new GridBagConstraints();
-		gbc_btnContractor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnContractor.gridx = 0;
-		gbc_btnContractor.gridy = 3;
-		InventoryPanel.add(btnContractor, gbc_btnContractor);
-		GridBagConstraints gbc_btnSupplyOrder = new GridBagConstraints();
-		gbc_btnSupplyOrder.insets = new Insets(0, 0, 5, 0);
-		gbc_btnSupplyOrder.gridx = 1;
-		gbc_btnSupplyOrder.gridy = 3;
-		InventoryPanel.add(btnSupplyOrder, gbc_btnSupplyOrder);
+		btnContractors = new JButton("Contractors");
+		GridBagConstraints gbc_btnContractors = new GridBagConstraints();
+		gbc_btnContractors.insets = new Insets(0, 0, 5, 5);
+		gbc_btnContractors.gridx = 0;
+		gbc_btnContractors.gridy = 3;
+		InventoryPanel.add(btnContractors, gbc_btnContractors);
+		GridBagConstraints gbc_btnSupplyOrders = new GridBagConstraints();
+		gbc_btnSupplyOrders.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSupplyOrders.gridx = 1;
+		gbc_btnSupplyOrders.gridy = 3;
+		InventoryPanel.add(btnSupplyOrders, gbc_btnSupplyOrders);
 		
 		btnStorageLocations = new JButton("Storage locations");
 		GridBagConstraints gbc_btnStorageLocations = new GridBagConstraints();
@@ -479,23 +484,55 @@ public class DashboardUI extends JFrame {
 		/////////////////////////////////////////////////////
 		
 		// ***** Manage Contractors *****
-		btnContractor.addActionListener(e -> {
+		btnContractors.addActionListener(e -> {
 			ManageContractorUI frame = new ManageContractorUI(auth);
 			frame.setVisible(true);
 		});
-				
+		
+		// ***** Manage Storage locations *****
+		btnStorageLocations.addActionListener(e -> {
+			ManageStorageLocationUI frame = new ManageStorageLocationUI(auth);
+			frame.setVisible(true);
+		});
+		
+		// ***** Manage Products *****
+		btnProducts.addActionListener(e -> {
+			ManageProductUI frame = new ManageProductUI(auth);
+			frame.setVisible(true);
+		});
+
+		//btnShelves
+		btnShelves.addActionListener(e -> {
+			ManageShelfUI frame = new ManageShelfUI(auth);
+			frame.setVisible(true);
+		});
+		
+		// ***** Manage Supply Offers *****
+		btnSupplyOffers.addActionListener(e -> {
+			ChooseProductUI productFrame = new ChooseProductUI(auth);
+			productFrame.setVisible(true);
+			if (productFrame.isProductSelected()) {
+				product = productFrame.getSelectedProduct();
+				if (product != null) {
+					ManageSupplyOfferUI frame = new ManageSupplyOfferUI(auth, product);
+					frame.setVisible(true);
+				}
+			}
+		});
+		
+		
 		///////////////////////////////////////////////////////
 		////////////////     People tab     //////////////////
 		/////////////////////////////////////////////////////
 		
 		
-		// ***** Customer button *****
+		// ***** Manage customers *****
 		btnCustomer.addActionListener(e -> {
 			ManageCustomerUI frame = new ManageCustomerUI(auth);
 			frame.setVisible(true);
 		});
 		
-		// we need to create CRUDEmployeesPanel
+		// ***** Manage employees *****
 		btnEmployee.addActionListener(e -> {
 			ManageEmployeeUI frame = new ManageEmployeeUI(auth);
 			frame.setVisible(true);

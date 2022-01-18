@@ -10,24 +10,25 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import model.Customer;
+import model.StorageLocation;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTable;
+
 /**
  * @author Daniels Kanepe
  *
  */
-public class ChooseCustomerUI extends JDialog {
+public class ChooseStorageLocationUI extends JDialog {
 	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
-	private CRUDCustomersPanel customersPanel;
+	private CRUDStorageLocationPanel CRUDPanel;
 	private JButton btnChoose;
 	
-	private Customer selectedCustomer = null;
+	private StorageLocation selectedStorageLocation = null;
 	
 	AuthenticationController auth;
 
@@ -35,9 +36,9 @@ public class ChooseCustomerUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseCustomerUI(AuthenticationController auth) {
+	public ChooseStorageLocationUI(AuthenticationController auth) {
 		this.auth = auth;
-		this.setTitle("Choose a customer...");
+		this.setTitle("Choose a storage location...");
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -51,13 +52,13 @@ public class ChooseCustomerUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		customersPanel = new CRUDCustomersPanel(auth);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 0;
-		getContentPane().add(customersPanel, gbc_panel);
+		CRUDPanel = new CRUDStorageLocationPanel(auth);
+		GridBagConstraints gbc_CRUDPanel = new GridBagConstraints();
+		gbc_CRUDPanel.fill = GridBagConstraints.BOTH;
+		gbc_CRUDPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_CRUDPanel.gridx = 0;
+		gbc_CRUDPanel.gridy = 0;
+		getContentPane().add(CRUDPanel, gbc_CRUDPanel);
 		
 		btnChoose = new JButton("Choose...");
 		btnChoose.setEnabled(false);
@@ -75,12 +76,12 @@ public class ChooseCustomerUI extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
-		public boolean isCustomerSelected() {
-			return selectedCustomer != null;
+		public boolean isStorageLocationSelected() {
+			return selectedStorageLocation != null;
 		}
 	
-		public Customer getSelectedCustomer() {
-			return selectedCustomer;
+		public StorageLocation getSelectedStorageLocation() {
+			return selectedStorageLocation;
 		}
 	
 	/*
@@ -89,8 +90,8 @@ public class ChooseCustomerUI extends JDialog {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
-		customersPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
-			JTable table = customersPanel.getTable();
+		CRUDPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
+			JTable table = CRUDPanel.getTable();
 			if (table.getSelectionModel().isSelectionEmpty()) {
 				btnChoose.setEnabled(false);
 			} else {
@@ -101,11 +102,11 @@ public class ChooseCustomerUI extends JDialog {
 		
 		// Choose button
 		btnChoose.addActionListener(e -> {
-			JTable table = customersPanel.getTable();
+			JTable table = CRUDPanel.getTable();
 			if (!table.getSelectionModel().isSelectionEmpty()) {
-				CustomerTableModel tableModel = customersPanel.getTableModel();
-				Customer customer = tableModel.getObj(table.getSelectedRow());
-				selectedCustomer = customer;
+				StorageLocationTableModel tableModel = CRUDPanel.getTableModel();
+				StorageLocation storageLocation = tableModel.getObj(table.getSelectedRow());
+				selectedStorageLocation = storageLocation;
 				this.dispose();
 			}
 		});

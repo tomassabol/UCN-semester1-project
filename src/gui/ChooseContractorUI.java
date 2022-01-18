@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import model.Customer;
+import model.Contractor;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -20,14 +20,14 @@ import javax.swing.JTable;
  * @author Daniels Kanepe
  *
  */
-public class ChooseCustomerUI extends JDialog {
+public class ChooseContractorUI extends JDialog {
 	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
-	private CRUDCustomersPanel customersPanel;
+	private CRUDContractorPanel CRUDPanel;
 	private JButton btnChoose;
 	
-	private Customer selectedCustomer = null;
+	private Contractor selectedContractor = null;
 	
 	AuthenticationController auth;
 
@@ -35,9 +35,9 @@ public class ChooseCustomerUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseCustomerUI(AuthenticationController auth) {
+	public ChooseContractorUI(AuthenticationController auth) {
 		this.auth = auth;
-		this.setTitle("Choose a customer...");
+		this.setTitle("Choose a contractor...");
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -51,13 +51,13 @@ public class ChooseCustomerUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		customersPanel = new CRUDCustomersPanel(auth);
+		CRUDPanel = new CRUDContractorPanel(auth);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		getContentPane().add(customersPanel, gbc_panel);
+		getContentPane().add(CRUDPanel, gbc_panel);
 		
 		btnChoose = new JButton("Choose...");
 		btnChoose.setEnabled(false);
@@ -75,12 +75,12 @@ public class ChooseCustomerUI extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
-		public boolean isCustomerSelected() {
-			return selectedCustomer != null;
+		public boolean isContractorSelected() {
+			return selectedContractor != null;
 		}
 	
-		public Customer getSelectedCustomer() {
-			return selectedCustomer;
+		public Contractor getSelectedContractor() {
+			return selectedContractor;
 		}
 	
 	/*
@@ -89,8 +89,8 @@ public class ChooseCustomerUI extends JDialog {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
-		customersPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
-			JTable table = customersPanel.getTable();
+		CRUDPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
+			JTable table = CRUDPanel.getTable();
 			if (table.getSelectionModel().isSelectionEmpty()) {
 				btnChoose.setEnabled(false);
 			} else {
@@ -101,11 +101,11 @@ public class ChooseCustomerUI extends JDialog {
 		
 		// Choose button
 		btnChoose.addActionListener(e -> {
-			JTable table = customersPanel.getTable();
+			JTable table = CRUDPanel.getTable();
 			if (!table.getSelectionModel().isSelectionEmpty()) {
-				CustomerTableModel tableModel = customersPanel.getTableModel();
-				Customer customer = tableModel.getObj(table.getSelectedRow());
-				selectedCustomer = customer;
+				ContractorTableModel tableModel = CRUDPanel.getTableModel();
+				Contractor contractor = tableModel.getObj(table.getSelectedRow());
+				selectedContractor = contractor;
 				this.dispose();
 			}
 		});

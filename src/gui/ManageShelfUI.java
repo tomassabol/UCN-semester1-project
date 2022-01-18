@@ -1,6 +1,3 @@
-/**
- * 
- */
 package gui;
 
 
@@ -16,11 +13,11 @@ import controller.AuthenticationController;
  * @author Daniels Kanepe
  *
  */
-public class ManageContractorUI extends JDialog {
+public class ManageShelfUI extends JDialog {
 
 	private static final long serialVersionUID = 2968937622159813565L;
 	private final JPanel contentPane;
-	private CRUDContractorPanel contractorPanel;
+	private CRUDShelfPanel shelfPanel;
 
 	AuthenticationController auth;
 
@@ -28,9 +25,9 @@ public class ManageContractorUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ManageContractorUI(AuthenticationController auth) {
+	public ManageShelfUI(AuthenticationController auth) {
 		this.auth = auth;
-		this.setTitle("Manage contractors");
+		this.setTitle("Manage Shelves");
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -44,12 +41,12 @@ public class ManageContractorUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		contractorPanel = new CRUDContractorPanel(auth);
+		shelfPanel = new CRUDShelfPanel(auth);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		getContentPane().add(contractorPanel, gbc_panel);
+		getContentPane().add(shelfPanel, gbc_panel);
 		
 		// Attach event handlers
 		this.addEventHandlers();

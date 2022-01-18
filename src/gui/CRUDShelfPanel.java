@@ -1,52 +1,54 @@
 package gui;
 
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 
 import controller.AuthenticationController;
-import controller.CustomerController;
-import model.Customer;
-
-import javax.swing.ListSelectionModel;
+import controller.StockController;
 import gui.JLink.COLORS;
+import model.Shelf;
 
 /**
  * @author Daniels Kanepe
  *
  */
-public class CRUDCustomersPanel extends JPanel {
+public class CRUDShelfPanel extends JPanel {
 	
 	
-	private JButton btnAddCustomer;
-	private CustomerController customerCtrl;
+	private JButton btnAddContractor;
+    private StockController stockCtrl;
+	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
-	private CustomerTableModel tableModel;
+	private ShelfTableModel tableModel;
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+
 	AuthenticationController auth;
 
 	/**
 	 * Create the dialog.
-	 * Constructor class CRUDCustomersPanel
+	 * Constructor class CRUDShelfPanel
 	 */
-	public CRUDCustomersPanel(AuthenticationController auth) {
+	public CRUDShelfPanel(AuthenticationController auth) {
 		this.auth = auth;
-		customerCtrl = new CustomerController();
+		stockCtrl = new StockController();
 		setLayout(new BorderLayout(0, 0));
 		
-		tableModel = new CustomerTableModel(customerCtrl.getCustomers());
+		tableModel = new ShelfTableModel(stockCtrl.getShelves());
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
@@ -58,9 +60,7 @@ public class CRUDCustomersPanel extends JPanel {
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
 			// ***** Title *****
-			JLabel lblTitle = new JLabel(
-					String.format("Customers")
-			);
+			JLabel lblTitle = new JLabel("Shelf");
 			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 			gbc_lblTitle.gridwidth = 2;
 			gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
@@ -68,13 +68,13 @@ public class CRUDCustomersPanel extends JPanel {
 			gbc_lblTitle.gridy = 0;
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
-			// ***** button: Add customer  *****
-			btnAddCustomer = new JButton("Add Customer");
+			// ***** button: Add Shelf  *****
+			btnAddContractor = new JButton("Add Shelf");
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
 			gbc_btnNewButton.gridx = 1;
 			gbc_btnNewButton.gridy = 1;
-			topPanel.add(btnAddCustomer, gbc_btnNewButton);
+			topPanel.add(btnAddContractor, gbc_btnNewButton);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
@@ -134,32 +134,26 @@ public class CRUDCustomersPanel extends JPanel {
 	 * *******************************************************
 	 */
 	
-	/**
-	 * @return JTable tableMain
-	 */
 	public JTable getTable() {
 		return tableMain;
 	}
 	
-	/**
-	 * @return CustomerTableModel tableModel
-	 */
-	public CustomerTableModel getTableModel() {
+	public ShelfTableModel getTableModel() {
 		return tableModel;
 	}
 	
 
 	/**
-	 * Select a customer in the CRUD table.
+	 * Select a Shelf in the CRUD table.
 	 *
 	 * @param customer the customer
 	 * @return true, if successful
 	 */
-	public boolean selectCustomer(Customer customer) {
+	public boolean selectContractor(Shelf shelf) {
 		int rows = tableModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			Customer foundCustomer = tableModel.getObj(i);
-			if (foundCustomer == customer) {
+			Shelf founShelf = tableModel.getObj(i);
+			if (founShelf == shelf) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
 			}
@@ -189,39 +183,36 @@ public class CRUDCustomersPanel extends JPanel {
 			}
 		});
 		
-		// Delete customer
+		// Delete Shelf
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			if (Messages.confirm(this, String.format("Are you sure you wish to delete the customer '%s %s'?", customer.getFirstName(), customer.getLastName()))) {
-				customerCtrl.removeCustomer(customer);
+			Shelf shelf = tableModel.getObj(row);
+			if (Messages.confirm(this, String.format("Are you sure you wish to delete the shelf '%s'?", shelf.getName()))) {
+				stockCtrl.removeShelf(shelf);
 				tableModel.remove(row);
 			}
 		});
-
-		// View Customer
+		// View Shelf
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
+			Shelf shelf = tableModel.getObj(row);
+			ShelfUI frame = new ShelfUI(auth, shelf, ShelfUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
-
-		// Edit customer
+		// Edit Shelf
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Customer customer = tableModel.getObj(row);
-			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.EDIT);
+			Shelf shelf = tableModel.getObj(row);
+			ShelfUI frame = new ShelfUI(auth, shelf, ShelfUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 		});
-
-		// 'ADD customer' button
-		btnAddCustomer.addActionListener(e -> {
-			CustomerUI frame = new CustomerUI(auth);
+		// Add Shelf
+		btnAddContractor.addActionListener(e -> {
+			ShelfUI frame = new ShelfUI(auth);
 			frame.setVisible(true);
-			if (frame.getCustomer() != null) {
-				tableModel.add(frame.getCustomer());
+			if (frame.getShelf() != null) {
+				tableModel.add(frame.getShelf());
 			}
 		});
 	}

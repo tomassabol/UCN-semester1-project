@@ -16,7 +16,6 @@ import controller.AuthenticationController;
 import controller.ContractorController;
 import gui.JLink.COLORS;
 import model.Contractor;
-import model.Customer;
 
 /**
  * @author Daniels Kanepe
@@ -39,8 +38,10 @@ public class CRUDContractorPanel extends JPanel {
 	private JLink btnDisable;
 
 	AuthenticationController auth;
+
 	/**
 	 * Create the dialog.
+	 * Constructor class CRUDContractorPanel
 	 */
 	public CRUDContractorPanel(AuthenticationController auth) {
 		this.auth = auth;
@@ -67,7 +68,7 @@ public class CRUDContractorPanel extends JPanel {
 			gbc_lblTitle.gridy = 0;
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
-			// ***** button: Add product  *****
+			// ***** button: Add contractor  *****
 			btnAddContractor = new JButton("Add Contractor");
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
@@ -205,6 +206,14 @@ public class CRUDContractorPanel extends JPanel {
 			ContractorUI frame = new ContractorUI(auth, contractor, ContractorUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
+		});
+		// Add Contractor
+		btnAddContractor.addActionListener(e -> {
+			ContractorUI frame = new ContractorUI(auth);
+			frame.setVisible(true);
+			if (frame.getContractor() != null) {
+				tableModel.add(frame.getContractor());
+			}
 		});
 	}
 }

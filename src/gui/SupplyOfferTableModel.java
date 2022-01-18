@@ -1,39 +1,35 @@
 package gui;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
-import model.CustomerType;
 
-/**
- * @author Daniels Kanepe
- *
- */
-public class CustomerTypeTableModel extends AbstractTableModel {
+import model.SupplyOffer;
+
+public class SupplyOfferTableModel  extends AbstractTableModel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2367962812947993282L;
 
 	/** The Constant COLUMN_NAMES. */
 	protected static final String[] COLUMN_NAMES = {
-        "ID", "Name", "Discount Percentage"
+        "ID", "Product", "Contractor", "Active", "Date added", "Price per Item", "Minimum quantity"
     };
 
-    /** The customer types. */
-    private List<CustomerType> customerTypes;
+    /** The supply offers. */
+    private List<SupplyOffer> supplyOffers;
 
     
+
     /**
-     * Instantiates a new customer table model.
+     * Instantiates a new supply offer table model.
      *
-     * @param customerTypes the customer types
+     * @param supplyOffers the supply offers
      */
-    public CustomerTypeTableModel(List<CustomerType> customerTypes) {
+    public SupplyOfferTableModel(ArrayList<SupplyOffer> supplyOffers) {
         // Prevent possible mutation
-        this.customerTypes = new ArrayList<>(customerTypes);
+        this.supplyOffers = new ArrayList<>(supplyOffers);
     }
     
 
@@ -44,7 +40,7 @@ public class CustomerTypeTableModel extends AbstractTableModel {
      */
     @Override
     public int getRowCount() {
-        return customerTypes.size();
+        return supplyOffers.size();
     }
 
     /**
@@ -90,11 +86,15 @@ public class CustomerTypeTableModel extends AbstractTableModel {
      */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    	CustomerType customerType = customerTypes.get(rowIndex);
+    	SupplyOffer supplyOffer = supplyOffers.get(rowIndex);
         switch (columnIndex) {
-            case 0: return "#" + customerType.ID;
-            case 1: return customerType.getName();
-            case 2: return customerType.getDiscountPercentage();
+            case 0: return "#" + supplyOffer.ID;
+            case 1: return supplyOffer.getProduct().getName();
+            case 2: return supplyOffer.getContractor().getCompanyName();
+            case 3: return supplyOffer.isActive() == false ? "inactive" : "active";
+            case 4: return supplyOffer.getDateAdded();
+            case 5: return supplyOffer.getPricePerItem();
+            case 6: return supplyOffer.getMinQuantity();
             default: return "Error retrieving column name";
         }
     }
@@ -112,37 +112,34 @@ public class CustomerTypeTableModel extends AbstractTableModel {
         return false;
     }
     
-
     /**
-     * Gets the customer type object by row.
+     * Gets the SupplyOffer object by row.
      *
      * @param row the row
-     * @return the obj
+     * @return the SupplyOffer
      */
-    public CustomerType getObj(int row) {
-    	return customerTypes.get(row);
+    public SupplyOffer getObj(int row) {
+    	return supplyOffers.get(row);
     }
     
   
-
     /**
-     * Add a customer type to the table.
+     * Adds a SupplyOffer to the table.
      *
-     * @param customerType the customer type
-     * @return the int
+     * @param supplyOffer the supply offer
      */
-    public void add(CustomerType customerType) {
-        this.customerTypes.add(customerType);
+    public void add(SupplyOffer supplyOffer) {
+        this.supplyOffers.add(supplyOffer);
         fireTableRowsInserted(this.getRowCount(), this.getRowCount());
     }
     
     /**
-     * Removes a customer type by table row.
+     * Removes the supply offer from the table by row.
      *
      * @param row the row
      */
     public void remove(int row) {
-    	this.customerTypes.remove(row);
+    	this.supplyOffers.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }
 

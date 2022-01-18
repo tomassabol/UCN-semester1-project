@@ -123,4 +123,28 @@ public class StockController {
     	return Stock.getInstance().quoteIsInStock(quote);
     }
     
+    public void removeStorageLocation(StorageLocation storageLocation) {
+    	Stock.getInstance().removeStorageLocation(storageLocation);
+    }
+    
+    public void updateStorageLocationName(StorageLocation storageLocation, String name) {
+    	storageLocation.setName(name);
+    }
+    
+    public void updateStorageLocationAddress(StorageLocation storageLocation, String address) {
+    	storageLocation.setAddress(address);
+    }
+    
+    public void updateStorageLocationIsAStore(StorageLocation storageLocation, boolean isAStore) {
+    	storageLocation.setIsAStore(isAStore);
+    }
+
+
+    public void removeShelf(Shelf shelf) {
+    	Stock.getInstance().removeShelf(shelf);
+    }
+
+    public void updateShalfName(Shelf shelf, String name) {
+        shelf.setName(name);
+    }
 }

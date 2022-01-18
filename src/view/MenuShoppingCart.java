@@ -12,7 +12,7 @@ public class MenuShoppingCart extends GenericMenuInterface{
 
     /**
      * Constructor for MenuShoppingCart
-     * @param product The product to update
+     * @param PRODUCT The product to update
      */
     public MenuShoppingCart(GenericMenuInterface previousInterface, 
     		Customer customer) {

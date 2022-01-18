@@ -19,6 +19,10 @@ import model.Order;
 import model.Quote;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Daniels Kanepe
@@ -248,7 +252,27 @@ public class QuotesUI extends JDialog {
 			}
 		});
 		
-		
+		// Searches for a quote by ID
+		txtSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				int id;
+				
+				try {
+					id = Integer.parseInt(txtSearch.getText());
+				} catch (NumberFormatException e1) {
+					quotesTableModel = new QuotesTableModel(quoteCtrl.getQuotes(customer));
+					tableQuotes.setModel(quotesTableModel);
+					return;
+				}
+				
+				List<Quote> quotes = new ArrayList<Quote>();
+				quotes.add(quoteCtrl.findOrderByIdForCustomer(id, customer));
+				quotesTableModel = new QuotesTableModel(quotes);
+				tableQuotes.setModel(quotesTableModel);
+				
+			}
+		});
 		
 	}
 }

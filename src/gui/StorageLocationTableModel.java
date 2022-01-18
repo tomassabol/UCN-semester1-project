@@ -4,36 +4,41 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.table.AbstractTableModel;
-import model.CustomerType;
 
+import model.StorageLocation;
+
+// TODO: Auto-generated Javadoc
 /**
- * @author Daniels Kanepe
+ * The Class StorageLocationTableModel.
  *
+ * @author Daniels Kanepe
  */
-public class CustomerTypeTableModel extends AbstractTableModel {
+public class StorageLocationTableModel extends AbstractTableModel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2367962812947993282L;
 
 	/** The Constant COLUMN_NAMES. */
 	protected static final String[] COLUMN_NAMES = {
-        "ID", "Name", "Discount Percentage"
+        "ID", "Name", "Address", "Is a store?"
     };
 
-    /** The customer types. */
-    private List<CustomerType> customerTypes;
+    /** The storage locations. */
+    private List<StorageLocation> storageLocations;
 
     
+
     /**
-     * Instantiates a new customer table model.
+     * Instantiates a new storage location table model.
      *
-     * @param customerTypes the customer types
+     * @param storageLocations the storage locations
      */
-    public CustomerTypeTableModel(List<CustomerType> customerTypes) {
+    public StorageLocationTableModel(Set<StorageLocation> storageLocations) {
         // Prevent possible mutation
-        this.customerTypes = new ArrayList<>(customerTypes);
+        this.storageLocations = new ArrayList<>(storageLocations);
     }
     
 
@@ -44,7 +49,7 @@ public class CustomerTypeTableModel extends AbstractTableModel {
      */
     @Override
     public int getRowCount() {
-        return customerTypes.size();
+        return storageLocations.size();
     }
 
     /**
@@ -90,11 +95,12 @@ public class CustomerTypeTableModel extends AbstractTableModel {
      */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    	CustomerType customerType = customerTypes.get(rowIndex);
+    	StorageLocation storageLocation = storageLocations.get(rowIndex);
         switch (columnIndex) {
-            case 0: return "#" + customerType.ID;
-            case 1: return customerType.getName();
-            case 2: return customerType.getDiscountPercentage();
+            case 0: return "#" + storageLocation.ID;
+            case 1: return storageLocation.getName();
+            case 2: return storageLocation.getAddress();
+            case 3: return storageLocation.getIsAStore();
             default: return "Error retrieving column name";
         }
     }
@@ -112,37 +118,34 @@ public class CustomerTypeTableModel extends AbstractTableModel {
         return false;
     }
     
-
     /**
-     * Gets the customer type object by row.
+     * Gets the Storage Location object by row.
      *
      * @param row the row
-     * @return the obj
+     * @return the StorageLocation
      */
-    public CustomerType getObj(int row) {
-    	return customerTypes.get(row);
+    public StorageLocation getObj(int row) {
+    	return storageLocations.get(row);
     }
     
   
-
     /**
-     * Add a customer type to the table.
+     * Adds a StorageLocation to the table.
      *
-     * @param customerType the customer type
-     * @return the int
+     * @param storageLocation the storage location
      */
-    public void add(CustomerType customerType) {
-        this.customerTypes.add(customerType);
+    public void add(StorageLocation storageLocation) {
+        this.storageLocations.add(storageLocation);
         fireTableRowsInserted(this.getRowCount(), this.getRowCount());
     }
     
     /**
-     * Removes a customer type by table row.
+     * Removes the storage location from the table by row.
      *
      * @param row the row
      */
     public void remove(int row) {
-    	this.customerTypes.remove(row);
+    	this.storageLocations.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }
 
