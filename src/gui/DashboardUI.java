@@ -73,7 +73,7 @@ public class DashboardUI extends JFrame {
 		
 		// Window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 350);
 		// *Content pane
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -247,14 +247,18 @@ public class DashboardUI extends JFrame {
 		gbl_InventoryPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		InventoryPanel.setLayout(gbl_InventoryPanel);
 		
-		lblInventoryManagePic = new JLabel("IMG");
+		lblInventoryManagePic = new JLabel();
+		ImageIcon manage = new ImageIcon("images/manage.png");
+		lblInventoryManagePic.setIcon(manage);
 		GridBagConstraints gbc_lblInventoryManagePic = new GridBagConstraints();
 		gbc_lblInventoryManagePic.insets = new Insets(0, 0, 5, 5);
 		gbc_lblInventoryManagePic.gridx = 0;
 		gbc_lblInventoryManagePic.gridy = 0;
 		InventoryPanel.add(lblInventoryManagePic, gbc_lblInventoryManagePic);
 		
-		lblInventoryRestockPic = new JLabel("IMG");
+		lblInventoryRestockPic = new JLabel();
+		ImageIcon restock = new ImageIcon("images/restock.png");
+		lblInventoryRestockPic.setIcon(restock);
 		GridBagConstraints gbc_lblInventoryRestockPic = new GridBagConstraints();
 		gbc_lblInventoryRestockPic.insets = new Insets(0, 0, 5, 0);
 		gbc_lblInventoryRestockPic.gridx = 1;
