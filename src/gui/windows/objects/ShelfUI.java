@@ -54,7 +54,7 @@ public class ShelfUI extends JDialog {
 
 
 	/**
-	 * Constructor for Create contractor
+	 * shelf for Create shelf
 	 *
 	 * @param auth the auth
 	 */
@@ -64,9 +64,9 @@ public class ShelfUI extends JDialog {
 	}
 
 	/**
-	 * Constructor for View/Edit contractor
+	 * Constructor for View/Edit shelf
 	 * @param auth the auth
-	 * @param contractor the contractor
+	 * @param shelf the shelf
 	 * @param mode the mode
      * @wbp.parser.constructor
 	 */
@@ -182,7 +182,7 @@ public class ShelfUI extends JDialog {
 		switch (mode) {
 			case VIEW:
 				// Set title
-				setTitle("View Contractor - " + "contractor.getCompanyName()");
+				setTitle("View shelf - " + shelf.getName());
 				// Hide 'Update' button if in view mode
 				btnOK.setVisible(false);
 				// Disable fields
@@ -194,7 +194,7 @@ public class ShelfUI extends JDialog {
 				break;
 			case EDIT: 
 				// Set title
-				setTitle("Edit contractor - " + "contractor.getCompanyName()");
+				setTitle("Edit shelf - " + shelf.getName());
 				// Enable fields for editing
 				this.enableFields();
 				// enable choose buttons
@@ -259,7 +259,7 @@ public class ShelfUI extends JDialog {
 	}
 
 	/**
-	 * @return contractor
+	 * @return shelf
 	 */
 	public Shelf getShelf() {
 		return this.shelf;
@@ -272,11 +272,11 @@ public class ShelfUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 		
-		// 'update' button: Update the contractor
+		// 'update' button: Update the shelf
 		btnOK.addActionListener(e -> {
 			if (Messages.confirm(ShelfUI.this, "Are you sure you want to update the shelf's details?", "Update")) {
 				
-				// Validate that contractor's company name is not empty
+				// Validate that shelf name is not empty
 				String name = txtName.getText().strip();
 				if (name.isEmpty()) {
 					Messages.error(this, "Shelf name cannot be empty!");
