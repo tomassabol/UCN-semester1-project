@@ -210,6 +210,8 @@ public class ShelfUI extends JDialog {
 				btnChooseStorageLoc.setEnabled(true);
 				// Enable fields for editing
 				this.enableFields();
+				// Peek ID
+				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.SHELF)));
 				break;
 				
 				

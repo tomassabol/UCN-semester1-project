@@ -150,6 +150,8 @@ public class ContractorUI extends JDialog {
 				btnUpdate.setText("Create");
 				// Enable fields for editing
 				this.enableFields();
+				// Peek ID
+				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.CONTRACTOR)));
 				break;
 				
 		}	
