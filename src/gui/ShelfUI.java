@@ -296,17 +296,6 @@ public class ShelfUI extends JDialog {
 			// Dispose of the window
 			this.dispose();
 		});
-
-        
-        
-        btnChooseProducts.addActionListener(e -> {
-			ChooseProductUI frame = new ChooseProductUI(auth);
-			frame.setVisible(true);
-			if (frame.getSelectedProduct() != null) {
-				this.product = frame.getSelectedProduct();
-				txtStorageLocation.setText(storageLocation.getName());
-			}
-		});
         
 	}
 }
