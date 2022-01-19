@@ -194,7 +194,7 @@ public class CustomerTypeUI extends JDialog {
 	 *
 	 * @return the product
 	 */
-	public CustomerType getProduct() {
+	public CustomerType getCustomerType() {
 		return this.customerType;
 	}
 	
@@ -262,7 +262,7 @@ public class CustomerTypeUI extends JDialog {
 					customerCtrl.updateCustomerTypeName(customerType, name);
 				} else if (mode == Mode.CREATE) {
 					// if mode == Create, create a new product
-					customerCtrl.createCustomerType(name, 0);
+					this.customerType = customerCtrl.createCustomerType(name, 0);
 				}
 
 
