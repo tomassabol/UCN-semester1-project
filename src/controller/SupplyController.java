@@ -170,14 +170,14 @@ public class SupplyController {
 						product));
 			}
 			// insert trackable items in a stockBatch
-			StockBatch stockBatch = new StockBatch(trackableItems);
+			StockBatch stockBatch = new StockBatch(trackableItems, LocalDateTime.now());
 			// insert stockBatch into shelf
 			shelf.addStockBatch(product, stockBatch);
 			
 			// For untrackable items
 		} else {
 			Product product = supplyOrder.getProduct();
-			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity());
+			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity(), LocalDateTime.now());
 			shelf.addStockBatch(product, stockBatch);
 		}
 		// Mark as delivered and stocked
