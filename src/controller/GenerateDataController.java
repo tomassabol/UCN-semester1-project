@@ -54,10 +54,10 @@ public class GenerateDataController {
         StorageLocation storageLocation1 = stockCtrl.createStorageLocation("DIY", "Rundvej 11A", true);
         StorageLocation storageLocation2 = stockCtrl.createStorageLocation("Timber", "Melvej 4 ", true);
         
-        Shelf shelf1 = stockCtrl.createShelf("A1", storageLocation1, product1);
-        stockCtrl.createShelf("A5", storageLocation1, product1);
-        stockCtrl.createShelf("C1", storageLocation2, product1);
-        stockCtrl.createShelf("C22", storageLocation2, product1);
+        Shelf shelf1 = stockCtrl.createShelf("A1", storageLocation1);
+        stockCtrl.createShelf("A5", storageLocation1);
+        stockCtrl.createShelf("C1", storageLocation2);
+        stockCtrl.createShelf("C22", storageLocation2);
         
         SupplyController supplyCtrl = new SupplyController();
         SupplyOffer supplyOffer1 = supplyCtrl.createSupplyOffer(product1, contractor1, BigDecimal.valueOf(4), 2);

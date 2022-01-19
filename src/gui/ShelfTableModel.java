@@ -19,7 +19,7 @@ public class ShelfTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -2367962812947993282L;
 
 	protected static final String[] COLUMN_NAMES = {
-        "ID", "Name", "Storage Location", "Products", "In Stock"
+        "ID", "Name", "Storage Location"
     };
 
     private List<Shelf> shelves;
@@ -70,8 +70,6 @@ public class ShelfTableModel extends AbstractTableModel {
             case 0: return "#" + shelf.ID;
             case 1: return shelf.getName();
             case 2: return shelf.getStorageLocation().getName();
-            case 3: return shelf.getProduct().getName();
-            case 4: return productCtrl.getStock(shelf.getProduct());
             default: return "Error retrieving column name";
         }
     }
