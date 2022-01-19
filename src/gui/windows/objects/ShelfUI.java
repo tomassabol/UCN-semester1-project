@@ -162,6 +162,7 @@ public class ShelfUI extends JDialog {
 		storageLocationPanel.setLayout(gbl_storageLocationPanel);
 		
 		txtStorageLocationDisplay = new JTextField();
+		txtStorageLocationDisplay.setEnabled(false);
 		txtStorageLocationDisplay.setColumns(10);
 		GridBagConstraints gbc_txtStorageLocationDisplay = new GridBagConstraints();
 		gbc_txtStorageLocationDisplay.anchor = GridBagConstraints.NORTH;
