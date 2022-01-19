@@ -36,7 +36,7 @@ public class CustomerTypeUI extends JDialog {
 	private JButton btnSubmit;
 	private CustomerController customerCtrl;
 	private Mode mode;
-	private AuthenticationController auth;
+	AuthenticationController auth;
 	private CustomerType customerType;
 	private JLabel lblDiscount;
 	private JFormattedTextField txtDiscount;

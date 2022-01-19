@@ -197,6 +197,9 @@ public class ShelfUI extends JDialog {
 				btnOK.setVisible(false);
 				// Disable fields
 				this.disableFields();
+				// disable choose buttons
+				btnChooseStorageLoc.setEnabled(false);
+				btnChooseProducts.setEnabled(false);
 				// Fill fields with content
 				this.fillFields(shelf);
 				break;
@@ -205,6 +208,9 @@ public class ShelfUI extends JDialog {
 				setTitle("Edit contractor - " + "contractor.getCompanyName()");
 				// Enable fields for editing
 				this.enableFields();
+				// enable choose buttons
+				btnChooseStorageLoc.setEnabled(true);
+				btnChooseProducts.setEnabled(true);
 				// Fill fields with content
 				this.fillFields(shelf);
 				break;
@@ -213,6 +219,9 @@ public class ShelfUI extends JDialog {
 				setTitle("Create new Shelf");
 				// Change button text
 				btnOK.setText("Create");
+				// enable choose buttons
+				btnChooseStorageLoc.setEnabled(true);
+				btnChooseProducts.setEnabled(true);
 				// Enable fields for editing
 				this.enableFields();
 				break;
@@ -258,7 +267,7 @@ public class ShelfUI extends JDialog {
 		txtID.setText(String.valueOf(shelf.ID));
         txtName.setText(shelf.getName());
         txtStorageLocation.setText(String.valueOf(shelf.getStorageLocation().getName()));
-        txtProducts.setText("implement");
+        txtProducts.setText(String.valueOf(shelf.getProduct().getName()));
 	}
 
 	/**
@@ -292,7 +301,7 @@ public class ShelfUI extends JDialog {
 				} else if (mode == Mode.CREATE) {
 
                     StorageLocation storageLocation = stockCtrl.createStorageLocation("test location", "test address", true);
-					this.shelf = stockCtrl.createShelf(name, storageLocation);
+					this.shelf = stockCtrl.createShelf(name, storageLocation, product);
 				}
 				
 			}
@@ -310,16 +319,16 @@ public class ShelfUI extends JDialog {
 		});
 
         
-        /*
+        
         btnChooseProducts.addActionListener(e -> {
 			ChooseProductUI frame = new ChooseProductUI(auth);
 			frame.setVisible(true);
 			if (frame.getSelectedProduct() != null) {
-				this.products = frame.getSelectedProduct();
+				this.product = frame.getSelectedProduct();
 				txtStorageLocation.setText(storageLocation.getName());
 			}
 		});
-        */
+        
 	}
 }
 

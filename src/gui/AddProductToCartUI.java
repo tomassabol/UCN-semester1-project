@@ -42,7 +42,7 @@ public class AddProductToCartUI extends JDialog {
 	
 	private Product selectedProduct = null;
 	private int selectedQuantity;
-	private AuthenticationController auth;
+	AuthenticationController auth;
 
 
 	/**

@@ -2,6 +2,7 @@ package view;
 
 import controller.StockController;
 import controller.SupplyController;
+import model.Product;
 import model.Shelf;
 import model.StorageLocation;
 import model.SupplyOrder;
@@ -54,7 +55,8 @@ public class MenuStock extends GenericMenuInterface {
 
         String name = terminal.getStringInput("The shelf's name/identifier:");
         StorageLocation storageLocation = terminal.getStorageLocation();
-        stockCtrl.createShelf(name, storageLocation);
+        Product product = terminal.getProduct();
+        stockCtrl.createShelf(name, storageLocation, product);
         super.show("The Shelf was created successfully");
         // TODO: add confirmation
     }
