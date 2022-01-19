@@ -48,11 +48,9 @@ public class ShelfUI extends JDialog {
     Product product;
 
 	private JLabel lblStorageLocation;
-	private JTextField txtStorageLocation;
+	private JPanel storageLocationPanel;
+	private JTextField txtStorageLocationDisplay;
 	private JButton btnChooseStorageLoc;
-	private JLabel lblProducts;
-	private JTextField txtProducts;
-	private JButton btnChooseProducts;
 
 
 	/**
@@ -87,16 +85,16 @@ public class ShelfUI extends JDialog {
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{273, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWidths = new int[]{273, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPanel);
 		
 		JLabel lblID = new JLabel("ID");
 		GridBagConstraints gbc_lblID = new GridBagConstraints();
-		gbc_lblID.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblID.insets = new Insets(0, 0, 5, 5);
+		gbc_lblID.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblID.insets = new Insets(0, 0, 5, 0);
 		gbc_lblID.gridx = 0;
 		gbc_lblID.gridy = 0;
 		contentPane.add(lblID, gbc_lblID);
@@ -105,7 +103,8 @@ public class ShelfUI extends JDialog {
 		txtID = new JTextField();
 		txtID.setEnabled(false);
 		GridBagConstraints gbc_txtID = new GridBagConstraints();
-		gbc_txtID.insets = new Insets(0, 0, 5, 5);
+		gbc_txtID.anchor = GridBagConstraints.NORTH;
+		gbc_txtID.insets = new Insets(0, 0, 5, 0);
 		gbc_txtID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtID.gridx = 0;
 		gbc_txtID.gridy = 1;
@@ -115,8 +114,8 @@ public class ShelfUI extends JDialog {
 		
 		JLabel lblName = new JLabel("Name");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
-		gbc_lblName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblName.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblName.insets = new Insets(0, 0, 5, 0);
 		gbc_lblName.gridx = 0;
 		gbc_lblName.gridy = 2;
 		contentPane.add(lblName, gbc_lblName);
@@ -124,7 +123,8 @@ public class ShelfUI extends JDialog {
 		
 		txtName = new JTextField();
 		GridBagConstraints gbc_txtName = new GridBagConstraints();
-		gbc_txtName.insets = new Insets(0, 0, 5, 5);
+		gbc_txtName.anchor = GridBagConstraints.NORTH;
+		gbc_txtName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtName.gridx = 0;
 		gbc_txtName.gridy = 3;
@@ -133,60 +133,50 @@ public class ShelfUI extends JDialog {
 		
 		lblStorageLocation = new JLabel("Storage Location");
 		GridBagConstraints gbc_lblStorageLocation = new GridBagConstraints();
-		gbc_lblStorageLocation.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStorageLocation.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblStorageLocation.insets = new Insets(0, 0, 5, 0);
 		gbc_lblStorageLocation.gridx = 0;
 		gbc_lblStorageLocation.gridy = 4;
 		contentPane.add(lblStorageLocation, gbc_lblStorageLocation);
 		
-		txtStorageLocation = new JTextField();
-		GridBagConstraints gbc_txtStorageLocation = new GridBagConstraints();
-		gbc_txtStorageLocation.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtStorageLocation.insets = new Insets(0, 0, 5, 5);
-		gbc_txtStorageLocation.gridx = 0;
-		gbc_txtStorageLocation.gridy = 5;
-		contentPane.add(txtStorageLocation, gbc_txtStorageLocation);
-		txtStorageLocation.setColumns(10);
+		storageLocationPanel = new JPanel();
+		storageLocationPanel.setBorder(null);
+		GridBagConstraints gbc_storageLocationPanel = new GridBagConstraints();
+		gbc_storageLocationPanel.anchor = GridBagConstraints.NORTH;
+		gbc_storageLocationPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_storageLocationPanel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_storageLocationPanel.gridx = 0;
+		gbc_storageLocationPanel.gridy = 5;
+		contentPane.add(storageLocationPanel, gbc_storageLocationPanel);
+		GridBagLayout gbl_storageLocationPanel = new GridBagLayout();
+		gbl_storageLocationPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_storageLocationPanel.rowHeights = new int[]{0, 0};
+		gbl_storageLocationPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_storageLocationPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		storageLocationPanel.setLayout(gbl_storageLocationPanel);
+		
+		txtStorageLocationDisplay = new JTextField();
+		txtStorageLocationDisplay.setColumns(10);
+		GridBagConstraints gbc_txtStorageLocationDisplay = new GridBagConstraints();
+		gbc_txtStorageLocationDisplay.anchor = GridBagConstraints.NORTH;
+		gbc_txtStorageLocationDisplay.insets = new Insets(0, 0, 0, 5);
+		gbc_txtStorageLocationDisplay.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtStorageLocationDisplay.gridx = 0;
+		gbc_txtStorageLocationDisplay.gridy = 0;
+		storageLocationPanel.add(txtStorageLocationDisplay, gbc_txtStorageLocationDisplay);
 		
 		btnChooseStorageLoc = new JButton("Choose");
-		btnChooseStorageLoc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		GridBagConstraints gbc_btnChooseStorageLoc = new GridBagConstraints();
-		gbc_btnChooseStorageLoc.insets = new Insets(0, 0, 5, 0);
 		gbc_btnChooseStorageLoc.gridx = 1;
-		gbc_btnChooseStorageLoc.gridy = 5;
-		contentPane.add(btnChooseStorageLoc, gbc_btnChooseStorageLoc);
-		
-		lblProducts = new JLabel("Products");
-		GridBagConstraints gbc_lblProducts = new GridBagConstraints();
-		gbc_lblProducts.insets = new Insets(0, 0, 5, 5);
-		gbc_lblProducts.gridx = 0;
-		gbc_lblProducts.gridy = 6;
-		contentPane.add(lblProducts, gbc_lblProducts);
-		
-		txtProducts = new JTextField();
-		GridBagConstraints gbc_txtProducts = new GridBagConstraints();
-		gbc_txtProducts.insets = new Insets(0, 0, 5, 5);
-		gbc_txtProducts.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtProducts.gridx = 0;
-		gbc_txtProducts.gridy = 7;
-		contentPane.add(txtProducts, gbc_txtProducts);
-		txtProducts.setColumns(10);
-		
-		btnChooseProducts = new JButton("Choose");
-		GridBagConstraints gbc_btnChooseProducts = new GridBagConstraints();
-		gbc_btnChooseProducts.insets = new Insets(0, 0, 5, 0);
-		gbc_btnChooseProducts.gridx = 1;
-		gbc_btnChooseProducts.gridy = 7;
-		contentPane.add(btnChooseProducts, gbc_btnChooseProducts);
+		gbc_btnChooseStorageLoc.gridy = 0;
+		storageLocationPanel.add(btnChooseStorageLoc, gbc_btnChooseStorageLoc);
 		
 		
 		btnOK = new JButton("OK");
 		GridBagConstraints gbc_btnOK = new GridBagConstraints();
-		gbc_btnOK.anchor = GridBagConstraints.SOUTH;
-		gbc_btnOK.gridx = 1;
-		gbc_btnOK.gridy = 8;
+		gbc_btnOK.anchor = GridBagConstraints.SOUTHEAST;
+		gbc_btnOK.gridx = 0;
+		gbc_btnOK.gridy = 6;
 		contentPane.add(btnOK, gbc_btnOK);
 		
 		switch (mode) {
@@ -246,7 +236,6 @@ public class ShelfUI extends JDialog {
 				   }
 			}
             btnChooseStorageLoc.setEnabled(false);
-            btnChooseProducts.setEnabled(false);
 	}
 	
 	
@@ -259,7 +248,6 @@ public class ShelfUI extends JDialog {
 			}
 		txtID.setEnabled(false);
         btnChooseStorageLoc.setEnabled(true);
-        btnChooseProducts.setEnabled(false);
 	}
 
 	// FIll in the fields
@@ -307,15 +295,6 @@ public class ShelfUI extends JDialog {
 			}
 			// Dispose of the window
 			this.dispose();
-		});
-
-        btnChooseStorageLoc.addActionListener(e -> {
-			ChooseStorageLocationUI frame = new ChooseStorageLocationUI(auth);
-			frame.setVisible(true);
-			if (frame.getSelectedStorageLocation() != null) {
-				this.storageLocation = frame.getSelectedStorageLocation();
-				txtStorageLocation.setText(storageLocation.getName());
-			}
 		});
 
         

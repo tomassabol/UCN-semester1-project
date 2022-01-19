@@ -354,7 +354,7 @@ public class DashboardUI extends JFrame {
 	 */
 	public void initPeopleTab() {
 		JPanel peoplePanel = new JPanel();
-		peoplePanel.setBorder(new EmptyBorder(5, 0, 0, 0));
+		peoplePanel.setBorder(new EmptyBorder(10, 0, 0, 0));
 		tabsPane.addTab("People", null, peoplePanel, null);
 		GridBagLayout gbl_peoplePanel = new GridBagLayout();
 		gbl_peoplePanel.columnWidths = new int[]{0, 0, 0};
