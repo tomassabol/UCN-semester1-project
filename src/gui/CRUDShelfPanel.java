@@ -11,11 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 import controller.AuthenticationController;
 import controller.StockController;
 import gui.JLink.COLORS;
+import model.Quote;
 import model.Shelf;
+import model.StockBatch;
 
 /**
  * @author Daniels Kanepe
@@ -32,7 +35,7 @@ public class CRUDShelfPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
-	private ShelfTableModel tableModel;
+	private ShelfTableModel tableMainModel;
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
@@ -49,7 +52,7 @@ public class CRUDShelfPanel extends JPanel {
 		this.auth = auth;
 		stockCtrl = new StockController();
 		
-		tableModel = new ShelfTableModel(stockCtrl.getShelves());
+		tableMainModel = new ShelfTableModel(stockCtrl.getShelves());
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{450, 0};
 		gridBagLayout.rowHeights = new int[]{50, 139, 21, 0, 0};
@@ -99,7 +102,7 @@ public class CRUDShelfPanel extends JPanel {
 		add(scrollPanelMain, gbc_scrollPanelMain);
 		// ***** Table *****
 		tableMain = new JTable();
-		tableMain.setModel(tableModel);
+		tableMain.setModel(tableMainModel);
 		tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPanelMain.setViewportView(tableMain);
 		
@@ -156,6 +159,8 @@ public class CRUDShelfPanel extends JPanel {
 		add(scrollPanelStockBatches, gbc_scrollPanelStockBatches);
 		
 		tableStockBatches = new JTable();
+		tableStockBatches.setEnabled(false);
+		tableStockBatches.setRowSelectionAllowed(false);
 		tableStockBatches.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPanelStockBatches.setViewportView(tableStockBatches);
 		
@@ -174,20 +179,20 @@ public class CRUDShelfPanel extends JPanel {
 	}
 	
 	public ShelfTableModel getTableModel() {
-		return tableModel;
+		return tableMainModel;
 	}
 	
 
 	/**
 	 * Select a Shelf in the CRUD table.
 	 *
-	 * @param customer the customer
+	 * @param shelf the shelf
 	 * @return true, if successful
 	 */
 	public boolean selectContractor(Shelf shelf) {
-		int rows = tableModel.getRowCount();
+		int rows = tableMainModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			Shelf founShelf = tableModel.getObj(i);
+			Shelf founShelf = tableMainModel.getObj(i);
 			if (founShelf == shelf) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
@@ -203,51 +208,64 @@ public class CRUDShelfPanel extends JPanel {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
-		// Table row selection
+		// When a table row is selected:
 		tableMain.getSelectionModel().addListSelectionListener(e -> {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
-				// Not selected
+				// *** Not selected ***
+				
+				// Disable bottom options
 				btnView.setEnabled(false);
-				btnEdit.setEnabled(true);
-				btnDisable.setEnabled(true);
+				btnEdit.setEnabled(false);
+				btnDisable.setEnabled(false);
+				
+				// clear stock batch table
+				tableStockBatches.setModel(new DefaultTableModel());
 			} else {
-				// Selected
+				// *** Selected ***
+				
+				// Disable bottom options
 				btnView.setEnabled(true);
 				btnEdit.setEnabled(true);
 				btnDisable.setEnabled(true);
+				
+				// Fill stock batch table
+				int selectedRow = tableMain.getSelectedRow();
+				Shelf shelf = tableMainModel.getObj(selectedRow);
+				StockBatchTableModel stockBatchTableModel = new StockBatchTableModel(shelf.getStockBatches());
+				tableStockBatches.setModel(stockBatchTableModel);
 			}
 		});
 		
 		// Delete Shelf
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Shelf shelf = tableModel.getObj(row);
+			Shelf shelf = tableMainModel.getObj(row);
 			if (Messages.confirm(this, String.format("Are you sure you wish to delete the shelf '%s'?", shelf.getName()))) {
 				stockCtrl.removeShelf(shelf);
-				tableModel.remove(row);
+				tableMainModel.remove(row);
 			}
 		});
 		// View Shelf
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Shelf shelf = tableModel.getObj(row);
+			Shelf shelf = tableMainModel.getObj(row);
 			ShelfUI frame = new ShelfUI(auth, shelf, ShelfUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 		// Edit Shelf
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			Shelf shelf = tableModel.getObj(row);
+			Shelf shelf = tableMainModel.getObj(row);
 			ShelfUI frame = new ShelfUI(auth, shelf, ShelfUI.Mode.EDIT);
 			frame.setVisible(true);
-			tableModel.fireTableRowsUpdated(row, row);
+			tableMainModel.fireTableRowsUpdated(row, row);
 		});
 		// Add Shelf
 		btnAddContractor.addActionListener(e -> {
 			ShelfUI frame = new ShelfUI(auth);
 			frame.setVisible(true);
 			if (frame.getShelf() != null) {
-				tableModel.add(frame.getShelf());
+				tableMainModel.add(frame.getShelf());
 			}
 		});
 	}
