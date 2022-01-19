@@ -351,6 +351,7 @@ public class SupplyOfferUI extends JDialog {
 		txtMinQuantity.setText(String.valueOf(supplyOffer.getMinQuantity()));
 		txtContractorDisplay.setText(supplyOffer.getContractor().getCompanyName());
 		txtProductDisplay.setText(supplyOffer.getProduct().getName());
+		product = supplyOffer.getProduct();
 	}
 	
 	/**
