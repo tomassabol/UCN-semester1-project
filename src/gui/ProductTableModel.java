@@ -25,14 +25,14 @@ public class ProductTableModel extends AbstractTableModel {
 		ID("ID"),
 		NAME("Name"),
 		DESCRIPTION("Description"),
-		MIN_STOCK("Min stock"),
-		MAX_STOCK("Max Stock"),
+		MIN_STOCK("Min buy stock"),
+		MAX_STOCK("Max buy Stock"),
 		BUYABLE_STOCK("Buyable stock"),
-		LOANABLE_STOCK("Loanable stock"),
-		DATE_ADDED("Added"),
-		ENABLED("Enabled"),
 		BUY_PRICE("Buy price"),
-		LOAN_PRICE("Loan price / h");
+		LOANABLE_STOCK("Loanable stock"),
+		LOAN_PRICE("Loan price / h"),
+		DATE_ADDED("Added"),
+		ENABLED("Enabled");
 		
 		private String value;
 		
