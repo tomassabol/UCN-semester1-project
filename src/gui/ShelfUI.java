@@ -254,8 +254,7 @@ public class ShelfUI extends JDialog {
 	private void fillFields(Shelf shelf) {
 		txtID.setText(String.valueOf(shelf.ID));
         txtName.setText(shelf.getName());
-        txtStorageLocation.setText(String.valueOf(shelf.getStorageLocation().getName()));
-        txtProducts.setText(String.valueOf(shelf.getProduct().getName()));
+        txtStorageLocationDisplay.setText(shelf.getStorageLocation().getName());
 	}
 
 	/**
