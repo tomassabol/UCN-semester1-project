@@ -8,7 +8,11 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.StockController;
+import gui.Common;
 import gui.Messages;
+import gui.windows.ChooseCustomerType;
+import gui.windows.ChooseStorageLocation;
+import gui.windows.objects.CustomerUI.Mode;
 import model.PrimaryKey;
 import model.Shelf;
 import model.StorageLocation;
@@ -22,6 +26,8 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.awt.event.ActionEvent;
 
 /**
@@ -39,7 +45,7 @@ public class ShelfUI extends JDialog {
 	private JPanel contentPane;
 	private JTextField txtID;
 	private JTextField txtName;
-	private JButton btnOK;
+	private JButton btnSubmit;
 	
 	Shelf shelf;
 	Mode mode;
@@ -172,19 +178,19 @@ public class ShelfUI extends JDialog {
 		storageLocationPanel.add(btnChooseStorageLoc, gbc_btnChooseStorageLoc);
 		
 		
-		btnOK = new JButton("OK");
+		btnSubmit = new JButton("OK");
 		GridBagConstraints gbc_btnOK = new GridBagConstraints();
 		gbc_btnOK.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnOK.gridx = 0;
 		gbc_btnOK.gridy = 6;
-		contentPane.add(btnOK, gbc_btnOK);
+		contentPane.add(btnSubmit, gbc_btnOK);
 		
 		switch (mode) {
 			case VIEW:
 				// Set title
 				setTitle("View shelf - " + shelf.getName());
 				// Hide 'Update' button if in view mode
-				btnOK.setVisible(false);
+				btnSubmit.setVisible(false);
 				// Disable fields
 				this.disableFields();
 				// disable choose buttons
@@ -206,7 +212,7 @@ public class ShelfUI extends JDialog {
 				// Set title
 				setTitle("Create new Shelf");
 				// Change button text
-				btnOK.setText("Create");
+				btnSubmit.setText("Create");
 				// enable choose buttons
 				btnChooseStorageLoc.setEnabled(true);
 				// Enable fields for editing
@@ -272,9 +278,15 @@ public class ShelfUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 		
-		// 'update' button: Update the shelf
-		btnOK.addActionListener(e -> {
-			if (Messages.confirm(ShelfUI.this, "Are you sure you want to update the shelf's details?", "Update")) {
+		// 'update' button: Update the customer
+		btnSubmit.addActionListener(e -> {
+			String message = "";
+			if (mode == Mode.EDIT) {
+				message = "Are you sure you want to update the shelf's details?";
+			} else if (mode == Mode.CREATE) {
+				message = "Create shelf?";
+			}
+			if (Messages.confirm(ShelfUI.this, message)) {
 				
 				// Validate that shelf name is not empty
 				String name = txtName.getText().strip();
@@ -283,18 +295,24 @@ public class ShelfUI extends JDialog {
 					return;
 				}
 				
-				// UPDATE
+				// if mode == view, update data
 				if (mode == Mode.EDIT) {
 					stockCtrl.updateShalfName(shelf, name);
 				} else if (mode == Mode.CREATE) {
-
-                    StorageLocation storageLocation = stockCtrl.createStorageLocation("test location", "test address", true);
-					this.shelf = stockCtrl.createShelf(name, storageLocation);
-				}
-				
+					// if mode == Create, create a new customer
+					this.shelf = stockCtrl.createShelf(name, this.storageLocation);}
 			}
 			// Dispose of the window
 			this.dispose();
+		});
+
+		btnChooseStorageLoc.addActionListener(e -> {
+			ChooseStorageLocation frame = new ChooseStorageLocation(auth);
+			frame.setVisible(true);
+			if (frame.getSelectedStorageLocation() != null) {
+				this.storageLocation = frame.getSelectedStorageLocation();
+				txtStorageLocationDisplay.setText(storageLocation.getName());
+			}
 		});
         
 	}
