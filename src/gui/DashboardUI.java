@@ -548,7 +548,7 @@ public class DashboardUI extends JFrame {
 		
 		// ***** Manage customer types *****
 		btnCustomerTypes.addActionListener(e -> {
-			ManageCustomerTypesUI frame = new ManageCustomerTypesUI(auth);
+			ManageCustomerTypeUI frame = new ManageCustomerTypeUI(auth);
 			frame.setVisible(true);
 		});
 		

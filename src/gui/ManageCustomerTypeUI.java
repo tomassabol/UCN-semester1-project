@@ -21,7 +21,7 @@ import javax.swing.JTable;
  * @author Daniels Kanepe
  *
  */
-public class ManageCustomerType extends JDialog {
+public class ManageCustomerTypeUI extends JDialog {
 
 	/**
 	 * 
@@ -40,7 +40,7 @@ public class ManageCustomerType extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ManageCustomerType(AuthenticationController auth) {
+	public ManageCustomerTypeUI(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Manage customer types");
 		customerCtrl = new CustomerController();
