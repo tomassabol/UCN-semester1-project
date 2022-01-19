@@ -112,7 +112,7 @@ public class ShelfUI extends JDialog {
 		txtID.setColumns(10);
 		
 		
-		JLabel lblName = new JLabel("Name");
+		JLabel lblName = new JLabel("Name *");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblName.insets = new Insets(0, 0, 5, 0);
@@ -131,7 +131,7 @@ public class ShelfUI extends JDialog {
 		contentPane.add(txtName, gbc_txtName);
 		txtName.setColumns(10);
 		
-		lblStorageLocation = new JLabel("Storage Location");
+		lblStorageLocation = new JLabel("Storage Location *");
 		GridBagConstraints gbc_lblStorageLocation = new GridBagConstraints();
 		gbc_lblStorageLocation.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblStorageLocation.insets = new Insets(0, 0, 5, 0);
