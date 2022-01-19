@@ -30,7 +30,8 @@ public class ContractorController {
 		 * @return the newly created contractor object
 		 */
 		public Contractor createContractor(String companyName) {
-			Contractor contractor = new Contractor(PrimaryKey.getNextContractorID(), companyName);
+			Contractor contractor = new Contractor(PrimaryKey.getID(PrimaryKey.Keys.CONTRACTOR),
+					companyName);
 			ContractorContainer.getInstance().addContractor(contractor);
 			return contractor;
 		}

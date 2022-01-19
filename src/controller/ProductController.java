@@ -28,7 +28,7 @@ public class ProductController {
 	 * @return The newly created Product object
 	 */
 	public Product createProduct(String name, String description, int minStock, int maxStock, boolean enabled) {
-		Product product = new Product(PrimaryKey.getNextProductID(), name, description,
+		Product product = new Product(PrimaryKey.getID(PrimaryKey.Keys.PRODUCT), name, description,
 				minStock, maxStock, LocalDateTime.now(), enabled);
 		ProductContainer.getInstance().addProduct(product);
 		return product;

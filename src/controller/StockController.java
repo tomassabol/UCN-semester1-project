@@ -23,7 +23,8 @@ public class StockController {
      * @return the storage location
      */
     public StorageLocation createStorageLocation(String name, String address, boolean isAStore) {
-        StorageLocation storageLocation = new StorageLocation(PrimaryKey.getNextStorageLocationID(), name, address, isAStore);
+        StorageLocation storageLocation = new StorageLocation(PrimaryKey.getID(PrimaryKey.Keys.STORAGE_LOCATION),
+        		name, address, isAStore);
         Stock.getInstance().addStorageLocation(storageLocation);
         return storageLocation;
     }
@@ -36,7 +37,8 @@ public class StockController {
      * @return the shelf
      */
     public Shelf createShelf(String name, StorageLocation storageLocation) {
-        Shelf shelf = new Shelf(PrimaryKey.getNextShelfID(), name, storageLocation);
+        Shelf shelf = new Shelf(PrimaryKey.getID(PrimaryKey.Keys.SHELF),
+        		name, storageLocation);
         Stock.getInstance().addShelf(storageLocation, shelf);
         return shelf;
     }

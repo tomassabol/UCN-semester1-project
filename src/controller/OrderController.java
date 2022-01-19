@@ -52,7 +52,7 @@ public class OrderController {
 			
 			orderLines.add(Stock.getInstance().stockToOrderlineBuyable(itemLine.getPRODUCT(), itemLine.getQuantity()));
 		}
-		Order order = new Order(PrimaryKey.getNextOrderID(), 
+		Order order = new Order(PrimaryKey.getID(PrimaryKey.Keys.ORDER), 
 				customer, employee, orderLines);
 		new QuoteController().removeQuote(quote);
 		OrderContainer.getInstance().addOrder(order);

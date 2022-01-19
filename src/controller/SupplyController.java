@@ -40,7 +40,7 @@ public class SupplyController {
 			Contractor contractor, BigDecimal pricePerItem,
 			int minQuantity) {
 		
-		SupplyOffer supplyOffer = new SupplyOffer(PrimaryKey.getNextSupplyOfferID(), product,
+		SupplyOffer supplyOffer = new SupplyOffer(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_OFFER), product,
 				pricePerItem, minQuantity, contractor, true, LocalDateTime.now());
 		SupplyOfferContainer.getInstance().addSupplyOffer(product, supplyOffer);
 		
@@ -139,7 +139,7 @@ public class SupplyController {
 	// Create supply order
 	public SupplyOrder createSupplyOrder(SupplyOffer supplyOffer, int quantity) {
 		Product product = SupplyOfferContainer.getInstance().getProduct(supplyOffer);
-		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getNextSupplyOrderID(),
+		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_ORDER),
 				LocalDateTime.now(),
 				product,
 				quantity,
@@ -165,7 +165,7 @@ public class SupplyController {
 			// Generate trackable items
 			Set<TrackableItem> trackableItems = new HashSet<>();
 			for (int i = 0; i < supplyOrder.getQuantity(); i++) {
-				trackableItems.add(new TrackableItem(PrimaryKey.getNextItemID(), 
+				trackableItems.add(new TrackableItem(PrimaryKey.getID(PrimaryKey.Keys.ITEM), 
 						TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE,
 						product));
 			}

@@ -10,6 +10,7 @@ import controller.AuthenticationController;
 import controller.CustomerController;
 import model.Customer;
 import model.CustomerType;
+import model.PrimaryKey;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -70,6 +71,7 @@ public class CustomerUI extends JDialog {
 	 * @param auth the auth
 	 * @param customer the customer
 	 * @param mode the mode
+	 * @wbp.parser.constructor
 	 */
 	public CustomerUI(AuthenticationController auth, Customer customer, Mode mode) {
 		this.mode = mode;
@@ -281,6 +283,9 @@ public class CustomerUI extends JDialog {
 				btnSubmit.setText("Create");
 				// Enable fields
 				this.enableFields();
+				// Peek ID
+				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.CUSTOMER)));
+				
 		}	
 
 		addEventHandlers();

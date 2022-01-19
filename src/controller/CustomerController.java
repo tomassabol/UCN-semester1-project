@@ -25,7 +25,7 @@ public class CustomerController {
 	 * @return the newly created Customer object
 	 */
 	public Customer createCustomer(String firstName, String lastName, String address, String mobile, CustomerType customerType, LocalDate birthDate) {
-		Customer customer = new Customer(PrimaryKey.getNextCustomerID(), firstName, lastName, address, mobile, customerType, birthDate);
+		Customer customer = new Customer(PrimaryKey.getID(PrimaryKey.Keys.CUSTOMER), firstName, lastName, address, mobile, customerType, birthDate);
 		CustomerContainer.getInstance().addCustomer(customer);
 		return customer;
 	}
@@ -38,7 +38,7 @@ public class CustomerController {
 	 * @return the newly created customer type
 	 */
 	public CustomerType createCustomerType(String type, int discountPercentage){
-		CustomerType customerType = new CustomerType(PrimaryKey.getNextCustomerTypeID(), type, discountPercentage);
+		CustomerType customerType = new CustomerType(PrimaryKey.getID(PrimaryKey.Keys.CUSTOMER), type, discountPercentage);
 		CustomerTypeContainer.getInstance().addCustomer(customerType);
 		return customerType;
 	}
