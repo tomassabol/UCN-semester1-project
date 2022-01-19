@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.StockController;
+import model.PrimaryKey;
 import model.Shelf;
 import model.StorageLocation;
 
@@ -210,6 +211,8 @@ public class ShelfUI extends JDialog {
 				// Enable fields for editing
 				this.enableFields();
 				break;
+				
+				
 		}	
 
 		addEventHandlers();

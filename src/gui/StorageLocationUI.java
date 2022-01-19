@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import controller.CustomerController;
 import controller.StockController;
+import model.PrimaryKey;
 import model.StorageLocation;
 
 import java.awt.GridBagLayout;
@@ -232,6 +233,8 @@ public class StorageLocationUI extends JDialog {
 				btnSubmit.setText("Create");
 				// Enable fields
 				this.enableFields();
+				// Peek ID
+				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.STORAGE_LOCATION)));
 		}	
 
 		addEventHandlers();

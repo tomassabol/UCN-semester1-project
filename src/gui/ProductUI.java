@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.ProductController;
+import model.PrimaryKey;
 import model.Product;
 
 import java.awt.GridBagLayout;
@@ -239,6 +240,8 @@ public class ProductUI extends JDialog {
 				btnSubmit.setText("Create");
 				// Enable fields
 				this.enableFields();
+				// Peek ID
+				txtId.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.PRODUCT)));
 		}
 		
 		

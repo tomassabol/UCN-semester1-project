@@ -10,6 +10,7 @@ import javax.swing.text.NumberFormatter;
 import controller.AuthenticationController;
 import controller.CustomerController;
 import model.CustomerType;
+import model.PrimaryKey;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -175,6 +176,8 @@ public class CustomerTypeUI extends JDialog {
 				btnSubmit.setText("Create");
 				// Enable fields
 				this.enableFields();
+				// Peek ID
+				txtId.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.CUSTOMER_TYPE)));
 		}
 		
 		
