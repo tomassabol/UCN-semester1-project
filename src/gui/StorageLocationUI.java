@@ -252,7 +252,6 @@ public class StorageLocationUI extends JDialog {
 				      c.setEnabled(false);
 				   }
 			}
-		// TODO: FIX THIS HACK LATER
 		rdbtnStoreYes.setEnabled(false);
 		rdbtnStoreNo.setEnabled(false);
 	}
@@ -261,11 +260,13 @@ public class StorageLocationUI extends JDialog {
 	// Makes the text fields editable except ID & Type field
 	private void enableFields() {
 		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField || c instanceof JTextArea || c instanceof JRadioButton) {
+			   if (c instanceof JTextField || c instanceof JTextArea || c instanceof JPanel) {
 			      c.setEnabled(true);
 			   }
 			}
 		txtID.setEnabled(false);
+		rdbtnStoreYes.setEnabled(true);
+		rdbtnStoreNo.setEnabled(true);
 	}
 	
 	// FIll in the fields

@@ -60,7 +60,7 @@ public class SupplyOfferUI extends JDialog {
 	private JLabel lblActive;
 	private JPanel activePanel;
 	private JRadioButton rdbtnActiveYes;
-	private JRadioButton rdbtnNewRadioButton_1;
+	private JRadioButton rdbtnActiveNo;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
 	private Contractor contractor;
@@ -268,9 +268,9 @@ public class SupplyOfferUI extends JDialog {
 		buttonGroup.add(rdbtnActiveYes);
 		activePanel.add(rdbtnActiveYes);
 		
-		rdbtnNewRadioButton_1 = new JRadioButton("No");
-		buttonGroup.add(rdbtnNewRadioButton_1);
-		activePanel.add(rdbtnNewRadioButton_1);
+		rdbtnActiveNo = new JRadioButton("No");
+		buttonGroup.add(rdbtnActiveNo);
+		activePanel.add(rdbtnActiveNo);
 		
 		
 		btnSubmit = new JButton("Update");
@@ -325,23 +325,23 @@ public class SupplyOfferUI extends JDialog {
 	// Makes the text fields uneditable
 	private void disableFields() {
 		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField || c instanceof JTextArea || c instanceof JRadioButton) {
+			   if (c instanceof JTextField || c instanceof JTextArea || c instanceof JPanel) {
 				      c.setEnabled(false);
 				   }
 			}
+		rdbtnActiveYes.setEnabled(false);
+		rdbtnActiveNo.setEnabled(false);
 	}
 	
 	
 	// Makes the text fields editable except ID & 'choose' fields
 	private void enableFields() {
 		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField || c instanceof JTextArea|| c instanceof JRadioButton) {
+			   if (c instanceof JTextField || c instanceof JTextArea || c instanceof JPanel) {
 			      c.setEnabled(true);
 			   }
 			}
 		txtID.setEnabled(false);
-		txtContractorDisplay.setEnabled(false);
-		txtProductDisplay.setEnabled(false);
 	}
 	
 	// FIll in the fields
