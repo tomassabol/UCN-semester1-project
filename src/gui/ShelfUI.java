@@ -189,7 +189,6 @@ public class ShelfUI extends JDialog {
 				this.disableFields();
 				// disable choose buttons
 				btnChooseStorageLoc.setEnabled(false);
-				btnChooseProducts.setEnabled(false);
 				// Fill fields with content
 				this.fillFields(shelf);
 				break;
@@ -200,7 +199,6 @@ public class ShelfUI extends JDialog {
 				this.enableFields();
 				// enable choose buttons
 				btnChooseStorageLoc.setEnabled(true);
-				btnChooseProducts.setEnabled(true);
 				// Fill fields with content
 				this.fillFields(shelf);
 				break;
@@ -211,7 +209,6 @@ public class ShelfUI extends JDialog {
 				btnOK.setText("Create");
 				// enable choose buttons
 				btnChooseStorageLoc.setEnabled(true);
-				btnChooseProducts.setEnabled(true);
 				// Enable fields for editing
 				this.enableFields();
 				break;
