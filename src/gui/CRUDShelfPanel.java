@@ -55,7 +55,7 @@ public class CRUDShelfPanel extends JPanel {
 		tableMainModel = new ShelfTableModel(stockCtrl.getShelves());
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{450, 0};
-		gridBagLayout.rowHeights = new int[]{50, 139, 21, 0, 0};
+		gridBagLayout.rowHeights = new int[]{50, 73, 21, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
@@ -151,6 +151,7 @@ public class CRUDShelfPanel extends JPanel {
 		btnEdit.setEnabled(false);
 		btnDisable.setEnabled(false);
 		
+		// TODO: Implement in a separate CRUDStockBatchesPanel file
 		scrollPanelStockBatches = new JScrollPane();
 		GridBagConstraints gbc_scrollPanelStockBatches = new GridBagConstraints();
 		gbc_scrollPanelStockBatches.fill = GridBagConstraints.BOTH;
