@@ -297,10 +297,12 @@ public class ShelfUI extends JDialog {
 				
 				// if mode == view, update data
 				if (mode == Mode.EDIT) {
-					stockCtrl.updateShalfName(shelf, name);
+					stockCtrl.updateShelfName(shelf, name);
+					stockCtrl.updateShelfStorageLocation(shelf, storageLocation);
 				} else if (mode == Mode.CREATE) {
 					// if mode == Create, create a new customer
-					this.shelf = stockCtrl.createShelf(name, this.storageLocation);}
+					this.shelf = stockCtrl.createShelf(name, this.storageLocation);
+				}
 			}
 			// Dispose of the window
 			this.dispose();

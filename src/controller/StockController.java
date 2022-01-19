@@ -42,6 +42,8 @@ public class StockController {
         Stock.getInstance().addShelf(storageLocation, shelf);
         return shelf;
     }
+    
+    
 
 
 
@@ -147,8 +149,12 @@ public class StockController {
     	Stock.getInstance().removeShelf(shelf);
     }
 
-    public void updateShalfName(Shelf shelf, String name) {
+    public void updateShelfName(Shelf shelf, String name) {
         shelf.setName(name);
+    }
+    
+    public void updateShelfStorageLocation(Shelf shelf, StorageLocation storageLocation) {
+    	shelf.setStorageLocation(storageLocation);
     }
     
     public List<StockBatch> getStockBatches(Shelf shelf) {

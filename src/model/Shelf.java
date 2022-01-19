@@ -77,6 +77,10 @@ public class Shelf {
     public StorageLocation getStorageLocation() {
         return this.storageLocation;
     }
+    
+    public void setStorageLocation(StorageLocation storageLocation) {
+    	this.storageLocation = storageLocation;
+    }
 
     /**
      * Adds the stock batch to a shelf.
