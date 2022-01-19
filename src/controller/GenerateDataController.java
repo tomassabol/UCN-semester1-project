@@ -2,6 +2,8 @@ package controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import model.*;
 
 public class GenerateDataController {
@@ -60,7 +62,7 @@ public class GenerateDataController {
         SupplyController supplyCtrl = new SupplyController();
         SupplyOffer supplyOffer1 = supplyCtrl.createSupplyOffer(product1, contractor1, BigDecimal.valueOf(4), 2);
         
-        StockBatch stockBatch = new StockBatch(product1, 10);
+        StockBatch stockBatch = new StockBatch(product1, 10, LocalDateTime.now());
         shelf1.addStockBatch(product1, stockBatch);
         supplyCtrl.createSupplyOrder(supplyOffer1, 5);
         

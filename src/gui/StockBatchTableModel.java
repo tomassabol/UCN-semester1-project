@@ -62,8 +62,7 @@ public class StockBatchTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
     	StockBatch stockBatch = stockBatches.get(rowIndex);
         switch (columnIndex) {
-        	case 0: return "N/A";
-        			// Common.datetimeToString(stockBatch.getDelivered());
+        	case 0: return Common.datetimeToString(stockBatch.getDelivered());
             case 1: return stockBatch.getProduct().getName();
             case 2: return stockBatch.getTotalQuantity();
             default: return "Error retrieving column name";
