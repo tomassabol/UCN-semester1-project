@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The Class Shelf.
@@ -157,15 +159,10 @@ public class Shelf {
 		return availableQuantity;
     }
 
-    /**
-     *  get products out of hashmap
-     */ 
-    public ArrayList<Product> getProducts(){
-        ArrayList<Product> products = new ArrayList<>();
-        stockBatches.forEach((key, value) -> products.add(key));
-        for (Product product : products) {
-            System.out.println(product.getName());
-        }
-        return products;
+    public List<StockBatch> getStockBatches() {
+    	return 
+		    this.stockBatches.values().stream()
+		        .flatMap(List::stream)
+		        .collect(Collectors.toList());
     }
 }

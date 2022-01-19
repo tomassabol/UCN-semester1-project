@@ -9,6 +9,7 @@ import model.Product;
 import model.Quote;
 import model.Shelf;
 import model.Stock;
+import model.StockBatch;
 import model.StorageLocation;
 
 public class StockController {
@@ -147,4 +148,9 @@ public class StockController {
     public void updateShalfName(Shelf shelf, String name) {
         shelf.setName(name);
     }
+    
+    public List<StockBatch> getStockBatches(Shelf shelf) {
+    	return shelf.getStockBatches();
+    }
+    
 }
