@@ -205,10 +205,6 @@ public class DashboardUI extends JFrame {
 		sellPaneBottomPanel.add(btnSellItems, gbc_btnSellItems);
 		
 		btnViewQuotes = new JButton("Quotes");
-		btnViewQuotes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		GridBagConstraints gbc_btnViewQuotes = new GridBagConstraints();
 		gbc_btnViewQuotes.insets = new Insets(0, 0, 0, 5);
 		gbc_btnViewQuotes.gridx = 1;
