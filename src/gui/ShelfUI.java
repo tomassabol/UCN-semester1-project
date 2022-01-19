@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.StockController;
-import model.Product;
 import model.Shelf;
 import model.StorageLocation;
 
@@ -45,7 +44,6 @@ public class ShelfUI extends JDialog {
 	StockController stockCtrl;
 	AuthenticationController auth;
     StorageLocation storageLocation;
-    Product product;
 
 	private JLabel lblStorageLocation;
 	private JPanel storageLocationPanel;
@@ -285,7 +283,7 @@ public class ShelfUI extends JDialog {
 				} else if (mode == Mode.CREATE) {
 
                     StorageLocation storageLocation = stockCtrl.createStorageLocation("test location", "test address", true);
-					this.shelf = stockCtrl.createShelf(name, storageLocation, product);
+					this.shelf = stockCtrl.createShelf(name, storageLocation);
 				}
 				
 			}

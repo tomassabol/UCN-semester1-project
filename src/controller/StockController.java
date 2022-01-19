@@ -35,8 +35,8 @@ public class StockController {
      * @param storageLocation the storage location
      * @return the shelf
      */
-    public Shelf createShelf(String name, StorageLocation storageLocation, Product product) {
-        Shelf shelf = new Shelf(PrimaryKey.getNextShelfID(), name, storageLocation, product);
+    public Shelf createShelf(String name, StorageLocation storageLocation) {
+        Shelf shelf = new Shelf(PrimaryKey.getNextShelfID(), name, storageLocation);
         Stock.getInstance().addShelf(storageLocation, shelf);
         return shelf;
     }

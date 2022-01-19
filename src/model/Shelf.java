@@ -23,8 +23,6 @@ public class Shelf {
     /** The stock batches. */
     private HashMap<Product, ArrayList<StockBatch>> stockBatches;
 
-    private Product product;
-
     /**
      * Constructor class Shelf.
      *
@@ -32,11 +30,10 @@ public class Shelf {
      * @param name of the shelf
      * @param storageLocation of the shelf
      */
-    public Shelf(int id, String name, StorageLocation storageLocation, Product product) {
+    public Shelf(int id, String name, StorageLocation storageLocation) {
         this.ID = id;
         this.name = name;
         this.storageLocation = storageLocation;
-        this.product = product;
 
         stockBatches = new HashMap<>();
     }
@@ -79,14 +76,6 @@ public class Shelf {
      */
     public StorageLocation getStorageLocation() {
         return this.storageLocation;
-    }
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     /**
