@@ -57,6 +57,7 @@ public class ContractorUI extends JDialog {
 	 * @param auth the auth
 	 * @param contractor the contractor
 	 * @param mode the mode
+	 * @wbp.parser.constructor
 	 */
 	public ContractorUI(AuthenticationController auth, Contractor contractor, Mode mode) {
 		this.mode = mode;
@@ -85,7 +86,7 @@ public class ContractorUI extends JDialog {
 		contentPane.add(lblID, gbc_lblID);
 		
 		
-		JLabel lblCompanyName = new JLabel("First Name *");
+		JLabel lblCompanyName = new JLabel("Company Name *");
 		GridBagConstraints gbc_lblCompanyName = new GridBagConstraints();
 		gbc_lblCompanyName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblCompanyName.insets = new Insets(0, 0, 5, 0);
