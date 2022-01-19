@@ -63,6 +63,7 @@ public class DashboardUI extends JFrame {
 	private JLabel lblInventoryManagePic;
 	private JLabel lblInventoryRestockPic;
 	private JButton btnProducts;
+	private JButton btnCustomerTypes;
 
 	/**
 	 * Create the frame.
@@ -358,9 +359,9 @@ public class DashboardUI extends JFrame {
 		tabsPane.addTab("People", null, peoplePanel, null);
 		GridBagLayout gbl_peoplePanel = new GridBagLayout();
 		gbl_peoplePanel.columnWidths = new int[]{0, 0, 0};
-		gbl_peoplePanel.rowHeights = new int[]{0, 0, 0};
+		gbl_peoplePanel.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_peoplePanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_peoplePanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_peoplePanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		peoplePanel.setLayout(gbl_peoplePanel);
 		
 		lblEmployee = new JLabel();
@@ -383,16 +384,23 @@ public class DashboardUI extends JFrame {
 		
 		btnEmployee = new JButton("Employees");
 		GridBagConstraints gbc_btnEmployee = new GridBagConstraints();
-		gbc_btnEmployee.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEmployee.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEmployee.gridx = 0;
 		gbc_btnEmployee.gridy = 1;
 		peoplePanel.add(btnEmployee, gbc_btnEmployee);
 		
 		btnCustomer = new JButton("Customers");
 		GridBagConstraints gbc_btnCustomer = new GridBagConstraints();
+		gbc_btnCustomer.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCustomer.gridx = 1;
 		gbc_btnCustomer.gridy = 1;
 		peoplePanel.add(btnCustomer, gbc_btnCustomer);
+		
+		btnCustomerTypes = new JButton("Customer types");
+		GridBagConstraints gbc_btnCustomerTypes = new GridBagConstraints();
+		gbc_btnCustomerTypes.gridx = 1;
+		gbc_btnCustomerTypes.gridy = 2;
+		peoplePanel.add(btnCustomerTypes, gbc_btnCustomerTypes);
 	}
 	
 	/*
@@ -535,6 +543,12 @@ public class DashboardUI extends JFrame {
 		// ***** Manage employees *****
 		btnEmployee.addActionListener(e -> {
 			ManageEmployeeUI frame = new ManageEmployeeUI(auth);
+			frame.setVisible(true);
+		});
+		
+		// ***** Manage customer types *****
+		btnCustomerTypes.addActionListener(e -> {
+			ManageCustomerTypesUI frame = new ManageCustomerTypesUI(auth);
 			frame.setVisible(true);
 		});
 		
