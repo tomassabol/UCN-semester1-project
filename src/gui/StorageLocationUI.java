@@ -25,6 +25,8 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import javax.swing.JToggleButton;
 import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 /**
  * @author Daniels Kanepe
@@ -48,7 +50,10 @@ public class StorageLocationUI extends JDialog {
 	StockController stockCtrl;
 	Mode mode;
 	AuthenticationController auth;
-	private JCheckBox chckbxIsAStore;
+	private JPanel isAStorePanel;
+	private JRadioButton rdbtnStoreYes;
+	private JRadioButton rdbtnStoreNo;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 
 	/**
@@ -141,7 +146,7 @@ public class StorageLocationUI extends JDialog {
 		contentPane.add(lblAddress, gbc_lblAddress);
 		
 		
-		JLabel lblStore = new JLabel("This location is a store");
+		JLabel lblStore = new JLabel("Is a store?");
 		GridBagConstraints gbc_lblStore = new GridBagConstraints();
 		gbc_lblStore.anchor = GridBagConstraints.SOUTH;
 		gbc_lblStore.fill = GridBagConstraints.HORIZONTAL;
@@ -161,13 +166,37 @@ public class StorageLocationUI extends JDialog {
 		contentPane.add(txtAddress, gbc_txtAddress);
 		txtAddress.setColumns(10);
 		
-		chckbxIsAStore = new JCheckBox("Yes, Is a store");
-		GridBagConstraints gbc_chckbxIsAStore = new GridBagConstraints();
-		gbc_chckbxIsAStore.anchor = GridBagConstraints.NORTHWEST;
-		gbc_chckbxIsAStore.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxIsAStore.gridx = 1;
-		gbc_chckbxIsAStore.gridy = 3;
-		contentPane.add(chckbxIsAStore, gbc_chckbxIsAStore);
+		isAStorePanel = new JPanel();
+		GridBagConstraints gbc_isAStorePanel = new GridBagConstraints();
+		gbc_isAStorePanel.insets = new Insets(0, 0, 5, 0);
+		gbc_isAStorePanel.fill = GridBagConstraints.BOTH;
+		gbc_isAStorePanel.gridx = 1;
+		gbc_isAStorePanel.gridy = 3;
+		contentPane.add(isAStorePanel, gbc_isAStorePanel);
+		GridBagLayout gbl_isAStorePanel = new GridBagLayout();
+		gbl_isAStorePanel.columnWidths = new int[]{0, 0, 0};
+		gbl_isAStorePanel.rowHeights = new int[]{0, 0};
+		gbl_isAStorePanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_isAStorePanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		isAStorePanel.setLayout(gbl_isAStorePanel);
+		
+		rdbtnStoreYes = new JRadioButton("Yes");
+		rdbtnStoreYes.setSelected(true);
+		buttonGroup.add(rdbtnStoreYes);
+		GridBagConstraints gbc_rdbtnStoreYes = new GridBagConstraints();
+		gbc_rdbtnStoreYes.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnStoreYes.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnStoreYes.gridx = 0;
+		gbc_rdbtnStoreYes.gridy = 0;
+		isAStorePanel.add(rdbtnStoreYes, gbc_rdbtnStoreYes);
+		
+		rdbtnStoreNo = new JRadioButton("No");
+		buttonGroup.add(rdbtnStoreNo);
+		GridBagConstraints gbc_rdbtnStoreNo = new GridBagConstraints();
+		gbc_rdbtnStoreNo.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnStoreNo.gridx = 1;
+		gbc_rdbtnStoreNo.gridy = 0;
+		isAStorePanel.add(rdbtnStoreNo, gbc_rdbtnStoreNo);
 		
 		
 		btnSubmit = new JButton("Update");
@@ -219,17 +248,20 @@ public class StorageLocationUI extends JDialog {
 	// Makes the text fields uneditable
 	private void disableFields() {
 		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField || c instanceof JTextArea || c instanceof JCheckBox) {
+			   if (c instanceof JTextField || c instanceof JTextArea || c instanceof JRadioButton) {
 				      c.setEnabled(false);
 				   }
 			}
+		// TODO: FIX THIS HACK LATER
+		rdbtnStoreYes.setEnabled(false);
+		rdbtnStoreNo.setEnabled(false);
 	}
 	
 	
 	// Makes the text fields editable except ID & Type field
 	private void enableFields() {
 		for (Component c : this.getContentPane().getComponents()) {
-			   if (c instanceof JTextField || c instanceof JTextArea|| c instanceof JCheckBox) {
+			   if (c instanceof JTextField || c instanceof JTextArea || c instanceof JRadioButton) {
 			      c.setEnabled(true);
 			   }
 			}
@@ -241,7 +273,11 @@ public class StorageLocationUI extends JDialog {
 		txtID.setText(String.valueOf(storageLocation.ID));
 		txtName.setText(storageLocation.getName());
 		txtAddress.setText(storageLocation.getAddress());
-		chckbxIsAStore.setSelected(storageLocation.getIsAStore());
+		if (storageLocation.getIsAStore()) {
+			rdbtnStoreYes.setSelected(true);
+		} else {
+			rdbtnStoreNo.setSelected(true);
+		}
 	}
 	
 	/**
@@ -285,7 +321,7 @@ public class StorageLocationUI extends JDialog {
 				}
 				
 				// Is a store: no validation needed
-				boolean isAStore = chckbxIsAStore.isSelected();
+				boolean isAStore = rdbtnStoreYes.isSelected() ? true : false;
 				
 				// if mode == view, update data
 				if (mode == Mode.EDIT) {
