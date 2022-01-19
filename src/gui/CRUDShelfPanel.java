@@ -38,6 +38,8 @@ public class CRUDShelfPanel extends JPanel {
 	private JLink btnDisable;
 
 	AuthenticationController auth;
+	private JScrollPane scrollPanelStockBatches;
+	private JTable tableStockBatches;
 
 	/**
 	 * Create the dialog.
@@ -46,83 +48,116 @@ public class CRUDShelfPanel extends JPanel {
 	public CRUDShelfPanel(AuthenticationController auth) {
 		this.auth = auth;
 		stockCtrl = new StockController();
-		setLayout(new BorderLayout(0, 0));
 		
 		tableModel = new ShelfTableModel(stockCtrl.getShelves());
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{450, 0};
+		gridBagLayout.rowHeights = new int[]{50, 139, 21, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		setLayout(gridBagLayout);
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
-		this.add(topPanel, BorderLayout.NORTH);
+		GridBagConstraints gbc_topPanel = new GridBagConstraints();
+		gbc_topPanel.anchor = GridBagConstraints.NORTH;
+		gbc_topPanel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_topPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_topPanel.gridx = 0;
+		gbc_topPanel.gridy = 0;
+		this.add(topPanel, gbc_topPanel);
 		GridBagLayout gbl_topPanel = new GridBagLayout();
 		gbl_topPanel.columnWidths = new int[]{0, 0, 0};
 		gbl_topPanel.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_topPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
-			// ***** Title *****
-			JLabel lblTitle = new JLabel("Shelf");
-			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-			gbc_lblTitle.gridwidth = 2;
-			gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
-			gbc_lblTitle.gridx = 0;
-			gbc_lblTitle.gridy = 0;
-			topPanel.add(lblTitle, gbc_lblTitle);
-			
-			// ***** button: Add Shelf  *****
-			btnAddContractor = new JButton("Add Shelf");
-			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-			gbc_btnNewButton.gridx = 1;
-			gbc_btnNewButton.gridy = 1;
-			topPanel.add(btnAddContractor, gbc_btnNewButton);
+		// ***** Title *****
+		JLabel lblTitle = new JLabel("Shelf");
+		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+		gbc_lblTitle.gridwidth = 2;
+		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTitle.gridx = 0;
+		gbc_lblTitle.gridy = 0;
+		topPanel.add(lblTitle, gbc_lblTitle);
+		
+		// ***** button: Add Shelf  *****
+		btnAddContractor = new JButton("Add Shelf");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 1;
+		topPanel.add(btnAddContractor, gbc_btnNewButton);
 		
 		// ***** Middle panel: Scroll panel *****
-		JScrollPane scrollPanel = new JScrollPane();
-		add(scrollPanel, BorderLayout.CENTER);
-			// ***** Table *****
-			tableMain = new JTable();
-			tableMain.setModel(tableModel);
-			tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			scrollPanel.setViewportView(tableMain);
+		JScrollPane scrollPanelMain = new JScrollPane();
+		GridBagConstraints gbc_scrollPanelMain = new GridBagConstraints();
+		gbc_scrollPanelMain.fill = GridBagConstraints.BOTH;
+		gbc_scrollPanelMain.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPanelMain.gridx = 0;
+		gbc_scrollPanelMain.gridy = 1;
+		add(scrollPanelMain, gbc_scrollPanelMain);
+		// ***** Table *****
+		tableMain = new JTable();
+		tableMain.setModel(tableModel);
+		tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPanelMain.setViewportView(tableMain);
 		
 		// ***** Bottom panel *****
 		JPanel bottomPanel = new JPanel();
-		this.add(bottomPanel, BorderLayout.SOUTH);
+		GridBagConstraints gbc_bottomPanel = new GridBagConstraints();
+		gbc_bottomPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_bottomPanel.anchor = GridBagConstraints.NORTH;
+		gbc_bottomPanel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_bottomPanel.gridx = 0;
+		gbc_bottomPanel.gridy = 2;
+		this.add(bottomPanel, gbc_bottomPanel);
 		GridBagLayout gbl_bottomPanel = new GridBagLayout();
 		gbl_bottomPanel.columnWidths = new int[]{271, 0, 0, 0, 0};
 		gbl_bottomPanel.rowHeights = new int[]{21, 0};
 		gbl_bottomPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
-			
-			// ***** View button *****
-			btnView = new JLink("View", COLORS.GREEN);
-			GridBagConstraints gbc_btnView = new GridBagConstraints();
-			gbc_btnView.insets = new Insets(0, 0, 0, 5);
-			gbc_btnView.gridx = 1;
-			gbc_btnView.gridy = 0;
-			bottomPanel.add(btnView, gbc_btnView);
-			
-			// ***** Edit button *****
-			btnEdit = new JLink("Edit", COLORS.INDIGO);
-			GridBagConstraints gbc_btnEdit = new GridBagConstraints();
-			gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
-			gbc_btnEdit.gridx = 2;
-			gbc_btnEdit.gridy = 0;
-			bottomPanel.add(btnEdit, gbc_btnEdit);
-			
-			
-			// ***** Disable button *****
-			btnDisable = new JLink("Delete", COLORS.RED);
-			GridBagConstraints gbc_btnDisable = new GridBagConstraints();
-			gbc_btnDisable.gridx = 3;
-			gbc_btnDisable.gridy = 0;
-			bottomPanel.add(btnDisable, gbc_btnDisable);
+		
+		// ***** View button *****
+		btnView = new JLink("View", COLORS.GREEN);
+		GridBagConstraints gbc_btnView = new GridBagConstraints();
+		gbc_btnView.insets = new Insets(0, 0, 0, 5);
+		gbc_btnView.gridx = 1;
+		gbc_btnView.gridy = 0;
+		bottomPanel.add(btnView, gbc_btnView);
+		
+		// ***** Edit button *****
+		btnEdit = new JLink("Edit", COLORS.INDIGO);
+		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
+		gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEdit.gridx = 2;
+		gbc_btnEdit.gridy = 0;
+		bottomPanel.add(btnEdit, gbc_btnEdit);
+		
+		
+		// ***** Disable button *****
+		btnDisable = new JLink("Delete", COLORS.RED);
+		GridBagConstraints gbc_btnDisable = new GridBagConstraints();
+		gbc_btnDisable.gridx = 3;
+		gbc_btnDisable.gridy = 0;
+		bottomPanel.add(btnDisable, gbc_btnDisable);
 		
 		// By default: all selection buttons disabled
 		btnView.setEnabled(false);
 		btnEdit.setEnabled(false);
 		btnDisable.setEnabled(false);
+		
+		scrollPanelStockBatches = new JScrollPane();
+		GridBagConstraints gbc_scrollPanelStockBatches = new GridBagConstraints();
+		gbc_scrollPanelStockBatches.fill = GridBagConstraints.BOTH;
+		gbc_scrollPanelStockBatches.gridx = 0;
+		gbc_scrollPanelStockBatches.gridy = 3;
+		add(scrollPanelStockBatches, gbc_scrollPanelStockBatches);
+		
+		tableStockBatches = new JTable();
+		tableStockBatches.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPanelStockBatches.setViewportView(tableStockBatches);
 		
 		// Attach event handler
 		this.addEventHandlers();
