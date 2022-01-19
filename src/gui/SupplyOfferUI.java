@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import controller.SupplyController;
 import model.Contractor;
+import model.PrimaryKey;
 import model.Product;
 import model.SupplyOffer;
 
@@ -309,6 +310,8 @@ public class SupplyOfferUI extends JDialog {
 				btnSubmit.setText("Create");
 				// Enable fields
 				this.enableFields();
+				// Peek ID
+				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.SUPPLY_OFFER)));
 		}	
 
 		addEventHandlers();

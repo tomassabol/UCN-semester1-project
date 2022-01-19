@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import controller.EmployeeController;
 import model.IFEmployee;
+import model.PrimaryKey;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -245,6 +246,8 @@ public class EmployeeUI extends JDialog {
 				btnOk.setText("Create");
 				// enable fields
 				this.enableFields();
+				// Peek ID
+				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.EMPLOYEE)));
 				
 		}	
 

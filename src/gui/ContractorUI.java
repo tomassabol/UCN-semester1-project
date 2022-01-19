@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import controller.ContractorController;
 import model.Contractor;
+import model.PrimaryKey;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -150,6 +151,7 @@ public class ContractorUI extends JDialog {
 				// Enable fields for editing
 				this.enableFields();
 				break;
+				
 		}	
 
 		addEventHandlers();
