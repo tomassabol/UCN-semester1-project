@@ -42,7 +42,7 @@ public class CustomerTypeUI extends JDialog {
 	private JFormattedTextField txtDiscount;
 
 	/**
-	 * Constructor: create new product
+	 * Constructor: create new customer type
 	 *
 	 * @param auth the auth controller 
 	 */
@@ -51,7 +51,7 @@ public class CustomerTypeUI extends JDialog {
 	}
 	
 	/**
-	 * Constructor: create new product
+	 * Constructor: create new customer type
 	 *
 	 * @param auth the auth controller 
 	 * @param customerType the customer type
@@ -189,10 +189,10 @@ public class CustomerTypeUI extends JDialog {
 	 */
 	
 	/**
-	 * Gets the product.
-	 * Useful for Create mode (to get the created product)
+	 * Gets the customer type.
+	 * Useful for Create mode (to get the created customer type)
 	 *
-	 * @return the product
+	 * @return the customer type
 	 */
 	public CustomerType getCustomerType() {
 		return this.customerType;
@@ -232,13 +232,13 @@ public class CustomerTypeUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 		
-		// 'update' button: Update the product
+		// 'update' button: Update the customer type
 		btnSubmit.addActionListener(e -> {
 			String message = "";
 			if (mode == Mode.EDIT) {
-				message = "Are you sure you want to update the changes to product?";
+				message = "Are you sure you want to update the changes to customer type?";
 			} else if (mode == Mode.CREATE) {
-				message = "Create product?";
+				message = "Create customer type?";
 			}
 			if (Messages.confirm(CustomerTypeUI.this, message)) {
 				
@@ -255,16 +255,14 @@ public class CustomerTypeUI extends JDialog {
 					return;
 				}
 				
-				
 				// if mode == view, update data
 				if (mode == Mode.EDIT) {
 					
 					customerCtrl.updateCustomerTypeName(customerType, name);
 				} else if (mode == Mode.CREATE) {
-					// if mode == Create, create a new product
+					// if mode == Create, create a new customer type
 					this.customerType = customerCtrl.createCustomerType(name, 0);
 				}
-
 
 				
 			}
