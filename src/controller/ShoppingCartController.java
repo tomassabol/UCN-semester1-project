@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.NullPriceException;
 import exceptions.OutOfStockException;
 import model.Product;
 import model.ShoppingCart;
@@ -22,13 +23,19 @@ public class ShoppingCartController {
 	 * @return true, if successful
 	 * 
 	 * @exception IllegalArgumentException when quantity <= 0, and when product or shoppingCart is null
-	 * @exception IllegalArgumentException When adding product that doesn't have a buy price
+	 * @exception NullPriceEception When a product's buy price is null
 	 */
-	public ShoppingItemLine addProduct(ShoppingCart shoppingCart, Product product, int quantity)  throws OutOfStockException  {
+	public ShoppingItemLine addProduct(ShoppingCart shoppingCart, Product product, int quantity)  throws OutOfStockException, NullPriceException  {
 		// Validation
 		if (shoppingCart == null || product == null || quantity <= 0) {
 			throw new IllegalArgumentException();
 		}
+		
+		// A product must have a buy price
+		if (product.getLatestSellingPrice() == null) {
+			throw new NullPriceException("Cannot add a product to cart with no (buy) price!");
+		}
+		
 		
 		// if product already in cart, store the itemLine
 		ShoppingItemLine alreadyInCart = null;
