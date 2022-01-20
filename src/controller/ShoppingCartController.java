@@ -211,7 +211,7 @@ public class ShoppingCartController {
 			ShoppingItemLine itemLine = itemLines.next();
 			
 			int quantityInStock = stockCtrl.getBuyableQuantityInStock(itemLine.getPRODUCT());
-			if (itemLine.getQuantity() < quantityInStock && quantityInStock > 0) {
+			if (itemLine.getQuantity() > quantityInStock && quantityInStock > 0) {
 				itemLine.setQuantity(quantityInStock);
 				adjustedItemLines.add(itemLine);
 			}

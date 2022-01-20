@@ -376,7 +376,7 @@ public class ManageShoppingCart extends JDialog {
 			tableModel.remove(row);
 		}
 		for (ShoppingItemLine itemLine: adjustedItemLines) {
-			tableModel.updateQuantity(itemLine);
+			tableModel.updateItemLine(itemLine);
 		}
 		
 		// Show a message
@@ -385,12 +385,12 @@ public class ManageShoppingCart extends JDialog {
 					"The shopping cart was adjusted as some of the item availability has changed."
 					+ "\nItems impacted:");
 			for (ShoppingItemLine itemLine: removedItemLines) {
-				msg.append(String.format("%n Removed: (%d) %s",
+				msg.append(String.format("%nRemoved: (%d) %s",
 						itemLine.getPRODUCT().ID ,
 						itemLine.getPRODUCT().getName()));
 			}
 			for (ShoppingItemLine itemLine: adjustedItemLines) {
-				msg.append(String.format("%n Adjusted quantity: (%d) %s",
+				msg.append(String.format("%nAdjusted quantity for: (%d) %s",
 						itemLine.getPRODUCT().ID ,
 						itemLine.getPRODUCT().getName()));
 			}
