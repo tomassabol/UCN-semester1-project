@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -299,9 +301,11 @@ public class ManageShoppingCart extends JDialog {
 	}
 	
 	/**
+	 * Adjusts shopping cart depending on item availability
 	 * Enables create quote if shopping cart is not empty, else disables
 	 */
 	private void toggleCreateQuote() {
+		_adjustUnbuyable();
 		if (customer.getShoppingCart().isEmpty()) {
 			btnCreateQuote.setEnabled(false);
 		} else {
@@ -317,6 +321,8 @@ public class ManageShoppingCart extends JDialog {
 		frame.setVisible(true);
 		// Refresh price section, no matter what was done in the UI
 		refreshPriceSection();
+		// Toggle create quote if needed
+		toggleCreateQuote();
 		
 		if (frame.isProductSelected()) {
 			Product product = frame.getSelectedProduct();
@@ -349,6 +355,30 @@ public class ManageShoppingCart extends JDialog {
 			// Enable 'create quote button'
 			this.toggleCreateQuote();
 		}
+	}
+	
+	// Remove unbuyable items from cart and show an error message
+	// Note: for private use in other methods
+	private void _adjustUnbuyable() {
+		List<ShoppingItemLine> adjustedItemLines =
+				shoppingCartCtrl.removeUnbuyableItems(customer.getShoppingCart());
+		
+		// If removed some items, show an error message
+		if (!adjustedItemLines.isEmpty()) {
+			StringBuilder msg = new StringBuilder(
+					"The shopping cart was adjusted as some of the item availability has changed."
+					+ "\nItems impacted:");
+			for (ShoppingItemLine itemLine: adjustedItemLines) {
+				msg.append(String.format("%n (%d) %s",
+						itemLine.getPRODUCT().ID ,
+						itemLine.getPRODUCT().getName()));
+			}
+			Messages.info(this, msg.toString());
+			
+			// Update table for the adjusted item lines
+			tableModel.fireTableDataChanged();
+		}
+		
 	}
 	
 	/*

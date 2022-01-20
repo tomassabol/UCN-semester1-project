@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import exceptions.DisabledStateException;
@@ -157,31 +158,37 @@ public class ShoppingCartController {
 		StockController stockCtrl = new StockController();
 		
 		// Keep track of item lines to remove
-		List<ShoppingItemLine> removableItemLines = new ArrayList<>();
+		List<ShoppingItemLine> removedItemLines = new ArrayList<>();
 		
-		for (ShoppingItemLine itemLine: shoppingCart.getItemLines()) {
+		Iterator<ShoppingItemLine> itemLines = shoppingCart.getItemLines().iterator();
+		while (itemLines.hasNext()) {
+			ShoppingItemLine itemLine = itemLines.next();
+			
 			// if no price
 			if (itemLine.getPRODUCT().getLatestSellingPrice() == null) {
-				removableItemLines.add(itemLine);
+				itemLines.remove();
+				removedItemLines.add(itemLine);
 			}
 			
 			// if disabled
 			if (!itemLine.getPRODUCT().isEnabled()) {
-				removableItemLines.add(itemLine);
+				itemLines.remove();
+				removedItemLines.add(itemLine);
 			}
-			// if out of stock
-			if (stockCtrl.getBuyableQuantityInStock(itemLine.getPRODUCT()) < itemLine.getQuantity()) {
-				removableItemLines.add(itemLine);
+			
+			// if available quantity < required: 
+					// set to quantity IN STOCK,
+					// or remove if 'in stock quantity' <= 0
+			int quantityInStock = stockCtrl.getBuyableQuantityInStock(itemLine.getPRODUCT());
+			if (quantityInStock <= 0) {
+				itemLines.remove();
+				removedItemLines.add(itemLine);
 			}
-		}
-		
-		// Remove item lines from cart
-		for (ShoppingItemLine itemLine: removableItemLines) {
-			shoppingCart.remove(itemLine);
+			
 		}
 		
 		// return removed item lines
-		return removableItemLines;
+		return removedItemLines;
 	}
 	
 
