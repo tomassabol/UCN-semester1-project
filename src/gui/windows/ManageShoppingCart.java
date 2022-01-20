@@ -315,6 +315,8 @@ public class ManageShoppingCart extends JDialog {
 	private void addItem() {
 		ShoppingCartUI frame = new ShoppingCartUI(auth);
 		frame.setVisible(true);
+		// Refresh price section, no matter what was done in the UI
+		refreshPriceSection();
 		
 		if (frame.isProductSelected()) {
 			Product product = frame.getSelectedProduct();
@@ -336,8 +338,12 @@ public class ManageShoppingCart extends JDialog {
 				this.addItem();
 			} catch (DisabledStateException e2) {
 				Messages.error(this, "Cannot add a disabled product to a shopping cart!");
+				// Show the 'add to cart' window, again.
+				this.addItem();
 			} catch (NullPriceException e3) {
 				Messages.error(this, "Cannot add a product with no price to shopping cart!");
+				// Show the 'add to cart' window, again.
+				this.addItem();
 			}
 			
 			// Enable 'create quote button'
