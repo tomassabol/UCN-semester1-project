@@ -357,26 +357,45 @@ public class ManageShoppingCart extends JDialog {
 		}
 	}
 	
-	// Remove unbuyable items from cart and show an error message
-	// Note: for private use in other methods
+	/**
+	 * Remove unbuyable items from cart & adjusts quantity depending on availability
+	 * Shows a message for the impacted items
+	 *
+	 * Note: this is for private use in other methods
+	 */
 	private void _adjustUnbuyable() {
-		List<ShoppingItemLine> adjustedItemLines =
+		List<ShoppingItemLine> removedItemLines =
 				shoppingCartCtrl.removeUnbuyableItems(customer.getShoppingCart());
+		List<ShoppingItemLine> adjustedItemLines = 
+				shoppingCartCtrl.adjustQuantity(customer.getShoppingCart());
 		
-		// If removed some items, show an error message
-		if (!adjustedItemLines.isEmpty()) {
+		
+		// If removed or adjusted items, show a message
+		if (!removedItemLines.isEmpty()) {
 			StringBuilder msg = new StringBuilder(
 					"The shopping cart was adjusted as some of the item availability has changed."
 					+ "\nItems impacted:");
+			for (ShoppingItemLine itemLine: removedItemLines) {
+				msg.append(String.format("Removed: %n (%d) %s",
+						itemLine.getPRODUCT().ID ,
+						itemLine.getPRODUCT().getName()));
+			}
 			for (ShoppingItemLine itemLine: adjustedItemLines) {
-				msg.append(String.format("%n (%d) %s",
+				msg.append(String.format("Adjusted quantity: %n (%d) %s",
 						itemLine.getPRODUCT().ID ,
 						itemLine.getPRODUCT().getName()));
 			}
 			Messages.info(this, msg.toString());
 			
-			// Update table for the adjusted item lines
-			tableModel.fireTableDataChanged();
+			// Update table for the adjusted/removed item lines
+			for (ShoppingItemLine itemLine: removedItemLines) {
+				int row = 0;
+				tableModel.fireTableRowsDeleted(row, row);
+			}
+			for (ShoppingItemLine itemLine: adjustedItemLines) {
+				int row = 0;
+				tableModel.fireTableRowsDeleted(row, row);
+			}
 		}
 		
 	}

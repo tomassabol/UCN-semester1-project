@@ -191,5 +191,35 @@ public class ShoppingCartController {
 		return removedItemLines;
 	}
 	
+	/**
+	 * Sets item lines' quantity to available quantity if stock has less than the required item amount
+	 * 
+	 * @requires StockController
+	 *
+	 * @param shoppingCart the shopping cart
+	 * @return A list of removed ShoppingItemLine's
+	 */
+	public List<ShoppingItemLine> adjustQuantity(ShoppingCart shoppingCart) {
+		// initialize Stock Controller
+		StockController stockCtrl = new StockController();
+		
+		// Keep track of item lines to remove
+		List<ShoppingItemLine> adjustedItemLines = new ArrayList<>();
+		
+		Iterator<ShoppingItemLine> itemLines = shoppingCart.getItemLines().iterator();
+		while (itemLines.hasNext()) {
+			ShoppingItemLine itemLine = itemLines.next();
+			
+			int quantityInStock = stockCtrl.getBuyableQuantityInStock(itemLine.getPRODUCT());
+			if (itemLine.getQuantity() < quantityInStock && quantityInStock > 0) {
+				itemLine.setQuantity(quantityInStock);
+				adjustedItemLines.add(itemLine);
+			}
+		}
+			
+		// Return adjusted item lines
+		return adjustedItemLines;
+	}
+	
 
 }
