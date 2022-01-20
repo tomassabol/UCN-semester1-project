@@ -19,7 +19,6 @@ import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.EmployeeTableModel;
 import gui.windows.objects.EmployeeUI;
-import gui.windows.objects.EmployeeUI.Mode;
 import model.Employee;
 import model.IFEmployee;
 

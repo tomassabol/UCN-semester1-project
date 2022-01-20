@@ -1,12 +1,7 @@
 package gui.panels;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,7 +9,6 @@ import javax.swing.ListSelectionModel;
 
 import controller.AuthenticationController;
 import controller.StockController;
-import gui.JLink.COLORS;
 import gui.panels.tableModels.ShelfTableModel;
 import model.Shelf;
 

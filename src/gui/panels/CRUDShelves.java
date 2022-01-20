@@ -1,6 +1,5 @@
 package gui.panels;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -21,10 +20,7 @@ import gui.JLink.COLORS;
 import gui.panels.tableModels.ShelfTableModel;
 import gui.panels.tableModels.StockBatchTableModel;
 import gui.windows.objects.ShelfUI;
-import gui.windows.objects.ShelfUI.Mode;
-import model.Quote;
 import model.Shelf;
-import model.StockBatch;
 
 /**
  * @author Daniels Kanepe

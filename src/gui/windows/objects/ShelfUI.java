@@ -8,11 +8,8 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.StockController;
-import gui.Common;
 import gui.Messages;
-import gui.windows.ChooseCustomerType;
 import gui.windows.ChooseStorageLocation;
-import gui.windows.objects.CustomerUI.Mode;
 import model.PrimaryKey;
 import model.Shelf;
 import model.StorageLocation;
@@ -25,10 +22,6 @@ import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe

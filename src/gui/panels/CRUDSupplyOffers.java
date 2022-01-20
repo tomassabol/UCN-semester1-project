@@ -19,7 +19,6 @@ import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.SupplyOfferTableModel;
 import gui.windows.objects.SupplyOfferUI;
-import gui.windows.objects.SupplyOfferUI.Mode;
 import model.Product;
 import model.SupplyOffer;
 
@@ -152,8 +151,8 @@ public class CRUDSupplyOffers extends JPanel {
 	public boolean selectCustomer(SupplyOffer supplyOffer) {
 		int rows = tableModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			SupplyOffer foundStorageLocation = tableModel.getObj(i);
-			if (foundStorageLocation == supplyOffer) {
+			SupplyOffer foundSupplyOffer = tableModel.getObj(i);
+			if (foundSupplyOffer == supplyOffer) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
 			}

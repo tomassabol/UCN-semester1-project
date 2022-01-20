@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JButton;
@@ -27,11 +26,6 @@ import gui.JLink.COLORS;
 import gui.panels.tableModels.ProductTableModel;
 import gui.panels.tableModels.ProductTableModel.Column;
 import gui.windows.objects.ProductUI;
-import gui.windows.objects.ProductUI.Mode;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 /**
  * @author Daniels Kanepe
  *

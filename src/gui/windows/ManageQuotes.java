@@ -22,10 +22,6 @@ import model.Order;
 import model.Quote;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Daniels Kanepe
@@ -35,7 +31,6 @@ public class ManageQuotes extends JDialog {
 	private AuthenticationController auth;
 	private Customer customer;
 	private JPanel contentPane;
-	private JTable table;
 	private QuotesTableModel quotesTableModel;
 	private QuotesItemTableModel itemTableModel;
 	

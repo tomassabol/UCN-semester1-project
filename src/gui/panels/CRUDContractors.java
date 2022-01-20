@@ -19,7 +19,6 @@ import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.ContractorTableModel;
 import gui.windows.objects.ContractorUI;
-import gui.windows.objects.ContractorUI.Mode;
 import model.Contractor;
 
 /**

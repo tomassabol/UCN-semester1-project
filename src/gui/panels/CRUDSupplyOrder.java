@@ -14,45 +14,40 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import controller.AuthenticationController;
-import controller.StockController;
+import controller.SupplyController;
+import model.Product;
+import model.SupplyOrder;
 
 import javax.swing.ListSelectionModel;
 
 import gui.JLink;
-import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModels.StorageLocationTableModel;
-import gui.windows.objects.StorageLocationUI;
-import model.StorageLocation;
+import gui.panels.tableModels.SupplyOrderTableModel;
+import gui.windows.objects.SupplyOrderUI;
 
-/**
- * @author Daniels Kanepe
- *
- */
-public class CRUDStorageLocations extends JPanel {
+public class CRUDSupplyOrder extends JPanel {
 	
 	
-	private JButton btnAdd;
-	private StockController stockCtrl;
-	
+	private JButton btnAddSupplyOrder;
+	private SupplyController supplyCtrl;
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
-	private StorageLocationTableModel tableModel;
+	private SupplyOrderTableModel tableModel;
 	private JLink btnView;
-	private JLink btnEdit;
-	private JLink btnDisable;
-	
 	AuthenticationController auth;
+	Product product;
 
 	/**
 	 * Create the dialog.
+	 * Constructor class CRUDCustomersPanel
 	 */
-	public CRUDStorageLocations(AuthenticationController auth) {
+	public CRUDSupplyOrder(AuthenticationController auth, Product product) {
 		this.auth = auth;
-		stockCtrl = new StockController();
+		this.product = product;
+		supplyCtrl = new SupplyController();
 		setLayout(new BorderLayout(0, 0));
 		
-		tableModel = new StorageLocationTableModel(stockCtrl.getStorageLocations());
+		tableModel = new SupplyOrderTableModel(supplyCtrl.getSupplyOrders());
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
@@ -65,7 +60,7 @@ public class CRUDStorageLocations extends JPanel {
 		topPanel.setLayout(gbl_topPanel);
 			// ***** Title *****
 			JLabel lblTitle = new JLabel(
-					String.format("Storage Locations")
+					String.format("Supply Orders")
 			);
 			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 			gbc_lblTitle.gridwidth = 2;
@@ -74,13 +69,13 @@ public class CRUDStorageLocations extends JPanel {
 			gbc_lblTitle.gridy = 0;
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
-			// ***** button: Add product  *****
-			btnAdd = new JButton("Add Storage Location");
-			GridBagConstraints gbc_btnAdd = new GridBagConstraints();
-			gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
-			gbc_btnAdd.gridx = 1;
-			gbc_btnAdd.gridy = 1;
-			topPanel.add(btnAdd, gbc_btnAdd);
+			// ***** button: Add customer  *****
+			btnAddSupplyOrder = new JButton("Add Supply Order");
+			GridBagConstraints gbc_btnAddSupplyOrder = new GridBagConstraints();
+			gbc_btnAddSupplyOrder.insets = new Insets(0, 0, 5, 0);
+			gbc_btnAddSupplyOrder.gridx = 1;
+			gbc_btnAddSupplyOrder.gridy = 1;
+			topPanel.add(btnAddSupplyOrder, gbc_btnAddSupplyOrder);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
@@ -100,35 +95,16 @@ public class CRUDStorageLocations extends JPanel {
 		gbl_bottomPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
-			
-			// ***** View button *****
-			btnView = new JLink("View", COLORS.GREEN);
-			GridBagConstraints gbc_btnView = new GridBagConstraints();
-			gbc_btnView.insets = new Insets(0, 0, 0, 5);
-			gbc_btnView.gridx = 1;
-			gbc_btnView.gridy = 0;
-			bottomPanel.add(btnView, gbc_btnView);
-			
-			// ***** Edit button *****
-			btnEdit = new JLink("Edit", COLORS.INDIGO);
-			GridBagConstraints gbc_btnEdit = new GridBagConstraints();
-			gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
-			gbc_btnEdit.gridx = 2;
-			gbc_btnEdit.gridy = 0;
-			bottomPanel.add(btnEdit, gbc_btnEdit);
-			
-			
-			// ***** Disable button *****
-			btnDisable = new JLink("Delete", COLORS.RED);
-			GridBagConstraints gbc_btnDisable = new GridBagConstraints();
-			gbc_btnDisable.gridx = 3;
-			gbc_btnDisable.gridy = 0;
-			bottomPanel.add(btnDisable, gbc_btnDisable);
+		
+		// ***** View button *****
+		btnView = new JLink("View", COLORS.GREEN);
+		GridBagConstraints gbc_btnView = new GridBagConstraints();
+		gbc_btnView.gridx = 3;
+		gbc_btnView.gridy = 0;
+		bottomPanel.add(btnView, gbc_btnView);
 		
 		// By default: all selection buttons disabled
 		btnView.setEnabled(false);
-		btnEdit.setEnabled(false);
-		btnDisable.setEnabled(false);
 		
 		// Attach event handler
 		this.addEventHandlers();
@@ -140,26 +116,32 @@ public class CRUDStorageLocations extends JPanel {
 	 * *******************************************************
 	 */
 	
+	/**
+	 * @return JTable tableMain
+	 */
 	public JTable getTable() {
 		return tableMain;
 	}
 	
-	public StorageLocationTableModel getTableModel() {
+	/**
+	 * @return CustomerTableModel tableModel
+	 */
+	public SupplyOrderTableModel getTableModel() {
 		return tableModel;
 	}
 	
 
 	/**
-	 * Select a storage location in the CRUD table.
+	 * Select a customer in the CRUD table.
 	 *
-	 * @param StorageLocation
+	 * @param customer the customer
 	 * @return true, if successful
 	 */
-	public boolean selectCustomer(StorageLocation storageLocation) {
+	public boolean selectCustomer(SupplyOrder supplyOrder) {
 		int rows = tableModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			StorageLocation foundStorageLocation = tableModel.getObj(i);
-			if (foundStorageLocation == storageLocation) {
+			SupplyOrder foundSupplyOrder = tableModel.getObj(i);
+			if (foundSupplyOrder == supplyOrder) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
 			}
@@ -179,50 +161,26 @@ public class CRUDStorageLocations extends JPanel {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				// Not selected
 				btnView.setEnabled(false);
-				btnEdit.setEnabled(true);
-				btnDisable.setEnabled(true);
 			} else {
 				// Selected
 				btnView.setEnabled(true);
-				btnEdit.setEnabled(true);
-				btnDisable.setEnabled(true);
-			}
-		});
-		
-		// Delete storage location
-		btnDisable.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
-			StorageLocation storageLocation = tableModel.getObj(row);
-			if (Messages.confirm(this, String.format("Are you sure you wish to delete the storage location '%s'?",
-					storageLocation.getName()))) {
-				stockCtrl.removeStorageLocation(storageLocation);
-				tableModel.remove(row);
 			}
 		});
 
-		// View storage location
+		// View supply order
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			StorageLocation storageLocation = tableModel.getObj(row);
-			StorageLocationUI frame = new StorageLocationUI(auth, storageLocation, StorageLocationUI.Mode.VIEW);
+			SupplyOrder supplyOrder = tableModel.getObj(row);
+			SupplyOrderUI frame = new SupplyOrderUI(auth, supplyOrder, product, SupplyOrderUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 
-		// Edit storage location
-		btnEdit.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
-			StorageLocation storageLocation = tableModel.getObj(row);
-			StorageLocationUI frame = new StorageLocationUI(auth, storageLocation, StorageLocationUI.Mode.EDIT);
+		// 'ADD supply order' button
+		btnAddSupplyOrder.addActionListener(e -> {
+			SupplyOrderUI frame = new SupplyOrderUI(auth, product);
 			frame.setVisible(true);
-			tableModel.fireTableRowsUpdated(row, row);
-		});
-
-		// 'ADD' storage location button
-		btnAdd.addActionListener(e -> {
-			StorageLocationUI frame = new StorageLocationUI(auth);
-			frame.setVisible(true);
-			if (frame.getStorageLocation() != null) {
-				tableModel.add(frame.getStorageLocation());
+			if (frame.getSupplyOrder() != null) {
+				tableModel.add(frame.getSupplyOrder());
 			}
 		});
 	}

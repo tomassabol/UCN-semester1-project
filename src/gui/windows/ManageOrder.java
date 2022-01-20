@@ -22,7 +22,6 @@ import gui.panels.tableModels.OrdersItemTableModel;
 import gui.panels.tableModels.OrdersTableModel;
 import model.Customer;
 import model.Order;
-import model.Quote;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
@@ -39,7 +38,6 @@ public class ManageOrder extends JDialog {
 	private AuthenticationController auth;
 	private Customer customer;
 	private JPanel contentPane;
-	private JTable table;
 	private OrdersTableModel ordersTableModel;
 	private OrdersItemTableModel itemTableModel;
 	

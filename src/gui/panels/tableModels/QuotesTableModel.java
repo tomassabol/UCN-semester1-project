@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import controller.QuoteController;
 import model.Quote;
 
 /**
@@ -26,7 +25,6 @@ public class QuotesTableModel extends AbstractTableModel {
     };
 
     private List<Quote> quotes;
-    private QuoteController quoteCtrl;
 
     
 
@@ -36,7 +34,6 @@ public class QuotesTableModel extends AbstractTableModel {
      * @param quotes the quotes
      */
     public QuotesTableModel(List<Quote> quotes) {
-    	this.quoteCtrl = new QuoteController();
         // Copying due to accidental mutation (theoretically all fields are constants),
     	//but also consistent order
         this.quotes = new ArrayList<Quote>(quotes);

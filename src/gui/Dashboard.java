@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import gui.windows.ChooseCustomer;
 import gui.windows.ChooseProduct;
+import gui.windows.ChooseSupplyOffer;
 import gui.windows.ManageContractor;
 import gui.windows.ManageCustomerType;
 import gui.windows.ManageCustomer;
@@ -29,9 +28,11 @@ import gui.windows.ManageQuotes;
 import gui.windows.ManageShelf;
 import gui.windows.ManageStorageLocation;
 import gui.windows.ManageSupplyOffer;
+import gui.windows.ManageSupplyOrderUI;
 import gui.windows.ManageShoppingCart;
 import model.Customer;
 import model.Product;
+import model.SupplyOffer;
 
 /**
  * @author Daniels Kanepe
@@ -41,6 +42,7 @@ public class Dashboard extends JFrame {
 	
 	private Customer customer = null;
 	private Product product = null;
+	private SupplyOffer supplyOffer = null;
 
 	private JPanel contentPane;
 	private AuthenticationController auth;
@@ -158,7 +160,7 @@ public class Dashboard extends JFrame {
 		sellPanel.setLayout(new BorderLayout(0, 0));
 		
 		sellPaneTopPanel = new JPanel();
-		sellPaneTopPanel.setBorder(new EmptyBorder(0, 0, 10, 0));
+		sellPaneTopPanel.setBorder(new EmptyBorder(0, 0, 15, 0));
 		sellPanel.add(sellPaneTopPanel, BorderLayout.NORTH);
 		sellPaneTopPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -538,7 +540,26 @@ public class Dashboard extends JFrame {
 				}
 			}
 		});
-		
+
+		// ***** Manage Supply Orders *****
+		btnSupplyOrders.addActionListener(e -> {
+			ChooseProduct productFrame = new ChooseProduct(auth);
+			productFrame.setVisible(true);
+			if (productFrame.isProductSelected()) {
+				product = productFrame.getSelectedProduct();
+				if (product != null) {
+					ChooseSupplyOffer supplyOfferFrame = new ChooseSupplyOffer(auth, product);
+					supplyOfferFrame.setVisible(true);
+					if (supplyOfferFrame.isSupplyOfferTypeSelected()) {
+						supplyOffer = supplyOfferFrame.getSelectedSupplyOffer();
+						if (supplyOffer != null) {
+							ManageSupplyOrderUI frame = new ManageSupplyOrderUI(auth, product);
+							frame.setVisible(true);
+						}
+					}
+				}
+			}
+		});
 		
 		///////////////////////////////////////////////////////
 		////////////////     People tab     //////////////////

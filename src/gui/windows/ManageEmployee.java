@@ -1,39 +1,25 @@
-/**
- * 
- */
 package gui.windows;
 
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.CustomerController;
 import gui.panels.CRUDEmployees;
-import model.Customer;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTable;
 /**
  * @author Daniels Kanepe
  *
  */
 public class ManageEmployee extends JDialog {
 
-	/**
-	 * 
-	 */
-	private CustomerController customerCtrl;
 	
 	private static final long serialVersionUID = 2968937622159813565L;
 	private final JPanel contentPane;
 	private CRUDEmployees employeesPanel;
-	
-	private Customer selectedCustomer = null;
 	
 	AuthenticationController auth;
 
@@ -44,7 +30,6 @@ public class ManageEmployee extends JDialog {
 	public ManageEmployee(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Manage employees");
-		customerCtrl = new CustomerController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

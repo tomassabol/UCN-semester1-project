@@ -1,14 +1,11 @@
 package gui.panels.tableModels;
 
 
-
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import controller.OrderController;
 import gui.Common;
 import model.Order;
 
@@ -25,14 +22,12 @@ public class OrdersTableModel extends AbstractTableModel {
     };
 
     private List<Order> orders;
-    private OrderController orderCtrl;
 
     
     /**
      * Constructor
      */
     public OrdersTableModel(List<Order> orders) {
-    	this.orderCtrl = new OrderController();
         // Copying due to accidental mutation (theoretically all fields are constants),
     	//but also consistent order
         this.orders = new ArrayList<Order>(orders);

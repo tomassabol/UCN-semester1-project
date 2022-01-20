@@ -1,39 +1,24 @@
-/**
- * 
- */
 package gui.windows;
 
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.CustomerController;
 import gui.panels.CRUDStorageLocations;
-import model.Customer;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTable;
 /**
  * @author Daniels Kanepe
  *
  */
 public class ManageStorageLocation extends JDialog {
 
-	/**
-	 * 
-	 */
-	private CustomerController customerCtrl;
-	
 	private static final long serialVersionUID = 2968937622159813565L;
 	private final JPanel contentPane;
 	private CRUDStorageLocations customersPanel;
-	
-	private Customer selectedCustomer = null;
 	
 	AuthenticationController auth;
 
@@ -44,7 +29,6 @@ public class ManageStorageLocation extends JDialog {
 	public ManageStorageLocation(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Manage storage locations");
-		customerCtrl = new CustomerController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

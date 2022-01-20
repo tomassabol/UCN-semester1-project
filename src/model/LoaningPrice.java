@@ -33,9 +33,6 @@ public class LoaningPrice {
         return this.pricePerHour;
     }
 
-    // No set price by design!!!! If you want to edit the price, add a new one to the container!!!
-    private void setPricePerHour() {};
-
     public LocalDateTime getDateAdded() {
         return this.dateAdded;
     }

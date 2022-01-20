@@ -27,7 +27,6 @@ import exceptions.NullPriceException;
 import exceptions.OutOfStockException;
 import gui.JLink;
 import gui.Messages;
-import gui.JLink.COLORS;
 import gui.panels.tableModels.ShoppingCartTableModel;
 import gui.windows.objects.ShoppingCartUI;
 import model.Customer;
@@ -47,7 +46,6 @@ public class ManageShoppingCart extends JDialog {
 	
 	private Customer customer;
 	private JPanel contentPane;
-	private JTable table;
 	private JButton btnClear;
 	private JButton btnAddItem;
 	private ShoppingCartTableModel tableModel;

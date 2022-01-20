@@ -24,7 +24,6 @@ import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.CustomerTableModel;
 import gui.windows.objects.CustomerUI;
-import gui.windows.objects.CustomerUI.Mode;
 
 /**
  * @author Daniels Kanepe

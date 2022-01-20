@@ -7,37 +7,39 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import gui.panels.CRUDProducts;
-import gui.panels.tableModels.ProductTableModel;
+import gui.panels.CRUDSupplyOffers;
+import gui.panels.tableModels.SupplyOfferTableModel;
 import model.Product;
+import model.SupplyOffer;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.JTable;
 /**
  * @author Daniels Kanepe
  *
  */
-public class ChooseProduct extends JDialog {
-
+public class ChooseSupplyOffer extends JDialog {
+	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
-	private CRUDProducts CRUDPanel;
+	private CRUDSupplyOffers supplyOffersPanel;
 	private JButton btnChoose;
 	
-	private Product selectedProduct = null;
+	private SupplyOffer selectedSupplyOffer = null;
 	
 	AuthenticationController auth;
+    Product product;
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseProduct(AuthenticationController auth) {
+	public ChooseSupplyOffer(AuthenticationController auth, Product product) {
 		this.auth = auth;
-		this.setTitle("Choose a product...");
+        this.product =product;
+		this.setTitle("Choose Supply Offer...");
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -51,13 +53,13 @@ public class ChooseProduct extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		CRUDPanel = new CRUDProducts(auth, CRUDProducts.Mode.ALL);
+		supplyOffersPanel = new CRUDSupplyOffers(auth, product);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		getContentPane().add(CRUDPanel, gbc_panel);
+		getContentPane().add(supplyOffersPanel, gbc_panel);
 		
 		btnChoose = new JButton("Choose...");
 		btnChoose.setEnabled(false);
@@ -75,14 +77,13 @@ public class ChooseProduct extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
-		public boolean isProductSelected() {
-			return selectedProduct != null;
+		public boolean isSupplyOfferTypeSelected() {
+			return selectedSupplyOffer != null;
 		}
 	
-		public Product getSelectedProduct() {
-			return selectedProduct;
+		public SupplyOffer getSelectedSupplyOffer() {
+			return selectedSupplyOffer;
 		}
-
 	
 	/*
 	 * *******************************************************
@@ -90,8 +91,8 @@ public class ChooseProduct extends JDialog {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
-		CRUDPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
-			JTable table = CRUDPanel.getTable();
+		supplyOffersPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
+			JTable table = supplyOffersPanel.getTable();
 			if (table.getSelectionModel().isSelectionEmpty()) {
 				btnChoose.setEnabled(false);
 			} else {
@@ -102,11 +103,11 @@ public class ChooseProduct extends JDialog {
 		
 		// Choose button
 		btnChoose.addActionListener(e -> {
-			JTable table = CRUDPanel.getTable();
+			JTable table = supplyOffersPanel.getTable();
 			if (!table.getSelectionModel().isSelectionEmpty()) {
-				ProductTableModel tableModel = CRUDPanel.getTableModel();
-				Product product = tableModel.getObj(table.getSelectedRow());
-				selectedProduct = product;
+				SupplyOfferTableModel tableModel = supplyOffersPanel.getTableModel();
+				SupplyOffer supplyOffer = tableModel.getObj(table.getSelectedRow());
+				selectedSupplyOffer = supplyOffer;
 				this.dispose();
 			}
 		});

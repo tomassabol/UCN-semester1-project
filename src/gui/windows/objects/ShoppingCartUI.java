@@ -1,6 +1,3 @@
-/**
- * 
- */
 package gui.windows.objects;
 
 

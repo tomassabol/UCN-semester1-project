@@ -46,7 +46,7 @@ public class ProductUI extends JDialog {
 	private Product product;
 	private ProductController productCtrl;
 	private Mode mode;
-	private AuthenticationController auth;
+	AuthenticationController auth;
 
 	/**
 	 * Constructor: create new product

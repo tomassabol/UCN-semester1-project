@@ -8,37 +8,37 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import gui.Common;
-import model.StockBatch;
+import model.SupplyOrder;
 
 /**
  * @author Daniels Kanepe
  *
  */
-public class StockBatchTableModel extends AbstractTableModel {
+public class SupplyOrderTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -2367962812947993282L;
 
 	protected static final String[] COLUMN_NAMES = {
-        "Delivered", "Product", "Quantity"
+        "ID", "Date Ordered", "Delivered", "Product", "Quantity", "Price per Item"
     };
 
-    private List<StockBatch> stockBatches;
+    private List<SupplyOrder> supplyOrders;
 
     
     /**
-     * Instantiates a new Stock Batch table model.
+     * Instantiates a new customer table model.
      *
-     * @param stockBatches The stock batches
+     * @param customers the customers
      */
-    public StockBatchTableModel(List<StockBatch> stockBatches) {
+    public SupplyOrderTableModel(List<SupplyOrder> supplyOrders) {
         // Prevent possible mutation
-        this.stockBatches = new ArrayList<>(stockBatches);
+        this.supplyOrders = new ArrayList<>(supplyOrders);
     }
     
 
     @Override
     public int getRowCount() {
-        return stockBatches.size();
+        return supplyOrders.size();
     }
 
     @Override
@@ -60,13 +60,14 @@ public class StockBatchTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    	StockBatch stockBatch = stockBatches.get(rowIndex);
+    	SupplyOrder supplyOrder = supplyOrders.get(rowIndex);
         switch (columnIndex) {
-        	case 0: return Common.datetimeToString(stockBatch.getDelivered());
-        	case 1: return String.format("(#%d) %s", 
-        			stockBatch.getProduct().ID,
-        			stockBatch.getProduct().getName());
-            case 2: return stockBatch.getTotalQuantity();
+            case 0: return "#" + supplyOrder.ID;
+            case 1: return Common.datetimeToString(supplyOrder.getDateOrdered());
+            case 2: return supplyOrder.isDelivered();
+            case 3: return supplyOrder.getProduct().getName();
+            case 4: return String.valueOf(supplyOrder.getQuantity());
+            case 5: return supplyOrder.getPricePerItem();
             default: return "Error retrieving column name";
         }
     }
@@ -78,33 +79,33 @@ public class StockBatchTableModel extends AbstractTableModel {
     }
     
     /**
-     * Gets the Stock Batch object by row
+     * Gets the customer object by row
      *
      * @param row the row
-     * @return the Stock Batch
+     * @return the customer
      */
-    public StockBatch getObj(int row) {
-    	return stockBatches.get(row);
+    public SupplyOrder getObj(int row) {
+    	return supplyOrders.get(row);
     }
     
   
     /**
-     * Adds a Stock Batch to the table
+     * Adds a customer to the table
      *
-     * @param StockBatch the stock batch
+     * @param customer the customer
      */
-    public void add(StockBatch stockBatch) {
-        this.stockBatches.add(stockBatch);
+    public void add(SupplyOrder supplyOrder) {
+        this.supplyOrders.add(supplyOrder);
         fireTableRowsInserted(this.getRowCount(), this.getRowCount());
     }
     
     /**
-     * Removes the Stock Batch from the table by row
+     * Removes the customer from the table by row
      *
      * @param row the row
      */
     public void remove(int row) {
-    	this.stockBatches.remove(row);
+    	this.supplyOrders.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }
 

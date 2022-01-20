@@ -29,8 +29,9 @@ public class SupplyOrderContainer {
      * @param supplyOrder The supply order to add to the container
      * @return true if successful, else false
      */
-    public boolean addSupplyOrder(SupplyOrder supplyOrder) {
-    	return supplyOrders.add(supplyOrder);
+    public void addSupplyOrder(SupplyOrder supplyOrder) {
+    	//return supplyOrders.add(supplyOrder);
+        supplyOrders.add(supplyOrder);
     }
     
     // no need for removal. left in for statistics.
@@ -44,7 +45,6 @@ public class SupplyOrderContainer {
     /**
      * @return All undelivered supply orders
      */
-    // TODO: implement in view
     public ArrayList<SupplyOrder> getUndeliveredSupplyOrders() {
     	ArrayList<SupplyOrder> undeliveredOrders = new ArrayList<>();
     	for (SupplyOrder supplyOrder: this.supplyOrders) {

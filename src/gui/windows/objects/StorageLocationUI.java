@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.CustomerController;
 import controller.StockController;
 import gui.Messages;
 import model.PrimaryKey;
@@ -18,15 +17,9 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
-import javax.swing.JToggleButton;
-import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 

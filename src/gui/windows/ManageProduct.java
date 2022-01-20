@@ -1,39 +1,25 @@
-/**
- * 
- */
 package gui.windows;
 
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.StockController;
 import gui.panels.CRUDProducts;
-import model.Product;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTable;
 /**
  * @author Daniels Kanepe
  *
  */
 public class ManageProduct extends JDialog {
 
-	/**
-	 * 
-	 */
-	private StockController stockCtrl;
-	
+
 	private static final long serialVersionUID = 2968937622159813565L;
 	private final JPanel contentPane;
 	private CRUDProducts CRUDPanel;
-	
-	private Product selectedProduct = null;
 	
 	AuthenticationController auth;
 
@@ -44,7 +30,6 @@ public class ManageProduct extends JDialog {
 	public ManageProduct(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Manage products");
-		stockCtrl = new StockController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
