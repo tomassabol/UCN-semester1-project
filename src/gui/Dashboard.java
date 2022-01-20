@@ -180,7 +180,7 @@ public class Dashboard extends JFrame {
 		sellPaneBottomPanel.setLayout(gbl_sellPaneBottomPanel);
 		
 		lblSell = new JLabel();
-		ImageIcon sellIcon = new ImageIcon("images/coins.png");
+		ImageIcon sellIcon = new ImageIcon("images/shopping-cart.png");
 		lblSell.setIcon(sellIcon);
 		GridBagConstraints gbc_lblSell = new GridBagConstraints();
 		gbc_lblSell.fill = GridBagConstraints.VERTICAL;
@@ -200,7 +200,7 @@ public class Dashboard extends JFrame {
 		sellPaneBottomPanel.add(lblQuotes, gbc_lblQuotes);
 		
 		lblOrder = new JLabel();
-		ImageIcon orderIcon = new ImageIcon("images/order.png");
+		ImageIcon orderIcon = new ImageIcon("images/orders.png");
 		lblOrder.setIcon(orderIcon);
 		GridBagConstraints gbc_lblOrder = new GridBagConstraints();
 		gbc_lblOrder.fill = GridBagConstraints.VERTICAL;
@@ -346,7 +346,7 @@ public class Dashboard extends JFrame {
 		txtCustomer.setColumns(10); 
 		
 		lblSell = new JLabel();
-		ImageIcon sellIcon = new ImageIcon("images/coins.png");
+		ImageIcon sellIcon = new ImageIcon("images/shopping-cart.png");
 		lblSell.setIcon(sellIcon);
 		GridBagConstraints gbc_lblSell = new GridBagConstraints();
 		gbc_lblSell.fill = GridBagConstraints.VERTICAL;
@@ -374,7 +374,7 @@ public class Dashboard extends JFrame {
 		peoplePanel.setLayout(gbl_peoplePanel);
 		
 		lblEmployee = new JLabel();
-		ImageIcon employeeIcon = new ImageIcon("images/employee.png", "");
+		ImageIcon employeeIcon = new ImageIcon("images/employees.png", "");
 		lblEmployee.setIcon(employeeIcon);
 		GridBagConstraints gbc_lblEmployee = new GridBagConstraints();
 		gbc_lblEmployee.insets = new Insets(0, 0, 5, 5);
@@ -383,7 +383,7 @@ public class Dashboard extends JFrame {
 		peoplePanel.add(lblEmployee, gbc_lblEmployee);
 		
 		lblCustomer = new JLabel();
-		ImageIcon customerIcon = new ImageIcon("images/customer.png", "");
+		ImageIcon customerIcon = new ImageIcon("images/customers.png", "");
 		lblCustomer.setIcon(customerIcon);
 		GridBagConstraints gbc_lblCustomer = new GridBagConstraints();
 		gbc_lblCustomer.insets = new Insets(0, 0, 5, 0);
