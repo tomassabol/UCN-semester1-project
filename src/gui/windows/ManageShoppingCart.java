@@ -257,6 +257,9 @@ public class ManageShoppingCart extends JDialog {
 				gbc_btnCreateQuote.gridy = 3;
 				priceAndSubmitPanel.add(btnCreateQuote, gbc_btnCreateQuote);
 		
+		// Adjust quantity or remove item lines depending on stock
+		this.adjustCart();
+				
 		// Set price
 		this.refreshPriceSection();
 		
@@ -301,11 +304,9 @@ public class ManageShoppingCart extends JDialog {
 	}
 	
 	/**
-	 * Adjusts shopping cart depending on item availability
 	 * Enables create quote if shopping cart is not empty, else disables
 	 */
 	private void toggleCreateQuote() {
-		_adjustUnbuyable();
 		if (customer.getShoppingCart().isEmpty()) {
 			btnCreateQuote.setEnabled(false);
 		} else {
@@ -319,7 +320,9 @@ public class ManageShoppingCart extends JDialog {
 	private void addItem() {
 		ShoppingCartUI frame = new ShoppingCartUI(auth, customer);
 		frame.setVisible(true);
-		// Refresh price section, no matter what was done in the UI
+		// adjust cart depending on item availability
+		adjustCart();
+		// Refresh price section, no matter what was done in the 'add to cart' UI
 		refreshPriceSection();
 		// Toggle create quote if needed
 		toggleCreateQuote();
@@ -363,7 +366,7 @@ public class ManageShoppingCart extends JDialog {
 	 *
 	 * Note: this is for private use in other methods
 	 */
-	private void _adjustUnbuyable() {
+	private void adjustCart() {
 		List<ShoppingItemLine> removedItemLines =
 				shoppingCartCtrl.removeUnbuyableItems(customer.getShoppingCart());
 		List<ShoppingItemLine> adjustedItemLines = 
