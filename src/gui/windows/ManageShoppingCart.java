@@ -53,7 +53,6 @@ public class ManageShoppingCart extends JDialog {
 	private ShoppingCartTableModel tableModel;
 	private JButton btnRemove;
 	private JTable tableMain;
-	private JButton btnView;
 	private JLink btnEditQuantity;
 	private JLabel lblDiscountValue;
 	private JLabel lblTotalValue;
@@ -158,15 +157,6 @@ public class ManageShoppingCart extends JDialog {
 			gbl_tableBottomOptionsPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			gbl_tableBottomOptionsPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 			tableBottomOptionsPanel.setLayout(gbl_tableBottomOptionsPanel);
-		
-				// ***** Button: View *****
-				btnView = new JLink("View", JLink.COLORS.GREEN);
-				btnView.setEnabled(false);
-				GridBagConstraints gbc_btnView = new GridBagConstraints();
-				gbc_btnView.insets = new Insets(0, 0, 0, 5);
-				gbc_btnView.gridx = 1;
-				gbc_btnView.gridy = 0;
-				tableBottomOptionsPanel.add(btnView, gbc_btnView);
 			
 				// ***** Button: edit quantity *****
 				btnEditQuantity = new JLink("Edit Quantity", JLink.COLORS.INDIGO);
@@ -421,12 +411,10 @@ public class ManageShoppingCart extends JDialog {
 		tableMain.getSelectionModel().addListSelectionListener(e -> {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				// NOT SELECTED
-				btnView.setEnabled(false);
 				btnEditQuantity.setEnabled(false);
 				btnRemove.setEnabled(false);
 			} else {
 				// SELECTED
-				btnView.setEnabled(true);
 				btnEditQuantity.setEnabled(true);
 				btnRemove.setEnabled(true);
 			}
@@ -531,11 +519,6 @@ public class ManageShoppingCart extends JDialog {
 									stockCtrl.getBuyableQuantityInStock(itemLine.PRODUCT)));
 				}
     		}
-		});
-		
-		// View button
-		btnView.addActionListener(e -> {
-			Messages.info(this, "Not implemented yet!");
 		});
 		
 		// Remove item line button
