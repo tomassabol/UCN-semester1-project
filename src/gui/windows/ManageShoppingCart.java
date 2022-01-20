@@ -370,7 +370,20 @@ public class ManageShoppingCart extends JDialog {
 				shoppingCartCtrl.adjustQuantity(customer.getShoppingCart());
 		
 		
-		// If removed or adjusted items, show a message
+		// Update the rendered table
+		if (!removedItemLines.isEmpty() && !adjustedItemLines.isEmpty()) {
+			// Update table for the adjusted/removed item lines
+			for (ShoppingItemLine itemLine: removedItemLines) {
+				int row = tableModel.getRow(itemLine);
+				tableModel.fireTableRowsDeleted(row, row);
+			}
+			for (ShoppingItemLine itemLine: adjustedItemLines) {
+				int row = tableModel.getRow(itemLine);
+				tableModel.fireTableRowsUpdated(row, row);
+			}
+		}
+		
+		// Show a message
 		if (!removedItemLines.isEmpty()) {
 			StringBuilder msg = new StringBuilder(
 					"The shopping cart was adjusted as some of the item availability has changed."
@@ -386,17 +399,9 @@ public class ManageShoppingCart extends JDialog {
 						itemLine.getPRODUCT().getName()));
 			}
 			Messages.info(this, msg.toString());
-			
-			// Update table for the adjusted/removed item lines
-			for (ShoppingItemLine itemLine: removedItemLines) {
-				int row = tableModel.getRow(itemLine);
-				tableModel.fireTableRowsDeleted(row, row);
-			}
-			for (ShoppingItemLine itemLine: adjustedItemLines) {
-				int row = tableModel.getRow(itemLine);
-				tableModel.fireTableRowsUpdated(row, row);
-			}
 		}
+		
+		
 		
 	}
 	
