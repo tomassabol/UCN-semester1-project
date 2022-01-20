@@ -139,5 +139,11 @@ public class ShoppingCartTableModel extends AbstractTableModel {
     public int getRow(ShoppingItemLine itemLine) {
     	return this.itemLines.indexOf(itemLine);
     }
+    
+    public void updateQuantity(ShoppingItemLine itemLine) {
+    	itemLine.setQuantity(itemLine.getQuantity());
+    	int row = this.getRow(itemLine);
+    	this.fireTableRowsUpdated(row, row);
+    }
 
 }

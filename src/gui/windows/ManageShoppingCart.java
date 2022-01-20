@@ -370,17 +370,13 @@ public class ManageShoppingCart extends JDialog {
 				shoppingCartCtrl.adjustQuantity(customer.getShoppingCart());
 		
 		
-		// Update the rendered table
-		if (!removedItemLines.isEmpty() && !adjustedItemLines.isEmpty()) {
-			// Update table for the adjusted/removed item lines
-			for (ShoppingItemLine itemLine: removedItemLines) {
-				int row = tableModel.getRow(itemLine);
-				tableModel.fireTableRowsDeleted(row, row);
-			}
-			for (ShoppingItemLine itemLine: adjustedItemLines) {
-				int row = tableModel.getRow(itemLine);
-				tableModel.fireTableRowsUpdated(row, row);
-			}
+		// Update table for the adjusted/removed item lines
+		for (ShoppingItemLine itemLine: removedItemLines) {
+			int row = tableModel.getRow(itemLine);
+			tableModel.remove(row);
+		}
+		for (ShoppingItemLine itemLine: adjustedItemLines) {
+			tableModel.updateQuantity(itemLine);
 		}
 		
 		// Show a message
@@ -389,12 +385,12 @@ public class ManageShoppingCart extends JDialog {
 					"The shopping cart was adjusted as some of the item availability has changed."
 					+ "\nItems impacted:");
 			for (ShoppingItemLine itemLine: removedItemLines) {
-				msg.append(String.format("Removed: %n (%d) %s",
+				msg.append(String.format("%n Removed: (%d) %s",
 						itemLine.getPRODUCT().ID ,
 						itemLine.getPRODUCT().getName()));
 			}
 			for (ShoppingItemLine itemLine: adjustedItemLines) {
-				msg.append(String.format("Adjusted quantity: %n (%d) %s",
+				msg.append(String.format("%n Adjusted quantity: (%d) %s",
 						itemLine.getPRODUCT().ID ,
 						itemLine.getPRODUCT().getName()));
 			}
