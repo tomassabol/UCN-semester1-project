@@ -153,12 +153,12 @@ public class Dashboard extends JFrame {
 	public void initSellTab() {
 		sellPanel = new JPanel();
 		sellPanel.setToolTipText("");
-		sellPanel.setBorder(null);
+		sellPanel.setBorder(new EmptyBorder(15, 0, 0, 0));
 		tabsPane.addTab("Sell", null, sellPanel, "Sell Products");
 		sellPanel.setLayout(new BorderLayout(0, 0));
 		
 		sellPaneTopPanel = new JPanel();
-		sellPaneTopPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
+		sellPaneTopPanel.setBorder(new EmptyBorder(0, 0, 10, 0));
 		sellPanel.add(sellPaneTopPanel, BorderLayout.NORTH);
 		sellPaneTopPanel.setLayout(new BorderLayout(0, 0));
 		
@@ -238,6 +238,7 @@ public class Dashboard extends JFrame {
 	 */
 	public void initLoansTab() {
 		loanPanel = new JPanel();
+		loanPanel.setBorder(new EmptyBorder(15, 0, 0, 0));
 		tabsPane.addTab("Loans", null, loanPanel, null);
 	}
 
@@ -249,7 +250,7 @@ public class Dashboard extends JFrame {
 	public void initInventoryTab() {
 		InventoryPanel = new JPanel();
 		InventoryPanel.setToolTipText("");
-		InventoryPanel.setBorder(null);
+		InventoryPanel.setBorder(new EmptyBorder(15, 0, 0, 0));
 		tabsPane.addTab("Inventory", null, InventoryPanel, "Inventory");
 		GridBagLayout gbl_InventoryPanel = new GridBagLayout();
 		gbl_InventoryPanel.columnWidths = new int[]{0, 0, 0};
@@ -419,6 +420,7 @@ public class Dashboard extends JFrame {
 	 */
 	public void initStatisticsTab() {
 		statisticsPanel = new JPanel();
+		statisticsPanel.setBorder(new EmptyBorder(15, 0, 0, 0));
 		tabsPane.addTab("Statistics", null, statisticsPanel, null);
 	}
 	
