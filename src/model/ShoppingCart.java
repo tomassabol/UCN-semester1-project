@@ -73,7 +73,7 @@ public class ShoppingCart {
 		// Count total price with bulk discounts applied
 		for(ShoppingItemLine itemLine: this.itemLines) {
 			BigDecimal itemLinePrice = itemLine.getCurrentPriceWithBulkDiscount();
-			if (itemLinePrice != null) {
+			if (itemLinePrice != null && itemLine.getPRODUCT().isEnabled()) {
 				totalPrice = totalPrice.add(itemLinePrice);
 			}
 		}
@@ -95,7 +95,7 @@ public class ShoppingCart {
 		// Count total price with bulk discounts applied
 		for(ShoppingItemLine itemLine: this.itemLines) {
 			BigDecimal itemLinePrice = itemLine.getCurrentPriceWithBulkDiscount();
-			if (itemLinePrice != null) {
+			if (itemLinePrice != null && itemLine.getPRODUCT().isEnabled()) {
 				totalPrice = totalPrice.add(itemLine.getCurrentPriceWithBulkDiscount());
 			}
 		}
