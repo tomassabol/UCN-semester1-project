@@ -29,7 +29,7 @@ import gui.windows.ManageQuotes;
 import gui.windows.ManageShelf;
 import gui.windows.ManageStorageLocation;
 import gui.windows.ManageSupplyOffer;
-import gui.windows.objects.ShoppingCartUI;
+import gui.windows.ManageShoppingCart;
 import model.Customer;
 import model.Product;
 
@@ -460,7 +460,7 @@ public class Dashboard extends JFrame {
 			if (this.customer == null) {
 				Messages.info(this, "Please choose a customer", "Choose a customer");
 			} else {
-				ShoppingCartUI frame = new ShoppingCartUI(auth, customer);
+				ManageShoppingCart frame = new ManageShoppingCart(auth, customer);
 				frame.setVisible(true);
 				if (frame.isSubmitPressed()) {
 					ManageQuotes quoteFrame = new ManageQuotes(auth, customer);

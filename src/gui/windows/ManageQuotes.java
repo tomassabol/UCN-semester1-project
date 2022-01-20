@@ -17,7 +17,6 @@ import controller.QuoteController;
 import gui.Messages;
 import gui.panels.tableModels.QuotesItemTableModel;
 import gui.panels.tableModels.QuotesTableModel;
-import gui.windows.objects.ShoppingCartUI;
 import model.Customer;
 import model.Order;
 import model.Quote;
@@ -224,7 +223,7 @@ public class ManageQuotes extends JDialog {
 		
 		// Create quote button -> redirect to shopping cart
 		btnCreateQuote.addActionListener(e -> {
-			ShoppingCartUI frame = new ShoppingCartUI(auth, customer);
+			ManageShoppingCart frame = new ManageShoppingCart(auth, customer);
 			frame.setVisible(true);
 			if (frame.isSubmitPressed()) {
 				int row = quotesTableModel.addQuote(frame.getCreatedQuote());
