@@ -389,12 +389,12 @@ public class ManageShoppingCart extends JDialog {
 			
 			// Update table for the adjusted/removed item lines
 			for (ShoppingItemLine itemLine: removedItemLines) {
-				int row = 0;
+				int row = tableModel.getRow(itemLine);
 				tableModel.fireTableRowsDeleted(row, row);
 			}
 			for (ShoppingItemLine itemLine: adjustedItemLines) {
-				int row = 0;
-				tableModel.fireTableRowsDeleted(row, row);
+				int row = tableModel.getRow(itemLine);
+				tableModel.fireTableRowsUpdated(row, row);
 			}
 		}
 		
