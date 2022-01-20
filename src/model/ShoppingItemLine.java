@@ -30,7 +30,12 @@ public class ShoppingItemLine {
 	 * 
 	 */
 	public BigDecimal getCurrentPriceWithoutBulkDiscount() {
-		return PRODUCT.getLatestSellingPrice().multiply(BigDecimal.valueOf(quantity));
+		BigDecimal price = PRODUCT.getLatestSellingPrice();
+		if (price == null) {
+			return null;
+		} else {
+			return price.multiply(BigDecimal.valueOf(quantity));
+		}
 	}
 	
 	/**
@@ -41,6 +46,9 @@ public class ShoppingItemLine {
 	 */
 	public BigDecimal getCurrentPriceWithBulkDiscount() {
 		BigDecimal rawPrice = this.getCurrentPriceWithoutBulkDiscount();
+		if (rawPrice == null) {
+			return null;
+		}
 		if (this.getBulkDiscount() == null) {
 			return rawPrice;
 		}
