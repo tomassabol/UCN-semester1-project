@@ -14,6 +14,7 @@ import controller.StockController;
 import gui.panels.CRUDProducts;
 import gui.panels.CRUDProducts.Mode;
 import gui.panels.tableModels.ProductTableModel;
+import model.Customer;
 import model.Product;
 
 import javax.swing.JLabel;
@@ -44,13 +45,15 @@ public class ShoppingCartUI extends JDialog {
 	
 	private Product selectedProduct = null;
 	private int selectedQuantity;
+	private Customer customer;
 	AuthenticationController auth;
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public ShoppingCartUI(AuthenticationController auth) {
+	public ShoppingCartUI(AuthenticationController auth, Customer customer) {
+		this.customer = customer;
 		this.auth = auth;
 		this.setTitle("Choose product to add to cart");
 		stockCtrl = new StockController();
@@ -136,13 +139,19 @@ public class ShoppingCartUI extends JDialog {
 			} else {
 				ProductTableModel tableModel = productsPanel.getTableModel();
 				Product product = tableModel.getObj(table.getSelectedRow());
-				// Enable only if stock > 0, product is enabled & has 'buy' price
+				// Enable only if stock > 0, product is enabled & has 'buy' price,
+				// and available quantity - quantity in cart > 0
 				int buyableQuantity = stockCtrl.getBuyableQuantityInStock(product);
-				if (buyableQuantity > 0 && product.isEnabled() && product.getLatestSellingPrice() != null) {
+				if (buyableQuantity > 0 
+						&& product.isEnabled()
+						&& product.getLatestSellingPrice() != null 
+						&& buyableQuantity - customer.getShoppingCart().getQuantity(product) > 0 ) {
 					btnChoose.setEnabled(true);
 					spinnerQuantity.setEnabled(true);
+					// get quantity in cart
+					int quantityInCart = this.customer.getShoppingCart().getQuantity(product);
 					spinnerQuantity.setModel(
-							new SpinnerNumberModel(1, 1, buyableQuantity, 1)
+							new SpinnerNumberModel(1, 1, buyableQuantity - quantityInCart, 1)
 					);
 				} else {
 					spinnerQuantity.setEnabled(false);

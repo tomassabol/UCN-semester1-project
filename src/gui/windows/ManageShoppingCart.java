@@ -317,7 +317,7 @@ public class ManageShoppingCart extends JDialog {
 	 * 'Add item' button code
 	 */
 	private void addItem() {
-		ShoppingCartUI frame = new ShoppingCartUI(auth);
+		ShoppingCartUI frame = new ShoppingCartUI(auth, customer);
 		frame.setVisible(true);
 		// Refresh price section, no matter what was done in the UI
 		refreshPriceSection();
