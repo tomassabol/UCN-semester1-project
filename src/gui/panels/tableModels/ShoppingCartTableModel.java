@@ -135,5 +135,9 @@ public class ShoppingCartTableModel extends AbstractTableModel {
     public ShoppingItemLine getItemLine(int row) {
     	return itemLines.get(row);
     }
+    
+    public int getRow(ShoppingItemLine itemLine) {
+    	return this.itemLines.indexOf(itemLine);
+    }
 
 }
