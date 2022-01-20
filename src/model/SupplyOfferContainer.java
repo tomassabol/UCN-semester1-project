@@ -41,7 +41,12 @@ public class SupplyOfferContainer {
      * @return a list of all supplyOffers for a product
      */
     public ArrayList<SupplyOffer> getSupplyOffers(Product product) {
-    	return this.offers.get(product);
+    	if (this.offers.containsKey(product)) {
+    		return this.offers.get(product);
+    	} else {
+    		return new ArrayList<SupplyOffer>();
+    	}
+    	
     }
 
     /**

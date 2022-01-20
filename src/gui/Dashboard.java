@@ -158,7 +158,7 @@ public class Dashboard extends JFrame {
 		sellPanel.setLayout(new BorderLayout(0, 0));
 		
 		sellPaneTopPanel = new JPanel();
-		sellPaneTopPanel.setBorder(new EmptyBorder(0, 0, 10, 0));
+		sellPaneTopPanel.setBorder(new EmptyBorder(0, 0, 15, 0));
 		sellPanel.add(sellPaneTopPanel, BorderLayout.NORTH);
 		sellPaneTopPanel.setLayout(new BorderLayout(0, 0));
 		
