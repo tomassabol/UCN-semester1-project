@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -35,6 +36,7 @@ import model.Quote;
 import model.ShoppingItemLine;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerNumberModel;
 
 /**
  * @author Daniels Kanepe
@@ -489,15 +491,19 @@ public class ManageShoppingCart extends JDialog {
 			}
 			
 			// Get quantity
-	        Object inputDialogResponse = JOptionPane.showInputDialog(this,
-	        		String.format("New quantity for '%s'", itemLine.getPRODUCT().getName()),
-	        		"New Quantity",
-	        		JOptionPane.PLAIN_MESSAGE,
-	        		null,null,
-	        		itemLine.getQuantity());
-	        // If cancel not pressed:
-	        if (inputDialogResponse != null) {
-	        	String newQuantityString = String.valueOf(inputDialogResponse);
+    		int quantityInStock = stockCtrl.getBuyableQuantityInStock(itemLine.getPRODUCT());
+    		
+    		SpinnerNumberModel sModel = new SpinnerNumberModel(itemLine.getQuantity(), 1, quantityInStock, 1);
+    		JSpinner spinner = new JSpinner(sModel);
+
+    		int option = JOptionPane.showOptionDialog(this,
+    				spinner, 
+    				"New quantity - " + itemLine.getPRODUCT().getName(),
+    				JOptionPane.OK_CANCEL_OPTION,
+    				JOptionPane.PLAIN_MESSAGE, null, null, null);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+	        	String newQuantityString = String.valueOf(spinner.getValue());
 		        int newQuantity = 0;
 		        
 		        // Convert to int or throw exception
@@ -524,7 +530,7 @@ public class ManageShoppingCart extends JDialog {
 									newQuantity,
 									stockCtrl.getBuyableQuantityInStock(itemLine.PRODUCT)));
 				}
-	        }
+    		}
 		});
 		
 		// View button
