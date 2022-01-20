@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.DisabledStateException;
 import exceptions.NullPriceException;
 import exceptions.OutOfStockException;
 import model.Product;
@@ -14,18 +15,22 @@ public class ShoppingCartController {
 	
 
 	/**
-	 * Adds the product to a shopping cart
-	 * Note: it checks the quantity and adds to it if the item is already in cart
+	 * Adds a product with specific quantity to a shopping cart
+	 * Note: if the product is already in cart, the quantity will be added to the existing item line.
 	 *
 	 * @param shoppingCart the shopping cart
 	 * @param product the product
 	 * @param quantity the quantity
-	 * @return true, if successful
+	 * 
+	 * @return ShoppingItemLine either the newly created one,
+	 * 				or the one that was incremented (if already in cart)
 	 * 
 	 * @exception IllegalArgumentException when quantity <= 0, and when product or shoppingCart is null
-	 * @exception NullPriceEception When a product's buy price is null
+	 * @exception NullPriceEception if a product's buy price is null
+	 * @exception DisabledStateException if a product is disabled
 	 */
-	public ShoppingItemLine addProduct(ShoppingCart shoppingCart, Product product, int quantity)  throws OutOfStockException, NullPriceException  {
+	public ShoppingItemLine addProduct(ShoppingCart shoppingCart, Product product, int quantity)
+			throws OutOfStockException, NullPriceException, DisabledStateException  {
 		// Validation
 		if (shoppingCart == null || product == null || quantity <= 0) {
 			throw new IllegalArgumentException();
@@ -34,6 +39,11 @@ public class ShoppingCartController {
 		// A product must have a buy price
 		if (product.getLatestSellingPrice() == null) {
 			throw new NullPriceException("Cannot add a product to cart with no (buy) price!");
+		}
+		
+		// A product must not be disabled
+		if (!product.isEnabled()) {
+			throw new DisabledStateException("Cannot add a disabled product to a shopping cart!");
 		}
 		
 		
