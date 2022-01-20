@@ -1,10 +1,10 @@
 package controller;
 
+import exceptions.OutOfStockException;
 import model.Product;
 import model.ShoppingCart;
 import model.ShoppingItemLine;
 import model.Stock;
-import model.OutOfStockException;
 
 public class ShoppingCartController {
 
