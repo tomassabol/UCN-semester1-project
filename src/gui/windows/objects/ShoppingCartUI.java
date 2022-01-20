@@ -19,6 +19,8 @@ import controller.AuthenticationController;
 import controller.QuoteController;
 import controller.ShoppingCartController;
 import controller.StockController;
+import exceptions.DisabledStateException;
+import exceptions.NullPriceException;
 import exceptions.OutOfStockException;
 import gui.JLink;
 import gui.Messages;
@@ -317,6 +319,7 @@ public class ShoppingCartUI extends JDialog {
 		if (frame.isProductSelected()) {
 			Product product = frame.getSelectedProduct();
 			int quantity = frame.getSelectedQuantity();
+			// add to cart
 			try {
 				ShoppingItemLine itemLine = shoppingCartCtrl.addProduct(customer.getShoppingCart(),
 						product,
@@ -328,8 +331,13 @@ public class ShoppingCartUI extends JDialog {
 								stockCtrl.getBuyableQuantityInStock(product), 
 								quantity,
 								customer.getShoppingCart().getQuantity(product)));
-				// execute itself, again
+				
+				// Show the 'add to cart' window, again.
 				this.addItem();
+			} catch (DisabledStateException e2) {
+				Messages.error(this, "Cannot add a disabled product to a shopping cart!");
+			} catch (NullPriceException e3) {
+				Messages.error(this, "Cannot add a product with no price to shopping cart!");
 			}
 			
 			// Enable 'create quote button'
