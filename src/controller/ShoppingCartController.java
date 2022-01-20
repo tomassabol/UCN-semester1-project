@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import exceptions.DisabledStateException;
 import exceptions.NullPriceException;
 import exceptions.OutOfStockException;
@@ -134,6 +137,51 @@ public class ShoppingCartController {
 		
 		// Set quantity
 		itemLine.setQuantity(quantity);
+	}
+	
+	// Removes items that cannot be bought from cart and returns them.
+	// Unbuyable means out of stock, disabled, or ones with no 'buy' price
+	
+	
+	/**
+	 * 	// Removes items that cannot be bought from cart and returns them.
+	 * 	// Unbuyable means out of stock, disabled, or ones with no 'buy' price
+	 *
+	 * @requires StockController
+	 *
+	 * @param shoppingCart the shopping cart
+	 * @return A list of removed ShoppingItemLine's
+	 */
+	public List<ShoppingItemLine> removeUnbuyableItems(ShoppingCart shoppingCart) {
+		// initialize Stock Controller
+		StockController stockCtrl = new StockController();
+		
+		// Keep track of item lines to remove
+		List<ShoppingItemLine> removableItemLines = new ArrayList<>();
+		
+		for (ShoppingItemLine itemLine: shoppingCart.getItemLines()) {
+			// if no price
+			if (itemLine.getPRODUCT().getLatestSellingPrice() == null) {
+				removableItemLines.add(itemLine);
+			}
+			
+			// if disabled
+			if (!itemLine.getPRODUCT().isEnabled()) {
+				removableItemLines.add(itemLine);
+			}
+			// if out of stock
+			if (stockCtrl.getBuyableQuantityInStock(itemLine.getPRODUCT()) < itemLine.getQuantity()) {
+				removableItemLines.add(itemLine);
+			}
+		}
+		
+		// Remove item lines from cart
+		for (ShoppingItemLine itemLine: removableItemLines) {
+			shoppingCart.remove(itemLine);
+		}
+		
+		// return removed item lines
+		return removableItemLines;
 	}
 	
 

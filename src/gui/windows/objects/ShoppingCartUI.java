@@ -129,13 +129,14 @@ public class ShoppingCartUI extends JDialog {
 	private void addEventHandlers() {
 		productsPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
 			JTable table = productsPanel.getTable();
+			// if shopping cart is empty, disable 'choose' btn & quantity spinner
 			if (table.getSelectionModel().isSelectionEmpty()) {
 				spinnerQuantity.setEnabled(false);
 				btnChoose.setEnabled(false);
 			} else {
 				ProductTableModel tableModel = productsPanel.getTableModel();
 				Product product = tableModel.getObj(table.getSelectedRow());
-				// Enable only if buyable quantity > 0 & product is enabled
+				// Enable only if stock > 0, product is enabled & has 'buy' price
 				int buyableQuantity = stockCtrl.getBuyableQuantityInStock(product);
 				if (buyableQuantity > 0 && product.isEnabled() && product.getLatestSellingPrice() != null) {
 					btnChoose.setEnabled(true);
