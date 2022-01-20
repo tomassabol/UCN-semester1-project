@@ -380,7 +380,7 @@ public class ManageShoppingCart extends JDialog {
 		}
 		
 		// Show a message
-		if (!removedItemLines.isEmpty()) {
+		if (!removedItemLines.isEmpty() || !adjustedItemLines.isEmpty()) {
 			StringBuilder msg = new StringBuilder(
 					"The shopping cart was adjusted as some of the item availability has changed."
 					+ "\nItems impacted:");
