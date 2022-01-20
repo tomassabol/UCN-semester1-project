@@ -27,7 +27,7 @@ public class SupplyOfferTableModel  extends AbstractTableModel {
      *
      * @param supplyOffers the supply offers
      */
-    public SupplyOfferTableModel(ArrayList<SupplyOffer> supplyOffers) {
+    public SupplyOfferTableModel(List<SupplyOffer> supplyOffers) {
         // Prevent possible mutation
         this.supplyOffers = new ArrayList<>(supplyOffers);
     }

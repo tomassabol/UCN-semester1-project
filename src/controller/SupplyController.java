@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import model.Contractor;
@@ -83,19 +84,19 @@ public class SupplyController {
 	 * @param product the product
 	 * @return the supply offers
 	 */
-	public ArrayList<SupplyOffer> getSupplyOffers(Product product) {
+	public List<SupplyOffer> getSupplyOffers(Product product) {
 		return SupplyOfferContainer.getInstance().getSupplyOffers(product);
 	}
 
-	public ArrayList<SupplyOrder> getSupplyOrders() {
+	public List<SupplyOrder> getSupplyOrders() {
 		return SupplyOrderContainer.getInstance().getSupplyOrders();
 	}
 
-	public ArrayList<SupplyOrder> getUndeliveredSupplyOrders() {
+	public List<SupplyOrder> getUndeliveredSupplyOrders() {
 		return SupplyOrderContainer.getInstance().getUndeliveredSupplyOrders();
 	}
 
-	public ArrayList<SupplyOrder> getDeliveredSupplyOrders() {
+	public List<SupplyOrder> getDeliveredSupplyOrders() {
 		return SupplyOrderContainer.getInstance().getDeliveredSupplyOrders();
 	}
 	
