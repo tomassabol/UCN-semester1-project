@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import model.Customer;
-import model.CustomerContainer;
+import model.containers.CustomerContainer;
 
 class CustomerControllerTest {
 	private CustomerContainer customerCon;

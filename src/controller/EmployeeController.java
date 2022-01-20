@@ -6,9 +6,9 @@ import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 
 import model.Employee;
-import model.EmployeeContainer;
 import model.IFEmployee;
 import model.PrimaryKey;
+import model.containers.EmployeeContainer;
 
 public class EmployeeController {
 

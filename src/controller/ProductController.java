@@ -9,8 +9,8 @@ import model.BulkDiscount;
 import model.LoaningPrice;
 import model.PrimaryKey;
 import model.Product;
-import model.ProductContainer;
 import model.SellingPrice;
+import model.containers.ProductContainer;
 
 public class ProductController {
 

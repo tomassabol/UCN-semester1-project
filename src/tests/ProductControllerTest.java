@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import controller.ProductController;
 import model.LoaningPrice;
 import model.Product;
-import model.ProductContainer;
+import model.containers.ProductContainer;
 
 class ProductControllerTest {
 

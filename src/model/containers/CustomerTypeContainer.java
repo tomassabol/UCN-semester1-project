@@ -1,7 +1,9 @@
-package model;
+package model.containers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.CustomerType;
 
 public class CustomerTypeContainer {
     private static CustomerTypeContainer instance;

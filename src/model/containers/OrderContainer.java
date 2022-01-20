@@ -1,7 +1,11 @@
-package model;
+package model.containers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Customer;
+import model.Order;
+import model.OrderLine;
 
 public class OrderContainer {
 	
