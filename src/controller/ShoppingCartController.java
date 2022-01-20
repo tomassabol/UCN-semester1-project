@@ -14,33 +14,41 @@ public class ShoppingCartController {
 
 	/**
 	 * Adds the product to a shopping cart
-	 * Note: it checks the quantity & updates quantity if the item is already in cart
+	 * Note: it checks the quantity and adds to it if the item is already in cart
 	 *
 	 * @param shoppingCart the shopping cart
 	 * @param product the product
 	 * @param quantity the quantity
 	 * @return true, if successful
 	 * 
-	 * @exception IllegalArgumentException when quantity <= 0
+	 * @exception IllegalArgumentException when quantity <= 0, and when product or shoppingCart is null
 	 * @exception IllegalArgumentException When adding product that doesn't have a buy price
 	 */
 	public ShoppingItemLine addProduct(ShoppingCart shoppingCart, Product product, int quantity)  throws OutOfStockException  {
-		// check if product already is in cart
+		// Validation
+		if (shoppingCart == null || product == null || quantity <= 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		// if product already in cart, store the itemLine
 		ShoppingItemLine alreadyInCart = null;
+		
 		for (ShoppingItemLine itemLine: shoppingCart.getItemLines()) {
 			if (itemLine.getPRODUCT() == product) {
 				alreadyInCart = itemLine;
 			}
 		}
-		// get quantity in stock
+		// get avalable buyable quantity in stock
 		int buyableQuantityInStock = Stock.getInstance().getBuyableQuantityInStock(product);
 		
-		// In cart
+		// if the product is already in cart
 		if (alreadyInCart != null) {
-			// already in cart + quantity in cart are in stock
+			// if requested quantity plus the quantity already in cart are in stock:
+				// increment item line's quantity
 			if ((quantity + alreadyInCart.getQuantity()) <= buyableQuantityInStock) {
 				alreadyInCart.addItems(quantity);
-			// not in stock
+			// if requested quantity plus the quantity already in cart NOT in stock:
+				// exception
 			} else {
 				throw new OutOfStockException(String.format("Could not add %d item(s) to cart as you already have %d in cart and there are only %d in stock", 
 						quantity,
@@ -48,14 +56,14 @@ public class ShoppingCartController {
 						buyableQuantityInStock));
 			}
 			return alreadyInCart;
-		// not in cart
+		// If the product is not already in cart
 		} else {
 			ShoppingItemLine itemLine;
-			// in stock
+			// Add to shopping cart if available stock covers it
 			if (quantity <= buyableQuantityInStock) {
 				itemLine = new ShoppingItemLine(product, quantity);
 				shoppingCart.add(itemLine);
-			// not in stock
+			// if not enough stock, throw exception
 			} else {
 				throw new OutOfStockException(String.format("Could not add %d item(s) to cart as there are only %d in stock", 
 						quantity,
