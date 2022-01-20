@@ -64,6 +64,7 @@ public class ShoppingCart {
 	/**
 	 * Calculates the total price
 	 * includes: Bulk discounts & customer type discounts
+	 * Does not include: itemLines that do not have a 'buy' price
 	 *
 	 * @return BigDecimal the calculated price
 	 */
@@ -71,7 +72,10 @@ public class ShoppingCart {
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		// Count total price with bulk discounts applied
 		for(ShoppingItemLine itemLine: this.itemLines) {
-			totalPrice = totalPrice.add(itemLine.getCurrentPriceWithBulkDiscount());
+			BigDecimal itemLinePrice = itemLine.getCurrentPriceWithBulkDiscount();
+			if (itemLinePrice != null) {
+				totalPrice = totalPrice.add(itemLinePrice);
+			}
 		}
 		// Apply customer type discount
 		totalPrice = totalPrice.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100.0));
@@ -82,7 +86,7 @@ public class ShoppingCart {
 	/**
 	 * Calculates the sub-total price.
 	 * Includes: Bulk discounts
-	 * Does not include: Customer type discount
+	 * Does not include: Customer type discount or itemLines that do not have a 'buy' price
 	 *
 	 * @return the big decimal
 	 */
@@ -90,7 +94,10 @@ public class ShoppingCart {
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		// Count total price with bulk discounts applied
 		for(ShoppingItemLine itemLine: this.itemLines) {
-			totalPrice = totalPrice.add(itemLine.getCurrentPriceWithBulkDiscount());
+			BigDecimal itemLinePrice = itemLine.getCurrentPriceWithBulkDiscount();
+			if (itemLinePrice != null) {
+				totalPrice = totalPrice.add(itemLine.getCurrentPriceWithBulkDiscount());
+			}
 		}
 		return totalPrice;
 	}
