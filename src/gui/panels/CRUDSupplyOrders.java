@@ -16,13 +16,16 @@ import javax.swing.JPanel;
 import controller.AuthenticationController;
 import controller.SupplyController;
 import model.Product;
+import model.SupplyOffer;
 import model.SupplyOrder;
 
 import javax.swing.ListSelectionModel;
 
 import gui.JLink;
+import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.SupplyOrderTableModel;
+import gui.windows.objects.SupplyOfferUI;
 import gui.windows.objects.SupplyOrderUI;
 
 public class CRUDSupplyOrders extends JPanel {
@@ -33,8 +36,10 @@ public class CRUDSupplyOrders extends JPanel {
 	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
 	private SupplyOrderTableModel tableModel;
-	private JLink btnView;
+	private JLink btnEdit;
+	private JLink btnDisable;
 	AuthenticationController auth;
+	private JLink btnView;
 
 	/**
 	 * Create the dialog.
@@ -93,16 +98,34 @@ public class CRUDSupplyOrders extends JPanel {
 		gbl_bottomPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
-		
-		// ***** View button *****
-		btnView = new JLink("View", COLORS.GREEN);
-		GridBagConstraints gbc_btnView = new GridBagConstraints();
-		gbc_btnView.gridx = 3;
-		gbc_btnView.gridy = 0;
-		bottomPanel.add(btnView, gbc_btnView);
-		
-		// By default: all selection buttons disabled
+			
+			btnView = new JLink("View", COLORS.GREEN);
+			GridBagConstraints gbc_btnView = new GridBagConstraints();
+			gbc_btnView.insets = new Insets(0, 0, 0, 5);
+			gbc_btnView.gridx = 1;
+			gbc_btnView.gridy = 0;
+			bottomPanel.add(btnView, gbc_btnView);
+			
+			// ***** Edit button *****
+			btnEdit = new JLink("Edit", COLORS.INDIGO);
+			GridBagConstraints gbc_btnEdit = new GridBagConstraints();
+			gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
+			gbc_btnEdit.gridx = 2;
+			gbc_btnEdit.gridy = 0;
+			bottomPanel.add(btnEdit, gbc_btnEdit);
+			
+			
+			// ***** Disable button *****
+			btnDisable = new JLink("Delete", COLORS.RED);
+			GridBagConstraints gbc_btnDisable = new GridBagConstraints();
+			gbc_btnDisable.gridx = 3;
+			gbc_btnDisable.gridy = 0;
+			bottomPanel.add(btnDisable, gbc_btnDisable);
+			
+		// Disable CRUD selection options by default
 		btnView.setEnabled(false);
+		btnEdit.setEnabled(false);
+		btnDisable.setEnabled(false);
 		
 		// Attach event handler
 		this.addEventHandlers();
@@ -159,18 +182,14 @@ public class CRUDSupplyOrders extends JPanel {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				// Not selected
 				btnView.setEnabled(false);
+				btnEdit.setEnabled(true);
+				btnDisable.setEnabled(true);
 			} else {
 				// Selected
 				btnView.setEnabled(true);
+				btnEdit.setEnabled(true);
+				btnDisable.setEnabled(true);
 			}
-		});
-
-		// View supply order
-		btnView.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
-			SupplyOrder supplyOrder = tableModel.getObj(row);
-			SupplyOrderUI frame = new SupplyOrderUI(auth, supplyOrder, SupplyOrderUI.Mode.VIEW);
-			frame.setVisible(true);
 		});
 
 		// 'ADD supply order' button
