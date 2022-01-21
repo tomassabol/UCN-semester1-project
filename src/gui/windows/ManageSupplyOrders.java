@@ -8,11 +8,13 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.StockController;
 import controller.SupplyController;
+import gui.Messages;
 import gui.panels.CRUDSupplyOffers;
 import gui.panels.CRUDSupplyOrders;
 import gui.panels.tableModels.SupplyOfferTableModel;
@@ -23,6 +25,8 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ManageSupplyOrders extends JDialog {
 
@@ -37,6 +41,7 @@ public class ManageSupplyOrders extends JDialog {
 	private JButton btnChooseProduct;
 	private JTextField txtProductDisplay;
 	private JButton btnClear;
+	private JButton btnPutIntoStock;
 
 	/**
 	 * Create the dialog.
@@ -47,15 +52,15 @@ public class ManageSupplyOrders extends JDialog {
 		supplyCtrl = new SupplyController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 323);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{420, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 210, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 210, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblChooseAProduct = new JLabel("Filter by product");
@@ -94,11 +99,23 @@ public class ManageSupplyOrders extends JDialog {
 		
 		CRUDPanel = new CRUDSupplyOrders(auth);
 		GridBagConstraints gbc_CRUDPanel = new GridBagConstraints();
+		gbc_CRUDPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_CRUDPanel.gridwidth = 3;
 		gbc_CRUDPanel.fill = GridBagConstraints.BOTH;
 		gbc_CRUDPanel.gridx = 0;
 		gbc_CRUDPanel.gridy = 2;
 		getContentPane().add(CRUDPanel, gbc_CRUDPanel);
+		
+		btnPutIntoStock = new JButton("Put into stock");
+		GridBagConstraints gbc_btnPutIntoStock = new GridBagConstraints();
+		gbc_btnPutIntoStock.anchor = GridBagConstraints.EAST;
+		gbc_btnPutIntoStock.gridwidth = 3;
+		gbc_btnPutIntoStock.gridx = 0;
+		gbc_btnPutIntoStock.gridy = 3;
+		contentPane.add(btnPutIntoStock, gbc_btnPutIntoStock);
+		
+		// disabled by default
+		btnPutIntoStock.setEnabled(false);
 		
 		// Attach event handlers
 		this.addEventHandlers();
@@ -108,6 +125,7 @@ public class ManageSupplyOrders extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
+	
 	
 	/*
 	 * *******************************************************
@@ -135,6 +153,23 @@ public class ManageSupplyOrders extends JDialog {
 			// reset filter (show all products)
 			CRUDPanel.getTable().setModel(new SupplyOrderTableModel(supplyCtrl.getSupplyOrders()));
 		});
+		
+		// Disable/enable 'Put into stock' button depending on if there is a selection
+		CRUDPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
+			JTable table = CRUDPanel.getTable();
+			if (table.getSelectionModel().isSelectionEmpty()) {
+				btnPutIntoStock.setEnabled(false);
+			} else {
+				btnPutIntoStock.setEnabled(true);
+			}
+			
+		});
+		
+		btnPutIntoStock.addActionListener(e -> {
+			Messages.info(this, "Not implemented yet");
+		});
+		
+		
 	}
 
 }

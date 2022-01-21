@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;

@@ -69,7 +69,6 @@ public class Dashboard extends JFrame {
 	private JPanel InventoryPanel;
 	private JButton btnContractors;
 	private JButton btnSupplyOrders;
-	private JButton btnStockASupplyOrder;
 	private JButton btnSupplyOffers;
 	private JLabel lblRestockItems;
 	private JLabel lblManage;
@@ -328,13 +327,6 @@ public class Dashboard extends JFrame {
 		gbc_btnStorageLocations.gridy = 4;
 		InventoryPanel.add(btnStorageLocations, gbc_btnStorageLocations);
 		
-		btnStockASupplyOrder = new JButton("Stock a supply order");
-		GridBagConstraints gbc_btnStockASupplyOrder = new GridBagConstraints();
-		gbc_btnStockASupplyOrder.insets = new Insets(0, 0, 5, 0);
-		gbc_btnStockASupplyOrder.gridx = 1;
-		gbc_btnStockASupplyOrder.gridy = 4;
-		InventoryPanel.add(btnStockASupplyOrder, gbc_btnStockASupplyOrder);
-		
 		btnShelves = new JButton("Shelves");
 		GridBagConstraints gbc_btnShelves = new GridBagConstraints();
 		gbc_btnShelves.insets = new Insets(0, 0, 0, 5);
@@ -538,10 +530,6 @@ public class Dashboard extends JFrame {
 		btnSupplyOrders.addActionListener(e -> {
 			ManageSupplyOrders frame = new ManageSupplyOrders(auth);
 			frame.setVisible(true);
-		});
-		
-		btnStockASupplyOrder.addActionListener(e -> {
-			Messages.info(this, "Not implemented yet!");
 		});
 		
 		///////////////////////////////////////////////////////
