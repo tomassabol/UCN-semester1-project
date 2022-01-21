@@ -20,7 +20,7 @@ import model.ShoppingCart;
 import model.StockBatch;
 import model.StorageLocation;
 import model.TrackableItem;
-import model.containers.Stock;
+import model.containers.StockContainer;
 
 class ShoppingCartControllerTest {
 	
@@ -56,8 +56,8 @@ class ShoppingCartControllerTest {
 
 	@Test
 	void testAddProductToShoppingCart() throws OutOfStockException {
-		Stock.getInstance().addStorageLocation(storageLocation1);
-		Stock.getInstance().addShelf(storageLocation1, shelf1);
+		StockContainer.getInstance().addStorageLocation(storageLocation1);
+		StockContainer.getInstance().addShelf(storageLocation1, shelf1);
 		product1.addSellingPrice(sellingPrice1);
 		shelf1.addStockBatch(product1, stockBatch1);
 		shoppingCartCtrl.addProduct(customer1.getShoppingCart(), product1, 1);
@@ -68,8 +68,8 @@ class ShoppingCartControllerTest {
 	void testCaddItemLineToaShoppingCartWhichIsDoesNotHaveABuyPrice() {
 	IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
 		
-		Stock.getInstance().addStorageLocation(storageLocation1);
-		Stock.getInstance().addShelf(storageLocation1, shelf1);
+		StockContainer.getInstance().addStorageLocation(storageLocation1);
+		StockContainer.getInstance().addShelf(storageLocation1, shelf1);
 		shelf1.addStockBatch(product2, stockBatch1);
 		shoppingCartCtrl.addProduct(customer1.getShoppingCart(), product2, 1);
 			});

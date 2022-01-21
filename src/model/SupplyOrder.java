@@ -6,33 +6,35 @@ import java.time.LocalDateTime;
 public class SupplyOrder {
     public final int ID;
     private LocalDateTime dateOrdered;
-    private boolean delivered;
     private int quantity;
     private Product product;
-    private BigDecimal pricePerITem;
-	public SupplyOffer supplyOffer;
+    private BigDecimal pricePerItem;
+	private boolean delivered;
+	private Contractor contractor;
 
     public SupplyOrder(int id, LocalDateTime dateOrdered,
-    		Product product, int quantity, BigDecimal pricePerItem) {
+    		Product product, int quantity, BigDecimal pricePerItem, Contractor contractor) {
         this.ID = id;
         this.dateOrdered = dateOrdered;
         this.product = product;
-        this.pricePerITem = pricePerItem;
+        this.pricePerItem = pricePerItem;
         this.quantity = quantity;
         this.delivered = false;
     }
 
-	public SupplyOrder(int id, SupplyOffer supplyOffer, int quantity) {
-		this.ID = id;
-		this.supplyOffer = supplyOffer;
-        this.dateOrdered = LocalDateTime.now();
-        this.product = supplyOffer.getProduct();
-        this.pricePerITem = supplyOffer.getPricePerItem();
-        this.quantity = quantity;
-        this.delivered = false;
+    public Contractor getContractor() {
+		return contractor;
 	}
 
-    public int getQuantity() {
+	public void setContractor(Contractor contractor) {
+		this.contractor = contractor;
+	}
+
+	public void setPricePerItem(BigDecimal pricePerItem) {
+		this.pricePerItem = pricePerItem;
+	}
+
+	public int getQuantity() {
 		return quantity;
 	}
 
@@ -40,7 +42,6 @@ public class SupplyOrder {
 		this.quantity = quantity;
 	}
 
-	// get/set methods for dateOrdered
     public LocalDateTime getDateOrdered() {
         return this.dateOrdered;
     }
@@ -58,11 +59,11 @@ public class SupplyOrder {
 	}
 
 	public BigDecimal getPricePerItem() {
-		return pricePerITem;
+		return pricePerItem;
 	}
 
 	public void setPricePerITem(BigDecimal pricePerITem) {
-		this.pricePerITem = pricePerITem;
+		this.pricePerItem = pricePerITem;
 	}
 
 	public boolean isDelivered() {
@@ -75,14 +76,6 @@ public class SupplyOrder {
 
 	public int getID() {
 		return ID;
-	}
-
-	public void setSupplyOffer(SupplyOffer supplyOffer)  {
-		this.supplyOffer = supplyOffer;
-	}
-
-	public SupplyOffer getSupplyOffer()  {
-		return supplyOffer;
 	}
 
 }

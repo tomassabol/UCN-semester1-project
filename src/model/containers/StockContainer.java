@@ -19,10 +19,10 @@ import model.TrackableItem;
 /**
  * The Class StorageContainer.
  */
-public class Stock {
+public class StockContainer {
     
     /** The instance. */
-    private static Stock instance;
+    private static StockContainer instance;
     
     /** The storage. */
     private Map<StorageLocation, ArrayList<Shelf>> storage;
@@ -30,7 +30,7 @@ public class Stock {
     /**
      * Constructor class StorageContainer.
      */
-    private Stock() {
+    private StockContainer() {
         storage = new HashMap<>();
     }
    
@@ -40,9 +40,9 @@ public class Stock {
      *
      * @return instance of a class shelfContainer
      */
-    public static Stock getInstance() {
+    public static StockContainer getInstance() {
         if (instance == null) {
-            instance = new Stock();
+            instance = new StockContainer();
         }
         return instance;
     }

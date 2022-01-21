@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 import controller.*;
 import model.*;
-import model.containers.Stock;
+import model.containers.StockContainer;
 
 /**
  * The Class Terminal.
@@ -182,7 +182,7 @@ public class Terminal {
 				  product.ID,
 				  product.getName()));
 		  System.out.println(String.format("In stock: %d", 
-				  Stock.getInstance().getBuyableQuantityInStock(product)));
+				  StockContainer.getInstance().getBuyableQuantityInStock(product)));
 		  System.out.println(String.format("Price: %.2f DKK",
 				  product.getLatestSellingPrice()));
 		  System.out.println("Description: " + product.getDescription());
@@ -371,7 +371,7 @@ public class Terminal {
 				  product.ID,
 				  product.getName()));
 		  System.out.println(String.format("In stock: %d", 
-				  Stock.getInstance().getBuyableQuantityInStock(product)));
+				  StockContainer.getInstance().getBuyableQuantityInStock(product)));
 		  System.out.println(String.format("Price: %.2f DKK",
 				  product.getLatestSellingPrice()));
 		  System.out.println("Description: " + product.getDescription());

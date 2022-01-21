@@ -10,7 +10,7 @@ import model.Quote;
 import model.Shelf;
 import model.StockBatch;
 import model.StorageLocation;
-import model.containers.Stock;
+import model.containers.StockContainer;
 
 public class StockController {
 
@@ -25,7 +25,7 @@ public class StockController {
     public StorageLocation createStorageLocation(String name, String address, boolean isAStore) {
         StorageLocation storageLocation = new StorageLocation(PrimaryKey.getID(PrimaryKey.Keys.STORAGE_LOCATION),
         		name, address, isAStore);
-        Stock.getInstance().addStorageLocation(storageLocation);
+        StockContainer.getInstance().addStorageLocation(storageLocation);
         return storageLocation;
     }
 
@@ -39,7 +39,7 @@ public class StockController {
     public Shelf createShelf(String name, StorageLocation storageLocation) {
         Shelf shelf = new Shelf(PrimaryKey.getID(PrimaryKey.Keys.SHELF),
         		name, storageLocation);
-        Stock.getInstance().addShelf(storageLocation, shelf);
+        StockContainer.getInstance().addShelf(storageLocation, shelf);
         return shelf;
     }
     
@@ -54,15 +54,15 @@ public class StockController {
      * @return the storage location, or null
      */
     public StorageLocation findStorageLocationById(int id) {
-        return Stock.getInstance().findStorageLocationById(id);
+        return StockContainer.getInstance().findStorageLocationById(id);
     }
 
     public Shelf findShelfById(int id) {
-        return Stock.getInstance().findShelfByID(id);
+        return StockContainer.getInstance().findShelfByID(id);
     }
     
     public Shelf findShelfByIndex(StorageLocation storageLocation, int index) {
-    	return Stock.getInstance().findShelfByIndex(storageLocation, index);
+    	return StockContainer.getInstance().findShelfByIndex(storageLocation, index);
     }
 
     /**
@@ -71,7 +71,7 @@ public class StockController {
      * @return the storage locations
      */
     public Set<StorageLocation> getStorageLocations() {
-        return Stock.getInstance().getStorageLocations();
+        return StockContainer.getInstance().getStorageLocations();
     }
 
     /**
@@ -80,7 +80,7 @@ public class StockController {
      * @return the shelves
      */
     public ArrayList<Shelf> getShelves() {
-        return Stock.getInstance().getShelves();
+        return StockContainer.getInstance().getShelves();
     }
     
     /**
@@ -90,7 +90,7 @@ public class StockController {
      * @return the shelves
      */
     public List<Shelf> getShelves(StorageLocation storageLocation) {
-    	return Stock.getInstance().getShelves(storageLocation);
+    	return StockContainer.getInstance().getShelves(storageLocation);
     }
     
     /**
@@ -100,7 +100,7 @@ public class StockController {
      * @return int the buyable item quantity
      */
     public int getBuyableQuantityInStock(Product product) {
-    	return Stock.getInstance().getBuyableQuantityInStock(product);
+    	return StockContainer.getInstance().getBuyableQuantityInStock(product);
     }
     
     /**
@@ -110,7 +110,7 @@ public class StockController {
      * @return int the loanable item quantity
      */
     public int getLoanableQuantityInStock(Product product) {
-    	return Stock.getInstance().getLoanableQuantityInStock(product);
+    	return StockContainer.getInstance().getLoanableQuantityInStock(product);
     }
     
     
@@ -125,11 +125,11 @@ public class StockController {
     }
     
     public boolean quoteIsInStock(Quote quote) {
-    	return Stock.getInstance().quoteIsInStock(quote);
+    	return StockContainer.getInstance().quoteIsInStock(quote);
     }
     
     public void removeStorageLocation(StorageLocation storageLocation) {
-    	Stock.getInstance().removeStorageLocation(storageLocation);
+    	StockContainer.getInstance().removeStorageLocation(storageLocation);
     }
     
     public void updateStorageLocationName(StorageLocation storageLocation, String name) {
@@ -146,7 +146,7 @@ public class StockController {
 
 
     public void removeShelf(Shelf shelf) {
-    	Stock.getInstance().removeShelf(shelf);
+    	StockContainer.getInstance().removeShelf(shelf);
     }
 
     public void updateShelfName(Shelf shelf, String name) {

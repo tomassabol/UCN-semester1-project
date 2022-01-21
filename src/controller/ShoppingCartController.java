@@ -10,7 +10,7 @@ import exceptions.OutOfStockException;
 import model.Product;
 import model.ShoppingCart;
 import model.ShoppingItemLine;
-import model.containers.Stock;
+import model.containers.StockContainer;
 
 public class ShoppingCartController {
 
@@ -60,7 +60,7 @@ public class ShoppingCartController {
 			}
 		}
 		// get avalable buyable quantity in stock
-		int buyableQuantityInStock = Stock.getInstance().getBuyableQuantityInStock(product);
+		int buyableQuantityInStock = StockContainer.getInstance().getBuyableQuantityInStock(product);
 		
 		// if the product is already in cart
 		if (alreadyInCart != null) {
@@ -129,7 +129,7 @@ public class ShoppingCartController {
 		}
 		
 		// if quantity > stock, throw exception
-		int buyableQuantityInStock = Stock.getInstance().getBuyableQuantityInStock(itemLine.getPRODUCT());
+		int buyableQuantityInStock = StockContainer.getInstance().getBuyableQuantityInStock(itemLine.getPRODUCT());
 		if (quantity > buyableQuantityInStock) {
 			throw new OutOfStockException(String.format("Could not add %d item(s) to cart as there are only %d in stock", 
 					quantity,

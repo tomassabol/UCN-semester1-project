@@ -6,7 +6,7 @@ import java.util.List;
 import exceptions.OutOfStockException;
 import model.*;
 import model.containers.QuoteContainer;
-import model.containers.Stock;
+import model.containers.StockContainer;
 
 /**
  * The Class OrderController.
@@ -79,7 +79,7 @@ public class QuoteController {
     	// Check that every item line is in stock
     	for (ShoppingItemLine itemLine: shoppingItemLines) {
     		// get quantity in stock
-    		int buyableQuantityInStock = Stock.getInstance().getBuyableQuantityInStock(itemLine.PRODUCT);
+    		int buyableQuantityInStock = StockContainer.getInstance().getBuyableQuantityInStock(itemLine.PRODUCT);
     		if (itemLine.getQuantity() > buyableQuantityInStock) {
     			throw new OutOfStockException("Cannot create a quote as some of the items are out of stock!");
     		}

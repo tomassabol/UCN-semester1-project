@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.*;
 import model.containers.OrderContainer;
-import model.containers.Stock;
+import model.containers.StockContainer;
 
 /**
  * The Class OrderController.
@@ -52,7 +52,7 @@ public class OrderController {
 		ArrayList<OrderLine> orderLines = new ArrayList<>();
 		for (model.QuoteItemLine itemLine: quote.getItemLines()) {
 			
-			orderLines.add(Stock.getInstance().stockToOrderlineBuyable(itemLine.getPRODUCT(), itemLine.getQuantity()));
+			orderLines.add(StockContainer.getInstance().stockToOrderlineBuyable(itemLine.getPRODUCT(), itemLine.getQuantity()));
 		}
 		Order order = new Order(PrimaryKey.getID(PrimaryKey.Keys.ORDER), 
 				customer, employee, orderLines);
