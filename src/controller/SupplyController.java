@@ -133,6 +133,21 @@ public class SupplyController {
 		
 	}
 	
+	public SupplyOffer updateSupplyOfferProduct(SupplyOffer supplyOffer, Product product) {
+		
+	}
+	
+	public SupplyOffer updateSupplyOfferPricePerItem(SupplyOffer supplyOffer, BigDecimal pricePerItem) {
+		
+	}
+	
+	public SupplyOffer updateSupplyOfferMinQuantity(SupplyOffer supplyOffer, int minQuantity) {
+		
+	}
+	
+	public SupplyOffer updateSupplyOfferContractor(SupplyOffer supplyOffer, Contractor contractor) {
+		
+	}
 
 	/**
 	 * Creates a supply order and adds it to the container
