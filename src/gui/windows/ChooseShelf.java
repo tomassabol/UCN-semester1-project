@@ -78,7 +78,7 @@ public class ChooseShelf extends JDialog {
 			return selectedShelf != null;
 		}
 	
-		public Shelf getSelectedShelfr() {
+		public Shelf getSelectedShelf() {
 			return selectedShelf;
 		}
 	

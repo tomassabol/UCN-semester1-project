@@ -7,24 +7,24 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import gui.panels.CRUDSupplyOffers;
-import gui.panels.tableModels.SupplyOfferTableModel;
+import gui.panels.CRUDSupplyOrder;
+import gui.panels.tableModels.SupplyOrderTableModel;
 import model.Product;
-import model.SupplyOffer;
+import model.SupplyOrder;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTable;
 
-public class ChooseSupplyOffer extends JDialog {
+public class ChooseSupplyOrder extends JDialog {
 	
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
-	private CRUDSupplyOffers supplyOffersPanel;
+	private CRUDSupplyOrder supplyOrdersPanel;
 	private JButton btnChoose;
 	
-	private SupplyOffer selectedSupplyOffer = null;
+	private SupplyOrder selectedSupplyOrder = null;
 	
 	AuthenticationController auth;
     Product product;
@@ -33,11 +33,12 @@ public class ChooseSupplyOffer extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseSupplyOffer(AuthenticationController auth, Product product) {
+	public ChooseSupplyOrder(AuthenticationController auth, Product product) {
 		this.auth = auth;
         this.product =product;
-		this.setTitle("Choose Supply Offer...");
+		this.setTitle("Choose Supply Order...");
 		setModal(true);
+
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -50,13 +51,13 @@ public class ChooseSupplyOffer extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		supplyOffersPanel = new CRUDSupplyOffers(auth, product);
+		supplyOrdersPanel = new CRUDSupplyOrder(auth, product);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		getContentPane().add(supplyOffersPanel, gbc_panel);
+		getContentPane().add(supplyOrdersPanel, gbc_panel);
 		
 		btnChoose = new JButton("Choose...");
 		btnChoose.setEnabled(false);
@@ -74,12 +75,12 @@ public class ChooseSupplyOffer extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
-		public boolean isSupplyOfferTypeSelected() {
-			return selectedSupplyOffer != null;
+		public boolean isSupplyOrderSelected() {
+			return selectedSupplyOrder != null;
 		}
 	
-		public SupplyOffer getSelectedSupplyOffer() {
-			return selectedSupplyOffer;
+		public SupplyOrder getSelectedSupplyOrder() {
+			return selectedSupplyOrder;
 		}
 	
 	/*
@@ -88,8 +89,8 @@ public class ChooseSupplyOffer extends JDialog {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
-		supplyOffersPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
-			JTable table = supplyOffersPanel.getTable();
+		supplyOrdersPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
+			JTable table = supplyOrdersPanel.getTable();
 			if (table.getSelectionModel().isSelectionEmpty()) {
 				btnChoose.setEnabled(false);
 			} else {
@@ -100,11 +101,12 @@ public class ChooseSupplyOffer extends JDialog {
 		
 		// Choose button
 		btnChoose.addActionListener(e -> {
-			JTable table = supplyOffersPanel.getTable();
+			JTable table = supplyOrdersPanel.getTable();
 			if (!table.getSelectionModel().isSelectionEmpty()) {
-				SupplyOfferTableModel tableModel = supplyOffersPanel.getTableModel();
-				SupplyOffer supplyOffer = tableModel.getObj(table.getSelectedRow());
-				selectedSupplyOffer = supplyOffer;
+				SupplyOrderTableModel tableModel = supplyOrdersPanel.getTableModel();
+				SupplyOrder supplyOrder = tableModel.getObj(table.getSelectedRow());
+				selectedSupplyOrder = supplyOrder;
+
 				this.dispose();
 			}
 		});

@@ -18,6 +18,7 @@ import controller.AuthenticationController;
 import gui.windows.ChooseCustomer;
 import gui.windows.ChooseProduct;
 import gui.windows.ChooseSupplyOffer;
+import gui.windows.ChooseSupplyOrder;
 import gui.windows.ManageContractor;
 import gui.windows.ManageCustomerType;
 import gui.windows.ManageCustomer;
@@ -29,10 +30,12 @@ import gui.windows.ManageShelf;
 import gui.windows.ManageStorageLocation;
 import gui.windows.ManageSupplyOffer;
 import gui.windows.ManageSupplyOrderUI;
+import gui.windows.objects.StockSupplyOrderUI;
 import gui.windows.ManageShoppingCart;
 import model.Customer;
 import model.Product;
 import model.SupplyOffer;
+import model.SupplyOrder;
 
 /**
  * @author Daniels Kanepe
@@ -43,6 +46,7 @@ public class Dashboard extends JFrame {
 	private Customer customer = null;
 	private Product product = null;
 	private SupplyOffer supplyOffer = null;
+	private SupplyOrder supplyOrder = null;
 
 	private JPanel contentPane;
 	private AuthenticationController auth;
@@ -307,7 +311,6 @@ public class Dashboard extends JFrame {
 		gbc_btnSupplyOffers.gridy = 2;
 		InventoryPanel.add(btnSupplyOffers, gbc_btnSupplyOffers);
 		
-		btnSupplyOrders = new JButton("Supply Orders");
 		
 		btnContractors = new JButton("Contractors");
 		GridBagConstraints gbc_btnContractors = new GridBagConstraints();
@@ -315,6 +318,8 @@ public class Dashboard extends JFrame {
 		gbc_btnContractors.gridx = 0;
 		gbc_btnContractors.gridy = 3;
 		InventoryPanel.add(btnContractors, gbc_btnContractors);
+
+		btnSupplyOrders = new JButton("Supply Orders");
 		GridBagConstraints gbc_btnSupplyOrders = new GridBagConstraints();
 		gbc_btnSupplyOrders.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSupplyOrders.gridx = 1;
@@ -555,6 +560,33 @@ public class Dashboard extends JFrame {
 						if (supplyOffer != null) {
 							ManageSupplyOrderUI frame = new ManageSupplyOrderUI(auth, product);
 							frame.setVisible(true);
+						}
+					}
+				}
+			}
+		});
+
+		// ***** stock a supply order btn *****
+		btnStockASupplyOrder.addActionListener(e -> {
+			ChooseProduct productFrame = new ChooseProduct(auth);
+			productFrame.setVisible(true);
+			if (productFrame.isProductSelected()) {
+				product = productFrame.getSelectedProduct();
+				if (product != null) {
+					ChooseSupplyOffer supplyOfferFrame = new ChooseSupplyOffer(auth, product);
+					supplyOfferFrame.setVisible(true);
+					if (supplyOfferFrame.isSupplyOfferTypeSelected()) {
+						supplyOffer = supplyOfferFrame.getSelectedSupplyOffer();
+						if (supplyOffer != null) {
+							ChooseSupplyOrder supplyOrderFrame = new ChooseSupplyOrder(auth, product); // change to choose supply oprder
+							supplyOrderFrame.setVisible(true);
+							if (supplyOrderFrame.isSupplyOrderSelected()) {
+								supplyOrder = supplyOrderFrame.getSelectedSupplyOrder();
+								if (supplyOrder != null) {
+									StockSupplyOrderUI frame = new StockSupplyOrderUI(auth, supplyOrder); // change to choose supply oprder
+									frame.setVisible(true);
+								}
+							}
 						}
 					}
 				}

@@ -200,9 +200,5 @@ public class SupplyController {
 	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, Set<Integer> serialNumbers) {
 		// TODO: work on it- low priority
 	}
-
-	/**
-	 * Prints all supplyOffers
-	 */
 	
 }
