@@ -133,32 +133,27 @@ public class SupplyController {
 		
 	}
 	
+
 	/**
-	 * Creates a supply order.
-	 *
-	 * @param supplyOffer the supply offer
-	 * @param quantity the quantity
-	 * @return the supply order
+	 * Creates a supply order and adds it to the container
+	 * 
+	 * @param product
+	 * @param quantity
+	 * @param pricePerItem
+	 * @param contractor
+	 * @return The newly created supply order
 	 */
-	// Create supply order
-	/*
-	public SupplyOrder createSupplyOrder(SupplyOffer supplyOffer, int quantity) {
-		Product product = SupplyOfferContainer.getInstance().getProduct(supplyOffer);
+	public SupplyOrder createSupplyOrder(Product product,
+			int quantity, BigDecimal pricePerItem, Contractor contractor) {
 		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_ORDER),
 				LocalDateTime.now(),
 				product,
 				quantity,
-				product.getLatestSellingPrice());
+				product.getLatestSellingPrice(), contractor);
 		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
 		return supplyOrder;
 	}
-	*/
 
-	public SupplyOrder createSupplyOrder(SupplyOffer supplyOffer, int quantity) {
-		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_ORDER), supplyOffer, quantity);
-		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
-		return supplyOrder;
-	}
 	
 	/**
 	 * Mark a supply order as delivered and put the items in stock
