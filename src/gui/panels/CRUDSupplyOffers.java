@@ -40,12 +40,12 @@ public class CRUDSupplyOffers extends JPanel {
 	 * Create the dialog.
 	 * Currently you can only get the supply offers for only a specific product
 	 */
-	public CRUDSupplyOffers(AuthenticationController auth, Product product) {
+	public CRUDSupplyOffers(AuthenticationController auth) {
 		this.auth = auth;
 		supplyCtrl = new SupplyController();
 		setLayout(new BorderLayout(0, 0));
 		
-		tableModel = new SupplyOfferTableModel(supplyCtrl.getSupplyOffers(product));
+		tableModel = new SupplyOfferTableModel(supplyCtrl.getSupplyOffers());
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();

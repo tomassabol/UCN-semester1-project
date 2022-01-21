@@ -535,15 +535,8 @@ public class Dashboard extends JFrame {
 		
 		// ***** Manage Supply Offers *****
 		btnSupplyOffers.addActionListener(e -> {
-			ChooseProduct productFrame = new ChooseProduct(auth);
-			productFrame.setVisible(true);
-			if (productFrame.isProductSelected()) {
-				product = productFrame.getSelectedProduct();
-				if (product != null) {
-					ManageSupplyOffer frame = new ManageSupplyOffer(auth, product);
-					frame.setVisible(true);
-				}
-			}
+			ManageSupplyOffer frame = new ManageSupplyOffer(auth);
+			frame.setVisible(true);
 		});
 
 		// ***** Manage Supply Orders *****

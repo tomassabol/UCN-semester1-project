@@ -52,6 +52,15 @@ public class SupplyOfferContainer {
     	}
     	
     }
+    
+    // TODO: optimize it, so it doesn't need a separate list.
+    public List<SupplyOffer> getSupplyOffers() {
+    	List<SupplyOffer> offerList = new ArrayList<SupplyOffer>();
+    	for (List<SupplyOffer> offersForProduct: this.offers.values()) {
+    		offerList.addAll(offersForProduct);
+    	}
+    	return offerList;
+    }
 
     /**
      * @param id - find a supplyOffer for a product by index
