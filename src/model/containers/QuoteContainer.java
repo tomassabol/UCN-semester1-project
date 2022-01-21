@@ -1,7 +1,10 @@
-package model;
+package model.containers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Customer;
+import model.Quote;
 
 public class QuoteContainer {
 	

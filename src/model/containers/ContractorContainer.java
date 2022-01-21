@@ -1,7 +1,9 @@
-package model;
+package model.containers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Contractor;
 
 public class ContractorContainer {
     private static ContractorContainer instance;

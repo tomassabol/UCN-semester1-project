@@ -5,7 +5,7 @@ import java.util.List;
 
 
 import model.PrimaryKey;
-import model.ContractorContainer;
+import model.containers.ContractorContainer;
 import model.Contractor;
 
 

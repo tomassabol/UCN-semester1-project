@@ -1,7 +1,9 @@
-package model;
+package model.containers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.IFEmployee;
 
 public class EmployeeContainer {
     private static EmployeeContainer instance;

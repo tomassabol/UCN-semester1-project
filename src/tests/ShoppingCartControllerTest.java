@@ -17,10 +17,10 @@ import model.Product;
 import model.SellingPrice;
 import model.Shelf;
 import model.ShoppingCart;
-import model.Stock;
 import model.StockBatch;
 import model.StorageLocation;
 import model.TrackableItem;
+import model.containers.Stock;
 
 class ShoppingCartControllerTest {
 	

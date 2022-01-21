@@ -1,6 +1,8 @@
-package model;
+package model.containers;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Product;
 
 /**
  * @authors tomassabol, danielskenepe, tamastoth, attilabako

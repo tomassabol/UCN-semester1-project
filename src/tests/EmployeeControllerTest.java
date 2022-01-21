@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import model.Employee;
-import model.EmployeeContainer;
+import model.containers.EmployeeContainer;
 
 class EmployeeControllerTest {
 	private EmployeeContainer employeeCon;
