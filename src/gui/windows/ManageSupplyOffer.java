@@ -1,13 +1,18 @@
 package gui.windows;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
+import controller.StockController;
+import controller.SupplyController;
 import gui.panels.CRUDSupplyOffers;
 import gui.panels.tableModels.SupplyOfferTableModel;
 import model.Product;
@@ -17,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
 public class ManageSupplyOffer extends JDialog {
+
+	private SupplyController supplyCtrl;
 	
 	private final JPanel contentPane;
 	private CRUDSupplyOffers CRUDPanel;
@@ -32,6 +39,7 @@ public class ManageSupplyOffer extends JDialog {
 	public ManageSupplyOffer(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Manage supply offers");
+		supplyCtrl = new SupplyController();
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
