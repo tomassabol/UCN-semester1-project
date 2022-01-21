@@ -188,8 +188,8 @@ public class SupplyController {
 		// TODO: work on it- low priority
 	}
 
-	public boolean removeSupplyOffer(SupplyOffer supplyOffer) {
-		return SupplyOfferContainer.getInstance().remove(supplyOffer);
+	public void removeSupplyOffer(SupplyOffer supplyOffer) {
+		SupplyOfferContainer.getInstance().remove(supplyOffer);
 }
 	
 }
