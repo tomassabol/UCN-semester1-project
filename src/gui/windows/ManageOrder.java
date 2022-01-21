@@ -14,7 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JPanel;
 import controller.AuthenticationController;
 import controller.OrderController;
@@ -24,6 +28,7 @@ import model.Customer;
 import model.Order;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.JTextField;
 
 /**
@@ -40,6 +45,8 @@ public class ManageOrder extends JDialog {
 	private JPanel contentPane;
 	private OrdersTableModel ordersTableModel;
 	private OrdersItemTableModel itemTableModel;
+	
+	private TableRowSorter<TableModel> rowSorter;
 	
 	OrderController orderCtrl;
 	private JTextField txtSearch;
@@ -135,6 +142,9 @@ public class ManageOrder extends JDialog {
 		tableOrders.setModel(ordersTableModel);
 		scrollPanel.setViewportView(tableOrders);
 		
+		rowSorter = new TableRowSorter<>(tableOrders.getModel());
+		tableOrders.setRowSorter(rowSorter);
+		
 		JLabel lblItemsInOrder = new JLabel("Items in Order");
 		GridBagConstraints gbc_lblItemsInOrder = new GridBagConstraints();
 		gbc_lblItemsInOrder.insets = new Insets(0, 0, 5, 0);
@@ -212,25 +222,34 @@ public class ManageOrder extends JDialog {
 			}
 		});
 		
-		// Searches for an order by id
-		txtSearch.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				int id;
+		// Searches for an order with dynamic filter
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+			
+			 @Override
+	         public void insertUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
 				
-				try {
-					id = Integer.parseInt(txtSearch.getText());
-				} catch (NumberFormatException e1) {
-					ordersTableModel = new OrdersTableModel(orderCtrl.getOrders(customer));
-					tableOrders.setModel(ordersTableModel);
-					return;
+				if(text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				}else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
 				}
+			}
+			
+			@Override
+			public void  removeUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
 				
-				List<Order> orders = new ArrayList<Order>();
-				orders.add(orderCtrl.findOrderByIdForCustomer(id, customer));
-				ordersTableModel = new OrdersTableModel(orders);
-				tableOrders.setModel(ordersTableModel);
-				
+				if (text.trim().length() == 0) {
+                   rowSorter.setRowFilter(null);
+               } else {
+                   rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+               }
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
 		

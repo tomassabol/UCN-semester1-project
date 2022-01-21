@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.Arrays;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,6 +20,11 @@ import controller.ProductController;
 import model.Product;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import gui.JLink;
 import gui.Messages;
@@ -26,6 +32,7 @@ import gui.JLink.COLORS;
 import gui.panels.tableModels.ProductTableModel;
 import gui.panels.tableModels.ProductTableModel.Column;
 import gui.windows.objects.ProductUI;
+import javax.swing.JTextField;
 /**
  * @author Daniels Kanepe
  *
@@ -40,6 +47,7 @@ public class CRUDProducts extends JPanel {
 	
 	private JButton btnAddItem;
 	private ProductController productCtrl;
+	private TableRowSorter<TableModel> rowSorter;
 	
 	/**
 	 * 
@@ -51,6 +59,7 @@ public class CRUDProducts extends JPanel {
 	private JLink btnEdit;
 	private JLink btnDisable;
 	private AuthenticationController auth;
+	private JTextField txtSearch;
 
 	/**
 	 * Create the dialog.
@@ -76,42 +85,53 @@ public class CRUDProducts extends JPanel {
 		}
 		
 		
+		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
 		this.add(topPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_topPanel = new GridBagLayout();
-		gbl_topPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_topPanel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_topPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
-			// ***** Title *****
-			JLabel lblTitle = new JLabel(
-					String.format("Products")
-			);
-			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-			gbc_lblTitle.gridwidth = 2;
-			gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
-			gbc_lblTitle.gridx = 0;
-			gbc_lblTitle.gridy = 0;
-			topPanel.add(lblTitle, gbc_lblTitle);
+		// ***** Title *****
+		JLabel lblTitle = new JLabel(
+			String.format("Products")
+		);
+		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTitle.gridx = 1;
+		gbc_lblTitle.gridy = 0;
+		topPanel.add(lblTitle, gbc_lblTitle);
 			
-			// ***** button: Add product  *****
-			btnAddItem = new JButton("Add Product");
-			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-			gbc_btnNewButton.gridx = 1;
-			gbc_btnNewButton.gridy = 1;
-			topPanel.add(btnAddItem, gbc_btnNewButton);
+		txtSearch = new JTextField();
+		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
+		gbc_txtSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_txtSearch.gridx = 0;
+		gbc_txtSearch.gridy = 1;
+		topPanel.add(txtSearch, gbc_txtSearch);
+		txtSearch.setColumns(10);
+			
+		// ***** button: Add product  *****
+		btnAddItem = new JButton("Add Product");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton.gridx = 2;
+		gbc_btnNewButton.gridy = 1;
+		topPanel.add(btnAddItem, gbc_btnNewButton);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
 		add(scrollPanel, BorderLayout.CENTER);
-			// ***** Table *****
-			tableMain = new JTable();
-			tableMain.setModel(tableModel);
-			tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			scrollPanel.setViewportView(tableMain);
+		// ***** Table *****
+		tableMain = new JTable();
+		tableMain.setModel(tableModel);
+		tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPanel.setViewportView(tableMain);
+		
+		rowSorter = new TableRowSorter<>(tableMain.getModel());
+		tableMain.setRowSorter(rowSorter);
 		
 		// ***** Bottom panel *****
 		JPanel bottomPanel = new JPanel();
@@ -123,29 +143,28 @@ public class CRUDProducts extends JPanel {
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
 			
-			// ***** View button *****
-			btnView = new JLink("View", COLORS.GREEN);
-			GridBagConstraints gbc_btnView = new GridBagConstraints();
-			gbc_btnView.insets = new Insets(0, 0, 0, 5);
-			gbc_btnView.gridx = 1;
-			gbc_btnView.gridy = 0;
-			bottomPanel.add(btnView, gbc_btnView);
+		// ***** View button *****
+		btnView = new JLink("View", COLORS.GREEN);
+		GridBagConstraints gbc_btnView = new GridBagConstraints();
+		gbc_btnView.insets = new Insets(0, 0, 0, 5);
+		gbc_btnView.gridx = 1;
+		gbc_btnView.gridy = 0;
+		bottomPanel.add(btnView, gbc_btnView);
 			
-			// ***** Edit button *****
-			btnEdit = new JLink("Edit", COLORS.INDIGO);
-			GridBagConstraints gbc_btnEdit = new GridBagConstraints();
-			gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
-			gbc_btnEdit.gridx = 2;
-			gbc_btnEdit.gridy = 0;
-			bottomPanel.add(btnEdit, gbc_btnEdit);
+		// ***** Edit button *****
+		btnEdit = new JLink("Edit", COLORS.INDIGO);
+		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
+		gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEdit.gridx = 2;
+		gbc_btnEdit.gridy = 0;
+		bottomPanel.add(btnEdit, gbc_btnEdit);
 			
-			
-			// ***** Disable button *****
-			btnDisable = new JLink("Disable", COLORS.RED);
-			GridBagConstraints gbc_btnDisable = new GridBagConstraints();
-			gbc_btnDisable.gridx = 3;
-			gbc_btnDisable.gridy = 0;
-			bottomPanel.add(btnDisable, gbc_btnDisable);
+		// ***** Disable button *****
+		btnDisable = new JLink("Disable", COLORS.RED);
+		GridBagConstraints gbc_btnDisable = new GridBagConstraints();
+		gbc_btnDisable.gridx = 3;
+		gbc_btnDisable.gridy = 0;
+		bottomPanel.add(btnDisable, gbc_btnDisable);
 		
 		// By default: all selection buttons disabled
 		btnView.setEnabled(false);
@@ -257,6 +276,37 @@ public class CRUDProducts extends JPanel {
 			frame.setVisible(true);
 			if (frame.getProduct() != null) {
 				tableModel.add(frame.getProduct());
+			}
+		});
+		
+		// Search product with a dynamic filter
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+			
+			 @Override
+	         public void insertUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+				
+				if(text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				}else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+			
+			@Override
+			public void  removeUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+				
+				if (text.trim().length() == 0) {
+                  rowSorter.setRowFilter(null);
+              } else {
+                  rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+              }
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
 	}

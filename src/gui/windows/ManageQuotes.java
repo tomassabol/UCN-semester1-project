@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JPanel;
 import controller.AuthenticationController;
 import controller.OrderController;
@@ -28,6 +29,11 @@ import model.Order;
 import model.Quote;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
+
+import javax.swing.table.TableRowSorter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.RowFilter;
 
 /**
  * @author Daniels Kanepe
@@ -48,6 +54,8 @@ public class ManageQuotes extends JDialog {
 	private JButton btnPay;
 	private JTable tableQuotes;
 	private JTable tableItems;
+	
+	private TableRowSorter<TableModel> rowSorter;
 	
 	private boolean isSubmitPressed = false;
 	private Order createdOrder = null;
@@ -140,6 +148,9 @@ public class ManageQuotes extends JDialog {
 		quotesTableModel = new QuotesTableModel(quoteCtrl.getQuotes(customer));
 		tableQuotes.setModel(quotesTableModel);
 		scrollPanel.setViewportView(tableQuotes);
+		
+		rowSorter = new TableRowSorter<>(tableQuotes.getModel());
+		tableQuotes.setRowSorter(rowSorter);
 		
 		JLabel lblItemsInQuote = new JLabel("Items in quote");
 		GridBagConstraints gbc_lblItemsInQuote = new GridBagConstraints();
@@ -256,22 +267,34 @@ public class ManageQuotes extends JDialog {
 			}
 		});
 		
-		// Searches for a quote by id
-		txtSearch.addKeyListener(new KeyAdapter() {
+		// Dynamic filter for searching
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+			
+			 @Override
+	         public void insertUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+				
+				if(text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				}else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+			
 			@Override
-			public void keyReleased(KeyEvent e) {
-				int id;
-				try {
-					id = Integer.parseInt(txtSearch.getText());
-				} catch (NumberFormatException e1) {
-					quotesTableModel = new QuotesTableModel(quoteCtrl.getQuotes(customer));
-					tableQuotes.setModel(quotesTableModel);
-					return;
-				}	
-				List<Quote> quotes = new ArrayList<Quote>();
-				quotes.add(quoteCtrl.findQuoteById(id));
-				quotesTableModel = new QuotesTableModel(quotes);
-				tableQuotes.setModel(quotesTableModel);	
+			public void  removeUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+				
+				if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
 		

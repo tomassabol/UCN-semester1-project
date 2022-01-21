@@ -78,11 +78,12 @@ public class CRUDSupplyOffers extends JPanel {
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
 		add(scrollPanel, BorderLayout.CENTER);
-			// ***** Table *****
-			tableMain = new JTable();
-			tableMain.setModel(tableModel);
-			tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			scrollPanel.setViewportView(tableMain);
+		
+		// ***** Table *****
+		tableMain = new JTable();
+		tableMain.setModel(tableModel);
+		tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPanel.setViewportView(tableMain);
 		
 		// ***** Bottom panel *****
 		JPanel bottomPanel = new JPanel();
@@ -94,29 +95,28 @@ public class CRUDSupplyOffers extends JPanel {
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
 			
-			// ***** View button *****
-			btnView = new JLink("View", COLORS.GREEN);
-			GridBagConstraints gbc_btnView = new GridBagConstraints();
-			gbc_btnView.insets = new Insets(0, 0, 0, 5);
-			gbc_btnView.gridx = 1;
-			gbc_btnView.gridy = 0;
-			bottomPanel.add(btnView, gbc_btnView);
+		// ***** View button *****
+		btnView = new JLink("View", COLORS.GREEN);
+		GridBagConstraints gbc_btnView = new GridBagConstraints();
+		gbc_btnView.insets = new Insets(0, 0, 0, 5);
+		gbc_btnView.gridx = 1;
+		gbc_btnView.gridy = 0;
+		bottomPanel.add(btnView, gbc_btnView);
 			
-			// ***** Edit button *****
-			btnEdit = new JLink("Edit", COLORS.INDIGO);
-			GridBagConstraints gbc_btnEdit = new GridBagConstraints();
-			gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
-			gbc_btnEdit.gridx = 2;
-			gbc_btnEdit.gridy = 0;
-			bottomPanel.add(btnEdit, gbc_btnEdit);
+		// ***** Edit button *****
+		btnEdit = new JLink("Edit", COLORS.INDIGO);
+		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
+		gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEdit.gridx = 2;
+		gbc_btnEdit.gridy = 0;
+		bottomPanel.add(btnEdit, gbc_btnEdit);
 			
-			
-			// ***** Disable button *****
-			btnDisable = new JLink("Remove", COLORS.RED);
-			GridBagConstraints gbc_btnDisable = new GridBagConstraints();
-			gbc_btnDisable.gridx = 3;
-			gbc_btnDisable.gridy = 0;
-			bottomPanel.add(btnDisable, gbc_btnDisable);
+		// ***** Disable button *****
+		btnDisable = new JLink("Remove", COLORS.RED);
+		GridBagConstraints gbc_btnDisable = new GridBagConstraints();
+		gbc_btnDisable.gridx = 3;
+		gbc_btnDisable.gridy = 0;
+		bottomPanel.add(btnDisable, gbc_btnDisable);
 		
 		// By default: all selection buttons disabled
 		btnView.setEnabled(false);
