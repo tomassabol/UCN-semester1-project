@@ -1,10 +1,15 @@
-package gui.windows;
+ package gui.windows;
 
 import javax.swing.JDialog;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -15,6 +20,7 @@ import controller.AuthenticationController;
 import controller.OrderController;
 import controller.QuoteController;
 import gui.Messages;
+import gui.panels.tableModels.OrdersTableModel;
 import gui.panels.tableModels.QuotesItemTableModel;
 import gui.panels.tableModels.QuotesTableModel;
 import model.Customer;
@@ -247,6 +253,25 @@ public class ManageQuotes extends JDialog {
 				Quote quote = quotesTableModel.getQuote(selectedRow);
 				itemTableModel = new QuotesItemTableModel(quote.getItemLines());
 				tableItems.setModel(itemTableModel);
+			}
+		});
+		
+		// Searches for a quote by id
+		txtSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				int id;
+				try {
+					id = Integer.parseInt(txtSearch.getText());
+				} catch (NumberFormatException e1) {
+					quotesTableModel = new QuotesTableModel(quoteCtrl.getQuotes(customer));
+					tableQuotes.setModel(quotesTableModel);
+					return;
+				}	
+				List<Quote> quotes = new ArrayList<Quote>();
+				quotes.add(quoteCtrl.findQuoteById(id));
+				quotesTableModel = new QuotesTableModel(quotes);
+				tableQuotes.setModel(quotesTableModel);	
 			}
 		});
 		
