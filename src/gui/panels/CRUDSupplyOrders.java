@@ -25,7 +25,7 @@ import gui.JLink.COLORS;
 import gui.panels.tableModels.SupplyOrderTableModel;
 import gui.windows.objects.SupplyOrderUI;
 
-public class CRUDSupplyOrder extends JPanel {
+public class CRUDSupplyOrders extends JPanel {
 	
 	
 	private JButton btnAddSupplyOrder;
@@ -35,15 +35,13 @@ public class CRUDSupplyOrder extends JPanel {
 	private SupplyOrderTableModel tableModel;
 	private JLink btnView;
 	AuthenticationController auth;
-	Product product;
 
 	/**
 	 * Create the dialog.
 	 * Constructor class CRUDCustomersPanel
 	 */
-	public CRUDSupplyOrder(AuthenticationController auth, Product product) {
+	public CRUDSupplyOrders(AuthenticationController auth) {
 		this.auth = auth;
-		this.product = product;
 		supplyCtrl = new SupplyController();
 		setLayout(new BorderLayout(0, 0));
 		
@@ -171,17 +169,17 @@ public class CRUDSupplyOrder extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			SupplyOrder supplyOrder = tableModel.getObj(row);
-			SupplyOrderUI frame = new SupplyOrderUI(auth, supplyOrder, product, SupplyOrderUI.Mode.VIEW);
+			SupplyOrderUI frame = new SupplyOrderUI(auth, supplyOrder, SupplyOrderUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 
 		// 'ADD supply order' button
 		btnAddSupplyOrder.addActionListener(e -> {
-			SupplyOrderUI frame = new SupplyOrderUI(auth, product);
+			SupplyOrderUI frame = new SupplyOrderUI(auth);
 			frame.setVisible(true);
-			if (frame.getSupplyOrder() != null) {
-				tableModel.add(frame.getSupplyOrder());
-			}
+//			if (frame.getSupplyOrder() != null) {
+//				tableModel.add(frame.getSupplyOrder());
+//			}
 		});
 	}
 }

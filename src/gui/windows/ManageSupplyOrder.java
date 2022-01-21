@@ -6,18 +6,18 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import gui.panels.CRUDSupplyOrder;
+import gui.panels.CRUDSupplyOrders;
 import model.Product;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
-public class ManageSupplyOrderUI extends JDialog {
+public class ManageSupplyOrder extends JDialog {
 
 	
 	private static final long serialVersionUID = 2968937622159813565L;
 	private final JPanel contentPane;
-	private CRUDSupplyOrder supplyOrderPanel;
+	private CRUDSupplyOrders supplyOrderPanel;
 	
 	AuthenticationController auth;
 	Product product;
@@ -25,7 +25,7 @@ public class ManageSupplyOrderUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ManageSupplyOrderUI(AuthenticationController auth, Product product) {
+	public ManageSupplyOrder(AuthenticationController auth, Product product) {
 		this.auth = auth;
 		this.product = product;
 		this.setTitle("Manage Supply Orders");
@@ -42,7 +42,7 @@ public class ManageSupplyOrderUI extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		supplyOrderPanel = new CRUDSupplyOrder(auth, product);
+		supplyOrderPanel = new CRUDSupplyOrders(auth);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
