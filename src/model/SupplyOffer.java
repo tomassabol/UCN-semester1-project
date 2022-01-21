@@ -66,6 +66,22 @@ public class SupplyOffer {
 
 
 
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public void setPricePerItem(BigDecimal pricePerItem) {
+		this.pricePerItem = pricePerItem;
+	}
+
+	public void setMinQuantity(int minQuantity) {
+		this.minQuantity = minQuantity;
+	}
+
+	public void setContractor(Contractor contractor) {
+		this.contractor = contractor;
+	}
+
 	/**
 	 * Gets the min quantity.
 	 *

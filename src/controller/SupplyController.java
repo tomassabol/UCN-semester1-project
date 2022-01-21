@@ -104,49 +104,20 @@ public class SupplyController {
 	}
 	
 	
-	/**
-	 * Deactivate a supply offer
-	 *
-	 * @param supplyOffer The supply offer
-	 */
-	public void setStatus(SupplyOffer supplyOffer, boolean status) {
-		supplyOffer.setActive(status);
-		//supplyOffer.setActive(!supplyOffer.isActive()); || This may be better
+	public void updateSupplyOfferProduct(SupplyOffer supplyOffer, Product product) {
+		supplyOffer.setProduct(product);
 	}
 	
-	/**
-	 * 'Update' supply offer.
-	 * Creates a new supply offer with new values and deactivates old one
-	 *
-	 * @param product the product the supply offer belongs to
-	 * @param supplyOffer the old supply offer
-	 * @param newContractor the new contractor
-	 * @param newMinQuantity the new minimum order quantity
-	 * @param newPricePerItem the new price per item
-	 * @return the supply offer
-	 */
-	public SupplyOffer updateSupplyOffer(Product product, SupplyOffer supplyOffer, Contractor newContractor,
-			int newMinQuantity, BigDecimal newPricePerItem) {
-		supplyOffer.setActive(false);
-		return createSupplyOffer(product, newContractor, newPricePerItem, newMinQuantity);
-		
-		
+	public void updateSupplyOfferPricePerItem(SupplyOffer supplyOffer, BigDecimal pricePerItem) {
+		supplyOffer.setPricePerItem(pricePerItem);
 	}
 	
-	public SupplyOffer updateSupplyOfferProduct(SupplyOffer supplyOffer, Product product) {
-		
+	public void updateSupplyOfferMinQuantity(SupplyOffer supplyOffer, int minQuantity) {
+		supplyOffer.setMinQuantity(minQuantity);
 	}
 	
-	public SupplyOffer updateSupplyOfferPricePerItem(SupplyOffer supplyOffer, BigDecimal pricePerItem) {
-		
-	}
-	
-	public SupplyOffer updateSupplyOfferMinQuantity(SupplyOffer supplyOffer, int minQuantity) {
-		
-	}
-	
-	public SupplyOffer updateSupplyOfferContractor(SupplyOffer supplyOffer, Contractor contractor) {
-		
+	public void updateSupplyOfferContractor(SupplyOffer supplyOffer, Contractor contractor) {
+		supplyOffer.setContractor(contractor);
 	}
 
 	/**
