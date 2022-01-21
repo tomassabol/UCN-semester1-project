@@ -112,7 +112,7 @@ public class CRUDSupplyOffers extends JPanel {
 			
 			
 			// ***** Disable button *****
-			btnDisable = new JLink("Delete", COLORS.RED);
+			btnDisable = new JLink("Remove", COLORS.RED);
 			GridBagConstraints gbc_btnDisable = new GridBagConstraints();
 			gbc_btnDisable.gridx = 3;
 			gbc_btnDisable.gridy = 0;
@@ -183,13 +183,13 @@ public class CRUDSupplyOffers extends JPanel {
 		});
 		
 		// Delete supply offer
-		// TODO: Need to create a delete method 
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
 			SupplyOffer supplyOffer = tableModel.getObj(row);
-			if (Messages.confirm(this, String.format("Are you sure you wish to delete the supply offer with the ID of '%s'?",
+			if (Messages.confirm(this, String.format("Are you sure you wish to remove the supply offer with the ID of '%s'?",
 					supplyOffer.ID))) {
-				//supplyCtrl.setStatus(supplyOffer, false);
+				supplyCtrl.removeSupplyOffer(supplyOffer);
+				tableModel.remove(row);
 			}
 		});
 

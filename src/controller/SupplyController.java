@@ -14,6 +14,8 @@ import model.StockBatch;
 import model.SupplyOffer;
 import model.SupplyOrder;
 import model.TrackableItem;
+import model.containers.ContractorContainer;
+import model.containers.StockContainer;
 import model.containers.SupplyOfferContainer;
 import model.containers.SupplyOrderContainer;
 
@@ -185,5 +187,9 @@ public class SupplyController {
 	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, Set<Integer> serialNumbers) {
 		// TODO: work on it- low priority
 	}
+
+	public void removeSupplyOffer(SupplyOffer supplyOffer) {
+		SupplyOfferContainer.getInstance().remove(supplyOffer);
+}
 	
 }

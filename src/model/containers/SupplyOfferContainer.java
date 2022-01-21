@@ -109,5 +109,12 @@ public class SupplyOfferContainer {
     	}
     	return null;
     }
+    
+    public void remove(SupplyOffer supplyOffer)  {
+    	this.offers.forEach((Product, list) -> { 
+    	    list.removeIf(offer -> offer.equals(supplyOffer));
+    	});
+    }
+    
 
 }
