@@ -86,6 +86,10 @@ public class SupplyController {
 	public List<SupplyOffer> getSupplyOffers(Product product) {
 		return SupplyOfferContainer.getInstance().getSupplyOffers(product);
 	}
+	
+	public List<SupplyOffer> getSupplyOffers() {
+		return SupplyOfferContainer.getInstance().getSupplyOffers();
+	}
 
 	public List<SupplyOrder> getSupplyOrders() {
 		return SupplyOrderContainer.getInstance().getSupplyOrders();
