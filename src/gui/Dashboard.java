@@ -540,6 +540,10 @@ public class Dashboard extends JFrame {
 			frame.setVisible(true);
 		});
 		
+		btnStockASupplyOrder.addActionListener(e -> {
+			Messages.info(this, "Not implemented yet!");
+		});
+		
 		///////////////////////////////////////////////////////
 		////////////////     People tab     //////////////////
 		/////////////////////////////////////////////////////
