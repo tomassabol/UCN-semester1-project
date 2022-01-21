@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import model.Customer;
+import model.CustomerContainer;
 import model.CustomerType;
+import model.CustomerTypeContainer;
 import model.IFCustomer;
 import model.PrimaryKey;
-import model.containers.CustomerContainer;
-import model.containers.CustomerTypeContainer;
 
 public class CustomerController {
 

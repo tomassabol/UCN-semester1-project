@@ -1,8 +1,6 @@
-package model.containers;
+package model;
 
 import java.util.ArrayList;
-
-import model.SupplyOrder;
 
 public class SupplyOrderContainer {
 	

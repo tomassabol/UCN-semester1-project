@@ -1,9 +1,7 @@
-package model.containers;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import model.UntrackableStock;
 
 public class UntrackableStockContainer {
     private static UntrackableStockContainer instance;

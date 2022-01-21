@@ -13,7 +13,7 @@ import model.CustomerType;
 import model.Employee;
 import model.PrimaryKey;
 import model.Quote;
-import model.containers.QuoteContainer;
+import model.QuoteContainer;
 
 class QuoteControllerTest {
 	private QuoteContainer quoteCon;

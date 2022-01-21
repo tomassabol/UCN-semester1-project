@@ -12,9 +12,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import model.Product;
+import model.ProductContainer;
 import model.SupplyOffer;
-import model.containers.ProductContainer;
-import model.containers.SupplyOfferContainer;
+import model.SupplyOfferContainer;
 
 class SupplyControllerTest {
 private SupplyOfferContainer supplyCon;

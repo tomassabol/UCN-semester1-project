@@ -1,4 +1,4 @@
-package model.containers;
+package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,15 +6,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
-import model.OrderLine;
-import model.Product;
-import model.Quote;
-import model.QuoteItemLine;
-import model.Shelf;
-import model.StockBatch;
-import model.StorageLocation;
-import model.TrackableItem;
 
 /**
  * The Class StorageContainer.

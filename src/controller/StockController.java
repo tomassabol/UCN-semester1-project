@@ -8,9 +8,9 @@ import model.PrimaryKey;
 import model.Product;
 import model.Quote;
 import model.Shelf;
+import model.Stock;
 import model.StockBatch;
 import model.StorageLocation;
-import model.containers.Stock;
 
 public class StockController {
 
