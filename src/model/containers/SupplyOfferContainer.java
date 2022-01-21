@@ -115,6 +115,4 @@ public class SupplyOfferContainer {
     	    list.removeIf(offer -> offer.equals(supplyOffer));
     	});
     }
-    
-
 }
