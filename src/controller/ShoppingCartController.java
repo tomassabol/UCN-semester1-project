@@ -1,10 +1,16 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import exceptions.DisabledStateException;
+import exceptions.NullPriceException;
+import exceptions.OutOfStockException;
 import model.Product;
 import model.ShoppingCart;
 import model.ShoppingItemLine;
-import model.Stock;
-import model.OutOfStockException;
+import model.containers.Stock;
 
 public class ShoppingCartController {
 
@@ -13,34 +19,57 @@ public class ShoppingCartController {
 	
 
 	/**
-	 * Adds the product to a shopping cart
-	 * Note: it checks the quantity & updates quantity if the item is already in cart
+	 * Adds a product with specific quantity to a shopping cart
+	 * Note: if the product is already in cart, the quantity will be added to the existing item line.
 	 *
 	 * @param shoppingCart the shopping cart
 	 * @param product the product
 	 * @param quantity the quantity
-	 * @return true, if successful
 	 * 
-	 * @exception IllegalArgumentException when quantity <= 0
-	 * @exception IllegalArgumentException When adding product that doesn't have a buy price
+	 * @return ShoppingItemLine either the newly created one,
+	 * 				or the one that was incremented (if already in cart)
+	 * 
+	 * @exception IllegalArgumentException when quantity <= 0, and when product or shoppingCart is null
+	 * @exception NullPriceEception if a product's buy price is null
+	 * @exception DisabledStateException if a product is disabled
 	 */
-	public ShoppingItemLine addProduct(ShoppingCart shoppingCart, Product product, int quantity)  throws OutOfStockException  {
-		// check if product already is in cart
+	public ShoppingItemLine addProduct(ShoppingCart shoppingCart, Product product, int quantity)
+			throws OutOfStockException, NullPriceException, DisabledStateException  {
+		// Validation
+		if (shoppingCart == null || product == null || quantity <= 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		// A product must have a buy price
+		if (product.getLatestSellingPrice() == null) {
+			throw new NullPriceException("Cannot add a product to cart with no (buy) price!");
+		}
+		
+		// A product must not be disabled
+		if (!product.isEnabled()) {
+			throw new DisabledStateException("Cannot add a disabled product to a shopping cart!");
+		}
+		
+		
+		// if product already in cart, store the itemLine
 		ShoppingItemLine alreadyInCart = null;
+		
 		for (ShoppingItemLine itemLine: shoppingCart.getItemLines()) {
 			if (itemLine.getPRODUCT() == product) {
 				alreadyInCart = itemLine;
 			}
 		}
-		// get quantity in stock
+		// get avalable buyable quantity in stock
 		int buyableQuantityInStock = Stock.getInstance().getBuyableQuantityInStock(product);
 		
-		// In cart
+		// if the product is already in cart
 		if (alreadyInCart != null) {
-			// already in cart + quantity in cart are in stock
+			// if requested quantity plus the quantity already in cart are in stock:
+				// increment item line's quantity
 			if ((quantity + alreadyInCart.getQuantity()) <= buyableQuantityInStock) {
 				alreadyInCart.addItems(quantity);
-			// not in stock
+			// if requested quantity plus the quantity already in cart NOT in stock:
+				// exception
 			} else {
 				throw new OutOfStockException(String.format("Could not add %d item(s) to cart as you already have %d in cart and there are only %d in stock", 
 						quantity,
@@ -48,14 +77,14 @@ public class ShoppingCartController {
 						buyableQuantityInStock));
 			}
 			return alreadyInCart;
-		// not in cart
+		// If the product is not already in cart
 		} else {
 			ShoppingItemLine itemLine;
-			// in stock
+			// Add to shopping cart if available stock covers it
 			if (quantity <= buyableQuantityInStock) {
 				itemLine = new ShoppingItemLine(product, quantity);
 				shoppingCart.add(itemLine);
-			// not in stock
+			// if not enough stock, throw exception
 			} else {
 				throw new OutOfStockException(String.format("Could not add %d item(s) to cart as there are only %d in stock", 
 						quantity,
@@ -109,6 +138,87 @@ public class ShoppingCartController {
 		
 		// Set quantity
 		itemLine.setQuantity(quantity);
+	}
+	
+	// Removes items that cannot be bought from cart and returns them.
+	// Unbuyable means out of stock, disabled, or ones with no 'buy' price
+	
+	
+	/**
+	 * 	// Removes items that cannot be bought from cart and returns them.
+	 * 	// Unbuyable means out of stock, disabled, or ones with no 'buy' price
+	 *
+	 * @requires StockController
+	 *
+	 * @param shoppingCart the shopping cart
+	 * @return A list of removed ShoppingItemLine's
+	 */
+	public List<ShoppingItemLine> removeUnbuyableItems(ShoppingCart shoppingCart) {
+		// initialize Stock Controller
+		StockController stockCtrl = new StockController();
+		
+		// Keep track of item lines to remove
+		List<ShoppingItemLine> removedItemLines = new ArrayList<>();
+		
+		Iterator<ShoppingItemLine> itemLines = shoppingCart.getItemLines().iterator();
+		while (itemLines.hasNext()) {
+			ShoppingItemLine itemLine = itemLines.next();
+			
+			// if no price
+			if (itemLine.getPRODUCT().getLatestSellingPrice() == null) {
+				itemLines.remove();
+				removedItemLines.add(itemLine);
+			}
+			
+			// if disabled
+			if (!itemLine.getPRODUCT().isEnabled()) {
+				itemLines.remove();
+				removedItemLines.add(itemLine);
+			}
+			
+			// if available quantity < required: 
+					// set to quantity IN STOCK,
+					// or remove if 'in stock quantity' <= 0
+			int quantityInStock = stockCtrl.getBuyableQuantityInStock(itemLine.getPRODUCT());
+			if (quantityInStock <= 0) {
+				itemLines.remove();
+				removedItemLines.add(itemLine);
+			}
+			
+		}
+		
+		// return removed item lines
+		return removedItemLines;
+	}
+	
+	/**
+	 * Sets item lines' quantity to available quantity if stock has less than the required item amount
+	 * 
+	 * @requires StockController
+	 *
+	 * @param shoppingCart the shopping cart
+	 * @return A list of removed ShoppingItemLine's
+	 */
+	public List<ShoppingItemLine> adjustQuantity(ShoppingCart shoppingCart) {
+		// initialize Stock Controller
+		StockController stockCtrl = new StockController();
+		
+		// Keep track of item lines to remove
+		List<ShoppingItemLine> adjustedItemLines = new ArrayList<>();
+		
+		Iterator<ShoppingItemLine> itemLines = shoppingCart.getItemLines().iterator();
+		while (itemLines.hasNext()) {
+			ShoppingItemLine itemLine = itemLines.next();
+			
+			int quantityInStock = stockCtrl.getBuyableQuantityInStock(itemLine.getPRODUCT());
+			if (itemLine.getQuantity() > quantityInStock && quantityInStock > 0) {
+				itemLine.setQuantity(quantityInStock);
+				adjustedItemLines.add(itemLine);
+			}
+		}
+			
+		// Return adjusted item lines
+		return adjustedItemLines;
 	}
 	
 

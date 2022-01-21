@@ -32,7 +32,7 @@ public class StockBatch {
      *
      * @param trackableItems the trackable items
      */
-    public StockBatch(Set<TrackableItem> trackableItems) {
+    public StockBatch(Set<TrackableItem> trackableItems, LocalDateTime delivered) {
         if (trackableItems.isEmpty()) {
             throw new IllegalArgumentException("Must contain at least 1 product");
         }
@@ -40,6 +40,7 @@ public class StockBatch {
         allItemsOfSameProduct(trackableItems);
         this.trackableItems = (HashSet<TrackableItem>) trackableItems;
         untrackableItemQuantity = 0;
+        this.delivered = delivered;
     }
 
     /**
@@ -48,13 +49,14 @@ public class StockBatch {
      * @param product  - untrackable product
      * @param quantity - quantity of untrackableProduct
      */
-    public StockBatch(Product product, int quantity) {
+    public StockBatch(Product product, int quantity, LocalDateTime delivered) {
         if (quantity < 1) {
             throw new IllegalArgumentException("Quantity cannot be less than 0");
         }
         this.untrackableItemQuantity = quantity;
         this.PRODUCT = product;
         this.trackableItems = new HashSet<>();
+        this.delivered = delivered;
     }
 
     /**

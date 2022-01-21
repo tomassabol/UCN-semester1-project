@@ -3,7 +3,10 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.OutOfStockException;
 import model.*;
+import model.containers.QuoteContainer;
+import model.containers.Stock;
 
 /**
  * The Class OrderController.
@@ -53,7 +56,7 @@ public class QuoteController {
     		quoteItemLines.add(new QuoteItemLine(shopItemLine.PRODUCT, shopItemLine.getQuantity()));
     	}
     	// Create the quote and add to container
-    	Quote quote = new Quote(PrimaryKey.getNextOrderID(), customer, employee, quoteItemLines);
+    	Quote quote = new Quote(PrimaryKey.getID(PrimaryKey.Keys.QUOTE), customer, employee, quoteItemLines);
     	return QuoteContainer.getInstance().addQuote(quote);
     }
     
@@ -94,7 +97,7 @@ public class QuoteController {
     	// clear shopping cart 
     	shoppingCart.clear();
     	// create quote
-    	Quote quote = new Quote(PrimaryKey.getNextQuoteID(), customer, employee, quoteItemLines);
+    	Quote quote = new Quote(PrimaryKey.getID(PrimaryKey.Keys.QUOTE), customer, employee, quoteItemLines);
     	//add quote to container
     	QuoteContainer.getInstance().addQuote(quote);
     	return quote;

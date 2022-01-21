@@ -8,8 +8,9 @@ import model.PrimaryKey;
 import model.Product;
 import model.Quote;
 import model.Shelf;
-import model.Stock;
+import model.StockBatch;
 import model.StorageLocation;
+import model.containers.Stock;
 
 public class StockController {
 
@@ -22,7 +23,8 @@ public class StockController {
      * @return the storage location
      */
     public StorageLocation createStorageLocation(String name, String address, boolean isAStore) {
-        StorageLocation storageLocation = new StorageLocation(PrimaryKey.getNextStorageLocationID(), name, address, isAStore);
+        StorageLocation storageLocation = new StorageLocation(PrimaryKey.getID(PrimaryKey.Keys.STORAGE_LOCATION),
+        		name, address, isAStore);
         Stock.getInstance().addStorageLocation(storageLocation);
         return storageLocation;
     }
@@ -34,11 +36,14 @@ public class StockController {
      * @param storageLocation the storage location
      * @return the shelf
      */
-    public Shelf createShelf(String name, StorageLocation storageLocation, Product product) {
-        Shelf shelf = new Shelf(PrimaryKey.getNextShelfID(), name, storageLocation, product);
+    public Shelf createShelf(String name, StorageLocation storageLocation) {
+        Shelf shelf = new Shelf(PrimaryKey.getID(PrimaryKey.Keys.SHELF),
+        		name, storageLocation);
         Stock.getInstance().addShelf(storageLocation, shelf);
         return shelf;
     }
+    
+    
 
 
 
@@ -144,7 +149,16 @@ public class StockController {
     	Stock.getInstance().removeShelf(shelf);
     }
 
-    public void updateShalfName(Shelf shelf, String name) {
+    public void updateShelfName(Shelf shelf, String name) {
         shelf.setName(name);
     }
+    
+    public void updateShelfStorageLocation(Shelf shelf, StorageLocation storageLocation) {
+    	shelf.setStorageLocation(storageLocation);
+    }
+    
+    public List<StockBatch> getStockBatches(Shelf shelf) {
+    	return shelf.getStockBatches();
+    }
+    
 }

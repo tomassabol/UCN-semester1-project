@@ -10,6 +10,7 @@ public class SupplyOrder {
     private int quantity;
     private Product product;
     private BigDecimal pricePerITem;
+	public SupplyOffer supplyOffer;
 
     public SupplyOrder(int id, LocalDateTime dateOrdered,
     		Product product, int quantity, BigDecimal pricePerItem) {
@@ -20,6 +21,16 @@ public class SupplyOrder {
         this.quantity = quantity;
         this.delivered = false;
     }
+
+	public SupplyOrder(int id, SupplyOffer supplyOffer, int quantity) {
+		this.ID = id;
+		this.supplyOffer = supplyOffer;
+        this.dateOrdered = LocalDateTime.now();
+        this.product = supplyOffer.getProduct();
+        this.pricePerITem = supplyOffer.getPricePerItem();
+        this.quantity = quantity;
+        this.delivered = false;
+	}
 
     public int getQuantity() {
 		return quantity;
@@ -64,6 +75,14 @@ public class SupplyOrder {
 
 	public int getID() {
 		return ID;
+	}
+
+	public void setSupplyOffer(SupplyOffer supplyOffer)  {
+		this.supplyOffer = supplyOffer;
+	}
+
+	public SupplyOffer getSupplyOffer()  {
+		return supplyOffer;
 	}
 
 }

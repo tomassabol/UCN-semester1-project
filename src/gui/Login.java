@@ -154,7 +154,7 @@ public class Login extends JFrame {
 			    // Log in
 			    AuthenticationController auth = new AuthenticationController();
 			    if (auth.login(email, password)) {
-					DashboardUI frame = new DashboardUI(auth);
+					Dashboard frame = new Dashboard(auth);
 					frame.setVisible(true);
 			    	// free up memory by destroying the current login form
 			    	Login.this.dispose();

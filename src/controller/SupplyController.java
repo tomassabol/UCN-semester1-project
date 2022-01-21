@@ -2,8 +2,8 @@ package controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import model.Contractor;
@@ -40,7 +40,7 @@ public class SupplyController {
 			Contractor contractor, BigDecimal pricePerItem,
 			int minQuantity) {
 		
-		SupplyOffer supplyOffer = new SupplyOffer(PrimaryKey.getNextSupplyOfferID(), product,
+		SupplyOffer supplyOffer = new SupplyOffer(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_OFFER), product,
 				pricePerItem, minQuantity, contractor, true, LocalDateTime.now());
 		SupplyOfferContainer.getInstance().addSupplyOffer(product, supplyOffer);
 		
@@ -83,19 +83,23 @@ public class SupplyController {
 	 * @param product the product
 	 * @return the supply offers
 	 */
-	public ArrayList<SupplyOffer> getSupplyOffers(Product product) {
+	public List<SupplyOffer> getSupplyOffers(Product product) {
 		return SupplyOfferContainer.getInstance().getSupplyOffers(product);
 	}
+	
+	public List<SupplyOffer> getSupplyOffers() {
+		return SupplyOfferContainer.getInstance().getSupplyOffers();
+	}
 
-	public ArrayList<SupplyOrder> getSupplyOrders() {
+	public List<SupplyOrder> getSupplyOrders() {
 		return SupplyOrderContainer.getInstance().getSupplyOrders();
 	}
 
-	public ArrayList<SupplyOrder> getUndeliveredSupplyOrders() {
+	public List<SupplyOrder> getUndeliveredSupplyOrders() {
 		return SupplyOrderContainer.getInstance().getUndeliveredSupplyOrders();
 	}
 
-	public ArrayList<SupplyOrder> getDeliveredSupplyOrders() {
+	public List<SupplyOrder> getDeliveredSupplyOrders() {
 		return SupplyOrderContainer.getInstance().getDeliveredSupplyOrders();
 	}
 	
@@ -137,13 +141,21 @@ public class SupplyController {
 	 * @return the supply order
 	 */
 	// Create supply order
+	/*
 	public SupplyOrder createSupplyOrder(SupplyOffer supplyOffer, int quantity) {
 		Product product = SupplyOfferContainer.getInstance().getProduct(supplyOffer);
-		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getNextSupplyOrderID(),
+		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_ORDER),
 				LocalDateTime.now(),
 				product,
 				quantity,
 				product.getLatestSellingPrice());
+		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
+		return supplyOrder;
+	}
+	*/
+
+	public SupplyOrder createSupplyOrder(SupplyOffer supplyOffer, int quantity) {
+		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_ORDER), supplyOffer, quantity);
 		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
 		return supplyOrder;
 	}
@@ -165,19 +177,19 @@ public class SupplyController {
 			// Generate trackable items
 			Set<TrackableItem> trackableItems = new HashSet<>();
 			for (int i = 0; i < supplyOrder.getQuantity(); i++) {
-				trackableItems.add(new TrackableItem(PrimaryKey.getNextItemID(), 
+				trackableItems.add(new TrackableItem(PrimaryKey.getID(PrimaryKey.Keys.ITEM), 
 						TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE,
 						product));
 			}
 			// insert trackable items in a stockBatch
-			StockBatch stockBatch = new StockBatch(trackableItems);
+			StockBatch stockBatch = new StockBatch(trackableItems, LocalDateTime.now());
 			// insert stockBatch into shelf
 			shelf.addStockBatch(product, stockBatch);
 			
 			// For untrackable items
 		} else {
 			Product product = supplyOrder.getProduct();
-			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity());
+			StockBatch stockBatch = new StockBatch(product, supplyOrder.getQuantity(), LocalDateTime.now());
 			shelf.addStockBatch(product, stockBatch);
 		}
 		// Mark as delivered and stocked

@@ -6,9 +6,9 @@ import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 
 import model.Employee;
-import model.EmployeeContainer;
 import model.IFEmployee;
 import model.PrimaryKey;
+import model.containers.EmployeeContainer;
 
 public class EmployeeController {
 
@@ -30,7 +30,7 @@ public class EmployeeController {
 	public Employee createEmployee(String CPRNumber, String email, String password, String firstName, String lastName, String address, String mobile, LocalDate birthDate) {
 		// Hash password
 		String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-		Employee employee = new Employee(PrimaryKey.getNextEmployeeID(), CPRNumber, email, hashedPassword, firstName, lastName, address, mobile, birthDate);
+		Employee employee = new Employee(PrimaryKey.getID(PrimaryKey.Keys.EMPLOYEE), CPRNumber, email, hashedPassword, firstName, lastName, address, mobile, birthDate);
 		// TODO: Add only if CPR & email already doesn't exist in container. Throw custom NotUniqueException
 		EmployeeContainer.getInstance().addEmployee(employee);
 		return employee;

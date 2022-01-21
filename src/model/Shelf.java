@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The Class Shelf.
@@ -21,8 +23,6 @@ public class Shelf {
     /** The stock batches. */
     private HashMap<Product, ArrayList<StockBatch>> stockBatches;
 
-    private Product product;
-
     /**
      * Constructor class Shelf.
      *
@@ -30,11 +30,10 @@ public class Shelf {
      * @param name of the shelf
      * @param storageLocation of the shelf
      */
-    public Shelf(int id, String name, StorageLocation storageLocation, Product product) {
+    public Shelf(int id, String name, StorageLocation storageLocation) {
         this.ID = id;
         this.name = name;
         this.storageLocation = storageLocation;
-        this.product = product;
 
         stockBatches = new HashMap<>();
     }
@@ -78,13 +77,9 @@ public class Shelf {
     public StorageLocation getStorageLocation() {
         return this.storageLocation;
     }
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    
+    public void setStorageLocation(StorageLocation storageLocation) {
+    	this.storageLocation = storageLocation;
     }
 
     /**
@@ -157,15 +152,10 @@ public class Shelf {
 		return availableQuantity;
     }
 
-    /**
-     *  get products out of hashmap
-     */ 
-    public ArrayList<Product> getProducts(){
-        ArrayList<Product> products = new ArrayList<>();
-        stockBatches.forEach((key, value) -> products.add(key));
-        for (Product product : products) {
-            System.out.println(product.getName());
-        }
-        return products;
+    public List<StockBatch> getStockBatches() {
+    	return 
+		    this.stockBatches.values().stream()
+		        .flatMap(List::stream)
+		        .collect(Collectors.toList());
     }
 }
