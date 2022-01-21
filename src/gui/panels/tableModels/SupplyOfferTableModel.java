@@ -91,7 +91,7 @@ public class SupplyOfferTableModel  extends AbstractTableModel {
             case 0: return "#" + supplyOffer.ID;
             case 1: return supplyOffer.getProduct().getName();
             case 2: return supplyOffer.getContractor().getCompanyName();
-            case 3: return supplyOffer.getPricePerItem();
+            case 3: return supplyOffer.getPricePerItem() + " DKK";
             case 4: return supplyOffer.getMinQuantity();
             default: return "Error retrieving column name";
         }

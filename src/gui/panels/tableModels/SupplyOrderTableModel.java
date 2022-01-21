@@ -67,7 +67,7 @@ public class SupplyOrderTableModel extends AbstractTableModel {
             case 2: return supplyOrder.isDelivered();
             case 3: return supplyOrder.getProduct().getName();
             case 4: return String.valueOf(supplyOrder.getQuantity());
-            case 5: return supplyOrder.getPricePerItem();
+            case 5: return supplyOrder.getPricePerItem() + " DKK";
             default: return "Error retrieving column name";
         }
     }
