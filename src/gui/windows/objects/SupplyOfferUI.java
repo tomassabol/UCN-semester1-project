@@ -57,10 +57,6 @@ public class SupplyOfferUI extends JDialog {
 	private JPanel contractorPanel;
 	private JTextField txtContractorDisplay;
 	private JButton btnChooseContractor;
-	private JLabel lblActive;
-	private JPanel activePanel;
-	private JRadioButton rdbtnActiveYes;
-	private JRadioButton rdbtnActiveNo;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
 	private Contractor contractor;
@@ -216,14 +212,6 @@ public class SupplyOfferUI extends JDialog {
 		gbc_lblContractor.gridy = 4;
 		contentPane.add(lblContractor, gbc_lblContractor);
 		
-		lblActive = new JLabel("Active?");
-		GridBagConstraints gbc_lblActive = new GridBagConstraints();
-		gbc_lblActive.anchor = GridBagConstraints.SOUTH;
-		gbc_lblActive.insets = new Insets(0, 0, 5, 0);
-		gbc_lblActive.gridx = 1;
-		gbc_lblActive.gridy = 4;
-		contentPane.add(lblActive, gbc_lblActive);
-		
 		contractorPanel = new JPanel();
 		GridBagConstraints gbc_contractorPanel = new GridBagConstraints();
 		gbc_contractorPanel.insets = new Insets(0, 0, 5, 5);
@@ -254,23 +242,6 @@ public class SupplyOfferUI extends JDialog {
 		gbc_btnChooseContractor.gridx = 1;
 		gbc_btnChooseContractor.gridy = 0;
 		contractorPanel.add(btnChooseContractor, gbc_btnChooseContractor);
-		
-		activePanel = new JPanel();
-		GridBagConstraints gbc_activePanel = new GridBagConstraints();
-		gbc_activePanel.insets = new Insets(0, 0, 5, 0);
-		gbc_activePanel.fill = GridBagConstraints.BOTH;
-		gbc_activePanel.gridx = 1;
-		gbc_activePanel.gridy = 5;
-		contentPane.add(activePanel, gbc_activePanel);
-		
-		rdbtnActiveYes = new JRadioButton("Yes");
-		rdbtnActiveYes.setSelected(true);
-		buttonGroup.add(rdbtnActiveYes);
-		activePanel.add(rdbtnActiveYes);
-		
-		rdbtnActiveNo = new JRadioButton("No");
-		buttonGroup.add(rdbtnActiveNo);
-		activePanel.add(rdbtnActiveNo);
 		
 		
 		btnSubmit = new JButton("Update");
@@ -331,8 +302,6 @@ public class SupplyOfferUI extends JDialog {
 				      c.setEnabled(false);
 				   }
 			}
-		rdbtnActiveYes.setEnabled(false);
-		rdbtnActiveNo.setEnabled(false);
 	}
 	
 	
@@ -430,14 +399,14 @@ public class SupplyOfferUI extends JDialog {
 				if (minQuantity < 0) {
 					Messages.error(this, "Min order quanity must be a whole, positive number");
 				}
-				
-				// get 'active' status
-				boolean active = rdbtnActiveYes.isSelected() ? true : false;
 	
 				
 				// if mode == view, update data
 				if (mode == Mode.EDIT) {
-					supplyCtrl.updateSupplyOffer(product, supplyOffer, contractor, minQuantity, pricePerItem);
+					supplyCtrl.updateSupplyOfferProduct(supplyOffer, product);
+					supplyCtrl.updateSupplyOfferPricePerItem(supplyOffer, pricePerItem);
+					supplyCtrl.updateSupplyOfferMinQuantity(supplyOffer, minQuantity);
+					supplyCtrl.updateSupplyOfferContractor(supplyOffer, contractor);
 				} else if (mode == Mode.CREATE) {
 					// if mode == Create, create a new supply offer
 					this.supplyOffer = supplyCtrl.createSupplyOffer(product, contractor, pricePerItem, minQuantity);
