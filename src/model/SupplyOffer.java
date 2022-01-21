@@ -63,9 +63,6 @@ public class SupplyOffer {
 		return pricePerItem;
 	}
 
-
-
-
 	public void setProduct(Product product) {
 		this.product = product;
 	}

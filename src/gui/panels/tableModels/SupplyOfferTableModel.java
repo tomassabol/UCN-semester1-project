@@ -14,7 +14,7 @@ public class SupplyOfferTableModel  extends AbstractTableModel {
 
 	/** The Constant COLUMN_NAMES. */
 	protected static final String[] COLUMN_NAMES = {
-        "ID", "Product", "Contractor", "Active", "Date added", "Price per Item", "Minimum quantity"
+        "ID", "Product", "Contractor", "Price per Item", "Minimum quantity"
     };
 
     /** The supply offers. */
@@ -91,8 +91,6 @@ public class SupplyOfferTableModel  extends AbstractTableModel {
             case 0: return "#" + supplyOffer.ID;
             case 1: return supplyOffer.getProduct().getName();
             case 2: return supplyOffer.getContractor().getCompanyName();
-            case 3: return supplyOffer.isActive() == false ? "inactive" : "active";
-            case 4: return supplyOffer.getDateAdded();
             case 5: return supplyOffer.getPricePerItem();
             case 6: return supplyOffer.getMinQuantity();
             default: return "Error retrieving column name";
