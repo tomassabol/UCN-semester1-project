@@ -96,6 +96,10 @@ public class SupplyController {
 	public List<SupplyOrder> getSupplyOrders() {
 		return SupplyOrderContainer.getInstance().getSupplyOrders();
 	}
+	
+	public List<SupplyOrder> getSupplyOrders(Product product) {
+		return SupplyOrderContainer.getInstance().getSupplyOrders(product);
+	}
 
 	public List<SupplyOrder> getUndeliveredSupplyOrders() {
 		return SupplyOrderContainer.getInstance().getUndeliveredSupplyOrders();

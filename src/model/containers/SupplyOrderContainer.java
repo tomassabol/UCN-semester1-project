@@ -1,7 +1,9 @@
 package model.containers;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import model.Product;
 import model.SupplyOrder;
 
 public class SupplyOrderContainer {
@@ -75,8 +77,18 @@ public class SupplyOrderContainer {
     /**
      * @return All delivered supply orders (delivered and not)
      */
-    public ArrayList<SupplyOrder> getSupplyOrders() {
+    public List<SupplyOrder> getSupplyOrders() {
     	return this.supplyOrders;
+    }
+    
+    public List<SupplyOrder> getSupplyOrders(Product product) {
+    	List<SupplyOrder> returnedSupplyOrders = new ArrayList<>();
+    	for (SupplyOrder order: this.getSupplyOrders()) {
+    		if (order.getProduct() == product) {
+    			returnedSupplyOrders.add(order);
+    		}
+    	}
+    	return returnedSupplyOrders;
     }
     
     /**

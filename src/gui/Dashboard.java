@@ -28,7 +28,7 @@ import gui.windows.ManageQuotes;
 import gui.windows.ManageShelf;
 import gui.windows.ManageStorageLocation;
 import gui.windows.ManageSupplyOffer;
-import gui.windows.ManageSupplyOrderUI;
+import gui.windows.ManageSupplyOrders;
 import gui.windows.ManageShoppingCart;
 import model.Customer;
 import model.Product;
@@ -536,7 +536,7 @@ public class Dashboard extends JFrame {
 
 		// ***** Manage Supply Orders *****
 		btnSupplyOrders.addActionListener(e -> {
-			ManageSupplyOrder frame = new ManageSupplyOrder(auth);
+			ManageSupplyOrders frame = new ManageSupplyOrders(auth);
 			frame.setVisible(true);
 		});
 		

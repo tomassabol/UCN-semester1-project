@@ -1,4 +1,4 @@
-package gui;
+package gui.windows;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -16,6 +16,7 @@ import controller.SupplyController;
 import gui.panels.CRUDSupplyOffers;
 import gui.panels.CRUDSupplyOrders;
 import gui.panels.tableModels.SupplyOfferTableModel;
+import gui.panels.tableModels.SupplyOrderTableModel;
 import gui.windows.ChooseProduct;
 import model.Product;
 import java.awt.Insets;
@@ -23,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
-public class ManageSupplyOrder extends JDialog {
+public class ManageSupplyOrders extends JDialog {
 
 	private static final long serialVersionUID = -6693315350035542078L;
 
@@ -40,7 +41,7 @@ public class ManageSupplyOrder extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ManageSupplyOrder(AuthenticationController auth) {
+	public ManageSupplyOrders(AuthenticationController auth) {
 		this.auth = auth;
 		this.setTitle("Manage supply orders");
 		supplyCtrl = new SupplyController();
@@ -123,7 +124,7 @@ public class ManageSupplyOrder extends JDialog {
 				Product product = frame.getSelectedProduct();
 				txtProductDisplay.setText(product.getName());
 				// Filter
-				CRUDPanel.getTable().setModel(new SupplyOfferTableModel(supplyCtrl.getSupplyOffers(product)));
+				CRUDPanel.getTable().setModel(new SupplyOrderTableModel(supplyCtrl.getSupplyOrders(product)));
 			}
 		});
 		
@@ -132,7 +133,7 @@ public class ManageSupplyOrder extends JDialog {
 			// Reset 'choose' btn display text
 			txtProductDisplay.setText("");
 			// reset filter (show all products)
-			CRUDPanel.getTable().setModel(new SupplyOfferTableModel(supplyCtrl.getSupplyOffers()));
+			CRUDPanel.getTable().setModel(new SupplyOrderTableModel(supplyCtrl.getSupplyOrders()));
 		});
 	}
 
