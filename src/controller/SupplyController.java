@@ -12,10 +12,10 @@ import model.Product;
 import model.Shelf;
 import model.StockBatch;
 import model.SupplyOffer;
-import model.SupplyOfferContainer;
 import model.SupplyOrder;
-import model.SupplyOrderContainer;
 import model.TrackableItem;
+import model.containers.SupplyOfferContainer;
+import model.containers.SupplyOrderContainer;
 
 public class SupplyController {
 

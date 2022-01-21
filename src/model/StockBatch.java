@@ -196,9 +196,11 @@ public class StockBatch {
 	 *
 	 * @return the trackable item quantity
 	 */
+    /*
 	private int getTrackableItemQuantity() {
 		return this.trackableItems.size();
 	}
+    */
     
 
     /**

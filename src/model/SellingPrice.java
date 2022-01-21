@@ -37,9 +37,6 @@ public class SellingPrice {
     public LocalDateTime getDateAdded() {
         return this.dateAdded;
     }
-    
-    // No set price by design!!!! If you want to edit the price, add a new one to the container!!!
-    private void setPrice() {};
 
     public void setDateAdded(LocalDateTime dateAdded) {
         this.dateAdded = dateAdded;
