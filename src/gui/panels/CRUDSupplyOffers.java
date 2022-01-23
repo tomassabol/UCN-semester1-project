@@ -11,6 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import controller.AuthenticationController;
 import controller.SupplyController;
@@ -21,6 +27,9 @@ import gui.panels.tableModels.SupplyOfferTableModel;
 import gui.windows.objects.SupplyOfferUI;
 import model.Product;
 import model.SupplyOffer;
+import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class CRUDSupplyOffers extends JPanel {
 
@@ -33,8 +42,10 @@ public class CRUDSupplyOffers extends JPanel {
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+	private TableRowSorter<TableModel> rowSorter;
 	
 	AuthenticationController auth;
+	private JTextField txtSearch;
 
 	/**
 	 * Create the dialog.
@@ -51,29 +62,40 @@ public class CRUDSupplyOffers extends JPanel {
 		JPanel topPanel = new JPanel();
 		this.add(topPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_topPanel = new GridBagLayout();
-		gbl_topPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_topPanel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_topPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
-			// ***** Title *****
-			JLabel lblTitle = new JLabel(
-					String.format("Supply Offers")
-			);
-			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-			gbc_lblTitle.gridwidth = 2;
-			gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
-			gbc_lblTitle.gridx = 0;
-			gbc_lblTitle.gridy = 0;
-			topPanel.add(lblTitle, gbc_lblTitle);
+		
+		// ***** Title *****
+		JLabel lblTitle = new JLabel(
+			String.format("Supply Offers")
+		);
+		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+		gbc_lblTitle.gridwidth = 3;
+		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTitle.gridx = 0;
+		gbc_lblTitle.gridy = 0;
+		topPanel.add(lblTitle, gbc_lblTitle);
+		
+		// ***** Search bar *****
+		txtSearch = new JTextField();
+		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
+		gbc_txtSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSearch.gridx = 0;
+		gbc_txtSearch.gridy = 1;
+		topPanel.add(txtSearch, gbc_txtSearch);
+		txtSearch.setColumns(10);
 			
-			// ***** button: Add product  *****
-			btnAdd = new JButton("Add Supply Offer");
-			GridBagConstraints gbc_btnAdd = new GridBagConstraints();
-			gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
-			gbc_btnAdd.gridx = 1;
-			gbc_btnAdd.gridy = 1;
-			topPanel.add(btnAdd, gbc_btnAdd);
+		// ***** button: Add product  *****
+		btnAdd = new JButton("Add Supply Offer");
+		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
+		gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAdd.gridx = 2;
+		gbc_btnAdd.gridy = 1;
+		topPanel.add(btnAdd, gbc_btnAdd);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
@@ -84,6 +106,8 @@ public class CRUDSupplyOffers extends JPanel {
 		tableMain.setModel(tableModel);
 		tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPanel.setViewportView(tableMain);
+		
+		
 		
 		// ***** Bottom panel *****
 		JPanel bottomPanel = new JPanel();
@@ -122,6 +146,10 @@ public class CRUDSupplyOffers extends JPanel {
 		btnView.setEnabled(false);
 		btnEdit.setEnabled(false);
 		btnDisable.setEnabled(false);
+		
+		// ***** Search filter *****
+		rowSorter = new TableRowSorter<>(tableMain.getModel());
+		tableMain.setRowSorter(rowSorter);
 		
 		// Attach event handler
 		this.addEventHandlers();
@@ -184,10 +212,11 @@ public class CRUDSupplyOffers extends JPanel {
 		
 		// Delete supply offer
 		btnDisable.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			SupplyOffer supplyOffer = tableModel.getObj(row);
 			if (Messages.confirm(this, String.format("Are you sure you wish to remove the supply offer with the ID of '%s'?",
 					supplyOffer.ID))) {
+				rowSorter.rowsDeleted(row, row);
 				supplyCtrl.removeSupplyOffer(supplyOffer);
 				tableModel.remove(row);
 			}
@@ -195,7 +224,7 @@ public class CRUDSupplyOffers extends JPanel {
 
 		// View supply offer
 		btnView.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			SupplyOffer supplyOffer = tableModel.getObj(row);
 			SupplyOfferUI frame = new SupplyOfferUI(auth, supplyOffer, SupplyOfferUI.Mode.VIEW);
 			frame.setVisible(true);
@@ -204,10 +233,11 @@ public class CRUDSupplyOffers extends JPanel {
 		// Edit supply offer
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.getSelectedRow();
-			SupplyOffer supplyOffer = tableModel.getObj(row);
+			int modelIndex = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
+			SupplyOffer supplyOffer = tableModel.getObj(modelIndex);
 			SupplyOfferUI frame = new SupplyOfferUI(auth, supplyOffer, SupplyOfferUI.Mode.EDIT);
 			frame.setVisible(true);
-			tableModel.fireTableRowsUpdated(row, row);
+			tableModel.fireTableRowsUpdated(modelIndex, modelIndex);
 			//Refresh
 			tableMain.clearSelection();
 			tableMain.getSelectionModel().setSelectionInterval(0, row);
@@ -215,10 +245,44 @@ public class CRUDSupplyOffers extends JPanel {
 
 		// 'ADD' supply offer button
 		btnAdd.addActionListener(e -> {
+			tableMain.setRowSorter(null);
 			SupplyOfferUI frame = new SupplyOfferUI(auth);
 			frame.setVisible(true);
 			if (frame.getSupplyOffer() != null) {
 				tableModel.add(frame.getSupplyOffer());
+			}
+			tableMain.setRowSorter(rowSorter);
+			rowSorter.allRowsChanged();
+		});
+		
+		// Search product with a dynamic filter		
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+											
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+												
+				if(text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				}else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+										
+			@Override
+			public void  removeUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+												
+				if (text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				} else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+											
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
 	}
