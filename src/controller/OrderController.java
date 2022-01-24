@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.OutOfStockException;
 import model.*;
 import model.containers.OrderContainer;
 import model.containers.StockContainer;
@@ -45,8 +46,23 @@ public class OrderController {
 		return null;
 	}
 	
-	public Order payForQuote(Quote quote) {
-		// TODO: Don't allow paying if not in stock
+	/**
+	 * Takes a quote, gets specific items from stock and creates an order
+	 * 
+	 * @param quote the quote
+	 * 
+	 * @return Order
+	 * @throws OutOfStockException
+	 */
+	public Order payForQuote(Quote quote) throws OutOfStockException {
+		// Check if each item line is in stock
+		for (model.QuoteItemLine itemLine: quote.getItemLines()) {
+			int buyableQuantity = new StockController().getBuyableQuantityInStock(itemLine.getPRODUCT());
+			if (itemLine.getQuantity() > buyableQuantity) {
+				throw new OutOfStockException("Some of the items in this item line are out of stock!");
+			}
+		}
+		
 		IFCustomer customer = quote.getCustomer();
 		IFEmployee employee = quote.getEmployee();
 		ArrayList<OrderLine> orderLines = new ArrayList<>();
@@ -59,7 +75,6 @@ public class OrderController {
 		new QuoteController().removeQuote(quote);
 		OrderContainer.getInstance().addOrder(order);
 		return order;
-		// TODO: return null if items < than requested.
 	}
 
 	/**
