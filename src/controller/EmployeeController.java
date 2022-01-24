@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import exceptions.EmailNotUniqueException;
 import model.Employee;
 import model.IFEmployee;
 import model.PrimaryKey;
@@ -25,15 +26,39 @@ public class EmployeeController {
 	 * @param address the address
 	 * @param mobile the mobile number
 	 * @param birthDate the birth date
+	 * 
 	 * @return the employee
+	 * 
+	 * @throws EmailNotUniqueException 
 	 */
-	public Employee createEmployee(String CPRNumber, String email, String password, String firstName, String lastName, String address, String mobile, LocalDate birthDate) {
+	public Employee createEmployee(String CPRNumber, String email, String password, String firstName, String lastName, String address, String mobile, LocalDate birthDate) throws EmailNotUniqueException {
+		// Check that email is unique
+		if (!this.emailIsUnique(email)) {
+			throw new EmailNotUniqueException("A user with the email " + email + " already exists.");
+		}
+		
+		
 		// Hash password
 		String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		
 		Employee employee = new Employee(PrimaryKey.getID(PrimaryKey.Keys.EMPLOYEE), CPRNumber, email, hashedPassword, firstName, lastName, address, mobile, birthDate);
-		// TODO: Add only if CPR & email already doesn't exist in container. Throw custom NotUniqueException
 		EmployeeContainer.getInstance().addEmployee(employee);
 		return employee;
+	}
+	
+	/**
+	 * Checks if an email is unique)
+	 *
+	 * @param email the email
+	 * @return true, if there is no employee with this email
+	 */
+	public boolean emailIsUnique(String email) {
+		for (IFEmployee employee: this.getEmployees()) {
+			if (employee.getEmail().equals(email)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 
@@ -91,7 +116,12 @@ public class EmployeeController {
 		employee.setMobile(mobile);
 	}
 
-	public void updateEmail(IFEmployee employee, String email) {
+	public void updateEmail(IFEmployee employee, String email) throws EmailNotUniqueException {
+		// Check that email is unique
+		if (!this.emailIsUnique(email)) {
+			throw new EmailNotUniqueException("A user with the email " + email + " already exists.");
+		}
+		
 		employee.setEmail(email);
 	}
 	
