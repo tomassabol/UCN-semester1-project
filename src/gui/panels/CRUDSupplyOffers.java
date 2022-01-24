@@ -161,12 +161,17 @@ public class CRUDSupplyOffers extends JPanel {
 	 * *******************************************************
 	 */
 	
-	public JTable getTable() {
-		return tableMain;
-	}
-	
 	public SupplyOfferTableModel getTableModel() {
 		return tableModel;
+	}
+	
+	
+	public void setTableModel(SupplyOfferTableModel tableModel) {
+		this.tableMain.setModel(tableModel);
+		this.tableModel = tableModel;
+		// Update table row sorter
+		rowSorter = new TableRowSorter<>(tableMain.getModel());
+		tableMain.setRowSorter(rowSorter);
 	}
 	
 
@@ -216,7 +221,6 @@ public class CRUDSupplyOffers extends JPanel {
 			SupplyOffer supplyOffer = tableModel.getObj(row);
 			if (Messages.confirm(this, String.format("Are you sure you wish to remove the supply offer with the ID of '%s'?",
 					supplyOffer.ID))) {
-				rowSorter.rowsDeleted(row, row);
 				supplyCtrl.removeSupplyOffer(supplyOffer);
 				tableModel.remove(row);
 			}
@@ -232,27 +236,20 @@ public class CRUDSupplyOffers extends JPanel {
 
 		// Edit supply offer
 		btnEdit.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
 			int modelIndex = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			SupplyOffer supplyOffer = tableModel.getObj(modelIndex);
 			SupplyOfferUI frame = new SupplyOfferUI(auth, supplyOffer, SupplyOfferUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(modelIndex, modelIndex);
-			//Refresh
-			tableMain.clearSelection();
-			tableMain.getSelectionModel().setSelectionInterval(0, row);
 		});
 
 		// 'ADD' supply offer button
 		btnAdd.addActionListener(e -> {
-			tableMain.setRowSorter(null);
 			SupplyOfferUI frame = new SupplyOfferUI(auth);
 			frame.setVisible(true);
 			if (frame.getSupplyOffer() != null) {
 				tableModel.add(frame.getSupplyOffer());
 			}
-			tableMain.setRowSorter(rowSorter);
-			rowSorter.allRowsChanged();
 		});
 		
 		// Search product with a dynamic filter		

@@ -137,6 +137,9 @@ public class SupplyOfferTableModel  extends AbstractTableModel {
      * @param row the row
      */
     public void remove(int row) {
+    	System.out.println("Removing: " + row);
+    	System.out.println(supplyOffers);
+    	System.out.println(this.getRowCount());
     	this.supplyOffers.remove(row);
     	this.fireTableRowsDeleted(row, row);
     }

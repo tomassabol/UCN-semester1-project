@@ -120,7 +120,7 @@ public class ManageSupplyOffer extends JDialog {
 				Product product = frame.getSelectedProduct();
 				txtProductDisplay.setText(product.getName());
 				// Filter
-				CRUDPanel.getTable().setModel(new SupplyOfferTableModel(supplyCtrl.getSupplyOffers(product)));
+				CRUDPanel.setTableModel(new SupplyOfferTableModel(supplyCtrl.getSupplyOffers(product)));
 			}
 		});
 		
@@ -129,7 +129,7 @@ public class ManageSupplyOffer extends JDialog {
 			// Reset 'choose' btn display text
 			txtProductDisplay.setText("");
 			// reset filter (show all products)
-			CRUDPanel.getTable().setModel(new SupplyOfferTableModel(supplyCtrl.getSupplyOffers()));
+			CRUDPanel.setTableModel(new SupplyOfferTableModel(supplyCtrl.getSupplyOffers()));
 		});
 	}
 
