@@ -20,8 +20,8 @@ public class SupplyOrder {
         this.pricePerItem = pricePerItem;
         this.quantity = quantity;
         this.delivered = false;
+        this.contractor = contractor; 
     }
-
     public Contractor getContractor() {
 		return contractor;
 	}

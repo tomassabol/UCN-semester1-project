@@ -19,12 +19,12 @@ public class SupplyOrderTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -2367962812947993282L;
 
 	protected static final String[] COLUMN_NAMES = {
-        "ID", "Date Ordered", "Delivered", "Product", "Quantity", "Price per Item"
+        "ID", "Date Ordered", "Delivered", "Product", "Quantity", "Price per Item", "Contractor"
     };
 
     private List<SupplyOrder> supplyOrders;
 
-    
+     
     /**
      * Instantiates a new customer table model.
      *
@@ -68,6 +68,7 @@ public class SupplyOrderTableModel extends AbstractTableModel {
             case 3: return supplyOrder.getProduct().getName();
             case 4: return String.valueOf(supplyOrder.getQuantity());
             case 5: return supplyOrder.getPricePerItem() + " DKK";
+            case 6: return supplyOrder.getContractor().getCompanyName();
             default: return "Error retrieving column name";
         }
     }
