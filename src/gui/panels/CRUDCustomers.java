@@ -9,6 +9,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -18,10 +19,16 @@ import controller.CustomerController;
 import model.Customer;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
+import gui.panels.tableModels.ContractorTableModel;
 import gui.panels.tableModels.CustomerTableModel;
 import gui.windows.objects.CustomerUI;
 
@@ -40,6 +47,8 @@ public class CRUDCustomers extends JPanel {
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+	private JTextField txtSearch;
+	private TableRowSorter<TableModel> rowSorter;
 	AuthenticationController auth;
 
 	/**
@@ -57,38 +66,50 @@ public class CRUDCustomers extends JPanel {
 		JPanel topPanel = new JPanel();
 		this.add(topPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_topPanel = new GridBagLayout();
-		gbl_topPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_topPanel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_topPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
-			// ***** Title *****
-			JLabel lblTitle = new JLabel(
-					String.format("Customers")
-			);
-			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-			gbc_lblTitle.gridwidth = 2;
-			gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
-			gbc_lblTitle.gridx = 0;
-			gbc_lblTitle.gridy = 0;
-			topPanel.add(lblTitle, gbc_lblTitle);
+		
+		// ***** Title *****
+		JLabel lblTitle = new JLabel(
+			String.format("Customers")
+		);
+		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+		gbc_lblTitle.gridwidth = 3;
+		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTitle.gridx = 0;
+		gbc_lblTitle.gridy = 0;
+		topPanel.add(lblTitle, gbc_lblTitle);
+		
+		// ***** Search bar *****
+		txtSearch = new JTextField();
+		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
+		gbc_txtSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSearch.gridx = 0;
+		gbc_txtSearch.gridy = 1;
+		topPanel.add(txtSearch, gbc_txtSearch);
+		txtSearch.setColumns(10);
 			
-			// ***** button: Add customer  *****
-			btnAddCustomer = new JButton("Add Customer");
-			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-			gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-			gbc_btnNewButton.gridx = 1;
-			gbc_btnNewButton.gridy = 1;
-			topPanel.add(btnAddCustomer, gbc_btnNewButton);
+		// ***** button: Add customer  *****
+		btnAddCustomer = new JButton("Add Customer");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton.gridx = 2;
+		gbc_btnNewButton.gridy = 1;
+		topPanel.add(btnAddCustomer, gbc_btnNewButton);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
 		add(scrollPanel, BorderLayout.CENTER);
-			// ***** Table *****
-			tableMain = new JTable();
-			tableMain.setModel(tableModel);
-			tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			scrollPanel.setViewportView(tableMain);
+		
+		// ***** Table *****
+		tableMain = new JTable();
+		tableMain.setModel(tableModel);
+		tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPanel.setViewportView(tableMain);
 		
 		// ***** Bottom panel *****
 		JPanel bottomPanel = new JPanel();
@@ -100,29 +121,28 @@ public class CRUDCustomers extends JPanel {
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
 			
-			// ***** View button *****
-			btnView = new JLink("View", COLORS.GREEN);
-			GridBagConstraints gbc_btnView = new GridBagConstraints();
-			gbc_btnView.insets = new Insets(0, 0, 0, 5);
-			gbc_btnView.gridx = 1;
-			gbc_btnView.gridy = 0;
-			bottomPanel.add(btnView, gbc_btnView);
-			
-			// ***** Edit button *****
-			btnEdit = new JLink("Edit", COLORS.INDIGO);
-			GridBagConstraints gbc_btnEdit = new GridBagConstraints();
-			gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
-			gbc_btnEdit.gridx = 2;
-			gbc_btnEdit.gridy = 0;
-			bottomPanel.add(btnEdit, gbc_btnEdit);
-			
-			
-			// ***** Disable button *****
-			btnDisable = new JLink("Delete", COLORS.RED);
-			GridBagConstraints gbc_btnDisable = new GridBagConstraints();
-			gbc_btnDisable.gridx = 3;
-			gbc_btnDisable.gridy = 0;
-			bottomPanel.add(btnDisable, gbc_btnDisable);
+		// ***** View button *****
+		btnView = new JLink("View", COLORS.GREEN);
+		GridBagConstraints gbc_btnView = new GridBagConstraints();
+		gbc_btnView.insets = new Insets(0, 0, 0, 5);
+		gbc_btnView.gridx = 1;
+		gbc_btnView.gridy = 0;
+		bottomPanel.add(btnView, gbc_btnView);
+		
+		// ***** Edit button *****
+		btnEdit = new JLink("Edit", COLORS.INDIGO);
+		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
+		gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEdit.gridx = 2;
+		gbc_btnEdit.gridy = 0;
+		bottomPanel.add(btnEdit, gbc_btnEdit);
+				
+		// ***** Disable button *****
+		btnDisable = new JLink("Delete", COLORS.RED);
+		GridBagConstraints gbc_btnDisable = new GridBagConstraints();
+		gbc_btnDisable.gridx = 3;
+		gbc_btnDisable.gridy = 0;
+		bottomPanel.add(btnDisable, gbc_btnDisable);
 		
 		// By default: all selection buttons disabled
 		btnView.setEnabled(false);
@@ -153,6 +173,13 @@ public class CRUDCustomers extends JPanel {
 		return tableModel;
 	}
 	
+	public void setTableModel(CustomerTableModel tableModel) {
+		this.tableMain.setModel(tableModel);
+		this.tableModel = tableModel;
+		// Update table row sorter
+		rowSorter = new TableRowSorter<>(tableMain.getModel());
+		tableMain.setRowSorter(rowSorter);
+	}
 
 	/**
 	 * Select a customer in the CRUD table.
@@ -196,17 +223,18 @@ public class CRUDCustomers extends JPanel {
 		
 		// Delete customer
 		btnDisable.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Customer customer = tableModel.getObj(row);
 			if (Messages.confirm(this, String.format("Are you sure you wish to delete the customer '%s %s'?", customer.getFirstName(), customer.getLastName()))) {
 				customerCtrl.removeCustomer(customer);
 				tableModel.remove(row);
+				setTableModel(tableModel);
 			}
 		});
 
 		// View Customer
 		btnView.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Customer customer = tableModel.getObj(row);
 			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.VIEW);
 			frame.setVisible(true);
@@ -214,11 +242,12 @@ public class CRUDCustomers extends JPanel {
 
 		// Edit customer
 		btnEdit.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Customer customer = tableModel.getObj(row);
 			CustomerUI frame = new CustomerUI(auth, customer, CustomerUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
+			setTableModel(tableModel);
 		});
 
 		// 'ADD customer' button
@@ -227,6 +256,38 @@ public class CRUDCustomers extends JPanel {
 			frame.setVisible(true);
 			if (frame.getCustomer() != null) {
 				tableModel.add(frame.getCustomer());
+				setTableModel(tableModel);
+			}
+		});
+		
+		// Search Customers with a dynamic filter		
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+															
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+												
+				if(text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				}else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+												
+			@Override
+			public void  removeUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+												
+				if (text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				} else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+															
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
 	}

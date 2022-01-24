@@ -259,7 +259,7 @@ public class CRUDSupplyOffers extends JPanel {
 			}
 		});
 		
-		// Search product with a dynamic filter		
+		// Search Supply offers with a dynamic filter		
 		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
 											
 			@Override

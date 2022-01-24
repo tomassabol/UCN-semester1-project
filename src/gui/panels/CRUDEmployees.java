@@ -12,12 +12,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import controller.AuthenticationController;
 import controller.EmployeeController;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
+import gui.panels.tableModels.CustomerTypeTableModel;
 import gui.panels.tableModels.EmployeeTableModel;
 import gui.windows.objects.EmployeeUI;
 import model.Employee;
@@ -38,6 +44,7 @@ public class CRUDEmployees extends JPanel {
 	private JLink btnEdit;
 	private JLink btnDisable;
 	private JTextField txtSearch;
+	private TableRowSorter<TableModel> rowSorter;
 	AuthenticationController auth;
 
 	/**
@@ -60,6 +67,7 @@ public class CRUDEmployees extends JPanel {
 		gbl_topPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
+		
 		// ***** Title *****
 		JLabel lblTitle = new JLabel(
 			String.format("Employees")
@@ -70,7 +78,17 @@ public class CRUDEmployees extends JPanel {
 		gbc_lblTitle.gridx = 0;
 		gbc_lblTitle.gridy = 0;
 		topPanel.add(lblTitle, gbc_lblTitle);
-				
+		
+		// ***** Search bar *****
+		txtSearch = new JTextField();
+		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
+		gbc_txtSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSearch.gridx = 0;
+		gbc_txtSearch.gridy = 1;
+		topPanel.add(txtSearch, gbc_txtSearch);
+		txtSearch.setColumns(10);
+		
 		// ***** button: Add employee  *****
 		btnAddEmployee = new JButton("Add Employee");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -82,6 +100,7 @@ public class CRUDEmployees extends JPanel {
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
 		add(scrollPanel, BorderLayout.CENTER);
+		
 		// ***** Table *****
 		tableMain = new JTable();
 		tableMain.setModel(tableModel);
@@ -150,7 +169,14 @@ public class CRUDEmployees extends JPanel {
 	public EmployeeTableModel getTableModel() {
 		return tableModel;
 	}
-		
+	
+	public void setTableModel(EmployeeTableModel tableModel) {
+		this.tableMain.setModel(tableModel);
+		this.tableModel = tableModel;
+		// Update table row sorter
+		rowSorter = new TableRowSorter<>(tableMain.getModel());
+		tableMain.setRowSorter(rowSorter);
+	}	
 
 	/**
 	 * Select an employee in the CRUD table.
@@ -189,28 +215,29 @@ public class CRUDEmployees extends JPanel {
 				btnView.setEnabled(true);
 				btnEdit.setEnabled(true);
 				btnDisable.setEnabled(true);
-		}
-	});
-			
-	// Delete employee
-	btnDisable.addActionListener(e -> {
-		int row = tableMain.getSelectedRow();
-		IFEmployee employee = tableModel.getObj(row);
-		if (employee == auth.getLoggedInUser()) {
-			Messages.error(this, "You cannot delete currently logged in employee!");
-		} else {
-			if (Messages.confirm(this, String.format("Are you sure you wish to delete the employee '%s %s'?",
-					employee.getFirstName(),
-					employee.getLastName()))) {
-				employeeCtrl.removeEmployee(employee);
-				tableModel.remove(row);
 			}
-		}
+		});
+			
+		// Delete employee
+		btnDisable.addActionListener(e -> {
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
+			IFEmployee employee = tableModel.getObj(row);
+			if (employee == auth.getLoggedInUser()) {
+				Messages.error(this, "You cannot delete currently logged in employee!");
+			} else {
+				if (Messages.confirm(this, String.format("Are you sure you wish to delete the employee '%s %s'?",
+						employee.getFirstName(),
+						employee.getLastName()))) {
+					employeeCtrl.removeEmployee(employee);
+					tableModel.remove(row);
+					setTableModel(tableModel);
+				}
+			}
 		});
 
 		// View Employee
 		btnView.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			IFEmployee employee = tableModel.getObj(row);
 			EmployeeUI frame = new EmployeeUI(auth, employee, EmployeeUI.Mode.VIEW);
 			frame.setVisible(true);
@@ -218,11 +245,12 @@ public class CRUDEmployees extends JPanel {
 
 		// Edit employee
 		btnEdit.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			IFEmployee employee = tableModel.getObj(row);
 			EmployeeUI frame = new EmployeeUI(auth, employee, EmployeeUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
+			setTableModel(tableModel);
 		});
 
 		// 'ADD Employee' button
@@ -231,6 +259,38 @@ public class CRUDEmployees extends JPanel {
 			frame.setVisible(true);
 			if (frame.getEmployee() != null) {
 				tableModel.add(frame.getEmployee());
+				setTableModel(tableModel);
+			}
+		});
+		
+		// Search Employees with a dynamic filter		
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+																			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+											
+				if(text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				}else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+												
+			@Override
+			public void  removeUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+												
+				if (text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				} else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+																
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
 	}

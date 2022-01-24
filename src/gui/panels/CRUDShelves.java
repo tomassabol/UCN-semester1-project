@@ -9,14 +9,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import controller.AuthenticationController;
 import controller.StockController;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
+import gui.panels.tableModels.EmployeeTableModel;
 import gui.panels.tableModels.ShelfTableModel;
 import gui.panels.tableModels.StockBatchTableModel;
 import gui.windows.objects.ShelfUI;
@@ -41,7 +48,8 @@ public class CRUDShelves extends JPanel {
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
-
+	private JTextField txtSearch;
+	private TableRowSorter<TableModel> rowSorter;
 	AuthenticationController auth;
 	private JScrollPane scrollPanelStockBatches;
 	private JTable tableStockBatches;
@@ -72,25 +80,36 @@ public class CRUDShelves extends JPanel {
 		gbc_topPanel.gridy = 0;
 		this.add(topPanel, gbc_topPanel);
 		GridBagLayout gbl_topPanel = new GridBagLayout();
-		gbl_topPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_topPanel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_topPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
+		
 		// ***** Title *****
 		JLabel lblTitle = new JLabel("Shelf");
 		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-		gbc_lblTitle.gridwidth = 2;
+		gbc_lblTitle.gridwidth = 3;
 		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTitle.gridx = 0;
 		gbc_lblTitle.gridy = 0;
 		topPanel.add(lblTitle, gbc_lblTitle);
 		
+		// ***** Search bar *****
+		txtSearch = new JTextField();
+		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
+		gbc_txtSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSearch.gridx = 0;
+		gbc_txtSearch.gridy = 1;
+		topPanel.add(txtSearch, gbc_txtSearch);
+		txtSearch.setColumns(10);
+		
 		// ***** button: Add Shelf  *****
 		btnAddContractor = new JButton("Add Shelf");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 1;
 		topPanel.add(btnAddContractor, gbc_btnNewButton);
 		
@@ -102,6 +121,7 @@ public class CRUDShelves extends JPanel {
 		gbc_scrollPanelMain.gridx = 0;
 		gbc_scrollPanelMain.gridy = 1;
 		add(scrollPanelMain, gbc_scrollPanelMain);
+		
 		// ***** Table *****
 		tableMain = new JTable();
 		tableMain.setModel(tableMainModel);
@@ -185,6 +205,13 @@ public class CRUDShelves extends JPanel {
 		return tableMainModel;
 	}
 	
+	public void setTableModel(ShelfTableModel tableModel) {
+		this.tableMain.setModel(tableModel);
+		this.tableMainModel = tableModel;
+		// Update table row sorter
+		rowSorter = new TableRowSorter<>(tableMain.getModel());
+		tableMain.setRowSorter(rowSorter);
+	}	
 
 	/**
 	 * Select a Shelf in the CRUD table.
@@ -241,34 +268,71 @@ public class CRUDShelves extends JPanel {
 		
 		// Delete Shelf
 		btnDisable.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Shelf shelf = tableMainModel.getObj(row);
 			if (Messages.confirm(this, String.format("Are you sure you wish to delete the shelf '%s'?", shelf.getName()))) {
 				stockCtrl.removeShelf(shelf);
 				tableMainModel.remove(row);
+				setTableModel(tableMainModel);
 			}
 		});
+		
 		// View Shelf
 		btnView.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Shelf shelf = tableMainModel.getObj(row);
 			ShelfUI frame = new ShelfUI(auth, shelf, ShelfUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
+		
 		// Edit Shelf
 		btnEdit.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Shelf shelf = tableMainModel.getObj(row);
 			ShelfUI frame = new ShelfUI(auth, shelf, ShelfUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableMainModel.fireTableRowsUpdated(row, row);
+			setTableModel(tableMainModel);
 		});
+		
 		// Add Shelf
 		btnAddContractor.addActionListener(e -> {
 			ShelfUI frame = new ShelfUI(auth);
 			frame.setVisible(true);
 			if (frame.getShelf() != null) {
 				tableMainModel.add(frame.getShelf());
+				setTableModel(tableMainModel);
+			}
+		});
+		
+		// Search Shelves with a dynamic filter		
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+																					
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+											
+				if(text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				}else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+														
+			@Override
+			public void  removeUpdate(DocumentEvent e) {
+				String text = txtSearch.getText();
+														
+				if (text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				} else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+																		
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				throw new UnsupportedOperationException("Not supported yet.");
 			}
 		});
 	}

@@ -29,6 +29,7 @@ import javax.swing.table.TableRowSorter;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
+import gui.panels.tableModels.EmployeeTableModel;
 import gui.panels.tableModels.ProductTableModel;
 import gui.panels.tableModels.ProductTableModel.Column;
 import gui.windows.objects.ProductUI;
@@ -124,14 +125,12 @@ public class CRUDProducts extends JPanel {
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
 		add(scrollPanel, BorderLayout.CENTER);
+		
 		// ***** Table *****
 		tableMain = new JTable();
 		tableMain.setModel(tableModel);
 		tableMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPanel.setViewportView(tableMain);
-		
-		rowSorter = new TableRowSorter<>(tableMain.getModel());
-		tableMain.setRowSorter(rowSorter);
 		
 		// ***** Bottom panel *****
 		JPanel bottomPanel = new JPanel();
@@ -189,6 +188,14 @@ public class CRUDProducts extends JPanel {
 		return tableModel;
 	}
 	
+	public void setTableModel(ProductTableModel tableModel) {
+		this.tableMain.setModel(tableModel);
+		this.tableModel = tableModel;
+		// Update table row sorter
+		rowSorter = new TableRowSorter<>(tableMain.getModel());
+		tableMain.setRowSorter(rowSorter);
+	}
+	
 	/**
 	 * Select a product in the CRUD table.
 	 *
@@ -238,7 +245,7 @@ public class CRUDProducts extends JPanel {
 		
 		// Disable product
 		btnDisable.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Product product = tableModel.getObj(row);
 			String keyword = product.isEnabled() ? "disable" : "enable";
 			if (Messages.confirm(this, String.format("Are you sure you wish to %s the product '%s'?",
@@ -247,12 +254,13 @@ public class CRUDProducts extends JPanel {
 				productCtrl.setEnabled(product, !product.isEnabled());
 				tableModel.fireTableRowsUpdated(row, row);
 				tableMain.getSelectionModel().clearSelection();
+				setTableModel(tableModel);
 			}
 		});
 		
 		// View product
 		btnView.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Product product = tableModel.getObj(row);
 			ProductUI frame = new ProductUI(auth, product, ProductUI.Mode.VIEW);
 			frame.setVisible(true);
@@ -260,7 +268,7 @@ public class CRUDProducts extends JPanel {
 		
 		// Edit product
 		btnEdit.addActionListener(e -> {
-			int row = tableMain.getSelectedRow();
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Product product = tableModel.getObj(row);
 			ProductUI frame = new ProductUI(auth, product, ProductUI.Mode.EDIT);
 			frame.setVisible(true);
@@ -268,6 +276,7 @@ public class CRUDProducts extends JPanel {
 			// Refresh selection (e.g. in case sell price is now set to nothing)
 			tableMain.clearSelection();
 			tableMain.getSelectionModel().setSelectionInterval(0, row);
+			setTableModel(tableModel);
 		});
 		
 		// Create product
@@ -276,6 +285,7 @@ public class CRUDProducts extends JPanel {
 			frame.setVisible(true);
 			if (frame.getProduct() != null) {
 				tableModel.add(frame.getProduct());
+				setTableModel(tableModel);
 			}
 		});
 		
