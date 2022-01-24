@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import controller.AuthenticationController;
@@ -36,6 +37,7 @@ public class CRUDEmployees extends JPanel {
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
+	private JTextField txtSearch;
 	AuthenticationController auth;
 
 	/**

@@ -147,10 +147,6 @@ public class CRUDSupplyOffers extends JPanel {
 		btnEdit.setEnabled(false);
 		btnDisable.setEnabled(false);
 		
-		// ***** Search filter *****
-		rowSorter = new TableRowSorter<>(tableMain.getModel());
-		tableMain.setRowSorter(rowSorter);
-		
 		// Attach event handler
 		this.addEventHandlers();
 	}
@@ -231,6 +227,7 @@ public class CRUDSupplyOffers extends JPanel {
 					supplyOffer.ID))) {
 				supplyCtrl.removeSupplyOffer(supplyOffer);
 				tableModel.remove(row);
+				setTableModel(tableModel);
 			}
 		});
 
@@ -249,6 +246,7 @@ public class CRUDSupplyOffers extends JPanel {
 			SupplyOfferUI frame = new SupplyOfferUI(auth, supplyOffer, SupplyOfferUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(modelIndex, modelIndex);
+			setTableModel(tableModel);
 		});
 
 		// 'ADD' supply offer button
@@ -257,6 +255,7 @@ public class CRUDSupplyOffers extends JPanel {
 			frame.setVisible(true);
 			if (frame.getSupplyOffer() != null) {
 				tableModel.add(frame.getSupplyOffer());
+				setTableModel(tableModel);
 			}
 		});
 		
