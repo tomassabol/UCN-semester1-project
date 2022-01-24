@@ -165,6 +165,14 @@ public class CRUDSupplyOffers extends JPanel {
 		return tableModel;
 	}
 	
+	public JTable getTable() {
+		return this.tableMain;
+	}
+	
+	public ListSelectionModel getSelectionModel() {
+		return this.tableMain.getSelectionModel();
+	}
+	
 	
 	public void setTableModel(SupplyOfferTableModel tableModel) {
 		this.tableMain.setModel(tableModel);
