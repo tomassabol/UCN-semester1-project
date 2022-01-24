@@ -345,6 +345,11 @@ public class ProductUI extends JDialog {
 					Messages.error(this, "Maximum stock must be a positive, whole numbers!");
 					return;
 				}
+				// Max stock must not be < min stock
+				if (maxStock < minStock) {
+					Messages.error(this, "Maximum buyable stock must be higher than minimum!");
+					return;
+				}
 				
 				// Validate buy/sell price
 				String stringBuyPrice = txtSelling.getText().strip();
