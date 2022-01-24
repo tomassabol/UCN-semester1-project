@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import controller.AuthenticationController;
 import controller.OrderController;
 import controller.QuoteController;
+import exceptions.OutOfStockException;
 import gui.Messages;
 import gui.panels.tableModels.OrdersTableModel;
 import gui.panels.tableModels.QuotesItemTableModel;
@@ -220,13 +221,14 @@ public class ManageQuotes extends JDialog {
 				if (Messages.confirm(this, "Has the customer paid for the quote?")) {
 					this.isSubmitPressed = true;
 					Quote quote = quotesTableModel.getQuote(tableQuotes.getSelectedRow());
-					Order order = orderCtrl.payForQuote(quote);
-					if (order != null) {
+					Order order;
+					try {
+						order = orderCtrl.payForQuote(quote);
 						quotesTableModel.removeQuote(tableQuotes.getSelectedRow());
 						this.createdOrder = order;
 						this.dispose();
-					} else {
-						Messages.error(this, "Could not create an order for this quote :(");
+					} catch (OutOfStockException e1) {
+						Messages.error(this, "Could not create an order as some items are out of stock!");
 					}
 				}
 
