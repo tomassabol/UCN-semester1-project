@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import controller.StockController;
+import gui.Common;
 import model.Product;
 
 /**
@@ -111,7 +112,7 @@ public class ProductTableModel extends AbstractTableModel {
     	Column column = this.columns.get(columnIndex);
     	switch (column) {
 		case BUYABLE_STOCK: return stockCtrl.getBuyableQuantityInStock(product);
-		case DATE_ADDED: return product.getDateAdded();
+		case DATE_ADDED: return Common.datetimeToString(product.getDateAdded());
 		case DESCRIPTION: return product.getDescription();
 		case ID: return product.ID;
 		case LOANABLE_STOCK: return stockCtrl.getLoanableQuantityInStock(product);
