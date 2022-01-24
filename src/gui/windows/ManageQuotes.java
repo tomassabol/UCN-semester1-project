@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import controller.AuthenticationController;
 import controller.OrderController;
 import controller.QuoteController;
+import controller.StockController;
 import exceptions.OutOfStockException;
 import gui.Messages;
 import gui.panels.tableModels.OrdersTableModel;
@@ -49,6 +50,7 @@ public class ManageQuotes extends JDialog {
 	
 	QuoteController quoteCtrl;
 	OrderController orderCtrl;
+	StockController stockCtrl;
 	
 	private JTextField txtSearch;
 	private JButton btnCreateQuote;
@@ -75,6 +77,7 @@ public class ManageQuotes extends JDialog {
 		
 		quoteCtrl = new QuoteController();
 		orderCtrl = new OrderController();
+		stockCtrl = new StockController();
 		
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -185,10 +188,13 @@ public class ManageQuotes extends JDialog {
 		// Attach event handlers
 		this.addEventHandlers();
 		
-		// Automatically select latest quote, if any exist
+		// Automatically select latest quote, if any exist and it's payable
 		int row = quotesTableModel.getRowCount() - 1;
-		if (row >= 0) {
-			tableQuotes.setRowSelectionInterval(0, row);
+		Quote quote = quotesTableModel.getQuote(row);
+		if (this.quoteIsPayable(quote)) {
+			if (row >= 0) {
+				tableQuotes.setRowSelectionInterval(0, row);
+			}
 		}
 	}
 
@@ -207,6 +213,14 @@ public class ManageQuotes extends JDialog {
 		return this.createdOrder;
 	}
 	
+	private boolean quoteIsPayable(Quote quote) {
+		// if in stock and no products are disabled
+		if (stockCtrl.quoteIsInStock(quote) 
+				&& quoteCtrl.isEnabled(quote)) {
+			return true;
+		}
+		return false;
+	}
 	
 	
 	/*
@@ -258,12 +272,18 @@ public class ManageQuotes extends JDialog {
 			} else {
 				// ***** SELECTED *****
 				
-				// Enable pay button
-				btnPay.setEnabled(true);
-				
-				// Show the item lines
+				// get selected quote
 				int selectedRow = tableQuotes.getSelectedRow();
 				Quote quote = quotesTableModel.getQuote(selectedRow);
+				
+				if (this.quoteIsPayable(quote)) {
+					btnPay.setEnabled(true);
+				} else {
+					btnPay.setEnabled(false);
+					Messages.error(this, "This quote is no longer valid as some of the items in it are no longer avalable!");
+				}
+				
+				// Show the item lines
 				itemTableModel = new QuotesItemTableModel(quote.getItemLines());
 				tableItems.setModel(itemTableModel);
 			}

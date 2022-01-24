@@ -124,5 +124,19 @@ public class QuoteController {
 		}
 		return null;
 	}
+
+
+
+	/**
+	 * @return true, if all of the products are enabled
+	 */
+	public boolean isEnabled(Quote quote) {
+		for (QuoteItemLine itemLine: quote.getItemLines()) {
+			if (!itemLine.getPRODUCT().isEnabled()) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 }

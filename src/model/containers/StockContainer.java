@@ -262,7 +262,6 @@ public class StockContainer {
     			if (stockBatch.getTotalQuantity() == 0) {
     				stockBatchIt.remove();
     			}
-    			System.out.println();
     		}
 
     	}
