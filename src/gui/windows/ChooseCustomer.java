@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
+import gui.JButtonPrimary;
 import gui.panels.CRUDCustomers;
 import gui.panels.tableModels.CustomerTableModel;
 import model.Customer;
@@ -27,7 +28,7 @@ public class ChooseCustomer extends JDialog {
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
 	private CRUDCustomers customersPanel;
-	private JButton btnChoose;
+	private JButtonPrimary btnChoose;
 	
 	private Customer selectedCustomer = null;
 	
@@ -61,7 +62,7 @@ public class ChooseCustomer extends JDialog {
 		gbc_panel.gridy = 0;
 		getContentPane().add(customersPanel, gbc_panel);
 		
-		btnChoose = new JButton("Choose...");
+		btnChoose = new JButtonPrimary("Choose...");
 		btnChoose.setEnabled(false);
 		GridBagConstraints gbc_btnChoose = new GridBagConstraints();
 		gbc_btnChoose.anchor = GridBagConstraints.EAST;

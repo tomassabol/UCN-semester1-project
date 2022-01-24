@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
+import gui.JButtonPrimary;
 import gui.panels.CRUDEmployees;
 import gui.panels.tableModels.EmployeeTableModel;
 import model.IFEmployee;
@@ -24,7 +25,7 @@ public class ChooseEmployee extends JDialog {
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
 	private CRUDEmployees employeesPanel;
-	private JButton btnChoose;
+	private JButtonPrimary btnChoose;
 	
 	private IFEmployee selectedEmployee = null;
 	
@@ -57,7 +58,7 @@ public class ChooseEmployee extends JDialog {
 		gbc_panel.gridy = 0;
 		getContentPane().add(employeesPanel, gbc_panel);
 		
-		btnChoose = new JButton("Choose...");
+		btnChoose = new JButtonPrimary("Choose...");
 		btnChoose.setEnabled(false);
 		GridBagConstraints gbc_btnChoose = new GridBagConstraints();
 		gbc_btnChoose.anchor = GridBagConstraints.EAST;

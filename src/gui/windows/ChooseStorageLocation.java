@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
+import gui.JButtonPrimary;
 import gui.panels.CRUDStorageLocations;
 import gui.panels.tableModels.StorageLocationTableModel;
 import model.StorageLocation;
@@ -62,7 +63,7 @@ public class ChooseStorageLocation extends JDialog {
 		gbc_CRUDPanel.gridy = 0;
 		getContentPane().add(CRUDPanel, gbc_CRUDPanel);
 		
-		btnChoose = new JButton("Choose...");
+		btnChoose = new JButtonPrimary("Choose...");
 		btnChoose.setEnabled(false);
 		GridBagConstraints gbc_btnChoose = new GridBagConstraints();
 		gbc_btnChoose.anchor = GridBagConstraints.EAST;

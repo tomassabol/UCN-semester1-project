@@ -22,6 +22,7 @@ import controller.OrderController;
 import controller.QuoteController;
 import controller.StockController;
 import exceptions.OutOfStockException;
+import gui.JButtonPrimary;
 import gui.Messages;
 import gui.panels.tableModels.OrdersTableModel;
 import gui.panels.tableModels.QuotesItemTableModel;
@@ -54,7 +55,7 @@ public class ManageQuotes extends JDialog {
 	
 	private JTextField txtSearch;
 	private JButton btnCreateQuote;
-	private JButton btnPay;
+	private JButtonPrimary btnPay;
 	private JTable tableQuotes;
 	private JTable tableItems;
 	
@@ -177,7 +178,7 @@ public class ManageQuotes extends JDialog {
 		tableItems.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(tableItems);
 		
-		btnPay = new JButton("Pay");
+		btnPay = new JButtonPrimary("Pay");
 		btnPay.setEnabled(false);
 		GridBagConstraints gbc_btnPay = new GridBagConstraints();
 		gbc_btnPay.anchor = GridBagConstraints.EAST;

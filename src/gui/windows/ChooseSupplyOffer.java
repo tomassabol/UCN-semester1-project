@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
+import gui.JButtonPrimary;
 import gui.panels.CRUDSupplyOffers;
 import gui.panels.tableModels.SupplyOfferTableModel;
 import model.Product;
@@ -22,7 +23,7 @@ public class ChooseSupplyOffer extends JDialog {
 	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
 	private CRUDSupplyOffers supplyOffersPanel;
-	private JButton btnChoose;
+	private JButtonPrimary btnChoose;
 	
 	private SupplyOffer selectedSupplyOffer = null;
 	
@@ -58,7 +59,7 @@ public class ChooseSupplyOffer extends JDialog {
 		gbc_panel.gridy = 0;
 		getContentPane().add(supplyOffersPanel, gbc_panel);
 		
-		btnChoose = new JButton("Choose...");
+		btnChoose = new JButtonPrimary("Choose...");
 		btnChoose.setEnabled(false);
 		GridBagConstraints gbc_btnChoose = new GridBagConstraints();
 		gbc_btnChoose.anchor = GridBagConstraints.EAST;

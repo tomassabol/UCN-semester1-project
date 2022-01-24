@@ -25,6 +25,7 @@ import controller.StockController;
 import exceptions.DisabledStateException;
 import exceptions.NullPriceException;
 import exceptions.OutOfStockException;
+import gui.JButtonPrimary;
 import gui.JLink;
 import gui.Messages;
 import gui.panels.tableModels.ShoppingCartTableModel;
@@ -61,7 +62,7 @@ public class ManageShoppingCart extends JDialog {
 	QuoteController quoteCtrl;
 	private boolean submitPressed = false;
 	private Quote createdQuote = null;
-	private JButton btnCreateQuote;
+	private JButtonPrimary btnCreateQuote;
 
 	/**
 	 * Create the dialog.
@@ -240,7 +241,7 @@ public class ManageShoppingCart extends JDialog {
 				priceAndSubmitPanel.add(lblTotalValue, gbc_lblTotalValue);
 				
 				// ***** Create quote button *****
-				btnCreateQuote = new JButton("Create quote");
+				btnCreateQuote = new JButtonPrimary("Create quote");
 				GridBagConstraints gbc_btnCreateQuote = new GridBagConstraints();
 				gbc_btnCreateQuote.anchor = GridBagConstraints.EAST;
 				gbc_btnCreateQuote.gridx = 3;
