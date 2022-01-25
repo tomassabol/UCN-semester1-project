@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import exceptions.IllegalModificationException;
 import model.Contractor;
 import model.PrimaryKey;
 import model.Product;
@@ -154,8 +155,14 @@ public class SupplyController {
 	 * @param supplyOrder the supply order
 	 * @param shelf the shelf to put the items in
 	 * @param trackable whether to add 'trackable' items or non
+	 * 
+	 * @throws IllegalModificationException when already put into stock
 	 */
-	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, boolean trackable) {
+	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, boolean trackable) throws IllegalModificationException {
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("This supply order has already been put in stock!");
+		}
+		
 		// For trackable items - auto generate serial number
 		if (trackable) {
 			// identify product
