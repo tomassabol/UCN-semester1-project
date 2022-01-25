@@ -147,19 +147,35 @@ public class SupplyController {
 		return supplyOrder;
 	}
 	
-	public void updateSupplyOrderProduct(SupplyOrder supplyOrder, Product product) {
+	public void updateSupplyOrderProduct(SupplyOrder supplyOrder, Product product) throws IllegalModificationException {
+		// Do not allow modification if already delivered (aka put into stock)
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
+		}
 		supplyOrder.setProduct(product);
 	};
 	
-	public void updateSupplyOrderQuantity(SupplyOrder supplyOrder, int quantity) {
+	public void updateSupplyOrderQuantity(SupplyOrder supplyOrder, int quantity) throws IllegalModificationException {
+		// Do not allow modification if already delivered (aka put into stock)
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
+		}
 		supplyOrder.setQuantity(quantity);
 	};
 	
-	public void updateSupplyOrderPricePerItem(SupplyOrder supplyOrder, BigDecimal pricePerItem) {
+	public void updateSupplyOrderPricePerItem(SupplyOrder supplyOrder, BigDecimal pricePerItem) throws IllegalModificationException {
+		// Do not allow modification if already delivered (aka put into stock)
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
+		}
 		supplyOrder.setPricePerItem(pricePerItem);
 	};
 	
-	public void updateSupplyOrderContractor(SupplyOrder supplyOrder, Contractor contractor) {
+	public void updateSupplyOrderContractor(SupplyOrder supplyOrder, Contractor contractor) throws IllegalModificationException {
+		// Do not allow modification if already delivered (aka put into stock)
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
+		}
 		supplyOrder.setContractor(contractor);
 	};
 
