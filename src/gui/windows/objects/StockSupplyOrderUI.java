@@ -9,7 +9,10 @@ import controller.SupplyController;
 import exceptions.IllegalModificationException;
 import gui.JButtonPrimary;
 import gui.Messages;
+import gui.panels.tableModels.CustomerTableModel;
+import gui.windows.ChooseCustomerType;
 import gui.windows.ChooseShelf;
+import model.Customer;
 import model.Shelf;
 import model.SupplyOrder;
 
@@ -21,6 +24,7 @@ import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -180,6 +184,16 @@ public class StockSupplyOrderUI extends JDialog {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
+		
+		// Choose shelf button
+		btnChooseShelf.addActionListener(e -> {
+			ChooseShelf frame = new ChooseShelf(auth);
+			frame.setVisible(true);
+			if (frame.getSelectedShelf() != null) {
+				this.shelf = frame.getSelectedShelf();
+				txtShelfDisplay.setText(shelf.getName());
+			}
+		});
 		
 		// 'Submit' button - put the supply order into stock
 		btnSubmit.addActionListener(e -> {
