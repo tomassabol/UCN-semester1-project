@@ -271,7 +271,7 @@ public class StockSupplyOrderUI extends JDialog {
                 */
 
 				// if mode == Create, create a new customer
-				supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, true);
+				//supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, true);
 				}
 			// Dispose of the window
 			this.dispose();
