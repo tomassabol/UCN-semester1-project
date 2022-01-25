@@ -20,6 +20,7 @@ import gui.panels.CRUDSupplyOrders;
 import gui.panels.tableModels.SupplyOfferTableModel;
 import gui.panels.tableModels.SupplyOrderTableModel;
 import gui.windows.ChooseProduct;
+import gui.windows.objects.StockSupplyOrderUI;
 import model.Product;
 import model.SupplyOrder;
 
@@ -178,7 +179,15 @@ public class ManageSupplyOrders extends JDialog {
 		});
 		
 		btnPutIntoStock.addActionListener(e -> {
-			Messages.info(this, "Not implemented yet");
+			// get selected supply order
+			JTable table = CRUDPanel.getTable();
+			int row = table.convertRowIndexToModel(table.getSelectedRow());
+			SupplyOrder supplyOrder = CRUDPanel.getTableModel().getObj(row);
+			// Show UI
+			StockSupplyOrderUI frame = new StockSupplyOrderUI(auth, supplyOrder);
+			frame.setVisible(true);
+			// Update row in case there were changes (delivered field might be true now)
+			CRUDPanel.getTableModel().fireTableRowsUpdated(row, row);
 		});
 		
 		
