@@ -194,6 +194,9 @@ public class CRUDSupplyOrders extends JPanel {
 				if (supplyOrder.isDelivered()) {
 					btnEdit.setEnabled(true);
 					btnDelete.setEnabled(true);
+				} else {
+					btnEdit.setEnabled(false);
+					btnDelete.setEnabled(false);
 				}
 			}
 		});
