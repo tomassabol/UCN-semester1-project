@@ -140,7 +140,6 @@ public class StockSupplyOrderUI extends JDialog {
 		
 		rdbtnTrackableYes = new JRadioButton("Yes");
 		buttonGroup.add(rdbtnTrackableYes);
-		rdbtnTrackableYes.setSelected(true);
 		GridBagConstraints gbc_rdbtnTrackableYes = new GridBagConstraints();
 		gbc_rdbtnTrackableYes.anchor = GridBagConstraints.WEST;
 		gbc_rdbtnTrackableYes.insets = new Insets(0, 0, 0, 5);
@@ -164,9 +163,10 @@ public class StockSupplyOrderUI extends JDialog {
 		gbc_btnOK.gridy = 5;
 		contentPane.add(btnSubmit, gbc_btnOK);
 		
-		// Serial numbers: no option is disabled for now. 
+		// custom serial numbers is disabled for now. 
 		// Todo : low priority - Implement custom serials option
-		rdbtnTrackableNo.setEnabled(false);
+		rdbtnTrackableYes.setEnabled(false);
+		rdbtnTrackableNo.setSelected(true);
 		
 		addEventHandlers();
 	
