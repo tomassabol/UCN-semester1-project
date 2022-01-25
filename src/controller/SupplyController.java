@@ -137,12 +137,12 @@ public class SupplyController {
 	 * @return The newly created supply order
 	 */
 	public SupplyOrder createSupplyOrder(Product product,
-			int quantity, Contractor contractor) {
+			int quantity, BigDecimal pricePerItem, Contractor contractor) {
 		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_ORDER),
 				LocalDateTime.now(),
 				product,
 				quantity,
-				product.getLatestSellingPrice(), contractor);
+				pricePerItem, contractor);
 		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
 		return supplyOrder;
 	}
