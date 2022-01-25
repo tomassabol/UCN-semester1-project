@@ -137,7 +137,7 @@ public class SupplyController {
 	 * @return The newly created supply order
 	 */
 	public SupplyOrder createSupplyOrder(Product product,
-			int quantity, BigDecimal pricePerItem, Contractor contractor) {
+			int quantity, Contractor contractor) {
 		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_ORDER),
 				LocalDateTime.now(),
 				product,
@@ -146,6 +146,22 @@ public class SupplyController {
 		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
 		return supplyOrder;
 	}
+	
+	public void updateSupplyOrderProduct(SupplyOrder supplyOrder, Product product) {
+		supplyOrder.setProduct(product);
+	};
+	
+	public void updateSupplyOrderQuantity(SupplyOrder supplyOrder, int quantity) {
+		supplyOrder.setQuantity(quantity);
+	};
+	
+	public void updateSupplyOrderPricePerItem(SupplyOrder supplyOrder, BigDecimal pricePerItem) {
+		supplyOrder.setPricePerItem(pricePerItem);
+	};
+	
+	public void updateSupplyOrderContractor(SupplyOrder supplyOrder, Contractor contractor) {
+		supplyOrder.setContractor(contractor);
+	};
 
 	
 	/**
