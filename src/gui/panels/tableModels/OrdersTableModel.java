@@ -92,10 +92,14 @@ public class OrdersTableModel extends AbstractTableModel {
      * Adds a order to the table.
      *
      * @param order the order
+     * 
+     * @return row The row added
      */
-    public void addOrder(Order order) {
+    public int addOrder(Order order) {
     	this.orders.add(order);
-    	this.fireTableRowsInserted(this.getRowCount() - 1, this.getRowCount() -1);
+    	int row = this.getRowCount() - 1
+    	this.fireTableRowsInserted(row, row);
+    	return row;
     }
     
     public void removeOrder(int row) {
