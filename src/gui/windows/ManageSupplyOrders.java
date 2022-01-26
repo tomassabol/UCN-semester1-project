@@ -161,7 +161,7 @@ public class ManageSupplyOrders extends JDialog {
 				int row = table.getSelectedRow();
 				SupplyOrder supplyOrder = CRUDPanel.getTableModel().getObj(row);
 				// enable 'put into stock' if not delivered
-				if (!supplyOrder.isDelivered()) {
+				if (!supplyOrder.isStocked()) {
 					btnPutIntoStock.setEnabled(true);
 				} else {
 					btnPutIntoStock.setEnabled(false);

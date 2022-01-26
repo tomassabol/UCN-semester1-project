@@ -403,8 +403,8 @@ public class SupplyOrderUI extends JDialog {
 		this.product = supplyOrder.getProduct();
 		txtProductDisplay.setText(supplyOrder.getProduct().getName());
 		txtOrderDate.setText(Common.datetimeToString(supplyOrder.getDateOrdered()));
-		rdbtnYes.setSelected(supplyOrder.isDelivered());
-		rdbtnNo.setSelected(!supplyOrder.isDelivered());
+		rdbtnYes.setSelected(supplyOrder.isStocked());
+		rdbtnNo.setSelected(!supplyOrder.isStocked());
 	}
 	
 	/**

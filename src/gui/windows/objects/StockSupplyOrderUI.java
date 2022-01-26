@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import controller.SupplyController;
 import exceptions.IllegalModificationException;
+import gui.Common;
 import gui.JButtonPrimary;
 import gui.Messages;
 import gui.panels.tableModels.CustomerTableModel;
@@ -21,6 +22,9 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -52,6 +56,9 @@ public class StockSupplyOrderUI extends JDialog {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
     Shelf shelf = null;
+    private JLabel lblDeliveryDate;
+    private JTextField txtDeliveryDate;
+    private JButton btnAutofill;
 
 	/**
 	 * @param auth the auth
@@ -71,9 +78,9 @@ public class StockSupplyOrderUI extends JDialog {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{273, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPanel);
 		
 		JLabel lblTitle = new JLabel("Stock a supply order delivery");
@@ -114,13 +121,40 @@ public class StockSupplyOrderUI extends JDialog {
 		btnChooseShelf = new JButton("Choose");
 		shelfPanel.add(btnChooseShelf);
 		
+		lblDeliveryDate = new JLabel("Delivery date (" + Common.getDateTimeFormat() + ")");
+		GridBagConstraints gbc_lblDeliveryDate = new GridBagConstraints();
+		gbc_lblDeliveryDate.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblDeliveryDate.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDeliveryDate.gridx = 0;
+		gbc_lblDeliveryDate.gridy = 3;
+		contentPane.add(lblDeliveryDate, gbc_lblDeliveryDate);
+		
+		txtDeliveryDate = new JTextField();
+		GridBagConstraints gbc_txtDeliveryDate = new GridBagConstraints();
+		gbc_txtDeliveryDate.anchor = GridBagConstraints.NORTH;
+		gbc_txtDeliveryDate.insets = new Insets(0, 0, 5, 5);
+		gbc_txtDeliveryDate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtDeliveryDate.gridx = 0;
+		gbc_txtDeliveryDate.gridy = 4;
+		contentPane.add(txtDeliveryDate, gbc_txtDeliveryDate);
+		txtDeliveryDate.setColumns(10);
+		
+		btnAutofill = new JButton("Auto fill");
+		GridBagConstraints gbc_btnAutofill = new GridBagConstraints();
+		gbc_btnAutofill.anchor = GridBagConstraints.NORTH;
+		gbc_btnAutofill.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAutofill.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAutofill.gridx = 1;
+		gbc_btnAutofill.gridy = 4;
+		contentPane.add(btnAutofill, gbc_btnAutofill);
+		
 		lblTrackable = new JLabel("Do the items have serial numbers?");
 		GridBagConstraints gbc_lblTrackable = new GridBagConstraints();
 		gbc_lblTrackable.gridwidth = 2;
 		gbc_lblTrackable.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblTrackable.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTrackable.gridx = 0;
-		gbc_lblTrackable.gridy = 3;
+		gbc_lblTrackable.gridy = 5;
 		contentPane.add(lblTrackable, gbc_lblTrackable);
 		
 		isTrackable = new JPanel();
@@ -129,7 +163,7 @@ public class StockSupplyOrderUI extends JDialog {
 		gbc_isTrackable.insets = new Insets(0, 0, 5, 0);
 		gbc_isTrackable.fill = GridBagConstraints.BOTH;
 		gbc_isTrackable.gridx = 0;
-		gbc_isTrackable.gridy = 4;
+		gbc_isTrackable.gridy = 6;
 		contentPane.add(isTrackable, gbc_isTrackable);
 		GridBagLayout gbl_isTrackable = new GridBagLayout();
 		gbl_isTrackable.columnWidths = new int[]{0, 0, 0};
@@ -160,7 +194,7 @@ public class StockSupplyOrderUI extends JDialog {
 		GridBagConstraints gbc_btnOK = new GridBagConstraints();
 		gbc_btnOK.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnOK.gridx = 1;
-		gbc_btnOK.gridy = 5;
+		gbc_btnOK.gridy = 7;
 		contentPane.add(btnSubmit, gbc_btnOK);
 		
 		// custom serial numbers is disabled for now. 
@@ -205,11 +239,30 @@ public class StockSupplyOrderUI extends JDialog {
 					return;
 				}
 				
+				// Validate delivery datetime: not empty
+				String deliveryDateString = txtDeliveryDate.getText().strip();
+				if (deliveryDateString.isEmpty()) {
+					Messages.error(this, "Delivery Date cannot be empty!");
+					return;
+				}
+				// Parse birth date
+				LocalDateTime deliveryDate;
+				try {
+					deliveryDate = Common.stringToDateTime(deliveryDateString);
+				} catch (DateTimeParseException e1) {
+					Messages.error(this, "Please enter a delivery date in the format of: " + Common.getDateTimeFormat());
+					return;
+				}
+				// Validate delivery datetime: not < order date
+				if (deliveryDate.isBefore(supplyOrder.getDateOrdered())) {
+					Messages.error(this, "Delivery date must be later than the order date!");
+				}
+				
 				// With serial numbers?
 				boolean trackable = rdbtnTrackableYes.isSelected() ? true : false;
 				
 				try {
-					supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, trackable);
+					supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, deliveryDate, trackable);
 				} catch (IllegalModificationException e1) {
 					Messages.error(this, "You cannot stock a supply order that has already been stocked!");
 				}

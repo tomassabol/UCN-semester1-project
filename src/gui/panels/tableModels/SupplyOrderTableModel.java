@@ -64,7 +64,7 @@ public class SupplyOrderTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case 0: return "#" + supplyOrder.ID;
             case 1: return Common.datetimeToString(supplyOrder.getDateOrdered());
-            case 2: return supplyOrder.isDelivered();
+            case 2: return supplyOrder.isStocked() ? supplyOrder.getDelivered() : "no";
             case 3: return supplyOrder.getProduct().getName();
             case 4: return String.valueOf(supplyOrder.getQuantity());
             case 5: return supplyOrder.getPricePerItem() + " DKK";

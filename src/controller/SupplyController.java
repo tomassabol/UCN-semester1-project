@@ -149,7 +149,7 @@ public class SupplyController {
 	
 	public void updateSupplyOrderProduct(SupplyOrder supplyOrder, Product product) throws IllegalModificationException {
 		// Do not allow modification if already delivered (aka put into stock)
-		if (supplyOrder.isDelivered()) {
+		if (supplyOrder.isStocked()) {
 			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
 		}
 		supplyOrder.setProduct(product);
@@ -157,7 +157,7 @@ public class SupplyController {
 	
 	public void updateSupplyOrderQuantity(SupplyOrder supplyOrder, int quantity) throws IllegalModificationException {
 		// Do not allow modification if already delivered (aka put into stock)
-		if (supplyOrder.isDelivered()) {
+		if (supplyOrder.isStocked()) {
 			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
 		}
 		supplyOrder.setQuantity(quantity);
@@ -165,7 +165,7 @@ public class SupplyController {
 	
 	public void updateSupplyOrderPricePerItem(SupplyOrder supplyOrder, BigDecimal pricePerItem) throws IllegalModificationException {
 		// Do not allow modification if already delivered (aka put into stock)
-		if (supplyOrder.isDelivered()) {
+		if (supplyOrder.isStocked()) {
 			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
 		}
 		supplyOrder.setPricePerItem(pricePerItem);
@@ -173,7 +173,7 @@ public class SupplyController {
 	
 	public void updateSupplyOrderContractor(SupplyOrder supplyOrder, Contractor contractor) throws IllegalModificationException {
 		// Do not allow modification if already delivered (aka put into stock)
-		if (supplyOrder.isDelivered()) {
+		if (supplyOrder.isStocked()) {
 			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
 		}
 		supplyOrder.setContractor(contractor);
@@ -181,7 +181,7 @@ public class SupplyController {
 	
 	public void updateSupplyOrderDateOrdered(SupplyOrder supplyOrder, LocalDateTime dateOrdered) throws IllegalModificationException {
 		// Do not allow modification if already delivered (aka put into stock)
-		if (supplyOrder.isDelivered()) {
+		if (supplyOrder.isStocked()) {
 			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
 		}
 		supplyOrder.setDateOrdered(dateOrdered);
@@ -199,8 +199,8 @@ public class SupplyController {
 	 * 
 	 * @throws IllegalModificationException when already put into stock
 	 */
-	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, boolean trackable) throws IllegalModificationException {
-		if (supplyOrder.isDelivered()) {
+	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, LocalDateTime deliveredDate, boolean trackable) throws IllegalModificationException {
+		if (supplyOrder.isStocked()) {
 			throw new IllegalModificationException("This supply order has already been put in stock!");
 		}
 		
@@ -228,7 +228,7 @@ public class SupplyController {
 			shelf.addStockBatch(product, stockBatch);
 		}
 		// Mark as delivered and stocked
-		supplyOrder.setDelivered(true);
+		supplyOrder.setDelivered(deliveredDate);
 	}
 	
 	/**

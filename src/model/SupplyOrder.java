@@ -10,7 +10,7 @@ public class SupplyOrder {
     private int quantity;
     private Product product;
     private BigDecimal pricePerItem;
-	private boolean delivered;
+	private LocalDateTime delivered;
 	private Contractor contractor;
 
     public SupplyOrder(int id, LocalDateTime dateOrdered,
@@ -20,8 +20,9 @@ public class SupplyOrder {
         this.product = product;
         this.pricePerItem = pricePerItem;
         this.quantity = quantity;
-        this.delivered = false;
         this.contractor = contractor; 
+        
+        this.delivered = null;
     }
     public Contractor getContractor() {
 		return contractor;
@@ -66,12 +67,16 @@ public class SupplyOrder {
 	public void setPricePerITem(BigDecimal pricePerITem) {
 		this.pricePerItem = pricePerITem;
 	}
+	
+	public boolean isStocked() {
+		return delivered != null ? true: false;
+	}
 
-	public boolean isDelivered() {
+	public LocalDateTime getDelivered() {
 		return delivered;
 	}
 
-	public void setDelivered(boolean delivered) {
+	public void setDelivered(LocalDateTime delivered) {
 		this.delivered = delivered;
 	}
 
