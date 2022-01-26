@@ -14,11 +14,8 @@ import controller.SupplyController;
 import gui.Messages;
 import gui.panels.CRUDSupplyOrders;
 import gui.panels.tableModels.SupplyOrderTableModel;
-<<<<<<< HEAD
-=======
 import gui.windows.ChooseProduct;
 import gui.windows.objects.StockSupplyOrderUI;
->>>>>>> b4d09a1101d87b673fb5b53e4689c6700badd3fa
 import model.Product;
 import model.SupplyOrder;
 
