@@ -137,7 +137,7 @@ public class SupplyController {
 	 * @return The newly created supply order
 	 */
 	public SupplyOrder createSupplyOrder(Product product,
-			int quantity, BigDecimal pricePerItem, Contractor contractor, LocalDate dateOrdered) {
+			int quantity, BigDecimal pricePerItem, Contractor contractor, LocalDateTime dateOrdered) {
 		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_ORDER),
 				dateOrdered,
 				product,
@@ -179,7 +179,7 @@ public class SupplyController {
 		supplyOrder.setContractor(contractor);
 	};
 	
-	public void updateSupplyOrderDateOrdered(SupplyOrder supplyOrder, LocalDate dateOrdered) throws IllegalModificationException {
+	public void updateSupplyOrderDateOrdered(SupplyOrder supplyOrder, LocalDateTime dateOrdered) throws IllegalModificationException {
 		// Do not allow modification if already delivered (aka put into stock)
 		if (supplyOrder.isDelivered()) {
 			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");

@@ -6,14 +6,14 @@ import java.time.LocalDateTime;
 
 public class SupplyOrder {
     public final int ID;
-    private LocalDate dateOrdered;
+    private LocalDateTime dateOrdered;
     private int quantity;
     private Product product;
     private BigDecimal pricePerItem;
 	private boolean delivered;
 	private Contractor contractor;
 
-    public SupplyOrder(int id, LocalDate dateOrdered,
+    public SupplyOrder(int id, LocalDateTime dateOrdered,
     		Product product, int quantity, BigDecimal pricePerItem, Contractor contractor) {
         this.ID = id;
         this.dateOrdered = dateOrdered;
@@ -43,11 +43,11 @@ public class SupplyOrder {
 		this.quantity = quantity;
 	}
 
-    public LocalDate getDateOrdered() {
+    public LocalDateTime getDateOrdered() {
         return this.dateOrdered;
     }
 
-    public void setDateOrdered(LocalDate dateOrdered) {
+    public void setDateOrdered(LocalDateTime dateOrdered) {
         this.dateOrdered = dateOrdered;
     }
 

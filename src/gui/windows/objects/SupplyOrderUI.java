@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import javax.swing.ButtonGroup;
@@ -221,7 +222,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblContractor.gridy = 4;
 		contentPane.add(lblContractor, gbc_lblContractor);
 		
-		lblDate = new JLabel("Order Date (" + Common.getDateFormat() + ")");
+		lblDate = new JLabel("Order Date (" + Common.getDateTimeFormat() + ")");
 		GridBagConstraints gbc_lblDate = new GridBagConstraints();
 		gbc_lblDate.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDate.insets = new Insets(0, 0, 5, 0);
@@ -401,7 +402,7 @@ public class SupplyOrderUI extends JDialog {
 		this.contractor = supplyOrder.getContractor();
 		this.product = supplyOrder.getProduct();
 		txtProductDisplay.setText(supplyOrder.getProduct().getName());
-		txtOrderDate.setText(Common.dateToString(supplyOrder.getDateOrdered()));
+		txtOrderDate.setText(Common.datetimeToString(supplyOrder.getDateOrdered()));
 		rdbtnYes.setSelected(supplyOrder.isDelivered());
 		rdbtnNo.setSelected(!supplyOrder.isDelivered());
 	}
@@ -484,10 +485,10 @@ public class SupplyOrderUI extends JDialog {
 					Messages.error(this, "Birth Date cannot be empty!");
 					return;
 				}
-				// Parse birth date
-				LocalDate dateOrdered;
+				// Parse order date
+				LocalDateTime dateOrdered;
 				try {
-					dateOrdered = Common.stringToDate(orderDateString);
+					dateOrdered = Common.stringToDateTime(orderDateString);
 				} catch (DateTimeParseException e1) {
 					Messages.error(this, "Please enter a valid birth date in the format of: " + Common.getDateFormat());
 					return;

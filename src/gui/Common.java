@@ -65,5 +65,14 @@ public class Common {
     public static String getDateFormat() {
         return DATE_FORMAT.toLowerCase();
     }
+    
+    /**
+     * Gets the date time format.
+     *
+     * @return the date time format
+     */
+    public static String getDateTimeFormat() {
+        return DATETIME_FORMAT.toLowerCase();
+    }
 
 }
