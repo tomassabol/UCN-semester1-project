@@ -76,9 +76,9 @@ public class GenerateDataController {
         StockBatch stockBatch = new StockBatch(product1, 10, LocalDateTime.now());
         shelf1.addStockBatch(product1, stockBatch);
         supplyCtrl.createSupplyOrder(supplyOffer1.getProduct(), 
-        		5, supplyOffer1.getPricePerItem(), supplyOffer1.getContractor());
+        		5, supplyOffer1.getPricePerItem(), supplyOffer1.getContractor(), LocalDate.now());
         supplyCtrl.createSupplyOrder(supplyOffer1.getProduct(), 
-        		2, supplyOffer1.getPricePerItem(), supplyOffer1.getContractor());
+        		2, supplyOffer1.getPricePerItem(), supplyOffer1.getContractor(), LocalDate.now());
         
         // Add orders to customer1
         try {

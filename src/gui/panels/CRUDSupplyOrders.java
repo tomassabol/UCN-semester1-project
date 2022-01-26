@@ -201,9 +201,9 @@ public class CRUDSupplyOrders extends JPanel {
 		btnAddSupplyOrder.addActionListener(e -> {
 			SupplyOrderUI frame = new SupplyOrderUI(auth);
 			frame.setVisible(true);
-//			if (frame.getSupplyOrder() != null) {
-//				tableModel.add(frame.getSupplyOrder());
-//			}
+			if (frame.getSupplyOrder() != null) {
+				tableModel.add(frame.getSupplyOrder());
+			}
 		});
 	}
 }

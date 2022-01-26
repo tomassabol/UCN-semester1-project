@@ -1,6 +1,7 @@
 package controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -132,12 +133,13 @@ public class SupplyController {
 	 * @param quantity
 	 * @param pricePerItem
 	 * @param contractor
+	 * @param dateOrdered
 	 * @return The newly created supply order
 	 */
 	public SupplyOrder createSupplyOrder(Product product,
-			int quantity, BigDecimal pricePerItem, Contractor contractor) {
+			int quantity, BigDecimal pricePerItem, Contractor contractor, LocalDate dateOrdered) {
 		SupplyOrder supplyOrder = new SupplyOrder(PrimaryKey.getID(PrimaryKey.Keys.SUPPLY_ORDER),
-				LocalDateTime.now(),
+				dateOrdered,
 				product,
 				quantity,
 				pricePerItem, contractor);
@@ -176,6 +178,15 @@ public class SupplyController {
 		}
 		supplyOrder.setContractor(contractor);
 	};
+	
+	public void updateSupplyOrderDateOrdered(SupplyOrder supplyOrder, LocalDate dateOrdered) throws IllegalModificationException {
+		// Do not allow modification if already delivered (aka put into stock)
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
+		}
+		supplyOrder.setDateOrdered(dateOrdered);
+		
+	}
 
 	
 	/**
@@ -232,5 +243,7 @@ public class SupplyController {
 	public void removeSupplyOffer(SupplyOffer supplyOffer) {
 		SupplyOfferContainer.getInstance().remove(supplyOffer);
 }
+
+
 	
 }

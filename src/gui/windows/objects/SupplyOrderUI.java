@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -17,6 +19,9 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.SupplyController;
+import exceptions.IllegalModificationException;
+import gui.Common;
+import gui.JButtonPrimary;
 import gui.Messages;
 import gui.windows.ChooseContractor;
 import gui.windows.ChooseProduct;
@@ -24,9 +29,11 @@ import model.Contractor;
 import model.PrimaryKey;
 import model.Product;
 import model.SupplyOffer;
+import model.SupplyOrder;
+import javax.swing.JRadioButton;
 
 /**
- * @author Attila Bako
+ * @author Daniels Kanepe
  *
  */
 public class SupplyOrderUI extends JDialog {
@@ -40,10 +47,10 @@ public class SupplyOrderUI extends JDialog {
 	private JPanel contentPane;
 	private JTextField txtID;
 	private JTextField txtPricePerItem;
-	private JTextField txtMinQuantity;
+	private JTextField txtQuantity;
 	private JButton btnSubmit;
 	
-	SupplyOffer supplyOffer;
+	SupplyOrder supplyOrder;
 	SupplyController supplyCtrl;
 	Mode mode;
 	AuthenticationController auth;
@@ -57,34 +64,38 @@ public class SupplyOrderUI extends JDialog {
 	
 	private Contractor contractor;
 	private Product product;
-	private JTextField textDate;
+	private JTextField txtOrderDate;
 	private JLabel lblDate;
+	private JLabel lblStocked;
+	private JPanel stockedPanel;
+	private JRadioButton rdbtnYes;
+	private JRadioButton rdbtnNo;
 
 
 	/**
-	 * Constructor for Creating a new supply offer
+	 * Constructor for Creating a new supply order
 	 *
 	 * @param auth the auth
 	 */
 	public SupplyOrderUI(AuthenticationController auth) {
 		this(auth, null, Mode.CREATE);
-		this.supplyOffer = null;
+		this.supplyOrder = null;
 	}
 
 	/**
-	 * Constructor for view/edit supply offer
+	 * Constructor for view/edit supply order
 	 *
 	 * @param auth the auth
-	 * @param supplyOffer
+	 * @param supplyOrder
 	 * @param mode the mode (VIEW, EDIT)
 	 * @wbp.parser.constructor
 	 */
-	public SupplyOrderUI(AuthenticationController auth, SupplyOffer supplyOffer, Mode mode) {
+	public SupplyOrderUI(AuthenticationController auth, SupplyOrder supplyOrder, Mode mode) {
 		this.mode = mode;
 		this.auth = auth;
 		
 		supplyCtrl = new SupplyController();
-		this.supplyOffer = supplyOffer;
+		this.supplyOrder = supplyOrder;
 		
 		setModal(true);
 		setBounds(100, 100, 450, 341);
@@ -93,9 +104,9 @@ public class SupplyOrderUI extends JDialog {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPanel);
 		
 		JLabel lblID = new JLabel("ID");
@@ -171,14 +182,14 @@ public class SupplyOrderUI extends JDialog {
 		contentPane.add(lblPricePerItem, gbc_lblPricePerItem);
 		
 		
-		JLabel lblAddress = new JLabel("Min order quantity");
-		GridBagConstraints gbc_lblAddress = new GridBagConstraints();
-		gbc_lblAddress.anchor = GridBagConstraints.SOUTH;
-		gbc_lblAddress.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblAddress.insets = new Insets(0, 0, 5, 0);
-		gbc_lblAddress.gridx = 1;
-		gbc_lblAddress.gridy = 2;
-		contentPane.add(lblAddress, gbc_lblAddress);
+		JLabel lblQuantity = new JLabel("Quantity");
+		GridBagConstraints gbc_lblQuantity = new GridBagConstraints();
+		gbc_lblQuantity.anchor = GridBagConstraints.SOUTH;
+		gbc_lblQuantity.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblQuantity.insets = new Insets(0, 0, 5, 0);
+		gbc_lblQuantity.gridx = 1;
+		gbc_lblQuantity.gridy = 2;
+		contentPane.add(lblQuantity, gbc_lblQuantity);
 		
 		
 		txtPricePerItem = new JTextField();
@@ -191,14 +202,14 @@ public class SupplyOrderUI extends JDialog {
 		txtPricePerItem.setColumns(10);
 		
 		
-		txtMinQuantity = new JTextField();
-		GridBagConstraints gbc_txtMinQuantity = new GridBagConstraints();
-		gbc_txtMinQuantity.insets = new Insets(0, 0, 5, 0);
-		gbc_txtMinQuantity.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtMinQuantity.gridx = 1;
-		gbc_txtMinQuantity.gridy = 3;
-		contentPane.add(txtMinQuantity, gbc_txtMinQuantity);
-		txtMinQuantity.setColumns(10);
+		txtQuantity = new JTextField();
+		GridBagConstraints gbc_txtQuantity = new GridBagConstraints();
+		gbc_txtQuantity.insets = new Insets(0, 0, 5, 0);
+		gbc_txtQuantity.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtQuantity.gridx = 1;
+		gbc_txtQuantity.gridy = 3;
+		contentPane.add(txtQuantity, gbc_txtQuantity);
+		txtQuantity.setColumns(10);
 		
 		
 		JLabel lblContractor = new JLabel("Contractor *");
@@ -210,7 +221,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblContractor.gridy = 4;
 		contentPane.add(lblContractor, gbc_lblContractor);
 		
-		lblDate = new JLabel("Order Date");
+		lblDate = new JLabel("Order Date (" + Common.getDateFormat() + ")");
 		GridBagConstraints gbc_lblDate = new GridBagConstraints();
 		gbc_lblDate.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDate.insets = new Insets(0, 0, 5, 0);
@@ -249,29 +260,67 @@ public class SupplyOrderUI extends JDialog {
 		gbc_btnChooseContractor.gridy = 0;
 		contractorPanel.add(btnChooseContractor, gbc_btnChooseContractor);
 		
-		textDate = new JTextField();
-		GridBagConstraints gbc_textDate = new GridBagConstraints();
-		gbc_textDate.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textDate.anchor = GridBagConstraints.NORTH;
-		gbc_textDate.insets = new Insets(0, 0, 5, 0);
-		gbc_textDate.gridx = 1;
-		gbc_textDate.gridy = 5;
-		contentPane.add(textDate, gbc_textDate);
-		textDate.setColumns(10);
+		txtOrderDate = new JTextField();
+		GridBagConstraints gbc_txtOrderDate = new GridBagConstraints();
+		gbc_txtOrderDate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtOrderDate.anchor = GridBagConstraints.NORTH;
+		gbc_txtOrderDate.insets = new Insets(0, 0, 5, 0);
+		gbc_txtOrderDate.gridx = 1;
+		gbc_txtOrderDate.gridy = 5;
+		contentPane.add(txtOrderDate, gbc_txtOrderDate);
+		txtOrderDate.setColumns(10);
+		
+		lblStocked = new JLabel("Has been stocked?");
+		GridBagConstraints gbc_lblStocked = new GridBagConstraints();
+		gbc_lblStocked.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblStocked.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStocked.gridx = 0;
+		gbc_lblStocked.gridy = 6;
+		contentPane.add(lblStocked, gbc_lblStocked);
+		
+		stockedPanel = new JPanel();
+		GridBagConstraints gbc_stockedPanel = new GridBagConstraints();
+		gbc_stockedPanel.anchor = GridBagConstraints.NORTH;
+		gbc_stockedPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_stockedPanel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_stockedPanel.gridx = 0;
+		gbc_stockedPanel.gridy = 7;
+		contentPane.add(stockedPanel, gbc_stockedPanel);
+		GridBagLayout gbl_stockedPanel = new GridBagLayout();
+		gbl_stockedPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_stockedPanel.rowHeights = new int[]{0, 0};
+		gbl_stockedPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_stockedPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		stockedPanel.setLayout(gbl_stockedPanel);
+		
+		rdbtnYes = new JRadioButton("Yes");
+		buttonGroup.add(rdbtnYes);
+		GridBagConstraints gbc_rdbtnYes = new GridBagConstraints();
+		gbc_rdbtnYes.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnYes.gridx = 0;
+		gbc_rdbtnYes.gridy = 0;
+		stockedPanel.add(rdbtnYes, gbc_rdbtnYes);
+		
+		rdbtnNo = new JRadioButton("No");
+		buttonGroup.add(rdbtnNo);
+		GridBagConstraints gbc_rdbtnNo = new GridBagConstraints();
+		gbc_rdbtnNo.gridx = 1;
+		gbc_rdbtnNo.gridy = 0;
+		stockedPanel.add(rdbtnNo, gbc_rdbtnNo);
 		
 		
-		btnSubmit = new JButton("Update");
+		btnSubmit = new JButtonPrimary("Submit");
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
 		gbc_btnOk.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnOk.gridx = 1;
-		gbc_btnOk.gridy = 6;
+		gbc_btnOk.gridy = 7;
 		contentPane.add(btnSubmit, gbc_btnOk);
 		
 		switch (mode) {
 			case VIEW:
 				// Set title
 				setTitle("Viewing a supply offer");
-				// Hide 'Update' button if in view mode
+				// Hide submit button if in view mode
 				btnSubmit.setVisible(false);
 				// Disable 'choose' buttons if in view mode.
 				btnChooseContractor.setEnabled(false);
@@ -279,15 +328,17 @@ public class SupplyOrderUI extends JDialog {
 				// Disable fields
 				this.disableFields();
 				// Fill fields with content
-				this.fillFields(supplyOffer);
+				this.fillFields(supplyOrder);
 				break;
 			case EDIT: 
 				// Set title
 				setTitle("Edit Supply Offer");
 				// Enable fields for editing
 				this.enableFields();
+				// Change submit button text to 'Update'
+				btnSubmit.setText("Update");
 				// Fill fields with content
-				this.fillFields(supplyOffer);
+				this.fillFields(supplyOrder);
 				break;
 			case CREATE:
 				// Set title
@@ -298,7 +349,13 @@ public class SupplyOrderUI extends JDialog {
 				this.enableFields();
 				// Peek ID
 				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.SUPPLY_OFFER)));
-		}	
+				// Set 'stocked' to false
+				rdbtnNo.setSelected(true);
+		}
+		
+		// Do not allow changing 'stocked' as it is done with a different UI
+		rdbtnYes.setEnabled(false);
+		rdbtnNo.setEnabled(false);
 
 		addEventHandlers();
 	
@@ -328,28 +385,33 @@ public class SupplyOrderUI extends JDialog {
 			      c.setEnabled(true);
 			   }
 			}
+		// Keep 'stocked' panel disabled and ID field disabled
 		txtID.setEnabled(false);
+		rdbtnYes.setEnabled(false);
+		rdbtnNo.setEnabled(false);
 	}
 	
 	// FIll in the fields
-	private void fillFields(SupplyOffer supplyOffer) {
-		txtID.setText(String.valueOf(supplyOffer.getID()));
-		txtPricePerItem.setText(String.valueOf(supplyOffer.getPricePerItem()));
-		txtMinQuantity.setText(String.valueOf(supplyOffer.getMinQuantity()));
-		txtContractorDisplay.setText(supplyOffer.getContractor().getCompanyName());
-		this.contractor = supplyOffer.getContractor();
-		this.product = supplyOffer.getProduct();
-		txtProductDisplay.setText(supplyOffer.getProduct().getName());
-		product = supplyOffer.getProduct();
+	private void fillFields(SupplyOrder supplyOrder) {
+		txtID.setText(String.valueOf(supplyOrder.getID()));
+		txtPricePerItem.setText(String.valueOf(supplyOrder.getPricePerItem()));
+		txtQuantity.setText(String.valueOf(supplyOrder.getQuantity()));
+		txtContractorDisplay.setText(supplyOrder.getContractor().getCompanyName());
+		this.contractor = supplyOrder.getContractor();
+		this.product = supplyOrder.getProduct();
+		txtProductDisplay.setText(supplyOrder.getProduct().getName());
+		txtOrderDate.setText(Common.dateToString(supplyOrder.getDateOrdered()));
+		rdbtnYes.setSelected(supplyOrder.isDelivered());
+		rdbtnNo.setSelected(!supplyOrder.isDelivered());
 	}
 	
 	/**
-	 * Gets the supply offer used in view/edit, or one created in 'create' mode. Can be null!
+	 * Gets the supply order used in view/edit, or one created in 'create' mode. Can be null!
 	 *
-	 * @return the SupplyOffer
+	 * @return the SupplyOrder
 	 */
-	public SupplyOffer getSupplyOffer() {
-		return this.supplyOffer;
+	public SupplyOrder getSupplyOrder() {
+		return this.supplyOrder;
 	}
  	
 		/*
@@ -359,14 +421,13 @@ public class SupplyOrderUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 		
-		// 'update' button: Update the product
+		// 'submit' button: Update or create the supply order
 		btnSubmit.addActionListener(e -> {
 			String message = "";
 			if (mode == Mode.EDIT) {
-				message = "A new supply offer with these details will be created"
-						+ " and the old one deactivated. Are you sure you want to do that?";
+				message = "Are you sure you want to edit the details of this supply order?";
 			} else if (mode == Mode.CREATE) {
-				message = "Create supply offer?";
+				message = "Create supply order?";
 			}
 			if (Messages.confirm(SupplyOrderUI.this, message)) {
 				
@@ -402,30 +463,52 @@ public class SupplyOrderUI extends JDialog {
 					}
 				}
 				
-				// Validate min order quantity
-				String stringMinQuantity = txtMinQuantity.getText().strip();
-				int minQuantity;
+				// Validate order quantity
+				String stringQuantity = txtQuantity.getText().strip();
+				int quantity;
 				try {
-					minQuantity = Integer.parseInt(stringMinQuantity);
+					quantity = Integer.parseInt(stringQuantity);
 				} catch (NumberFormatException e2) {
-					Messages.error(this, "Min order quanity must be a whole, positive number");
+					Messages.error(this, "Order quanity must be a whole, positive number");
 					return;
 				}
 				// if less than zero
-				if (minQuantity < 0) {
-					Messages.error(this, "Min order quanity must be a whole, positive number");
+				if (quantity < 0) {
+					Messages.error(this, "Order quanity must be a whole, positive number");
+				}
+				
+				// Validate order date
+				String orderDateString = txtOrderDate.getText().strip();
+				if (orderDateString.isEmpty()) {
+					Messages.error(this, "Birth Date cannot be empty!");
+					return;
+				}
+				// Parse birth date
+				LocalDate dateOrdered;
+				try {
+					dateOrdered = Common.stringToDate(orderDateString);
+				} catch (DateTimeParseException e1) {
+					Messages.error(this, "Please enter a valid birth date in the format of: " + Common.getDateFormat());
+					return;
 				}
 	
 				
 				// if mode == view, update data
 				if (mode == Mode.EDIT) {
-					supplyCtrl.updateSupplyOfferProduct(supplyOffer, product);
-					supplyCtrl.updateSupplyOfferPricePerItem(supplyOffer, pricePerItem);
-					supplyCtrl.updateSupplyOfferMinQuantity(supplyOffer, minQuantity);
-					supplyCtrl.updateSupplyOfferContractor(supplyOffer, contractor);
+					
+					try {
+						supplyCtrl.updateSupplyOrderContractor(supplyOrder, contractor);
+						supplyCtrl.updateSupplyOrderPricePerItem(supplyOrder, pricePerItem);
+						supplyCtrl.updateSupplyOrderProduct(supplyOrder, product);
+						supplyCtrl.updateSupplyOrderQuantity(supplyOrder, quantity);
+						supplyCtrl.updateSupplyOrderDateOrdered(supplyOrder, dateOrdered);
+					} catch (IllegalModificationException e1) {
+						Messages.error(this, "Cannot update a supply order that has already been stocked!");
+						return;
+					}
 				} else if (mode == Mode.CREATE) {
 					// if mode == Create, create a new supply offer
-					this.supplyOffer = supplyCtrl.createSupplyOffer(product, contractor, pricePerItem, minQuantity);
+					this.supplyOrder = supplyCtrl.createSupplyOrder(product, quantity, pricePerItem, contractor, dateOrdered);
 				}
 				
 				// Dispose of the window

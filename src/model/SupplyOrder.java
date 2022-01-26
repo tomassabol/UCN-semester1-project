@@ -1,18 +1,19 @@
 package model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class SupplyOrder {
     public final int ID;
-    private LocalDateTime dateOrdered;
+    private LocalDate dateOrdered;
     private int quantity;
     private Product product;
     private BigDecimal pricePerItem;
 	private boolean delivered;
 	private Contractor contractor;
 
-    public SupplyOrder(int id, LocalDateTime dateOrdered,
+    public SupplyOrder(int id, LocalDate dateOrdered,
     		Product product, int quantity, BigDecimal pricePerItem, Contractor contractor) {
         this.ID = id;
         this.dateOrdered = dateOrdered;
@@ -42,11 +43,11 @@ public class SupplyOrder {
 		this.quantity = quantity;
 	}
 
-    public LocalDateTime getDateOrdered() {
+    public LocalDate getDateOrdered() {
         return this.dateOrdered;
     }
 
-    public void setDateOrdered(LocalDateTime dateOrdered) {
+    public void setDateOrdered(LocalDate dateOrdered) {
         this.dateOrdered = dateOrdered;
     }
 
