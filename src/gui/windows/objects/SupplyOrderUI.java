@@ -368,6 +368,7 @@ public class SupplyOrderUI extends JDialog {
 	 */
 	
 	
+	
 	// Makes the text fields uneditable
 	private void disableFields() {
 		for (Component c : this.getContentPane().getComponents()) {

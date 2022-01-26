@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import controller.AuthenticationController;
 import controller.SupplyController;
+import model.SupplyOffer;
 import model.SupplyOrder;
 
 import javax.swing.ListSelectionModel;
@@ -27,6 +28,7 @@ import javax.swing.table.TableRowSorter;
 import gui.JLink;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.SupplyOrderTableModel;
+import gui.windows.objects.SupplyOfferUI;
 import gui.windows.objects.SupplyOrderUI;
 import javax.swing.JTextField;
 
@@ -216,6 +218,15 @@ public class CRUDSupplyOrders extends JPanel {
 					btnDelete.setEnabled(false);
 				}
 			}
+		});
+		
+		// Edit supply offer
+		btnEdit.addActionListener(e -> {
+			int modelIndex = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
+			SupplyOrder supplyOrder = tableModel.getObj(modelIndex);
+			SupplyOrderUI frame = new SupplyOrderUI(auth, supplyOrder, SupplyOrderUI.Mode.EDIT);
+			frame.setVisible(true);
+			tableModel.fireTableRowsUpdated(modelIndex, modelIndex);
 		});
 
 		// 'ADD supply order' button
