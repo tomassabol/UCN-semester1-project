@@ -23,6 +23,7 @@ import gui.JLink;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.SupplyOrderTableModel;
 import gui.windows.objects.SupplyOrderUI;
+import javax.swing.JTextField;
 
 public class CRUDSupplyOrders extends JPanel {
 	
@@ -36,6 +37,7 @@ public class CRUDSupplyOrders extends JPanel {
 	private JLink btnDelete;
 	AuthenticationController auth;
 	private JLink btnView;
+	private JTextField txtSearch;
 
 	/**
 	 * Create the dialog.
@@ -52,9 +54,9 @@ public class CRUDSupplyOrders extends JPanel {
 		JPanel topPanel = new JPanel();
 		this.add(topPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_topPanel = new GridBagLayout();
-		gbl_topPanel.columnWidths = new int[]{0, 0, 0};
+		gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_topPanel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_topPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
 			// ***** Title *****
@@ -62,17 +64,26 @@ public class CRUDSupplyOrders extends JPanel {
 					String.format("Supply Orders")
 			);
 			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-			gbc_lblTitle.gridwidth = 2;
+			gbc_lblTitle.gridwidth = 3;
 			gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
 			gbc_lblTitle.gridx = 0;
 			gbc_lblTitle.gridy = 0;
 			topPanel.add(lblTitle, gbc_lblTitle);
 			
+			txtSearch = new JTextField();
+			GridBagConstraints gbc_txtSearch = new GridBagConstraints();
+			gbc_txtSearch.insets = new Insets(0, 0, 5, 5);
+			gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtSearch.gridx = 0;
+			gbc_txtSearch.gridy = 1;
+			topPanel.add(txtSearch, gbc_txtSearch);
+			txtSearch.setColumns(10);
+			
 			// ***** button: Add customer  *****
 			btnAddSupplyOrder = new JButton("Add Supply Order");
 			GridBagConstraints gbc_btnAddSupplyOrder = new GridBagConstraints();
 			gbc_btnAddSupplyOrder.insets = new Insets(0, 0, 5, 0);
-			gbc_btnAddSupplyOrder.gridx = 1;
+			gbc_btnAddSupplyOrder.gridx = 2;
 			gbc_btnAddSupplyOrder.gridy = 1;
 			topPanel.add(btnAddSupplyOrder, gbc_btnAddSupplyOrder);
 		
