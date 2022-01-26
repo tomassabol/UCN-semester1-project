@@ -26,6 +26,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import gui.JLink;
+import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.SupplyOrderTableModel;
 import gui.windows.objects.SupplyOfferUI;
@@ -219,6 +220,18 @@ public class CRUDSupplyOrders extends JPanel {
 				}
 			}
 		});
+		
+		// Delete supply offer
+		btnDelete.addActionListener(e -> {
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
+			SupplyOrder supplyOrder = tableModel.getObj(row);
+			if (Messages.confirm(this, String.format("Are you sure you wish to remove the supply order with the ID '%s'?",
+					supplyOrder.getID()))) {
+				supplyCtrl.removeSupplyOrder(supplyOrder);
+				tableModel.remove(row);
+			}
+		});
+
 		
 		// View supply order
 		btnView.addActionListener(e -> {

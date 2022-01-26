@@ -245,5 +245,11 @@ public class SupplyController {
 }
 
 
+	public void removeSupplyOrder(SupplyOrder supplyOrder) {
+		SupplyOrderContainer.getInstance().remove(supplyOrder);
+		
+	}
+
+
 	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Product;
+import model.SupplyOffer;
 import model.SupplyOrder;
 
 public class SupplyOrderContainer {
@@ -38,13 +39,9 @@ public class SupplyOrderContainer {
         supplyOrders.add(supplyOrder);
     }
     
-    // no need for removal. left in for statistics.
-    // to 'remove', change status deliveredAndStocked to true for supply order
-    /*
-    private void removeSupplyOrder() {
-    	//
+    public void remove(SupplyOrder supplyOrder)  {
+    	this.supplyOrders.remove(supplyOrder);
     }
-    */
     
     /**
      * @return All undelivered supply orders
