@@ -49,7 +49,6 @@ public class CRUDSupplyOffers extends JPanel {
 
 	/**
 	 * Create the dialog.
-	 * Currently you can only get the supply offers for only a specific product
 	 */
 	public CRUDSupplyOffers(AuthenticationController auth) {
 		this.auth = auth;
