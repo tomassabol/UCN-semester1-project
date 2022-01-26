@@ -281,9 +281,7 @@ public class CRUDSupplyOrders extends JPanel {
 			public void removeUpdate(DocumentEvent e) {
 				performSearch();
 			}
-											
-			@Override
-			public void changedUpdate(DocumentEvent e) {}
+		
 		});
 	}
 }
