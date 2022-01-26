@@ -187,7 +187,7 @@ public class ManageOrder extends JDialog {
 	 */
 	public void addEventHandlers() {
 		
-		// Create order button -> redirect to Orders
+		// Create order button -> show quotes window
 		btnCreateOrder.addActionListener(e -> {
 			ManageQuotes frame = new ManageQuotes(auth, customer);
 			frame.setVisible(true);
