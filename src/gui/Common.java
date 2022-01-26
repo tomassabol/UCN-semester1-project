@@ -32,6 +32,11 @@ public class Common {
         return LocalDate.parse(dateString, formatter);
     }
 
+    public static LocalDateTime stringToDateTime(String dateTimeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
+        return LocalDateTime.parse(dateTimeString, formatter);
+    }
+
     /**
      * Converts a LocalDate object to String
      *

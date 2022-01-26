@@ -14,8 +14,6 @@ import model.StockBatch;
 import model.SupplyOffer;
 import model.SupplyOrder;
 import model.TrackableItem;
-import model.containers.ContractorContainer;
-import model.containers.StockContainer;
 import model.containers.SupplyOfferContainer;
 import model.containers.SupplyOrderContainer;
 

@@ -5,17 +5,20 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import exceptions.OutOfStockException;
+import gui.Common;
 import model.*;
 
 public class GenerateDataController {
     private QuoteController orderCtrl;
     private EmployeeController employeeCtrl;
     ContractorController contractorCtrl;
+    LoanController loanCtrl;
 
     public GenerateDataController() {
         orderCtrl = new QuoteController();
         employeeCtrl = new EmployeeController();
         contractorCtrl = new ContractorController();
+        loanCtrl = new LoanController();
     }
 
     public void generateData() {
@@ -29,6 +32,7 @@ public class GenerateDataController {
         // Create products
         ProductController productCtrl = new ProductController();
         Product product1 = productCtrl.createProduct("Shovel", "A big, steel shovel", 0, 100, true);
+        LoaningPrice loaningPrice = productCtrl.createLoaningPrice(BigDecimal.valueOf(25), product1);
         // add bulk discount to product
         BulkDiscount bulkDiscount = new BulkDiscount(2, 20);
         product1.addBulkDiscount(bulkDiscount);
@@ -79,5 +83,11 @@ public class GenerateDataController {
         
         // Add itemline to shopping cart
         customer1.getShoppingCart().add(itemLine1);
+
+        try{
+            Loan loan1 = loanCtrl.createLoan(customer1, employee, product1, Common.stringToDate("25/02/2022")) ;
+		} catch (OutOfStockException e) {
+			e.printStackTrace();
+		}
     }
 }

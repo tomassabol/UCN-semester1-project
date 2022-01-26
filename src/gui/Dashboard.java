@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.print.event.PrintJobListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,12 +17,12 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import gui.windows.ChooseCustomer;
-import gui.windows.ChooseProduct;
-import gui.windows.ChooseSupplyOffer;
+import gui.windows.ChooseLoan;
 import gui.windows.ManageContractor;
 import gui.windows.ManageCustomerType;
 import gui.windows.ManageCustomer;
 import gui.windows.ManageEmployee;
+import gui.windows.ManageLoans;
 import gui.windows.ManageOrder;
 import gui.windows.ManageProduct;
 import gui.windows.ManageQuotes;
@@ -29,10 +30,13 @@ import gui.windows.ManageShelf;
 import gui.windows.ManageStorageLocation;
 import gui.windows.ManageSupplyOffer;
 import gui.windows.ManageSupplyOrders;
+import gui.windows.objects.LoanUI;
 import gui.windows.ManageShoppingCart;
 import model.Customer;
-import model.Product;
-import model.SupplyOffer;
+import model.Loan;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe
@@ -41,8 +45,6 @@ import model.SupplyOffer;
 public class Dashboard extends JFrame {
 	
 	private Customer customer = null;
-	private Product product = null;
-	private SupplyOffer supplyOffer = null;
 
 	private JPanel contentPane;
 	private AuthenticationController auth;
@@ -78,6 +80,9 @@ public class Dashboard extends JFrame {
 	private JLabel lblInventoryRestockPic;
 	private JButton btnProducts;
 	private JButton btnCustomerTypes;
+	private JLabel lblLoanImage;
+	private JButton btnManageLoans;
+	private JButton btnReturnLoan;
 
 	/**
 	 * Create the frame.
@@ -241,6 +246,35 @@ public class Dashboard extends JFrame {
 		loanPanel = new JPanel();
 		loanPanel.setBorder(new EmptyBorder(15, 0, 0, 0));
 		tabsPane.addTab("Loans", null, loanPanel, null);
+		GridBagLayout gbl_loanPanel = new GridBagLayout();
+		gbl_loanPanel.columnWidths = new int[]{417, 0};
+		gbl_loanPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_loanPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_loanPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		loanPanel.setLayout(gbl_loanPanel);
+		
+		lblLoanImage = new JLabel();
+		ImageIcon loanIcon = new ImageIcon("images/loan.png");
+		lblLoanImage.setIcon(loanIcon);
+		GridBagConstraints gbc_lblLoanImage = new GridBagConstraints();
+		gbc_lblLoanImage.insets = new Insets(0, 0, 5, 0);
+		gbc_lblLoanImage.gridx = 0;
+		gbc_lblLoanImage.gridy = 1;
+		loanPanel.add(lblLoanImage, gbc_lblLoanImage);
+		
+		btnManageLoans = new JButton("Manage Loans");
+		GridBagConstraints gbc_btnManageLoans = new GridBagConstraints();
+		gbc_btnManageLoans.insets = new Insets(0, 0, 5, 0);
+		gbc_btnManageLoans.gridx = 0;
+		gbc_btnManageLoans.gridy = 2;
+		loanPanel.add(btnManageLoans, gbc_btnManageLoans);
+		
+		btnReturnLoan = new JButton("Return Loan");
+		GridBagConstraints gbc_btnReturnLoan = new GridBagConstraints();
+		gbc_btnReturnLoan.insets = new Insets(0, 0, 5, 0);
+		gbc_btnReturnLoan.gridx = 0;
+		gbc_btnReturnLoan.gridy = 3;
+		loanPanel.add(btnReturnLoan, gbc_btnReturnLoan);
 	}
 
 	/*
@@ -255,9 +289,9 @@ public class Dashboard extends JFrame {
 		tabsPane.addTab("Inventory", null, InventoryPanel, "Inventory");
 		GridBagLayout gbl_InventoryPanel = new GridBagLayout();
 		gbl_InventoryPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_InventoryPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_InventoryPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_InventoryPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_InventoryPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_InventoryPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		InventoryPanel.setLayout(gbl_InventoryPanel);
 		
 		lblInventoryManagePic = new JLabel();
@@ -266,7 +300,7 @@ public class Dashboard extends JFrame {
 		GridBagConstraints gbc_lblInventoryManagePic = new GridBagConstraints();
 		gbc_lblInventoryManagePic.insets = new Insets(0, 0, 5, 5);
 		gbc_lblInventoryManagePic.gridx = 0;
-		gbc_lblInventoryManagePic.gridy = 0;
+		gbc_lblInventoryManagePic.gridy = 1;
 		InventoryPanel.add(lblInventoryManagePic, gbc_lblInventoryManagePic);
 		
 		lblInventoryRestockPic = new JLabel();
@@ -275,35 +309,35 @@ public class Dashboard extends JFrame {
 		GridBagConstraints gbc_lblInventoryRestockPic = new GridBagConstraints();
 		gbc_lblInventoryRestockPic.insets = new Insets(0, 0, 5, 0);
 		gbc_lblInventoryRestockPic.gridx = 1;
-		gbc_lblInventoryRestockPic.gridy = 0;
+		gbc_lblInventoryRestockPic.gridy = 1;
 		InventoryPanel.add(lblInventoryRestockPic, gbc_lblInventoryRestockPic);
 		
 		lblManage = new JLabel("Manage");
 		GridBagConstraints gbc_lblManage = new GridBagConstraints();
 		gbc_lblManage.insets = new Insets(0, 0, 5, 5);
 		gbc_lblManage.gridx = 0;
-		gbc_lblManage.gridy = 1;
+		gbc_lblManage.gridy = 2;
 		InventoryPanel.add(lblManage, gbc_lblManage);
 		
 		lblRestockItems = new JLabel("Re-stock items");
 		GridBagConstraints gbc_lblRestockItems = new GridBagConstraints();
 		gbc_lblRestockItems.insets = new Insets(0, 0, 5, 0);
 		gbc_lblRestockItems.gridx = 1;
-		gbc_lblRestockItems.gridy = 1;
+		gbc_lblRestockItems.gridy = 2;
 		InventoryPanel.add(lblRestockItems, gbc_lblRestockItems);
 		
 		btnProducts = new JButton("Products");
 		GridBagConstraints gbc_btnProducts = new GridBagConstraints();
 		gbc_btnProducts.insets = new Insets(0, 0, 5, 5);
 		gbc_btnProducts.gridx = 0;
-		gbc_btnProducts.gridy = 2;
+		gbc_btnProducts.gridy = 3;
 		InventoryPanel.add(btnProducts, gbc_btnProducts);
 		
 		btnSupplyOffers = new JButton("Supply Offers");
 		GridBagConstraints gbc_btnSupplyOffers = new GridBagConstraints();
 		gbc_btnSupplyOffers.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSupplyOffers.gridx = 1;
-		gbc_btnSupplyOffers.gridy = 2;
+		gbc_btnSupplyOffers.gridy = 3;
 		InventoryPanel.add(btnSupplyOffers, gbc_btnSupplyOffers);
 		
 		btnSupplyOrders = new JButton("Supply Orders");
@@ -312,26 +346,26 @@ public class Dashboard extends JFrame {
 		GridBagConstraints gbc_btnContractors = new GridBagConstraints();
 		gbc_btnContractors.insets = new Insets(0, 0, 5, 5);
 		gbc_btnContractors.gridx = 0;
-		gbc_btnContractors.gridy = 3;
+		gbc_btnContractors.gridy = 4;
 		InventoryPanel.add(btnContractors, gbc_btnContractors);
 		GridBagConstraints gbc_btnSupplyOrders = new GridBagConstraints();
 		gbc_btnSupplyOrders.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSupplyOrders.gridx = 1;
-		gbc_btnSupplyOrders.gridy = 3;
+		gbc_btnSupplyOrders.gridy = 4;
 		InventoryPanel.add(btnSupplyOrders, gbc_btnSupplyOrders);
 		
 		btnStorageLocations = new JButton("Storage locations");
 		GridBagConstraints gbc_btnStorageLocations = new GridBagConstraints();
 		gbc_btnStorageLocations.insets = new Insets(0, 0, 5, 5);
 		gbc_btnStorageLocations.gridx = 0;
-		gbc_btnStorageLocations.gridy = 4;
+		gbc_btnStorageLocations.gridy = 5;
 		InventoryPanel.add(btnStorageLocations, gbc_btnStorageLocations);
 		
 		btnShelves = new JButton("Shelves");
 		GridBagConstraints gbc_btnShelves = new GridBagConstraints();
-		gbc_btnShelves.insets = new Insets(0, 0, 0, 5);
+		gbc_btnShelves.insets = new Insets(0, 0, 5, 5);
 		gbc_btnShelves.gridx = 0;
-		gbc_btnShelves.gridy = 5;
+		gbc_btnShelves.gridy = 6;
 		InventoryPanel.add(btnShelves, gbc_btnShelves);
 		
 		
@@ -363,9 +397,9 @@ public class Dashboard extends JFrame {
 		tabsPane.addTab("People", null, peoplePanel, null);
 		GridBagLayout gbl_peoplePanel = new GridBagLayout();
 		gbl_peoplePanel.columnWidths = new int[]{0, 0, 0};
-		gbl_peoplePanel.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_peoplePanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_peoplePanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_peoplePanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_peoplePanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		peoplePanel.setLayout(gbl_peoplePanel);
 		
 		lblEmployee = new JLabel();
@@ -374,7 +408,7 @@ public class Dashboard extends JFrame {
 		GridBagConstraints gbc_lblEmployee = new GridBagConstraints();
 		gbc_lblEmployee.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEmployee.gridx = 0;
-		gbc_lblEmployee.gridy = 0;
+		gbc_lblEmployee.gridy = 1;
 		peoplePanel.add(lblEmployee, gbc_lblEmployee);
 		
 		lblCustomer = new JLabel();
@@ -383,27 +417,28 @@ public class Dashboard extends JFrame {
 		GridBagConstraints gbc_lblCustomer = new GridBagConstraints();
 		gbc_lblCustomer.insets = new Insets(0, 0, 5, 0);
 		gbc_lblCustomer.gridx = 1;
-		gbc_lblCustomer.gridy = 0;
+		gbc_lblCustomer.gridy = 1;
 		peoplePanel.add(lblCustomer, gbc_lblCustomer);
 		
 		btnEmployee = new JButton("Employees");
 		GridBagConstraints gbc_btnEmployee = new GridBagConstraints();
 		gbc_btnEmployee.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEmployee.gridx = 0;
-		gbc_btnEmployee.gridy = 1;
+		gbc_btnEmployee.gridy = 2;
 		peoplePanel.add(btnEmployee, gbc_btnEmployee);
 		
 		btnCustomer = new JButton("Customers");
 		GridBagConstraints gbc_btnCustomer = new GridBagConstraints();
 		gbc_btnCustomer.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCustomer.gridx = 1;
-		gbc_btnCustomer.gridy = 1;
+		gbc_btnCustomer.gridy = 2;
 		peoplePanel.add(btnCustomer, gbc_btnCustomer);
 		
 		btnCustomerTypes = new JButton("Customer types");
 		GridBagConstraints gbc_btnCustomerTypes = new GridBagConstraints();
+		gbc_btnCustomerTypes.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCustomerTypes.gridx = 1;
-		gbc_btnCustomerTypes.gridy = 2;
+		gbc_btnCustomerTypes.gridy = 3;
 		peoplePanel.add(btnCustomerTypes, gbc_btnCustomerTypes);
 	}
 	
@@ -491,7 +526,35 @@ public class Dashboard extends JFrame {
 				orderFrame.setVisible(true);
 			}
 		});
+
+		///////////////////////////////////////////////////////
+		////////////////     Loans     //////////////////
+		/////////////////////////////////////////////////////
+
+		btnManageLoans.addActionListener(e -> {
+			if (this.customer == null) {
+				Messages.info(this, "Please choose a customer", "Choose a customer");
+			} else {
+				ManageLoans frame = new ManageLoans(auth, customer);
+				frame.setVisible(true);
+			}
+		});
 		
+		btnReturnLoan.addActionListener(e -> {
+			if (this.customer == null) {
+				Messages.info(this, "Please choose a customer", "Choose a customer");
+			} else {
+				ChooseLoan frame = new ChooseLoan(auth, customer);
+				frame.setVisible(true);
+				Loan loan = frame.getSelectedLoan();
+				if (frame.getSelectedLoan() != null) {
+					System.out.println(loan.isReturned());
+					LoanUI loanFrame = new LoanUI(auth, frame.getSelectedLoan(), customer, LoanUI.Mode.RETURN);
+					loanFrame.setVisible(true);
+					System.out.println(loan.isReturned());
+				}
+			}
+		});
 		///////////////////////////////////////////////////////
 		////////////////     Inventory     //////////////////
 		/////////////////////////////////////////////////////

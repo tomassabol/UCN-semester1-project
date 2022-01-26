@@ -1,5 +1,7 @@
 package model;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Loan {
@@ -7,24 +9,32 @@ public class Loan {
      * Fields for class loan
      */
     public final int ID;
-    private LocalDateTime creationDate;
-    private LocalDateTime returnDate;
+    private final LocalDateTime CREATION_DATE;
+    private LocalDate returnDate;
     private boolean returned;
-    IFCustomer customer;
-    IFEmployee employee;
+    private final IFCustomer CUSTOMER;
+    private final IFEmployee EMPLOYEE;
     Product product;
+
+	public final String CUSTOMER_TYPE;
+	public final int CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
+	public final BigDecimal LOANING_PRICE;
 
     /**
      * Constructor for class Loan
      */
-    public Loan(int id, LocalDateTime creationDate, IFCustomer customer, IFEmployee employee, Product product){
+    public Loan(int id, LocalDate returnDate, IFCustomer customer, IFEmployee employee, Product product){
         this.ID = id;
-        this.creationDate = creationDate;
+        this.CREATION_DATE = LocalDateTime.now();
+        this.returnDate = returnDate;
         this.returned = false;
-        this.customer = customer;
-        this.employee = employee;
+        this.CUSTOMER = customer;
+        this.EMPLOYEE = employee;
         this.product = product;
-        returnDate = null;
+
+        this.CUSTOMER_TYPE = customer.getCustomerType().getName();
+        this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE = customer.getCustomerType().getDiscountPercentage();
+        this.LOANING_PRICE = product.getLatestLoaningPrice();
     }
 
     /**
@@ -32,22 +42,14 @@ public class Loan {
      * @return the time the loan was created
      */
     public LocalDateTime getCreationDate(){
-        return creationDate;
+        return CREATION_DATE;
     }
 
     /**
-     * Setter for creationDate
-     * @param creationDate the new date to set creationDate to
+     * Getter for returnDate
+     * @return the date of the loan return
      */
-    public void setCreationDate(LocalDateTime creationDate){
-        this.creationDate = creationDate;
-    }
-
-    /**
-     * Getter for return date
-     * @return the date the item was retured
-     */
-    public LocalDateTime getReturnDate() {
+    public LocalDate getReturnDate(){
         return returnDate;
     }
 
@@ -55,25 +57,17 @@ public class Loan {
      * Setter for return date
      * @param returnDate The new date to set returnDatre to
      */
-    public void setReturnDate(LocalDateTime returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 
     public IFCustomer getCustomer() {
-        return this.customer;
-    }
-
-    public void setCustomer(IFCustomer customer) {
-        this.customer = customer;
+        return this.CUSTOMER;
     }
 
 
     public IFEmployee getEmployee() {
-        return this.employee;
-    }
-
-    public void setEmployee(IFEmployee employee) {
-        this.employee = employee;
+        return this.EMPLOYEE;
     }
 
     public Product getProduct() {
@@ -90,6 +84,22 @@ public class Loan {
 
     public boolean isReturned() {
         return returned;
+    }
+
+    public boolean returnLoan() {
+        returned = !false;
+        return returned;
+    }
+
+    public BigDecimal getLoaningPrice() {
+        return product.getLatestLoaningPrice();
+    }
+
+    public String getCustomerType() {
+        return CUSTOMER_TYPE;
+    }
+    public int getCustomerTypeDiscountPercentage() {
+        return CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
     }
 
 }

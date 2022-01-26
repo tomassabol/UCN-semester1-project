@@ -1,7 +1,5 @@
 package gui.windows;
 
-
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -31,13 +29,21 @@ public class ChooseProduct extends JDialog {
 	private Product selectedProduct = null;
 	
 	AuthenticationController auth;
+	Mode mode;
 
+	public enum Mode {
+		BUYABLE,
+		LOANABLE,
+		ALL;
+	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseProduct(AuthenticationController auth) {
+	public ChooseProduct(AuthenticationController auth, Mode mode) {
 		this.auth = auth;
+		this.mode = mode;
+		
 		this.setTitle("Choose a product...");
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -52,7 +58,15 @@ public class ChooseProduct extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		CRUDPanel = new CRUDProducts(auth, CRUDProducts.Mode.ALL);
+		switch (mode) {
+			case BUYABLE:
+				CRUDPanel = new CRUDProducts(auth, CRUDProducts.Mode.BUYABLE);
+			case LOANABLE:
+				CRUDPanel = new CRUDProducts(auth, CRUDProducts.Mode.LOANABLE);
+			default:
+				CRUDPanel = new CRUDProducts(auth, CRUDProducts.Mode.ALL);
+		}
+		
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);

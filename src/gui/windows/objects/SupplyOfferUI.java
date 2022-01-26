@@ -26,9 +26,6 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.math.BigDecimal;
 
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-
 /**
  * @author Daniels Kanepe
  *
@@ -56,9 +53,7 @@ public class SupplyOfferUI extends JDialog {
 	private JButton btnChooseProduct;
 	private JPanel contractorPanel;
 	private JTextField txtContractorDisplay;
-	private JButton btnChooseContractor;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	
+	private JButton btnChooseContractor;	
 	private Contractor contractor;
 	private Product product;
 
@@ -417,7 +412,7 @@ public class SupplyOfferUI extends JDialog {
 		});
 		
 		btnChooseProduct.addActionListener(e -> {
-			ChooseProduct frame = new ChooseProduct(auth);
+			ChooseProduct frame = new ChooseProduct(auth, ChooseProduct.Mode.ALL);
 			frame.setVisible(true);
 			if (frame.getSelectedProduct() != null) {
 				this.product = frame.getSelectedProduct();

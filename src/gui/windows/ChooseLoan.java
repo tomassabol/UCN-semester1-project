@@ -1,42 +1,41 @@
 package gui.windows;
 
-
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import gui.JButtonPrimary;
-import gui.panels.CRUDShelves;
-import gui.panels.tableModels.ShelfTableModel;
-import model.Shelf;
+import gui.panels.CRUDLoans;
+import gui.panels.tableModels.LoansTableModel;
+import model.Customer;
+import model.Loan;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTable;
-/**
- * @author Daniels Kanepe
- *
- */
-public class ChooseShelf extends JDialog {
+
+public class ChooseLoan extends JDialog {
 	
-	private static final long serialVersionUID = 2968937672159813565L;
 	private final JPanel contentPane;
-	private CRUDShelves CRUDPanel;
+	private CRUDLoans CRUDPanel;
 	private JButtonPrimary btnChoose;
 	
-	private Shelf selectedShelf = null;
+	private Loan selectedLoan = null;
 	
 	AuthenticationController auth;
+    Customer customer;
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseShelf(AuthenticationController auth) {
+	public ChooseLoan(AuthenticationController auth, Customer customer) {
 		this.auth = auth;
-		this.setTitle("Choose a Shelf...");
+        this.customer = customer;
+
+		this.setTitle("Choose a Loan...");
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -50,7 +49,7 @@ public class ChooseShelf extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		CRUDPanel = new CRUDShelves(auth);
+		CRUDPanel = new CRUDLoans(auth, customer);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
@@ -74,12 +73,12 @@ public class ChooseShelf extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
-		public boolean isShelfSelected() {
-			return selectedShelf != null;
+		public boolean isLoanSelected() {
+			return selectedLoan != null;
 		}
 	
-		public Shelf getSelectedShelf() {
-			return selectedShelf;
+		public Loan getSelectedLoan() {
+			return selectedLoan;
 		}
 	
 	/*
@@ -102,9 +101,9 @@ public class ChooseShelf extends JDialog {
 		btnChoose.addActionListener(e -> {
 			JTable table = CRUDPanel.getTable();
 			if (!table.getSelectionModel().isSelectionEmpty()) {
-				ShelfTableModel tableModel = CRUDPanel.getTableModel();
-				Shelf shelf = tableModel.getObj(table.getSelectedRow());
-				selectedShelf = shelf;
+				LoansTableModel tableModel = CRUDPanel.getTableModel();
+				Loan loan = tableModel.getObj(table.getSelectedRow());
+				selectedLoan = loan;
 				this.dispose();
 			}
 		});

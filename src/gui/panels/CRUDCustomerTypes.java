@@ -28,7 +28,6 @@ import javax.swing.table.TableRowSorter;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModels.CustomerTableModel;
 import gui.panels.tableModels.CustomerTypeTableModel;
 import gui.windows.objects.CustomerTypeUI;
 
@@ -218,7 +217,7 @@ public class CRUDCustomerTypes extends JPanel {
 			}
 		});
 		
-		// Delete customer
+		// Delete customer type
 		btnDisable.addActionListener(e -> {
 			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			CustomerType customerType = tableModel.getObj(row);
@@ -229,7 +228,7 @@ public class CRUDCustomerTypes extends JPanel {
 			}
 		});
 
-		// View Customer
+		// View Customer type
 		btnView.addActionListener(e -> {
 			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			CustomerType customerType = tableModel.getObj(row);
@@ -237,7 +236,7 @@ public class CRUDCustomerTypes extends JPanel {
 			frame.setVisible(true);
 		});
 
-		// Edit customer
+		// Edit customer type
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			CustomerType customerType = tableModel.getObj(row);

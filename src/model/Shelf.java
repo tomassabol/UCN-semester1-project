@@ -147,7 +147,7 @@ public class Shelf {
     public int getLoanableQuantity(Product product) {
 		int availableQuantity = 0;
 		for (StockBatch stockBatch: this.getStockBatches(product)) {
-			availableQuantity += stockBatch.getLoanableItemQuantity();
+			availableQuantity += stockBatch.getBuyableItemQuantity(); //TODO: Change to buyable
 		}
 		return availableQuantity;
     }

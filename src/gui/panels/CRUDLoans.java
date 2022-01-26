@@ -5,96 +5,58 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import controller.AuthenticationController;
-import controller.ProductController;
-import model.Product;
+import controller.LoanController;
+import model.Customer;
+import model.Employee;
+import model.Loan;
 
 import javax.swing.ListSelectionModel;
-import javax.swing.RowFilter;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModels.ProductTableModel;
-import gui.panels.tableModels.ProductTableModel.Column;
-import gui.windows.objects.ProductUI;
-import javax.swing.JTextField;
-/**
- * @author Daniels Kanepe
- *
- */
-public class CRUDProducts extends JPanel {
+import gui.panels.tableModels.LoansTableModel;
+import gui.windows.objects.LoanUI;
+
+public class CRUDLoans extends JPanel {
 	
-	public enum Mode {
-		BUYABLE,
-		LOANABLE,
-		ALL;
-	}
 	
-	private JButton btnAddItem;
-	private ProductController productCtrl;
-	private TableRowSorter<TableModel> rowSorter;
+	private JButton btnAddLoan;
+	private LoanController loanCtrl;
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8329527605114016878L;
 	private JTable tableMain;
-	private ProductTableModel tableModel;
+	private LoansTableModel tableModel;
 	private JLink btnView;
 	private JLink btnEdit;
 	private JLink btnDisable;
-	private AuthenticationController auth;
 	private JTextField txtSearch;
+	private TableRowSorter<TableModel> rowSorter;
+	AuthenticationController auth;
+	Employee employee;
+	Customer customer;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CRUDProducts(AuthenticationController auth, Mode shownColumns) {
+	public CRUDLoans(AuthenticationController auth, Customer customer) {
 		this.auth = auth;
-		productCtrl = new ProductController();
+		this.customer = customer;
+		
+		loanCtrl = new LoanController();
 		setLayout(new BorderLayout(0, 0));
-		
-		if (shownColumns == Mode.BUYABLE) {
-			tableModel = new ProductTableModel(productCtrl.getBuyableProducts(), 
-					Arrays.asList(
-							Column.ID,
-							Column.NAME,
-							Column.BUY_PRICE,
-							Column.BUYABLE_STOCK,
-							Column.DESCRIPTION,
-							Column.ENABLED
-							)
-					);
-		} else if (shownColumns == Mode.LOANABLE) {
-			tableModel = new ProductTableModel(productCtrl.getLoanableProducts(), 
-					Arrays.asList(
-							Column.ID,
-							Column.NAME,
-							Column.LOAN_PRICE,
-							Column.LOANABLE_STOCK,
-							Column.DESCRIPTION,
-							Column.ENABLED
-							)
-					);
-		} else {
-			tableModel = new ProductTableModel(productCtrl.getProducts());
-		}
-		
-		
+		tableModel = new LoansTableModel(loanCtrl.getLoans());
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
@@ -105,31 +67,35 @@ public class CRUDProducts extends JPanel {
 		gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_topPanel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		topPanel.setLayout(gbl_topPanel);
+			
 		// ***** Title *****
 		JLabel lblTitle = new JLabel(
-			String.format("Products")
+			String.format("Loans")
 		);
 		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+		gbc_lblTitle.gridwidth = 3;
 		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
-		gbc_lblTitle.gridx = 1;
+		gbc_lblTitle.gridx = 0;
 		gbc_lblTitle.gridy = 0;
 		topPanel.add(lblTitle, gbc_lblTitle);
-			
+		
+		// ***** Search bar *****
 		txtSearch = new JTextField();
 		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
 		gbc_txtSearch.insets = new Insets(0, 0, 5, 5);
+		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtSearch.gridx = 0;
 		gbc_txtSearch.gridy = 1;
 		topPanel.add(txtSearch, gbc_txtSearch);
 		txtSearch.setColumns(10);
 			
-		// ***** button: Add product  *****
-		btnAddItem = new JButton("Add Product");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 1;
-		topPanel.add(btnAddItem, gbc_btnNewButton);
+		// ***** button: Add customer type  *****
+		btnAddLoan = new JButton("Add Loans");
+		GridBagConstraints gbc_btnAddLoan = new GridBagConstraints();
+		gbc_btnAddLoan.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAddLoan.gridx = 2;
+		gbc_btnAddLoan.gridy = 1;
+		topPanel.add(btnAddLoan, gbc_btnAddLoan);
 		
 		// ***** Middle panel: Scroll panel *****
 		JScrollPane scrollPanel = new JScrollPane();
@@ -158,7 +124,7 @@ public class CRUDProducts extends JPanel {
 		gbc_btnView.gridx = 1;
 		gbc_btnView.gridy = 0;
 		bottomPanel.add(btnView, gbc_btnView);
-			
+		
 		// ***** Edit button *****
 		btnEdit = new JLink("Edit", COLORS.INDIGO);
 		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
@@ -166,9 +132,9 @@ public class CRUDProducts extends JPanel {
 		gbc_btnEdit.gridx = 2;
 		gbc_btnEdit.gridy = 0;
 		bottomPanel.add(btnEdit, gbc_btnEdit);
-			
+				
 		// ***** Disable button *****
-		btnDisable = new JLink("Disable", COLORS.RED);
+		btnDisable = new JLink("Delete", COLORS.RED);
 		GridBagConstraints gbc_btnDisable = new GridBagConstraints();
 		gbc_btnDisable.gridx = 3;
 		gbc_btnDisable.gridy = 0;
@@ -193,42 +159,45 @@ public class CRUDProducts extends JPanel {
 		return tableMain;
 	}
 	
-	public ProductTableModel getTableModel() {
+	public LoansTableModel getTableModel() {
 		return tableModel;
 	}
-	
-	public void setTableModel(ProductTableModel tableModel) {
+
+	public void setTableModel(LoansTableModel tableModel) {
 		this.tableMain.setModel(tableModel);
 		this.tableModel = tableModel;
 		// Update table row sorter
 		rowSorter = new TableRowSorter<>(tableMain.getModel());
 		tableMain.setRowSorter(rowSorter);
 	}
-	
+
 	/**
-	 * Select a product in the CRUD table.
+	 * Select a customer type in the CRUD table.
 	 *
-	 * @param product the product
+	 * @param customer the customer
 	 * @return true, if successful
 	 */
-	public boolean selectProduct(Product product) {
+	public boolean selectLoan(Loan loan) {
 		int rows = tableModel.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			Product foundProduct = tableModel.getObj(i);
-			if (foundProduct == product) {
+			Loan foundLoan = tableModel.getObj(i);
+			if (foundLoan == loan) {
 				tableMain.getSelectionModel().setSelectionInterval(0, i);
 				return true;
 			}
 		}
 		return false;
 	}
+
+
 	
 	/*
 	 * *******************************************************
 	 * *******************  EVENT HANDLERS *******************
 	 * *******************************************************
 	 */
-	private void addEventHandlers() {
+
+	 private void addEventHandlers() {
 		// Table row selection
 		tableMain.getSelectionModel().addListSelectionListener(e -> {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
@@ -238,94 +207,48 @@ public class CRUDProducts extends JPanel {
 				btnDisable.setEnabled(false);
 			} else {
 				// Selected
-				int row = tableMain.getSelectedRow();
-				Product product = tableModel.getObj(row);
 				btnView.setEnabled(true);
 				btnEdit.setEnabled(true);
 				btnDisable.setEnabled(true);
-				if (product.isEnabled()) {
-					btnDisable.setText("Disable");
-				} else {
-					btnDisable.setText("Enable");
-				}
+			}
+		});
 
-			}
-		});
-		
-		// Disable product
-		btnDisable.addActionListener(e -> {
-			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
-			Product product = tableModel.getObj(row);
-			String keyword = product.isEnabled() ? "disable" : "enable";
-			if (Messages.confirm(this, String.format("Are you sure you wish to %s the product '%s'?",
-					keyword,
-					product.getName()))) {
-				productCtrl.setEnabled(product, !product.isEnabled());
-				tableModel.fireTableRowsUpdated(row, row);
-				tableMain.getSelectionModel().clearSelection();
-				setTableModel(tableModel);
-			}
-		});
-		
-		// View product
+		// View loan
 		btnView.addActionListener(e -> {
 			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
-			Product product = tableModel.getObj(row);
-			ProductUI frame = new ProductUI(auth, product, ProductUI.Mode.VIEW);
+			Loan loan = tableModel.getObj(row);
+			LoanUI frame = new LoanUI(auth, loan, customer, LoanUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
-		
-		// Edit product
+
+		// Edit loan
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
-			Product product = tableModel.getObj(row);
-			ProductUI frame = new ProductUI(auth, product, ProductUI.Mode.EDIT);
+			Loan loan = tableModel.getObj(row);
+			LoanUI frame = new LoanUI(auth, loan, customer, LoanUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
-			// Refresh selection (e.g. in case sell price is now set to nothing)
-			tableMain.clearSelection();
-			tableMain.getSelectionModel().setSelectionInterval(0, row);
 			setTableModel(tableModel);
 		});
-		
-		// Create product
-		btnAddItem.addActionListener(e -> {
-			ProductUI frame = new ProductUI(auth);
-			frame.setVisible(true);
-			if (frame.getProduct() != null) {
-				tableModel.add(frame.getProduct());
+
+		// Delete loan
+		btnDisable.addActionListener(e -> {
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
+			Loan loan = tableModel.getObj(row);
+			if (Messages.confirm(this, String.format("Are you sure you wish to delete the loan '%s'?", loan.getID()))) {
+				loanCtrl.removeLoan(loan);
+				tableModel.removeLoan(row);
 				setTableModel(tableModel);
 			}
 		});
-		
-		// Search product with a dynamic filter
-		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
-			
-			 @Override
-	         public void insertUpdate(DocumentEvent e) {
-				String text = txtSearch.getText();
-				
-				if(text.trim().length() == 0) {
-					rowSorter.setRowFilter(null);
-				}else {
-					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-				}
-			}
-			
-			@Override
-			public void  removeUpdate(DocumentEvent e) {
-				String text = txtSearch.getText();
-				
-				if (text.trim().length() == 0) {
-                  rowSorter.setRowFilter(null);
-              } else {
-                  rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-              }
-			}
-			
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
+
+		// Add loan
+		btnAddLoan.addActionListener(e -> {
+			LoanUI frame = new LoanUI(auth, customer, LoanUI.Mode.CREATE);
+			frame.setVisible(true);
+			if (frame.getLoan() != null) {
+				tableModel.addLoan(frame.getLoan());
+				setTableModel(tableModel);
 			}
 		});
 	}

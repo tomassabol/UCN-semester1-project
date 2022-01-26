@@ -1,7 +1,5 @@
 package gui.windows;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -12,21 +10,15 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.StockController;
 import controller.SupplyController;
 import gui.Messages;
-import gui.panels.CRUDSupplyOffers;
 import gui.panels.CRUDSupplyOrders;
-import gui.panels.tableModels.SupplyOfferTableModel;
 import gui.panels.tableModels.SupplyOrderTableModel;
-import gui.windows.ChooseProduct;
 import model.Product;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class ManageSupplyOrders extends JDialog {
 
@@ -136,7 +128,7 @@ public class ManageSupplyOrders extends JDialog {
 		
 		// Choose product button
 		btnChooseProduct.addActionListener(e -> {
-			ChooseProduct frame = new ChooseProduct(auth);
+			ChooseProduct frame = new ChooseProduct(auth, ChooseProduct.Mode.ALL);
 			frame.setVisible(true);
 			if (frame.getSelectedProduct() != null) {
 				Product product = frame.getSelectedProduct();

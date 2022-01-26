@@ -67,6 +67,13 @@ public class ProductController {
 		return ProductContainer.getInstance().getBuyableProducts();
 	}
 
+	/**
+	 * @return list of all loanable products that have a selling price set.
+	 */
+	public List<Product> getLoanableProducts() {
+		return ProductContainer.getInstance().getLoanableProducts();
+	}
+
 	// Update product methods
 	/**
 	 * @param id of the product to be updated
@@ -112,6 +119,10 @@ public class ProductController {
 		return ProductContainer.getInstance().findBuyableProductById(id);
 	}
 
+	public Product findLoanableProductByID(int id) {
+		return ProductContainer.getInstance().findLoanableProductById(id);
+	}
+
 	/**
 	 * creates a selling price, which is also the latest selling price
 	 * @param price - new price entered by user. Can be null!
@@ -150,6 +161,21 @@ public class ProductController {
 		return quantity;
 	}
 	
+
+	/**
+	 * 
+	 * @param product The product whose stock gets checked
+	 * @return the quantity that is in stock
+	 */
+	public int getLoanableStock(Product product) {
+		StockController stockController = new StockController();
+		int quantity = 0;
+		if(stockController.getLoanableQuantityInStock(product) != 0) {
+			quantity = stockController.getLoanableQuantityInStock(product);
+		}
+		return quantity;
+	}
+
 	/**
 	 * Gets all bulk discounts
 	 *

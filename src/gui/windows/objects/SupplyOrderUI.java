@@ -433,7 +433,7 @@ public class SupplyOrderUI extends JDialog {
 		});
 		
 		btnChooseProduct.addActionListener(e -> {
-			ChooseProduct frame = new ChooseProduct(auth);
+			ChooseProduct frame = new ChooseProduct(auth, ChooseProduct.Mode.ALL);
 			frame.setVisible(true);
 			if (frame.getSelectedProduct() != null) {
 				this.product = frame.getSelectedProduct();

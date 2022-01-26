@@ -67,6 +67,22 @@ public class ProductContainer {
     }
 
     /**
+     * Gets all of the loanable products
+     * Loanable = selling price is set & quantity in stock > 0
+     *
+     * @return the loanable products
+     */
+    public List<Product> getLoanableProducts() {
+    	ArrayList<Product> loanableProducts = new ArrayList<>();
+    	for (Product product: this.products) {
+    		if (product.getLatestLoaningPrice() != null) {
+    			loanableProducts.add(product);
+    		}
+    	}
+        return loanableProducts;
+    }
+
+    /**
      * @param productId - id of the product to be found
      * @return product with the given number
      */
@@ -85,6 +101,19 @@ public class ProductContainer {
      */
     public Product findBuyableProductById(int productId) {
         for (Product product : getBuyableProducts()) {
+            if (product.ID == productId) {
+                return product ;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param productId - id of the product to be found
+     * @return product with the given number
+     */
+    public Product findLoanableProductById(int productId) {
+        for (Product product : getLoanableProducts()) {
             if (product.ID == productId) {
                 return product ;
             }

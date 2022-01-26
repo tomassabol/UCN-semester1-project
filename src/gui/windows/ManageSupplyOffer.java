@@ -1,18 +1,14 @@
 package gui.windows;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
-import controller.StockController;
 import controller.SupplyController;
 import gui.panels.CRUDSupplyOffers;
 import gui.panels.tableModels.SupplyOfferTableModel;
@@ -114,7 +110,7 @@ public class ManageSupplyOffer extends JDialog {
 		
 		// Choose product button
 		btnChooseProduct.addActionListener(e -> {
-			ChooseProduct frame = new ChooseProduct(auth);
+			ChooseProduct frame = new ChooseProduct(auth, ChooseProduct.Mode.ALL);
 			frame.setVisible(true);
 			if (frame.getSelectedProduct() != null) {
 				Product product = frame.getSelectedProduct();
