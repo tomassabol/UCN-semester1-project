@@ -145,6 +145,10 @@ public class CRUDEmployees extends JPanel {
 		btnView.setEnabled(false);
 		btnEdit.setEnabled(false);
 		btnDisable.setEnabled(false);
+		
+		// Add filtering
+		rowSorter = new TableRowSorter<>(tableModel);
+		tableMain.setRowSorter(rowSorter);
 			
 		// Attach event handler
 		this.addEventHandlers();

@@ -14,7 +14,14 @@ import controller.SupplyController;
 import gui.Messages;
 import gui.panels.CRUDSupplyOrders;
 import gui.panels.tableModels.SupplyOrderTableModel;
+<<<<<<< HEAD
+=======
+import gui.windows.ChooseProduct;
+import gui.windows.objects.StockSupplyOrderUI;
+>>>>>>> b4d09a1101d87b673fb5b53e4689c6700badd3fa
 import model.Product;
+import model.SupplyOrder;
+
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -146,19 +153,37 @@ public class ManageSupplyOrders extends JDialog {
 			CRUDPanel.getTable().setModel(new SupplyOrderTableModel(supplyCtrl.getSupplyOrders()));
 		});
 		
-		// Disable/enable 'Put into stock' button depending on if there is a selection
+		// Toggle 'Put into stock' button depending on if there is a selection 
+		// and if the supply order has already been delivered
 		CRUDPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
 			JTable table = CRUDPanel.getTable();
 			if (table.getSelectionModel().isSelectionEmpty()) {
 				btnPutIntoStock.setEnabled(false);
 			} else {
-				btnPutIntoStock.setEnabled(true);
+				// Get selected supply order
+				int row = table.getSelectedRow();
+				SupplyOrder supplyOrder = CRUDPanel.getTableModel().getObj(row);
+				// enable 'put into stock' if not delivered
+				if (!supplyOrder.isDelivered()) {
+					btnPutIntoStock.setEnabled(true);
+				} else {
+					btnPutIntoStock.setEnabled(false);
+				}
+				
 			}
 			
 		});
 		
 		btnPutIntoStock.addActionListener(e -> {
-			Messages.info(this, "Not implemented yet");
+			// get selected supply order
+			JTable table = CRUDPanel.getTable();
+			int row = table.convertRowIndexToModel(table.getSelectedRow());
+			SupplyOrder supplyOrder = CRUDPanel.getTableModel().getObj(row);
+			// Show UI
+			StockSupplyOrderUI frame = new StockSupplyOrderUI(auth, supplyOrder);
+			frame.setVisible(true);
+			// Update row in case there were changes (delivered field might be true now)
+			CRUDPanel.getTableModel().fireTableRowsUpdated(row, row);
 		});
 		
 		

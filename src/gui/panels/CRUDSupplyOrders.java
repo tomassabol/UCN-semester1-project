@@ -33,7 +33,7 @@ public class CRUDSupplyOrders extends JPanel {
 	private JTable tableMain;
 	private SupplyOrderTableModel tableModel;
 	private JLink btnEdit;
-	private JLink btnDisable;
+	private JLink btnDelete;
 	AuthenticationController auth;
 	private JLink btnView;
 
@@ -112,16 +112,16 @@ public class CRUDSupplyOrders extends JPanel {
 			
 			
 			// ***** Disable button *****
-			btnDisable = new JLink("Delete", COLORS.RED);
+			btnDelete = new JLink("Delete", COLORS.RED);
 			GridBagConstraints gbc_btnDisable = new GridBagConstraints();
 			gbc_btnDisable.gridx = 3;
 			gbc_btnDisable.gridy = 0;
-			bottomPanel.add(btnDisable, gbc_btnDisable);
+			bottomPanel.add(btnDelete, gbc_btnDisable);
 			
 		// Disable CRUD selection options by default
 		btnView.setEnabled(false);
 		btnEdit.setEnabled(false);
-		btnDisable.setEnabled(false);
+		btnDelete.setEnabled(false);
 		
 		// Attach event handler
 		this.addEventHandlers();
@@ -178,13 +178,22 @@ public class CRUDSupplyOrders extends JPanel {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				// Not selected
 				btnView.setEnabled(false);
-				btnEdit.setEnabled(true);
-				btnDisable.setEnabled(true);
+				btnEdit.setEnabled(false);
+				btnDelete.setEnabled(false);
 			} else {
+				// Get supply order
+				int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
+				SupplyOrder supplyOrder = tableModel.getObj(row);
+				
 				// Selected
 				btnView.setEnabled(true);
-				btnEdit.setEnabled(true);
-				btnDisable.setEnabled(true);
+				if (supplyOrder.isDelivered()) {
+					btnEdit.setEnabled(true);
+					btnDelete.setEnabled(true);
+				} else {
+					btnEdit.setEnabled(false);
+					btnDelete.setEnabled(false);
+				}
 			}
 		});
 

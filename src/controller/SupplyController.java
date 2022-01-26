@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import exceptions.IllegalModificationException;
 import model.Contractor;
 import model.PrimaryKey;
 import model.Product;
@@ -139,10 +140,42 @@ public class SupplyController {
 				LocalDateTime.now(),
 				product,
 				quantity,
-				product.getLatestSellingPrice(), contractor);
+				pricePerItem, contractor);
 		SupplyOrderContainer.getInstance().addSupplyOrder(supplyOrder);
 		return supplyOrder;
 	}
+	
+	public void updateSupplyOrderProduct(SupplyOrder supplyOrder, Product product) throws IllegalModificationException {
+		// Do not allow modification if already delivered (aka put into stock)
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
+		}
+		supplyOrder.setProduct(product);
+	};
+	
+	public void updateSupplyOrderQuantity(SupplyOrder supplyOrder, int quantity) throws IllegalModificationException {
+		// Do not allow modification if already delivered (aka put into stock)
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
+		}
+		supplyOrder.setQuantity(quantity);
+	};
+	
+	public void updateSupplyOrderPricePerItem(SupplyOrder supplyOrder, BigDecimal pricePerItem) throws IllegalModificationException {
+		// Do not allow modification if already delivered (aka put into stock)
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
+		}
+		supplyOrder.setPricePerItem(pricePerItem);
+	};
+	
+	public void updateSupplyOrderContractor(SupplyOrder supplyOrder, Contractor contractor) throws IllegalModificationException {
+		// Do not allow modification if already delivered (aka put into stock)
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("You cannot update a supply order thas already been marked as delivered!");
+		}
+		supplyOrder.setContractor(contractor);
+	};
 
 	
 	/**
@@ -152,8 +185,14 @@ public class SupplyController {
 	 * @param supplyOrder the supply order
 	 * @param shelf the shelf to put the items in
 	 * @param trackable whether to add 'trackable' items or non
+	 * 
+	 * @throws IllegalModificationException when already put into stock
 	 */
-	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, boolean trackable) {
+	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, boolean trackable) throws IllegalModificationException {
+		if (supplyOrder.isDelivered()) {
+			throw new IllegalModificationException("This supply order has already been put in stock!");
+		}
+		
 		// For trackable items - auto generate serial number
 		if (trackable) {
 			// identify product

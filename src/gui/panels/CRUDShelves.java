@@ -187,6 +187,10 @@ public class CRUDShelves extends JPanel {
 		tableStockBatches.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPanelStockBatches.setViewportView(tableStockBatches);
 		
+		// Add filtering
+		rowSorter = new TableRowSorter<>(tableMainModel);
+		tableMain.setRowSorter(rowSorter);
+		
 		// Attach event handler
 		this.addEventHandlers();
 	}

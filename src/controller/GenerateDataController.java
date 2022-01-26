@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import exceptions.EmailNotUniqueException;
 import exceptions.OutOfStockException;
 import gui.Common;
 import model.*;
@@ -50,7 +51,12 @@ public class GenerateDataController {
         customer1.getShoppingCart().add(itemLine1);
         
         // Create employees
-        IFEmployee employee = employeeCtrl.createEmployee("080600-1111", "daniels@abc.com", "1234", "Daniels", "Kanepe", "Rundvej 8", "+45 11114567", LocalDate.now());
+        IFEmployee employee = null;
+		try {
+			employee = employeeCtrl.createEmployee("080600-1111", "daniels@abc.com", "1234", "Daniels", "Kanepe", "Rundvej 8", "+45 11114567", LocalDate.now());
+		} catch (EmailNotUniqueException e1) {
+			e1.printStackTrace();
+		}
  
         
         customer1.getShoppingCart().add(itemLine2);

@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.EmployeeController;
+import exceptions.EmailNotUniqueException;
 import gui.Common;
 import gui.Messages;
 import model.IFEmployee;
@@ -381,14 +382,24 @@ public class EmployeeUI extends JDialog {
 				}
 				
 				if (mode == Mode.EDIT) {
+					try {
+						employeeCtrl.updateEmail(employee, email);
+					} catch (EmailNotUniqueException e1) {
+						Messages.error(this, "An user with the email " + email + " already exists.");
+						return;
+					}
 					employeeCtrl.updateFirstName(employee, fname);
 					employeeCtrl.updateLastName(employee, lname);
 					employeeCtrl.updateAddress(employee, address);
 					employeeCtrl.updateMobile(employee, mobile);
-					employeeCtrl.updateEmail(employee, email);
 					employeeCtrl.updateBirthDate(employee, birthDate);
 				} else if (mode == Mode.CREATE) {
-					this.employee = employeeCtrl.createEmployee("0", email, "admin", fname, lname, address, mobile, birthDate);
+					try {
+						this.employee = employeeCtrl.createEmployee("0", email, "admin", fname, lname, address, mobile, birthDate);
+					} catch (EmailNotUniqueException e1) {
+						Messages.error(this, "An user with the email " + email + " already exists.");
+						return;
+					}
 				}
 				
 			}
