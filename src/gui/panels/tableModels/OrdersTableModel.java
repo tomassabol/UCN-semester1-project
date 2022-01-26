@@ -97,7 +97,7 @@ public class OrdersTableModel extends AbstractTableModel {
      */
     public int addOrder(Order order) {
     	this.orders.add(order);
-    	int row = this.getRowCount() - 1
+    	int row = this.getRowCount() - 1;
     	this.fireTableRowsInserted(row, row);
     	return row;
     }
