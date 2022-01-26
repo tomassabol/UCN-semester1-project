@@ -203,6 +203,9 @@ public class SupplyController {
 		if (supplyOrder.isStocked()) {
 			throw new IllegalModificationException("This supply order has already been put in stock!");
 		}
+		if (deliveredDate.isBefore(supplyOrder.getDateOrdered())) {
+			throw new IllegalArgumentException("Delivery date must be after order date!");
+		}
 		
 		// For trackable items - auto generate serial number
 		if (trackable) {
