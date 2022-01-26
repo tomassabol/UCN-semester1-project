@@ -229,6 +229,11 @@ public class StockSupplyOrderUI extends JDialog {
 			}
 		});
 		
+		// Autofill delivery date button
+		btnAutofill.addActionListener(e -> {
+			txtDeliveryDate.setText(Common.datetimeToString(LocalDateTime.now()));
+		});
+		
 		// 'Submit' button - put the supply order into stock
 		btnSubmit.addActionListener(e -> {
 			if (Messages.confirm(StockSupplyOrderUI.this, "Stock this supply order?")) {
