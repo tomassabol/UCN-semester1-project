@@ -50,7 +50,7 @@ public class SupplyOrderContainer {
     	ArrayList<SupplyOrder> undeliveredOrders = new ArrayList<>();
     	for (SupplyOrder supplyOrder: this.supplyOrders) {
     		// if not delivered
-    		if (!supplyOrder.isDelivered()) {
+    		if (!supplyOrder.isStocked()) {
     			undeliveredOrders.add(supplyOrder);
     		}
     	}
@@ -64,7 +64,7 @@ public class SupplyOrderContainer {
     	ArrayList<SupplyOrder> deliveredOrders = new ArrayList<>();
     	for (SupplyOrder supplyOrder: this.supplyOrders) {
     		// if delivered
-    		if (supplyOrder.isDelivered()) {
+    		if (supplyOrder.isStocked()) {
     			deliveredOrders.add(supplyOrder);
     		}
     	}
@@ -111,7 +111,7 @@ public class SupplyOrderContainer {
      */
     public SupplyOrder findUndeliveredSupplyOrderByID(int supplyOrderId) {
     	for (SupplyOrder supplyOrder: supplyOrders) {
-    		if (supplyOrder.ID == supplyOrderId && !supplyOrder.isDelivered()) {
+    		if (supplyOrder.ID == supplyOrderId && !supplyOrder.isStocked()) {
     			return supplyOrder;
     		}
     	}
@@ -126,7 +126,7 @@ public class SupplyOrderContainer {
      */
     public SupplyOrder finddeliveredSupplyOrderByID(int supplyOrderId) {
     	for (SupplyOrder supplyOrder: supplyOrders) {
-    		if (supplyOrder.ID == supplyOrderId && supplyOrder.isDelivered()) {
+    		if (supplyOrder.ID == supplyOrderId && supplyOrder.isStocked()) {
     			return supplyOrder;
     		}
     	}
