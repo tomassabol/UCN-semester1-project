@@ -220,7 +220,15 @@ public class CRUDSupplyOrders extends JPanel {
 			}
 		});
 		
-		// Edit supply offer
+		// View supply order
+		btnView.addActionListener(e -> {
+			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
+			SupplyOrder supplyOrder = tableModel.getObj(row);
+			SupplyOrderUI frame = new SupplyOrderUI(auth, supplyOrder, SupplyOrderUI.Mode.VIEW);
+			frame.setVisible(true);
+		});
+		
+		// Edit supply order
 		btnEdit.addActionListener(e -> {
 			int modelIndex = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			SupplyOrder supplyOrder = tableModel.getObj(modelIndex);
