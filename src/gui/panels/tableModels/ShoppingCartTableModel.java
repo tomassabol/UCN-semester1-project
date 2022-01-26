@@ -123,7 +123,7 @@ public class ShoppingCartTableModel extends AbstractTableModel {
     		}
     	}
     	this.itemLines.add(newItemLine);
-    	this.fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+    	this.fireTableRowsInserted(this.getRowCount() - 1, this.getRowCount() - 1);
     }
     
     /**

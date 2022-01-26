@@ -92,7 +92,7 @@ public class ContractorTableModel extends AbstractTableModel {
      */
     public void add(Contractor contractor) {
         this.contractors.add(contractor);
-        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+        fireTableRowsInserted(this.getRowCount() -1, this.getRowCount() -1);
     }
     
     /**

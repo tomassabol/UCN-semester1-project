@@ -128,7 +128,7 @@ public class SupplyOfferTableModel  extends AbstractTableModel {
      */
     public void add(SupplyOffer supplyOffer) {
         this.supplyOffers.add(supplyOffer);
-        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+        fireTableRowsInserted(this.getRowCount() -1, this.getRowCount() -1);
     }
     
     /**

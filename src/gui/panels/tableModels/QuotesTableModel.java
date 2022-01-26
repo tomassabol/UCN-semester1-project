@@ -97,13 +97,10 @@ public class QuotesTableModel extends AbstractTableModel {
      * Adds a quote to the table.
      *
      * @param quote the quote
-     * @return the row that the quote was inserted in
      */
-    public int addQuote(Quote quote) {
-    	int row = quotes.size();
-        this.quotes.add(quote);
-        fireTableRowsInserted(row, row);
-        return row;
+    public void addQuote(Quote quote) {
+    	this.quotes.add(quote);
+    	this.fireTableRowsInserted(this.getRowCount() - 1, this.getRowCount() -1);
     }
     
     public void removeQuote(int row) {

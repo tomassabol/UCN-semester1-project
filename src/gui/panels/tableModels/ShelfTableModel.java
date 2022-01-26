@@ -98,7 +98,7 @@ public class ShelfTableModel extends AbstractTableModel {
      */
     public void add(Shelf storageLocation) {
         this.shelves.add(storageLocation);
-        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+        fireTableRowsInserted(this.getRowCount() - 1, this.getRowCount() - 1);
     }
     
     /**

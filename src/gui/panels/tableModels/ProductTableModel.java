@@ -153,7 +153,7 @@ public class ProductTableModel extends AbstractTableModel {
     
     public void add(Product product) {
     	this.products.add(product);
-    	this.fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+    	this.fireTableRowsInserted(this.getRowCount() - 1, this.getRowCount() -1);
     }
 
 }

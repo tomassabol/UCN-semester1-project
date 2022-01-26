@@ -180,7 +180,7 @@ public class CRUDProducts extends JPanel {
 		btnDisable.setEnabled(false);
 		
 		// Add filtering
-		rowSorter = new TableRowSorter<>(tableModel);
+		rowSorter = new TableRowSorter<TableModel>(tableModel);
 		tableMain.setRowSorter(rowSorter);
 		
 		// Attach event handler
@@ -199,14 +199,6 @@ public class CRUDProducts extends JPanel {
 	
 	public ProductTableModel getTableModel() {
 		return tableModel;
-	}
-	
-	public void setTableModel(ProductTableModel tableModel) {
-		this.tableMain.setModel(tableModel);
-		this.tableModel = tableModel;
-		// Update table row sorter
-		rowSorter = new TableRowSorter<>(tableMain.getModel());
-		tableMain.setRowSorter(rowSorter);
 	}
 	
 	/**
@@ -267,7 +259,6 @@ public class CRUDProducts extends JPanel {
 				productCtrl.setEnabled(product, !product.isEnabled());
 				tableModel.fireTableRowsUpdated(row, row);
 				tableMain.getSelectionModel().clearSelection();
-				setTableModel(tableModel);
 			}
 		});
 		
@@ -289,7 +280,6 @@ public class CRUDProducts extends JPanel {
 			// Refresh selection (e.g. in case sell price is now set to nothing)
 			tableMain.clearSelection();
 			tableMain.getSelectionModel().setSelectionInterval(0, row);
-			setTableModel(tableModel);
 		});
 		
 		// Create product
@@ -298,7 +288,6 @@ public class CRUDProducts extends JPanel {
 			frame.setVisible(true);
 			if (frame.getProduct() != null) {
 				tableModel.add(frame.getProduct());
-				setTableModel(tableModel);
 			}
 		});
 		

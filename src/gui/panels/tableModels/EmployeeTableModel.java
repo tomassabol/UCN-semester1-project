@@ -98,7 +98,7 @@ public class EmployeeTableModel extends AbstractTableModel {
      */
     public void add(IFEmployee ifEmployee) {
         this.employees.add(ifEmployee);
-        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+        fireTableRowsInserted(this.getRowCount() - 1, this.getRowCount() - 1);
     }
     
     /**

@@ -136,7 +136,7 @@ public class StorageLocationTableModel extends AbstractTableModel {
      */
     public void add(StorageLocation storageLocation) {
         this.storageLocations.add(storageLocation);
-        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+        fireTableRowsInserted(this.getRowCount() -1, this.getRowCount() -1);
     }
     
     /**

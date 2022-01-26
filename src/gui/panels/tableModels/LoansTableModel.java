@@ -97,13 +97,10 @@ public class LoansTableModel extends AbstractTableModel {
      * Adds a order to the table.
      *
      * @param order the order
-     * @return the row that the order was inserted in
      */
-    public int addLoan(Loan loan) {
-    	int row = loans.size();
-        this.loans.add(loan);
-        fireTableRowsInserted(row, row);
-        return row;
+    public void addLoan(Loan loan) {
+    	this.loans.add(loan);
+    	this.fireTableRowsInserted(this.getRowCount() - 1, this.getRowCount() -1);
     }
     
     public void removeLoan(int row) {

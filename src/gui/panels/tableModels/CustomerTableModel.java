@@ -99,7 +99,7 @@ public class CustomerTableModel extends AbstractTableModel {
      */
     public void add(Customer customer) {
         this.customers.add(customer);
-        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+        fireTableRowsInserted(this.getRowCount() - 1, this.getRowCount() - 1);
     }
     
     /**

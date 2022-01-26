@@ -95,7 +95,7 @@ public class StockBatchTableModel extends AbstractTableModel {
      */
     public void add(StockBatch stockBatch) {
         this.stockBatches.add(stockBatch);
-        fireTableRowsInserted(this.getRowCount(), this.getRowCount());
+        fireTableRowsInserted(this.getRowCount() -1, this.getRowCount() -1);
     }
     
     /**
