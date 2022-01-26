@@ -181,6 +181,9 @@ public class ManageSupplyOrders extends JDialog {
 			frame.setVisible(true);
 			// Update row in case there were changes (delivered field might be true now)
 			CRUDPanel.getTableModel().fireTableRowsUpdated(row, row);
+			// Refresh selection (to execute the selection event again and toggle the relevant buttons)
+			table.getSelectionModel().clearSelection();
+			table.getSelectionModel().setSelectionInterval(0, row);
 		});
 		
 		
