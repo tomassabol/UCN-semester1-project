@@ -17,7 +17,7 @@ public class Common {
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
     /** The Date-time format. */
-    public static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATETIME_FORMAT = "dd/MM/yyyy HH:mm:ss";
 
     /**
      * Convert string to date.
