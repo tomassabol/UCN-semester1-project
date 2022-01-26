@@ -170,6 +170,10 @@ public class CRUDProducts extends JPanel {
 		btnEdit.setEnabled(false);
 		btnDisable.setEnabled(false);
 		
+		// Add filtering
+		rowSorter = new TableRowSorter<>(tableModel);
+		tableMain.setRowSorter(rowSorter);
+		
 		// Attach event handler
 		this.addEventHandlers();
 	}
