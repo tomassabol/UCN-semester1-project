@@ -18,6 +18,11 @@ import controller.SupplyController;
 import model.SupplyOrder;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import gui.JLink;
 import gui.JLink.COLORS;
@@ -38,6 +43,7 @@ public class CRUDSupplyOrders extends JPanel {
 	AuthenticationController auth;
 	private JLink btnView;
 	private JTextField txtSearch;
+	private TableRowSorter<TableModel> rowSorter;
 
 	/**
 	 * Create the dialog.
@@ -134,6 +140,10 @@ public class CRUDSupplyOrders extends JPanel {
 		btnEdit.setEnabled(false);
 		btnDelete.setEnabled(false);
 		
+		// Add filtering
+		rowSorter = new TableRowSorter<>(tableModel);
+		tableMain.setRowSorter(rowSorter);
+		
 		// Attach event handler
 		this.addEventHandlers();
 	}
@@ -215,6 +225,33 @@ public class CRUDSupplyOrders extends JPanel {
 			if (frame.getSupplyOrder() != null) {
 				tableModel.add(frame.getSupplyOrder());
 			}
+		});
+		
+		// Dynamic search
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+			
+			public void performSearch() {
+				String text = txtSearch.getText();
+				
+				if(text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				}else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				}
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				performSearch();
+			}
+										
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				performSearch();
+			}
+											
+			@Override
+			public void changedUpdate(DocumentEvent e) {}
 		});
 	}
 }
