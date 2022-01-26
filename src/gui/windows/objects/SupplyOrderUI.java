@@ -427,9 +427,10 @@ public class SupplyOrderUI extends JDialog {
 					// if mode == Create, create a new supply offer
 					this.supplyOffer = supplyCtrl.createSupplyOffer(product, contractor, pricePerItem, minQuantity);
 				}
+				
+				// Dispose of the window
+				this.dispose();
 			}
-			// Dispose of the window
-			this.dispose();
 		});
 		
 		btnChooseProduct.addActionListener(e -> {
