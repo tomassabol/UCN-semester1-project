@@ -67,7 +67,6 @@ public class OrderLine {
 	 * @return the fixed price with bulk discount applied
 	 */
 	public BigDecimal getFixedPriceWithBulkDiscount() {
-		System.out.println("Price: " + this.getFixedPriceWithoutBulkDiscount());
 		BigDecimal rawPrice = this.getFixedPriceWithoutBulkDiscount();
 		if (this.getBulkDiscount() == null) {
 			return rawPrice;

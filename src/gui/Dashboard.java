@@ -25,6 +25,7 @@ import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
 import org.knowm.xchart.style.Styler.LegendPosition;
 
 import controller.AuthenticationController;
+import controller.OrderController;
 import gui.statistics.charts.OrdersChart;
 import gui.windows.ChooseCustomer;
 import gui.windows.ChooseLoan;
@@ -44,8 +45,11 @@ import gui.windows.objects.LoanUI;
 import gui.windows.ManageShoppingCart;
 import model.Customer;
 import model.Loan;
+import model.Order;
 
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 /**
@@ -93,10 +97,13 @@ public class Dashboard extends JFrame {
 	private JLabel lblLoanImage;
 	private JButton btnManageLoans;
 	private JButton btnReturnLoan;
-	private JTabbedPane tabbedPane;
+	private JTabbedPane stTabsPane;
 	private JPanel stRevenuePanel;
 	private JPanel stOrdersPanel;
-	private JPanel panel;
+	private XChartPanel<XYChart> stRevenueChartPanel;
+
+	private JLabel noOrdersLabel;
+	private JLabel label;
 
 	/**
 	 * Create the frame.
@@ -472,15 +479,15 @@ public class Dashboard extends JFrame {
 		gbl_statisticsPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		statisticsPanel.setLayout(gbl_statisticsPanel);
 		
-		tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
-		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
-		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
-		gbc_tabbedPane.gridx = 0;
-		gbc_tabbedPane.gridy = 0;
-		statisticsPanel.add(tabbedPane, gbc_tabbedPane);
+		stTabsPane = new JTabbedPane(JTabbedPane.LEFT);
+		GridBagConstraints gbc_stTabsPane = new GridBagConstraints();
+		gbc_stTabsPane.fill = GridBagConstraints.BOTH;
+		gbc_stTabsPane.gridx = 0;
+		gbc_stTabsPane.gridy = 0;
+		statisticsPanel.add(stTabsPane, gbc_stTabsPane);
 		
 		stRevenuePanel = new JPanel();
-		tabbedPane.addTab("Revenue", null, stRevenuePanel, null);
+		stTabsPane.addTab("Revenue", null, stRevenuePanel, null);
 		GridBagLayout gbl_stRevenuePanel = new GridBagLayout();
 		gbl_stRevenuePanel.columnWidths = new int[]{0, 0};
 		gbl_stRevenuePanel.rowHeights = new int[]{0, 0};
@@ -489,16 +496,16 @@ public class Dashboard extends JFrame {
 		stRevenuePanel.setLayout(gbl_stRevenuePanel);
 		
 		// Revenue chart
-		panel = new XChartPanel<XYChart>(new OrdersChart().getChart());
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 0;
-		stRevenuePanel.add(panel, gbc_panel);
-		
+		List<Order> orders = new OrderController().getOrders();
+		stRevenueChartPanel = new OrdersChart(orders).getChart();
+		GridBagConstraints gbc_stRevenueChartPanel = new GridBagConstraints();
+		gbc_stRevenueChartPanel.fill = GridBagConstraints.BOTH;
+		gbc_stRevenueChartPanel.gridx = 0;
+		gbc_stRevenueChartPanel.gridy = 0;
+		stRevenuePanel.add(stRevenueChartPanel, gbc_stRevenueChartPanel);
 		
 		stOrdersPanel = new JPanel();
-		tabbedPane.addTab("Orders", null, stOrdersPanel, null);
+		stTabsPane.addTab("Orders", null, stOrdersPanel, null);
 		GridBagLayout gbl_stOrdersPanel = new GridBagLayout();
 		gbl_stOrdersPanel.columnWidths = new int[]{0};
 		gbl_stOrdersPanel.rowHeights = new int[]{0};
@@ -514,6 +521,7 @@ public class Dashboard extends JFrame {
 	 */
 	
 	public void addEventHandlers() {
+		
 		// ***** Log out button *****
 		btnLogout.addActionListener(e -> {
 	    	if (Messages.confirm(Dashboard.this, "Are you sure you want to log out?", "Log Out?")) {
@@ -675,7 +683,22 @@ public class Dashboard extends JFrame {
 		///////////////////////////////////////////////////////
 		////////////////     STATISTICS     //////////////////
 		/////////////////////////////////////////////////////
+		// Refresh revenue chart when you go to statistics tab.
+		tabsPane.addChangeListener(e -> {
+			if (tabsPane.getSelectedComponent().equals(statisticsPanel)) {
+				List<Order> orders = new OrderController().getOrders();
+				stRevenueChartPanel = new OrdersChart(orders).getChart();
+				stRevenuePanel.removeAll();
+				GridBagConstraints gbc_stRevenueChartPanel = new GridBagConstraints();
+				gbc_stRevenueChartPanel.fill = GridBagConstraints.BOTH;
+				gbc_stRevenueChartPanel.gridx = 0;
+				gbc_stRevenueChartPanel.gridy = 0;
+				stRevenuePanel.add(stRevenueChartPanel, gbc_stRevenueChartPanel);
+				stRevenueChartPanel.revalidate();
+				stRevenueChartPanel.repaint();
+			}
 
+		});
 		
 		
 		
