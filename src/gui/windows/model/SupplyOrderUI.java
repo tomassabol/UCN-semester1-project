@@ -480,7 +480,7 @@ public class SupplyOrderUI extends JDialog {
 				// Validate order date
 				String orderDateString = txtOrderDate.getText().strip();
 				if (orderDateString.isEmpty()) {
-					Messages.error(this, "Birth Date cannot be empty!");
+					Messages.error(this, "Order date cannot be empty!");
 					return;
 				}
 				// Parse order date
@@ -488,7 +488,7 @@ public class SupplyOrderUI extends JDialog {
 				try {
 					dateOrdered = Common.stringToDateTime(orderDateString);
 				} catch (DateTimeParseException e1) {
-					Messages.error(this, "Please enter a valid birth date in the format of: " + Common.getDateFormat());
+					Messages.error(this, "Please enter a order date in the format of: " + Common.getDateFormat());
 					return;
 				}
 	
