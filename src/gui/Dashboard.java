@@ -83,6 +83,9 @@ public class Dashboard extends JFrame {
 	private JLabel lblLoanImage;
 	private JButton btnManageLoans;
 	private JButton btnReturnLoan;
+	private JTabbedPane stTabsPane;
+	private JPanel stOrdersPanel;
+	private JPanel stLoansPanel;
 
 	/**
 	 * Create the frame.
@@ -451,6 +454,28 @@ public class Dashboard extends JFrame {
 		statisticsPanel = new JPanel();
 		statisticsPanel.setBorder(new EmptyBorder(15, 0, 0, 0));
 		tabsPane.addTab("Statistics", null, statisticsPanel, null);
+		GridBagLayout gbl_statisticsPanel = new GridBagLayout();
+		gbl_statisticsPanel.columnWidths = new int[]{68, 0};
+		gbl_statisticsPanel.rowHeights = new int[]{18, 0};
+		gbl_statisticsPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_statisticsPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		statisticsPanel.setLayout(gbl_statisticsPanel);
+		
+		stTabsPane = new JTabbedPane(JTabbedPane.TOP);
+		GridBagConstraints gbc_stTabsPane = new GridBagConstraints();
+		gbc_stTabsPane.anchor = GridBagConstraints.NORTHWEST;
+		gbc_stTabsPane.gridx = 0;
+		gbc_stTabsPane.gridy = 0;
+		statisticsPanel.add(stTabsPane, gbc_stTabsPane);
+		
+		stLoansPanel = new JPanel();
+		stTabsPane.addTab("Loans", null, stLoansPanel, null);
+		
+		stOrdersPanel = new JPanel();
+		stTabsPane.addTab("Orders", null, stOrdersPanel, null);
+		
+		stTabsPane.setSelectedComponent(stOrdersPanel);
+		stTabsPane.setEnabledAt(0, false);
 	}
 	
 	/*
