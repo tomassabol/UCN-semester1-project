@@ -616,22 +616,18 @@ public class Dashboard extends JFrame {
 	    	}
 		});
 		
+		///////////////////////////////////////////////////////
+		////////////////     SELL    //////////////////
+		/////////////////////////////////////////////////////
+		
+		// ***** Choose customer button *****
+		btnChooseCustomerSell.addActionListener(e -> {
+			chooseCustomer();
+		});
+		
 		// ***** Sell items button *****
 		btnSellItems.addActionListener(e -> {
-			if (this.customer == null) {
-				Messages.info(this, "Please choose a customer", "Choose a customer");
-			} else {
-				ManageShoppingCarts frame = new ManageShoppingCarts(auth, customer);
-				frame.setVisible(true);
-				if (frame.isSubmitPressed()) {
-					ManageQuotes quoteFrame = new ManageQuotes(auth, customer);
-					quoteFrame.setVisible(true);
-					if (quoteFrame.isSubmitPressed()) {
-						ManageOrders orderFrame = new ManageOrders(auth, customer);
-						orderFrame.setVisible(true);
-					}
-				}
-			}
+			chooseCustomer();
 
 		});
 		
