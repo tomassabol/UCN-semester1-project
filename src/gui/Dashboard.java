@@ -512,6 +512,9 @@ public class Dashboard extends JFrame {
 		gbl_stOrdersPanel.columnWeights = new double[]{Double.MIN_VALUE};
 		gbl_stOrdersPanel.rowWeights = new double[]{Double.MIN_VALUE};
 		stOrdersPanel.setLayout(gbl_stOrdersPanel);
+		
+		// Disable 'orders' tab in statistics
+		stTabsPane.setEnabledAt(1, false);
 	}
 	
 	/*
