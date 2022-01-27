@@ -29,7 +29,6 @@ import gui.windows.ChooseProduct;
 import model.Contractor;
 import model.PrimaryKey;
 import model.Product;
-import model.SupplyOffer;
 import model.SupplyOrder;
 import javax.swing.JRadioButton;
 
@@ -320,7 +319,7 @@ public class SupplyOrderUI extends JDialog {
 		switch (mode) {
 			case VIEW:
 				// Set title
-				setTitle("Viewing a supply offer");
+				setTitle("Viewing a Supply Order");
 				// Hide submit button if in view mode
 				btnSubmit.setVisible(false);
 				// Disable 'choose' buttons if in view mode.
@@ -333,7 +332,7 @@ public class SupplyOrderUI extends JDialog {
 				break;
 			case EDIT: 
 				// Set title
-				setTitle("Edit Supply Offer");
+				setTitle("Edit Supply Order");
 				// Enable fields for editing
 				this.enableFields();
 				// Change submit button text to 'Update'
@@ -343,13 +342,13 @@ public class SupplyOrderUI extends JDialog {
 				break;
 			case CREATE:
 				// Set title
-				setTitle("Add New Supply Offer");
+				setTitle("Add New Supply Order");
 				// Change submit button text to 'Create'
 				btnSubmit.setText("Create");
 				// Enable fields
 				this.enableFields();
 				// Peek ID
-				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.SUPPLY_OFFER)));
+				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.SUPPLY_ORDER)));
 				// Set 'stocked' to false
 				rdbtnNo.setSelected(true);
 		}
@@ -509,7 +508,7 @@ public class SupplyOrderUI extends JDialog {
 						return;
 					}
 				} else if (mode == Mode.CREATE) {
-					// if mode == Create, create a new supply offer
+					// if mode == Create, create a new supply order
 					this.supplyOrder = supplyCtrl.createSupplyOrder(product, quantity, pricePerItem, contractor, dateOrdered);
 				}
 				
