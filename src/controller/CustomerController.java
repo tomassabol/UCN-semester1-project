@@ -7,8 +7,8 @@ import model.Customer;
 import model.CustomerType;
 import model.IFCustomer;
 import model.PrimaryKey;
-import model.container.CustomerContainer;
-import model.container.CustomerTypeContainer;
+import models.container.CustomerContainer;
+import models.container.CustomerTypeContainer;
 
 public class CustomerController {
 

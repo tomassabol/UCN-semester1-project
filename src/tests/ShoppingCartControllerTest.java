@@ -20,7 +20,7 @@ import model.ShoppingCart;
 import model.StockBatch;
 import model.StorageLocation;
 import model.TrackableItem;
-import model.container.StockContainer;
+import models.container.StockContainer;
 
 class ShoppingCartControllerTest {
 	

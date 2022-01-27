@@ -12,7 +12,7 @@ import model.IFEmployee;
 import model.Loan;
 import model.PrimaryKey;
 import model.Product;
-import model.container.LoanContainer;
+import models.container.LoanContainer;
 
 public class LoanController {
 

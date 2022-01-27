@@ -10,7 +10,7 @@ import exception.OutOfStockException;
 import model.Product;
 import model.ShoppingCart;
 import model.ShoppingItemLine;
-import model.container.StockContainer;
+import models.container.StockContainer;
 
 public class ShoppingCartController {
 

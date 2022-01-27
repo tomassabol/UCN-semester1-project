@@ -5,8 +5,8 @@ import java.util.List;
 
 import exception.OutOfStockException;
 import model.*;
-import model.container.QuoteContainer;
-import model.container.StockContainer;
+import models.container.QuoteContainer;
+import models.container.StockContainer;
 
 /**
  * The Class OrderController.
