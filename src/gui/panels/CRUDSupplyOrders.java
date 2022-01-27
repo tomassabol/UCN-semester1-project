@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -259,31 +260,30 @@ public class CRUDSupplyOrders extends JPanel {
 			}
 		});
 		
-		// Dynamic search
+		// Search implementation
 		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
 			
-			public void performSearch() {
+			private void search() {
 				String text = txtSearch.getText();
-				
 				if(text.trim().length() == 0) {
 					rowSorter.setRowFilter(null);
-				}else {
-					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				} else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(text)));
 				}
 			}
-			
+													
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				performSearch();
+				search();
 			}
 										
 			@Override
-			public void removeUpdate(DocumentEvent e) {
-				performSearch();
+			public void  removeUpdate(DocumentEvent e) {
+				search();
 			}
-											
+													
 			@Override
-			public void changedUpdate(DocumentEvent e) {}
+			public void changedUpdate(DocumentEvent e) { /* Empty due to interface */ }
 		});
 	}
 }

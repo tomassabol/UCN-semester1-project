@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -260,35 +261,30 @@ public class CRUDCustomerTypes extends JPanel {
 			}
 		});
 		
-		// Search Customer types with a dynamic filter		
+		// Search implementation
 		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
-																	
-			@Override
-			public void insertUpdate(DocumentEvent e) {
+			
+			private void search() {
 				String text = txtSearch.getText();
-												
 				if(text.trim().length() == 0) {
 					rowSorter.setRowFilter(null);
-				}else {
-					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				} else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(text)));
 				}
 			}
-												
+													
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				search();
+			}
+										
 			@Override
 			public void  removeUpdate(DocumentEvent e) {
-				String text = txtSearch.getText();
-												
-				if (text.trim().length() == 0) {
-					rowSorter.setRowFilter(null);
-				} else {
-					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-				}
+				search();
 			}
-																
+													
 			@Override
-			public void changedUpdate(DocumentEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
-			}
+			public void changedUpdate(DocumentEvent e) { /* Empty due to interface */ }
 		});
 	}
 }

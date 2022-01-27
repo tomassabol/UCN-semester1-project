@@ -30,6 +30,7 @@ import model.SupplyOffer;
 import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.regex.Pattern;
 
 public class CRUDSupplyOffers extends JPanel {
 
@@ -262,35 +263,30 @@ public class CRUDSupplyOffers extends JPanel {
 			}
 		});
 		
-		// Search Supply offers with a dynamic filter		
+		// Search implementation
 		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
-											
-			@Override
-			public void insertUpdate(DocumentEvent e) {
+			
+			private void search() {
 				String text = txtSearch.getText();
-												
 				if(text.trim().length() == 0) {
 					rowSorter.setRowFilter(null);
-				}else {
-					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+				} else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(text)));
 				}
+			}
+													
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				search();
 			}
 										
 			@Override
 			public void  removeUpdate(DocumentEvent e) {
-				String text = txtSearch.getText();
-												
-				if (text.trim().length() == 0) {
-					rowSorter.setRowFilter(null);
-				} else {
-					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-				}
+				search();
 			}
-											
+													
 			@Override
-			public void changedUpdate(DocumentEvent e) {
-				throw new UnsupportedOperationException("Not supported yet.");
-			}
+			public void changedUpdate(DocumentEvent e) { /* Empty due to interface */ }
 		});
 	}
 
