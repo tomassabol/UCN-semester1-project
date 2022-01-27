@@ -25,7 +25,6 @@ import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModel.ContractorTableModel;
-import gui.panels.tableModel.SupplyOfferTableModel;
 import gui.windows.model.ContractorUI;
 import model.Contractor;
 

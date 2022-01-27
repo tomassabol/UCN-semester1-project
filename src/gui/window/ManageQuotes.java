@@ -20,7 +20,6 @@ import controller.StockController;
 import exception.OutOfStockException;
 import gui.JButtonPrimary;
 import gui.Messages;
-import gui.panels.tableModel.OrdersTableModel;
 import gui.panels.tableModel.QuotesItemTableModel;
 import gui.panels.tableModel.QuotesTableModel;
 import model.Customer;

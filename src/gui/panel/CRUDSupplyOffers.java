@@ -24,7 +24,6 @@ import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModel.SupplyOfferTableModel;
 import gui.windows.model.SupplyOfferUI;
-import model.Product;
 import model.SupplyOffer;
 import javax.swing.JTextField;
 import java.util.regex.Pattern;

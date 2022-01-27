@@ -10,10 +10,7 @@ import exception.IllegalModificationException;
 import gui.Common;
 import gui.JButtonPrimary;
 import gui.Messages;
-import gui.panels.tableModel.CustomerTableModel;
-import gui.window.ChooseCustomerType;
 import gui.window.ChooseShelf;
-import model.Customer;
 import model.Shelf;
 import model.SupplyOrder;
 

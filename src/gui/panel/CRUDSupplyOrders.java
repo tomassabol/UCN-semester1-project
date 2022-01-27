@@ -29,7 +29,6 @@ import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModel.SupplyOrderTableModel;
-import gui.windows.model.SupplyOfferUI;
 import gui.windows.model.SupplyOrderUI;
 
 import javax.swing.JTextField;

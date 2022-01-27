@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Product;
-import model.SupplyOffer;
 import model.SupplyOrder;
 
 public class SupplyOrderContainer {

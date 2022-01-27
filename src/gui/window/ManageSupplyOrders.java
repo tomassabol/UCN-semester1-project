@@ -11,10 +11,8 @@ import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.SupplyController;
-import gui.Messages;
 import gui.panel.CRUDSupplyOrders;
 import gui.panels.tableModel.SupplyOrderTableModel;
-import gui.window.ChooseProduct;
 import gui.windows.model.StockSupplyOrderUI;
 import model.Product;
 import model.SupplyOrder;

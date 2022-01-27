@@ -29,7 +29,6 @@ import javax.swing.table.TableRowSorter;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModel.ContractorTableModel;
 import gui.panels.tableModel.CustomerTableModel;
 import gui.windows.model.CustomerUI;
 
