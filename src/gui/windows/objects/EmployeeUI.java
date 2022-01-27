@@ -65,6 +65,7 @@ public class EmployeeUI extends JDialog {
 	 * @param auth the auth
 	 * @param employee the employee
 	 * @param mode the mode
+	 * @wbp.parser.constructor
 	 */
 	public EmployeeUI(AuthenticationController auth, IFEmployee employee, Mode mode) {
 		this.mode = mode;
@@ -94,7 +95,7 @@ public class EmployeeUI extends JDialog {
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		
-		JLabel lblNewLabel_2 = new JLabel("First Name");
+		JLabel lblNewLabel_2 = new JLabel("First Name *");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
@@ -123,7 +124,7 @@ public class EmployeeUI extends JDialog {
 		txtFirstName.setColumns(10);
 		
 		
-		JLabel lblNewLabel_3 = new JLabel("Last Name");
+		JLabel lblNewLabel_3 = new JLabel("Last Name *");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
@@ -132,7 +133,7 @@ public class EmployeeUI extends JDialog {
 		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		
-		JLabel lblNewLabel_4 = new JLabel("Address");
+		JLabel lblNewLabel_4 = new JLabel("Address *");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 0);
@@ -160,7 +161,7 @@ public class EmployeeUI extends JDialog {
 		txtAddress.setColumns(10);
 		
 		
-		JLabel lblNewLabel_5 = new JLabel("Phone");
+		JLabel lblNewLabel_5 = new JLabel("Phone *");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
 		gbc_lblNewLabel_5.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
@@ -169,7 +170,7 @@ public class EmployeeUI extends JDialog {
 		contentPane.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
 		
-		JLabel lblNewLabel_6 = new JLabel("Email");
+		JLabel lblNewLabel_6 = new JLabel("Email *");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
 		gbc_lblNewLabel_6.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 0);

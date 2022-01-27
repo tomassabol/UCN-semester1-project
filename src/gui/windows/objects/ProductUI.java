@@ -60,6 +60,7 @@ public class ProductUI extends JDialog {
 	
 	/**
 	 * Create the frame.
+	 * @wbp.parser.constructor
 	 */
 	public ProductUI(AuthenticationController auth, Product product, Mode mode) {
 		this.auth = auth;
@@ -99,7 +100,7 @@ public class ProductUI extends JDialog {
 		gbc_txtId.gridy = 1;
 		contentPane.add(txtId, gbc_txtId);
 		
-		JLabel lblName = new JLabel("Name");
+		JLabel lblName = new JLabel("Name *");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.anchor = GridBagConstraints.WEST;
 		gbc_lblName.insets = new Insets(0, 0, 5, 0);
@@ -117,7 +118,7 @@ public class ProductUI extends JDialog {
 		gbc_txtName.gridy = 1;
 		contentPane.add(txtName, gbc_txtName);
 		
-		JLabel lblDescription = new JLabel("Description");
+		JLabel lblDescription = new JLabel("Description *");
 		GridBagConstraints gbc_lblDescription = new GridBagConstraints();
 		gbc_lblDescription.anchor = GridBagConstraints.WEST;
 		gbc_lblDescription.insets = new Insets(0, 0, 5, 5);
@@ -135,7 +136,7 @@ public class ProductUI extends JDialog {
 		gbc_txtDescription.gridy = 3;
 		contentPane.add(txtDescription, gbc_txtDescription);
 		
-		JLabel lblMin = new JLabel("Minimum Stock");
+		JLabel lblMin = new JLabel("Minimum Stock *");
 		GridBagConstraints gbc_lblMin = new GridBagConstraints();
 		gbc_lblMin.anchor = GridBagConstraints.WEST;
 		gbc_lblMin.insets = new Insets(0, 0, 5, 5);
@@ -152,7 +153,7 @@ public class ProductUI extends JDialog {
 		gbc_txtMin.gridy = 5;
 		contentPane.add(txtMin, gbc_txtMin);
 		
-		JLabel lblMax = new JLabel("Maximum Stock");
+		JLabel lblMax = new JLabel("Maximum Stock *");
 		GridBagConstraints gbc_lblMax = new GridBagConstraints();
 		gbc_lblMax.anchor = GridBagConstraints.WEST;
 		gbc_lblMax.insets = new Insets(0, 0, 5, 0);

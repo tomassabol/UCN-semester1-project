@@ -83,7 +83,7 @@ public class StockSupplyOrderUI extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPanel);
 		
-		JLabel lblTitle = new JLabel("Stock a supply order delivery");
+		JLabel lblTitle = new JLabel("Stock a supply order *");
 		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 		gbc_lblTitle.gridwidth = 2;
 		gbc_lblTitle.anchor = GridBagConstraints.SOUTH;
@@ -92,7 +92,7 @@ public class StockSupplyOrderUI extends JDialog {
 		gbc_lblTitle.gridy = 0;
 		contentPane.add(lblTitle, gbc_lblTitle);
 		
-		lblShelf = new JLabel("Shelf");
+		lblShelf = new JLabel("Shelf *");
 		GridBagConstraints gbc_lblShelf = new GridBagConstraints();
 		gbc_lblShelf.gridwidth = 2;
 		gbc_lblShelf.anchor = GridBagConstraints.SOUTHWEST;
@@ -121,7 +121,7 @@ public class StockSupplyOrderUI extends JDialog {
 		btnChooseShelf = new JButton("Choose");
 		shelfPanel.add(btnChooseShelf);
 		
-		lblDeliveryDate = new JLabel("Delivery date (" + Common.getDateTimeFormat() + ")");
+		lblDeliveryDate = new JLabel("Delivery date (" + Common.getDateTimeFormat() + ") *");
 		GridBagConstraints gbc_lblDeliveryDate = new GridBagConstraints();
 		gbc_lblDeliveryDate.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDeliveryDate.insets = new Insets(0, 0, 5, 5);

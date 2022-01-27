@@ -82,7 +82,6 @@ public class LoanUI extends JDialog {
 		this.mode = mode;
 		this.loan = loan;
 		this.auth = auth;
-		//this.product = null;
 
 		this.customer = customer;
 

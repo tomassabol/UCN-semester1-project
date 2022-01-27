@@ -168,7 +168,7 @@ public class SupplyOfferUI extends JDialog {
 		contentPane.add(lblPricePerItem, gbc_lblPricePerItem);
 		
 		
-		JLabel lblAddress = new JLabel("Min order quantity");
+		JLabel lblAddress = new JLabel("Min order quantity *");
 		GridBagConstraints gbc_lblAddress = new GridBagConstraints();
 		gbc_lblAddress.anchor = GridBagConstraints.SOUTH;
 		gbc_lblAddress.fill = GridBagConstraints.HORIZONTAL;

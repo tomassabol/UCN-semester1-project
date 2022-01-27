@@ -182,7 +182,7 @@ public class SupplyOrderUI extends JDialog {
 		contentPane.add(lblPricePerItem, gbc_lblPricePerItem);
 		
 		
-		JLabel lblQuantity = new JLabel("Quantity");
+		JLabel lblQuantity = new JLabel("Quantity *");
 		GridBagConstraints gbc_lblQuantity = new GridBagConstraints();
 		gbc_lblQuantity.anchor = GridBagConstraints.SOUTH;
 		gbc_lblQuantity.fill = GridBagConstraints.HORIZONTAL;
@@ -221,7 +221,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblContractor.gridy = 4;
 		contentPane.add(lblContractor, gbc_lblContractor);
 		
-		lblDate = new JLabel("Order Date (" + Common.getDateTimeFormat() + ")");
+		lblDate = new JLabel("Order Date (" + Common.getDateTimeFormat() + ") *");
 		GridBagConstraints gbc_lblDate = new GridBagConstraints();
 		gbc_lblDate.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDate.insets = new Insets(0, 0, 5, 0);

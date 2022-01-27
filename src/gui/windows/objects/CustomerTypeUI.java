@@ -98,7 +98,7 @@ public class CustomerTypeUI extends JDialog {
 		gbc_txtId.gridy = 1;
 		contentPane.add(txtId, gbc_txtId);
 		
-		JLabel lblName = new JLabel("Customer Type name");
+		JLabel lblName = new JLabel("Customer Type name *");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.anchor = GridBagConstraints.WEST;
 		gbc_lblName.insets = new Insets(0, 0, 5, 0);
@@ -116,7 +116,7 @@ public class CustomerTypeUI extends JDialog {
 		gbc_txtName.gridy = 1;
 		contentPane.add(txtName, gbc_txtName);
 		
-		lblDiscount = new JLabel("Discount Percentage");
+		lblDiscount = new JLabel("Discount Percentage *");
 		GridBagConstraints gbc_lblDiscount = new GridBagConstraints();
 		gbc_lblDiscount.anchor = GridBagConstraints.WEST;
 		gbc_lblDiscount.insets = new Insets(0, 0, 5, 5);
