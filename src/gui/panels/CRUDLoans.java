@@ -46,13 +46,15 @@ public class CRUDLoans extends JPanel {
 	AuthenticationController auth;
 	Employee employee;
 	Customer customer;
+	boolean returnLoan;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CRUDLoans(AuthenticationController auth, Customer customer) {
+	public CRUDLoans(AuthenticationController auth, Customer customer, boolean returnLoan) {
 		this.auth = auth;
 		this.customer = customer;
+		this.returnLoan = returnLoan;
 		
 		loanCtrl = new LoanController();
 		setLayout(new BorderLayout(0, 0));
@@ -147,6 +149,9 @@ public class CRUDLoans extends JPanel {
 		
 		// Attach event handler
 		this.addEventHandlers();
+
+		btnEdit.setEnabled(false);
+		btnDisable.setEnabled(false);
 	}
 	
 	/*
@@ -203,6 +208,11 @@ public class CRUDLoans extends JPanel {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				// Not selected
 				btnView.setEnabled(false);
+				btnEdit.setEnabled(false);
+				btnDisable.setEnabled(false);
+			} else if (tableMain.getSelectionModel().isSelectionEmpty() == false && returnLoan == true) {
+				// Selected but choose mode
+				btnView.setEnabled(true);
 				btnEdit.setEnabled(false);
 				btnDisable.setEnabled(false);
 			} else {
