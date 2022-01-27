@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 import controller.*;
 import model.*;
-import model.containers.StockContainer;
+import models.container.StockContainer;
 
 /**
  * The Class Terminal.

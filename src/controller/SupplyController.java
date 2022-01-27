@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import exceptions.IllegalModificationException;
+import exception.IllegalModificationException;
 import model.Contractor;
 import model.PrimaryKey;
 import model.Product;
@@ -15,8 +15,8 @@ import model.StockBatch;
 import model.SupplyOffer;
 import model.SupplyOrder;
 import model.TrackableItem;
-import model.containers.SupplyOfferContainer;
-import model.containers.SupplyOrderContainer;
+import models.container.SupplyOfferContainer;
+import models.container.SupplyOrderContainer;
 
 public class SupplyController {
 

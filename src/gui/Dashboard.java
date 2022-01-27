@@ -26,23 +26,23 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import controller.AuthenticationController;
 import controller.OrderController;
-import gui.statistics.charts.OrdersChart;
-import gui.windows.ChooseCustomer;
-import gui.windows.ChooseLoan;
-import gui.windows.ManageContractor;
-import gui.windows.ManageCustomerType;
-import gui.windows.ManageCustomer;
-import gui.windows.ManageEmployee;
-import gui.windows.ManageLoans;
-import gui.windows.ManageOrder;
-import gui.windows.ManageProduct;
-import gui.windows.ManageQuotes;
-import gui.windows.ManageShelf;
-import gui.windows.ManageStorageLocation;
-import gui.windows.ManageSupplyOffer;
-import gui.windows.ManageSupplyOrders;
-import gui.windows.objects.LoanUI;
-import gui.windows.ManageShoppingCart;
+import gui.statistics.chart.OrdersChart;
+import gui.window.ChooseCustomer;
+import gui.window.ChooseLoan;
+import gui.window.ManageContractors;
+import gui.window.ManageCustomerTypes;
+import gui.window.ManageCustomers;
+import gui.window.ManageEmployees;
+import gui.window.ManageLoans;
+import gui.window.ManageOrders;
+import gui.window.ManageProducts;
+import gui.window.ManageQuotes;
+import gui.window.ManageShelves;
+import gui.window.ManageShoppingCarts;
+import gui.window.ManageStorageLocations;
+import gui.window.ManageSupplyOffers;
+import gui.window.ManageSupplyOrders;
+import gui.windows.model.LoanUI;
 import model.Customer;
 import model.Order;
 
@@ -578,13 +578,13 @@ public class Dashboard extends JFrame {
 			if (this.customer == null) {
 				Messages.info(this, "Please choose a customer", "Choose a customer");
 			} else {
-				ManageShoppingCart frame = new ManageShoppingCart(auth, customer);
+				ManageShoppingCarts frame = new ManageShoppingCarts(auth, customer);
 				frame.setVisible(true);
 				if (frame.isSubmitPressed()) {
 					ManageQuotes quoteFrame = new ManageQuotes(auth, customer);
 					quoteFrame.setVisible(true);
 					if (quoteFrame.isSubmitPressed()) {
-						ManageOrder orderFrame = new ManageOrder(auth, customer);
+						ManageOrders orderFrame = new ManageOrders(auth, customer);
 						orderFrame.setVisible(true);
 					}
 				}
@@ -599,7 +599,7 @@ public class Dashboard extends JFrame {
 				ManageQuotes frame = new ManageQuotes(auth, customer);
 				frame.setVisible(true);
 				if (frame.isSubmitPressed()) {
-					ManageOrder orderFrame = new ManageOrder(auth, customer);
+					ManageOrders orderFrame = new ManageOrders(auth, customer);
 					orderFrame.setVisible(true);
 				}
 			}
@@ -609,7 +609,7 @@ public class Dashboard extends JFrame {
 			if (this.customer == null) {
 				Messages.info(this, "Please choose a customer", "Choose a customer");
 			} else {
-				ManageOrder orderFrame = new ManageOrder(auth, customer);
+				ManageOrders orderFrame = new ManageOrders(auth, customer);
 				orderFrame.setVisible(true);
 			}
 		});
@@ -645,31 +645,31 @@ public class Dashboard extends JFrame {
 		
 		// ***** Manage Contractors *****
 		btnContractors.addActionListener(e -> {
-			ManageContractor frame = new ManageContractor(auth);
+			ManageContractors frame = new ManageContractors(auth);
 			frame.setVisible(true);
 		});
 		
 		// ***** Manage Storage locations *****
 		btnStorageLocations.addActionListener(e -> {
-			ManageStorageLocation frame = new ManageStorageLocation(auth);
+			ManageStorageLocations frame = new ManageStorageLocations(auth);
 			frame.setVisible(true);
 		});
 		
 		// ***** Manage Products *****
 		btnProducts.addActionListener(e -> {
-			ManageProduct frame = new ManageProduct(auth);
+			ManageProducts frame = new ManageProducts(auth);
 			frame.setVisible(true);
 		});
 
 		//btnShelves
 		btnShelves.addActionListener(e -> {
-			ManageShelf frame = new ManageShelf(auth);
+			ManageShelves frame = new ManageShelves(auth);
 			frame.setVisible(true);
 		});
 		
 		// ***** Manage Supply Offers *****
 		btnSupplyOffers.addActionListener(e -> {
-			ManageSupplyOffer frame = new ManageSupplyOffer(auth);
+			ManageSupplyOffers frame = new ManageSupplyOffers(auth);
 			frame.setVisible(true);
 		});
 
@@ -686,19 +686,19 @@ public class Dashboard extends JFrame {
 		
 		// ***** Manage customers *****
 		btnCustomer.addActionListener(e -> {
-			ManageCustomer frame = new ManageCustomer(auth);
+			ManageCustomers frame = new ManageCustomers(auth);
 			frame.setVisible(true);
 		});
 		
 		// ***** Manage employees *****
 		btnEmployee.addActionListener(e -> {
-			ManageEmployee frame = new ManageEmployee(auth);
+			ManageEmployees frame = new ManageEmployees(auth);
 			frame.setVisible(true);
 		});
 		
 		// ***** Manage customer types *****
 		btnCustomerTypes.addActionListener(e -> {
-			ManageCustomerType frame = new ManageCustomerType(auth);
+			ManageCustomerTypes frame = new ManageCustomerTypes(auth);
 			frame.setVisible(true);
 		});
 		

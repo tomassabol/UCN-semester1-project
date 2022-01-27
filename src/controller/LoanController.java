@@ -5,14 +5,14 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import exceptions.OutOfStockException;
+import exception.OutOfStockException;
 import model.Customer;
 import model.IFCustomer;
 import model.IFEmployee;
 import model.Loan;
 import model.PrimaryKey;
 import model.Product;
-import model.containers.LoanContainer;
+import models.container.LoanContainer;
 
 public class LoanController {
 
