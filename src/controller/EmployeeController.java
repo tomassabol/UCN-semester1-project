@@ -50,24 +50,6 @@ public class EmployeeController {
 	 * Checks if an email is unique
 	 *
 	 * @param email the email
-	 * @param e the employee whose data is being updated
-	 * @return true, if there is no employee with this email
-	 */
-	public boolean emailIsUnique(IFEmployee e, String email) {
-		if(!e.getEmail().equals(email)) {
-			for (IFEmployee employee: this.getEmployees()) {
-				if (employee.getEmail().equals(email)) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * Checks if an email is unique
-	 *
-	 * @param email the email
 	 * @return true, if there is no employee with this email
 	 */
 	public boolean emailIsUnique(String email) {
@@ -134,12 +116,15 @@ public class EmployeeController {
 	}
 
 	public void updateEmail(IFEmployee employee, String email) throws EmailNotUniqueException {
-		// Check that email is unique
-		if (!this.emailIsUnique(employee, email)) {
-			throw new EmailNotUniqueException("A user with the email " + email + " already exists.");
+		if (!employee.getEmail().equals(email)) {
+			// Check that email is unique
+			if (!this.emailIsUnique(email)) {
+				throw new EmailNotUniqueException("A user with the email " + email + " already exists.");
+			}
+			// Update email
+			employee.setEmail(email);
 		}
-		
-		employee.setEmail(email);
+
 	}
 	
 	public void removeEmployee(IFEmployee employee) {
