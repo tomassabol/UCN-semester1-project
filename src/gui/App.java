@@ -9,7 +9,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import controller.EmployeeController;
 import controller.GenerateDataController;
-import exceptions.EmailNotUniqueException;
+import exception.EmailNotUniqueException;
 
 /**
  * @author Daniels Kanepe

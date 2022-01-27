@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import exceptions.EmailNotUniqueException;
-import exceptions.OutOfStockException;
+import exception.EmailNotUniqueException;
+import exception.OutOfStockException;
 import gui.Common;
 import model.*;
 

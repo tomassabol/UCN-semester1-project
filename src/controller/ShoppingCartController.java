@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import exceptions.DisabledStateException;
-import exceptions.NullPriceException;
-import exceptions.OutOfStockException;
+import exception.DisabledStateException;
+import exception.NullPriceException;
+import exception.OutOfStockException;
 import model.Product;
 import model.ShoppingCart;
 import model.ShoppingItemLine;
-import model.containers.StockContainer;
+import model.container.StockContainer;
 
 public class ShoppingCartController {
 

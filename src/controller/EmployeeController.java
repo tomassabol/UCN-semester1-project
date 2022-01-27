@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import exceptions.EmailNotUniqueException;
+import exception.EmailNotUniqueException;
 import model.Employee;
 import model.IFEmployee;
 import model.PrimaryKey;
-import model.containers.EmployeeContainer;
+import model.container.EmployeeContainer;
 
 public class EmployeeController {
 

@@ -3,10 +3,10 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.OutOfStockException;
+import exception.OutOfStockException;
 import model.*;
-import model.containers.OrderContainer;
-import model.containers.StockContainer;
+import model.container.OrderContainer;
+import model.container.StockContainer;
 
 /**
  * The Class OrderController.

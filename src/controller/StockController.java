@@ -10,7 +10,7 @@ import model.Quote;
 import model.Shelf;
 import model.StockBatch;
 import model.StorageLocation;
-import model.containers.StockContainer;
+import model.container.StockContainer;
 
 public class StockController {
 
