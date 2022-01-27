@@ -233,7 +233,7 @@ public class ManageOrder extends JDialog {
 			}
 			
 			@Override
-			public void  removeUpdate(DocumentEvent e) {
+			public void removeUpdate(DocumentEvent e) {
 				String text = txtSearch.getText();
 				
 				if (text.trim().length() == 0) {

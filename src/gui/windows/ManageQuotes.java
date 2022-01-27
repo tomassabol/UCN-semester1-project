@@ -191,12 +191,15 @@ public class ManageQuotes extends JDialog {
 		
 		// Automatically select latest quote, if any exist and it's payable
 		int row = quotesTableModel.getRowCount() - 1;
-		Quote quote = quotesTableModel.getQuote(row);
-		if (this.quoteIsPayable(quote)) {
-			if (row >= 0) {
-				tableQuotes.setRowSelectionInterval(0, row);
+		if (row >= 0) {
+			Quote quote = quotesTableModel.getQuote(row);
+			if (this.quoteIsPayable(quote)) {
+				if (row >= 0) {
+					tableQuotes.setRowSelectionInterval(0, row);
+				}
 			}
 		}
+
 	}
 
 	
