@@ -49,7 +49,7 @@ public class CRUDLoans extends JPanel {
 	boolean returnLoan;
 
 	/**
-	 * Create the dialog.
+	 * Constructor class CRUDLoans
 	 */
 	public CRUDLoans(AuthenticationController auth, Customer customer, boolean returnLoan) {
 		this.auth = auth;
@@ -149,9 +149,6 @@ public class CRUDLoans extends JPanel {
 		
 		// Attach event handler
 		this.addEventHandlers();
-
-		btnEdit.setEnabled(false);
-		btnDisable.setEnabled(false);
 	}
 	
 	/*
@@ -177,9 +174,9 @@ public class CRUDLoans extends JPanel {
 	}
 
 	/**
-	 * Select a customer type in the CRUD table.
+	 * Select a loan in the CRUD table.
 	 *
-	 * @param customer the customer
+	 * @param loan the loan
 	 * @return true, if successful
 	 */
 	public boolean selectLoan(Loan loan) {

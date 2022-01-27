@@ -63,9 +63,11 @@ public class LoanUI extends JDialog {
 
 
 	/**
-	 * shelf for Create shelf
+	 * constructr for Create shelf
 	 *
 	 * @param auth the auth
+	 * @param customer - the customer
+	 * @param mode - the mode
 	 */
 	public LoanUI(AuthenticationController auth, Customer customer, Mode mode) {
 		this(auth, null, customer, Mode.CREATE);
@@ -73,9 +75,11 @@ public class LoanUI extends JDialog {
 	}
 
 	/**
-	 * Constructor for View/Edit shelf
+	 * Constructor for View/Edit/Return loan
+	 * 
 	 * @param auth the auth
-	 * @param shelf the shelf
+	 * @param loan the loan
+	 * @param customer  the customer
 	 * @param mode the mode
 	 */
 	public LoanUI(AuthenticationController auth, Loan loan, Customer customer, Mode mode) {
@@ -212,6 +216,7 @@ public class LoanUI extends JDialog {
 				btnChooseProduct.setEnabled(false);
 				// Fill fields with content
 				this.fillFields(loan);
+				// fill label with total price
 				lblPrice.setText(String.format("Total price: %.2f DKK", loanCtrl.totalPrice(loan)));
 				break;
 			case EDIT: 
@@ -223,6 +228,7 @@ public class LoanUI extends JDialog {
 				btnChooseProduct.setEnabled(false);
 				// Fill fields with content
 				this.fillFields(loan);
+				// fill label with total price
 				lblPrice.setText(String.format("Total price: %.2f DKK", loanCtrl.totalPrice(loan)));
 				break;
 			case CREATE:
@@ -234,7 +240,7 @@ public class LoanUI extends JDialog {
 				btnChooseProduct.setEnabled(true);
 				// Enable fields for editing
 				this.enableFields();
-				// Peek ID
+				// fill label with total price
 				txtID.setText(String.valueOf(PrimaryKey.peekID(PrimaryKey.Keys.LOAN)));
 				break;
 			case RETURN:
@@ -246,6 +252,7 @@ public class LoanUI extends JDialog {
 				btnChooseProduct.setEnabled(false);
 				// fill fields
 				this.fillFields(loan);
+				// fill label with total price
 				lblPrice.setText(String.format("Total price: %.2f DKK", loanCtrl.totalPrice(loan)));
 				break;
 		}	
@@ -279,7 +286,9 @@ public class LoanUI extends JDialog {
 			      c.setEnabled(true);
 			   }
 			}
+		// disable ID field, as it is assigned by a class PrimaryKey
 		txtID.setEnabled(false);
+		// enable choose product button
         btnChooseProduct.setEnabled(true);
 	}
 
@@ -292,7 +301,7 @@ public class LoanUI extends JDialog {
 	}
 
 	/**
-	 * @return shelf
+	 * @return loan
 	 */
 	public Loan getLoan() {
 		return this.loan;
@@ -305,6 +314,7 @@ public class LoanUI extends JDialog {
 	 */
 	private void addEventHandlers() {
 
+		// "choose product" button: choose the loanable product
 		btnChooseProduct.addActionListener(e -> {
 			ChooseProduct frame = new ChooseProduct(auth, ChooseProduct.Mode.LOANABLE);
 			frame.setVisible(true);

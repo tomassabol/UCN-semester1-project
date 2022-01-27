@@ -24,7 +24,7 @@ public class ManageLoans extends JDialog {
 
 
 	/**
-	 * Create the dialog.
+	 * Constructor class ManageLoans
 	 */
 	public ManageLoans(AuthenticationController auth, Customer customer) {
 		this.auth = auth;

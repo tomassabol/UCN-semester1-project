@@ -115,10 +115,18 @@ public class ProductController {
 		return ProductContainer.getInstance().findProductById(id);
 	}
 	
+	/**
+	 * @param id of the buyable product to be found
+	 * @return product
+	 */
 	public Product findBuyableProductByID(int id) {
 		return ProductContainer.getInstance().findBuyableProductById(id);
 	}
 
+	/**
+	 * @param id of the loanable product to be found
+	 * @return product
+	 */
 	public Product findLoanableProductByID(int id) {
 		return ProductContainer.getInstance().findLoanableProductById(id);
 	}

@@ -50,7 +50,6 @@ public class ChooseLoan extends JDialog {
 		contentPane.setLayout(gbl_contentPane);
 		
 		CRUDPanel = new CRUDLoans(auth, customer, true);
-		//CRUDPanel.setButtonStatus(false);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
@@ -74,10 +73,14 @@ public class ChooseLoan extends JDialog {
 	 * *******************  Methods *******************
 	 * *******************************************************
 	 */
+
 		public boolean isLoanSelected() {
 			return selectedLoan != null;
 		}
 	
+		/**
+		  *  @return selected loan
+		 */
 		public Loan getSelectedLoan() {
 			return selectedLoan;
 		}
@@ -106,7 +109,6 @@ public class ChooseLoan extends JDialog {
 				Loan loan = tableModel.getObj(table.getSelectedRow());
 				selectedLoan = loan;
 				this.dispose();
-				//CRUDPanel.setButtonStatus(true);
 			}
 		});
 	}

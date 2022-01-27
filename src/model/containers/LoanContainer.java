@@ -12,14 +12,14 @@ public class LoanContainer {
 	private ArrayList<Loan> loans;
 
 	/*
-	 * Private constructor: singleton
+	 * Private constructor class LoanContainer
 	 */
 	private LoanContainer() {
 		this.loans = new ArrayList<>();
 	}
 	
     /**
-     * @return instance of OrderContainer
+     * @return instance of LoanContainer
      */
     public static LoanContainer getInstance(){
 		if (instance == null) {
@@ -29,16 +29,16 @@ public class LoanContainer {
     }
     
     
-    /*
-     * @param order The order to add to the container
+    /**
+     * @param loan - loan to be added to the container
      * @return true if successful, else false
      */
     public boolean addLoan(Loan loan) {
     	return loans.add(loan);
     }
     
-    /*
-     * @param order The order to remove from the container
+    /**
+     * @param loan loan to be removed from the container
      * @return true if successful, else false
      */
     public boolean removeLoan(Loan loan) {
@@ -46,17 +46,17 @@ public class LoanContainer {
     }
     
     /**
-     * @return All orders
+     * @return all loans
      */
     public List<Loan> getLoans() {
     	return this.loans;
     }
     
     /**
-     * Find order by ID.
+     * Find loan by its ID.
      *
-     * @param orderID the order ID
-     * @return the order
+     * @param loanID the loan ID
+     * @return the loan
      */
     public Loan findLoanByID(int loanId) {
     	for (Loan loan: loans) {
@@ -68,10 +68,10 @@ public class LoanContainer {
     }
     
     /**
-     * Gets all orders for a specific customer
+     * Gets all loans for a specific customer
      *
-     * @param customer the customer
-     * @return the orders for the customer
+     * @param customer - specific customer
+     * @return all loans for the customer
      */
     public List<Loan> getLoansByCustomer(Customer customer) {
     	ArrayList<Loan> customerLoans = new ArrayList<>();

@@ -6,8 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.imageio.ImageIO;
-import javax.print.event.PrintJobListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -46,7 +44,6 @@ import gui.windows.ManageSupplyOrders;
 import gui.windows.objects.LoanUI;
 import gui.windows.ManageShoppingCart;
 import model.Customer;
-import model.Loan;
 import model.Order;
 
 import java.util.List;
@@ -636,12 +633,9 @@ public class Dashboard extends JFrame {
 			} else {
 				ChooseLoan frame = new ChooseLoan(auth, customer);
 				frame.setVisible(true);
-				Loan loan = frame.getSelectedLoan();
 				if (frame.getSelectedLoan() != null) {
-					System.out.println(loan.isReturned());
 					LoanUI loanFrame = new LoanUI(auth, frame.getSelectedLoan(), customer, LoanUI.Mode.RETURN);
 					loanFrame.setVisible(true);
-					System.out.println(loan.isReturned());
 				}
 			}
 		});

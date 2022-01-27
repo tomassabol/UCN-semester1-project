@@ -113,10 +113,22 @@ public class StockController {
     	return StockContainer.getInstance().getLoanableQuantityInStock(product);
     }
 
+    /**
+     * Returns the Loanable item quantity for a product
+     *
+     * @param product the product
+     * @return increases lonoablestock quantity of the product by +1
+     */
     public int addLoanableToStock(Product product) {
     	return StockContainer.getInstance().addLoanableToStock(product);
     }
 
+    /**
+     * Returns the Loanable item quantity for a product
+     *
+     * @param product the product
+     * @return decreases lonoablestock quantity of the product by -1
+     */
     public int removeLoanableFromStock(Product product) {
     	return StockContainer.getInstance().removeLoanableFromStock(product);
     }
