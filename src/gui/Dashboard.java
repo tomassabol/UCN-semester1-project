@@ -685,6 +685,7 @@ public class Dashboard extends JFrame {
 		/////////////////////////////////////////////////////
 		// Refresh revenue chart when you go to statistics tab.
 		tabsPane.addChangeListener(e -> {
+			// TODO: Hacky way. Improve it!
 			if (tabsPane.getSelectedComponent().equals(statisticsPanel)) {
 				List<Order> orders = new OrderController().getOrders();
 				stRevenueChartPanel = new OrdersChart(orders).getChart();
