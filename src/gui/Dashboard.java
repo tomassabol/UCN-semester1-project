@@ -83,7 +83,7 @@ public class Dashboard extends JFrame {
 	private JLabel lblLoanImage;
 	private JButton btnManageLoans;
 	private JButton btnReturnLoan;
-	private JTabbedPane stTabsPane;
+	private JTabbedPane tabbedPane;
 	private JPanel stOrdersPanel;
 	private JPanel stLoansPanel;
 
@@ -455,27 +455,42 @@ public class Dashboard extends JFrame {
 		statisticsPanel.setBorder(new EmptyBorder(15, 0, 0, 0));
 		tabsPane.addTab("Statistics", null, statisticsPanel, null);
 		GridBagLayout gbl_statisticsPanel = new GridBagLayout();
-		gbl_statisticsPanel.columnWidths = new int[]{68, 0};
-		gbl_statisticsPanel.rowHeights = new int[]{18, 0};
+		gbl_statisticsPanel.columnWidths = new int[]{63, 0};
+		gbl_statisticsPanel.rowHeights = new int[]{63, 0};
 		gbl_statisticsPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_statisticsPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		statisticsPanel.setLayout(gbl_statisticsPanel);
 		
-		stTabsPane = new JTabbedPane(JTabbedPane.TOP);
-		GridBagConstraints gbc_stTabsPane = new GridBagConstraints();
-		gbc_stTabsPane.anchor = GridBagConstraints.NORTHWEST;
-		gbc_stTabsPane.gridx = 0;
-		gbc_stTabsPane.gridy = 0;
-		statisticsPanel.add(stTabsPane, gbc_stTabsPane);
-		
-		stLoansPanel = new JPanel();
-		stTabsPane.addTab("Loans", null, stLoansPanel, null);
+		tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
+		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
+		gbc_tabbedPane.gridx = 0;
+		gbc_tabbedPane.gridy = 0;
+		statisticsPanel.add(tabbedPane, gbc_tabbedPane);
 		
 		stOrdersPanel = new JPanel();
-		stTabsPane.addTab("Orders", null, stOrdersPanel, null);
+		tabbedPane.addTab("Orders", null, stOrdersPanel, null);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		stOrdersPanel.setLayout(gridBagLayout);
 		
-		stTabsPane.setSelectedComponent(stOrdersPanel);
-		stTabsPane.setEnabledAt(0, false);
+		JButton btnStShow = new JButton("show");
+		GridBagConstraints gbc_btnStShow = new GridBagConstraints();
+		gbc_btnStShow.gridx = 0;
+		gbc_btnStShow.gridy = 0;
+		stOrdersPanel.add(btnStShow, gbc_btnStShow);
+		
+		stLoansPanel = new JPanel();
+		tabbedPane.addTab("Loans", null, stLoansPanel, null);
+		GridBagLayout gbl_stLoansPanel = new GridBagLayout();
+		gbl_stLoansPanel.columnWidths = new int[]{0};
+		gbl_stLoansPanel.rowHeights = new int[]{0};
+		gbl_stLoansPanel.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_stLoansPanel.rowWeights = new double[]{Double.MIN_VALUE};
+		stLoansPanel.setLayout(gbl_stLoansPanel);
 	}
 	
 	/*
