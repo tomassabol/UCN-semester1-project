@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 
 import controller.AuthenticationController;
 import controller.SupplyController;
-import model.SupplyOffer;
 import model.SupplyOrder;
 
 import javax.swing.ListSelectionModel;
@@ -30,7 +29,6 @@ import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.SupplyOrderTableModel;
-import gui.windows.objects.SupplyOfferUI;
 import gui.windows.objects.SupplyOrderUI;
 import javax.swing.JTextField;
 

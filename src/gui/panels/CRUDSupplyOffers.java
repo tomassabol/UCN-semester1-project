@@ -14,7 +14,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -25,11 +24,8 @@ import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModels.SupplyOfferTableModel;
 import gui.windows.objects.SupplyOfferUI;
-import model.Product;
 import model.SupplyOffer;
 import javax.swing.JTextField;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.regex.Pattern;
 
 public class CRUDSupplyOffers extends JPanel {

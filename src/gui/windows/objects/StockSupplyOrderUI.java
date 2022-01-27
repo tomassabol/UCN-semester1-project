@@ -10,10 +10,7 @@ import exceptions.IllegalModificationException;
 import gui.Common;
 import gui.JButtonPrimary;
 import gui.Messages;
-import gui.panels.tableModels.CustomerTableModel;
-import gui.windows.ChooseCustomerType;
 import gui.windows.ChooseShelf;
-import model.Customer;
 import model.Shelf;
 import model.SupplyOrder;
 
@@ -22,14 +19,11 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 

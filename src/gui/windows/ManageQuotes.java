@@ -5,10 +5,6 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -24,7 +20,6 @@ import controller.StockController;
 import exceptions.OutOfStockException;
 import gui.JButtonPrimary;
 import gui.Messages;
-import gui.panels.tableModels.OrdersTableModel;
 import gui.panels.tableModels.QuotesItemTableModel;
 import gui.panels.tableModels.QuotesTableModel;
 import model.Customer;

@@ -24,7 +24,6 @@ import controller.StockController;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModels.EmployeeTableModel;
 import gui.panels.tableModels.ShelfTableModel;
 import gui.panels.tableModels.StockBatchTableModel;
 import gui.windows.objects.ShelfUI;

@@ -28,7 +28,6 @@ import javax.swing.table.TableRowSorter;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModels.ShelfTableModel;
 import gui.panels.tableModels.StorageLocationTableModel;
 import gui.windows.objects.StorageLocationUI;
 import model.StorageLocation;

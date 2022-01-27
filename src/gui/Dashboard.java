@@ -18,16 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
-import org.knowm.xchart.QuickChart;
-import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
-import org.knowm.xchart.XYChartBuilder;
-import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
-import org.knowm.xchart.style.Styler.LegendPosition;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -55,12 +49,7 @@ import model.Customer;
 import model.Loan;
 import model.Order;
 
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.time.LocalDate;
 import java.util.List;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe
@@ -112,8 +101,8 @@ public class Dashboard extends JFrame {
 	private JPanel stOrdersPanel;
 	private XChartPanel<XYChart> stRevenueChartPanel;
 
-	private JLabel noOrdersLabel;
-	private JLabel label;
+	JLabel noOrdersLabel;
+	JLabel label;
 	private JButton btnDarkLight;
 	
 	private boolean darkMode = false;
@@ -225,9 +214,9 @@ public class Dashboard extends JFrame {
 		sellPanel.add(sellPaneBottomPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_sellPaneBottomPanel = new GridBagLayout();
 		gbl_sellPaneBottomPanel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_sellPaneBottomPanel.rowHeights = new int[]{0, 0, 0};
+		gbl_sellPaneBottomPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gbl_sellPaneBottomPanel.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_sellPaneBottomPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_sellPaneBottomPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		sellPaneBottomPanel.setLayout(gbl_sellPaneBottomPanel);
 		
 		lblSell = new JLabel();
@@ -237,7 +226,7 @@ public class Dashboard extends JFrame {
 		gbc_lblSell.fill = GridBagConstraints.VERTICAL;
 		gbc_lblSell.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSell.gridx = 0;
-		gbc_lblSell.gridy = 0;
+		gbc_lblSell.gridy = 1;
 		sellPaneBottomPanel.add(lblSell, gbc_lblSell);
 		
 		lblQuotes = new JLabel("");
@@ -247,7 +236,7 @@ public class Dashboard extends JFrame {
 		gbc_lblQuotes.fill = GridBagConstraints.VERTICAL;
 		gbc_lblQuotes.insets = new Insets(0, 0, 5, 5);
 		gbc_lblQuotes.gridx = 1;
-		gbc_lblQuotes.gridy = 0;
+		gbc_lblQuotes.gridy = 1;
 		sellPaneBottomPanel.add(lblQuotes, gbc_lblQuotes);
 		
 		lblOrder = new JLabel();
@@ -257,28 +246,29 @@ public class Dashboard extends JFrame {
 		gbc_lblOrder.fill = GridBagConstraints.VERTICAL;
 		gbc_lblOrder.insets = new Insets(0, 0, 5, 0);
 		gbc_lblOrder.gridx = 2;
-		gbc_lblOrder.gridy = 0;
+		gbc_lblOrder.gridy = 1;
 		sellPaneBottomPanel.add(lblOrder, gbc_lblOrder);
 		
 		
 		btnSellItems = new JButton("Sell items");
 		GridBagConstraints gbc_btnSellItems = new GridBagConstraints();
-		gbc_btnSellItems.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSellItems.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSellItems.gridx = 0;
-		gbc_btnSellItems.gridy = 1;
+		gbc_btnSellItems.gridy = 2;
 		sellPaneBottomPanel.add(btnSellItems, gbc_btnSellItems);
 		
 		btnViewQuotes = new JButton("Quotes");
 		GridBagConstraints gbc_btnViewQuotes = new GridBagConstraints();
-		gbc_btnViewQuotes.insets = new Insets(0, 0, 0, 5);
+		gbc_btnViewQuotes.insets = new Insets(0, 0, 5, 5);
 		gbc_btnViewQuotes.gridx = 1;
-		gbc_btnViewQuotes.gridy = 1;
+		gbc_btnViewQuotes.gridy = 2;
 		sellPaneBottomPanel.add(btnViewQuotes, gbc_btnViewQuotes);
 		
 		btnViewOrders = new JButton("Orders");
 		GridBagConstraints gbc_btnViewOrders = new GridBagConstraints();
+		gbc_btnViewOrders.insets = new Insets(0, 0, 5, 0);
 		gbc_btnViewOrders.gridx = 2;
-		gbc_btnViewOrders.gridy = 1;
+		gbc_btnViewOrders.gridy = 2;
 		sellPaneBottomPanel.add(btnViewOrders, gbc_btnViewOrders);
 	}
 	
@@ -294,7 +284,7 @@ public class Dashboard extends JFrame {
 		GridBagLayout gbl_loanPanel = new GridBagLayout();
 		gbl_loanPanel.columnWidths = new int[]{417, 0};
 		gbl_loanPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_loanPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_loanPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_loanPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		loanPanel.setLayout(gbl_loanPanel);
 		
@@ -426,7 +416,7 @@ public class Dashboard extends JFrame {
 		gbc_lblSell.fill = GridBagConstraints.VERTICAL;
 		gbc_lblSell.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSell.gridx = 0;
-		gbc_lblSell.gridy = 0;
+		gbc_lblSell.gridy = 1;
 		sellPaneBottomPanel.add(lblSell, gbc_lblSell);
 	}
 	
