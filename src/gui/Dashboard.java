@@ -13,9 +13,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
+import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
+import org.knowm.xchart.style.Styler.LegendPosition;
+
 import controller.AuthenticationController;
+import gui.statistics.charts.OrdersChart;
 import gui.windows.ChooseCustomer;
 import gui.windows.ChooseLoan;
 import gui.windows.ManageContractor;
@@ -84,8 +94,9 @@ public class Dashboard extends JFrame {
 	private JButton btnManageLoans;
 	private JButton btnReturnLoan;
 	private JTabbedPane tabbedPane;
+	private JPanel stRevenuePanel;
 	private JPanel stOrdersPanel;
-	private JPanel stLoansPanel;
+	private JPanel panel;
 
 	/**
 	 * Create the frame.
@@ -468,29 +479,32 @@ public class Dashboard extends JFrame {
 		gbc_tabbedPane.gridy = 0;
 		statisticsPanel.add(tabbedPane, gbc_tabbedPane);
 		
+		stRevenuePanel = new JPanel();
+		tabbedPane.addTab("Revenue", null, stRevenuePanel, null);
+		GridBagLayout gbl_stRevenuePanel = new GridBagLayout();
+		gbl_stRevenuePanel.columnWidths = new int[]{0, 0};
+		gbl_stRevenuePanel.rowHeights = new int[]{0, 0};
+		gbl_stRevenuePanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_stRevenuePanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		stRevenuePanel.setLayout(gbl_stRevenuePanel);
+		
+		// Revenue chart
+		panel = new XChartPanel<XYChart>(new OrdersChart().getChart());
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 0;
+		stRevenuePanel.add(panel, gbc_panel);
+		
+		
 		stOrdersPanel = new JPanel();
 		tabbedPane.addTab("Orders", null, stOrdersPanel, null);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		stOrdersPanel.setLayout(gridBagLayout);
-		
-		JButton btnStShow = new JButton("show");
-		GridBagConstraints gbc_btnStShow = new GridBagConstraints();
-		gbc_btnStShow.gridx = 0;
-		gbc_btnStShow.gridy = 0;
-		stOrdersPanel.add(btnStShow, gbc_btnStShow);
-		
-		stLoansPanel = new JPanel();
-		tabbedPane.addTab("Loans", null, stLoansPanel, null);
-		GridBagLayout gbl_stLoansPanel = new GridBagLayout();
-		gbl_stLoansPanel.columnWidths = new int[]{0};
-		gbl_stLoansPanel.rowHeights = new int[]{0};
-		gbl_stLoansPanel.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_stLoansPanel.rowWeights = new double[]{Double.MIN_VALUE};
-		stLoansPanel.setLayout(gbl_stLoansPanel);
+		GridBagLayout gbl_stOrdersPanel = new GridBagLayout();
+		gbl_stOrdersPanel.columnWidths = new int[]{0};
+		gbl_stOrdersPanel.rowHeights = new int[]{0};
+		gbl_stOrdersPanel.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_stOrdersPanel.rowWeights = new double[]{Double.MIN_VALUE};
+		stOrdersPanel.setLayout(gbl_stOrdersPanel);
 	}
 	
 	/*
@@ -657,6 +671,11 @@ public class Dashboard extends JFrame {
 			ManageCustomerType frame = new ManageCustomerType(auth);
 			frame.setVisible(true);
 		});
+		
+		///////////////////////////////////////////////////////
+		////////////////     STATISTICS     //////////////////
+		/////////////////////////////////////////////////////
+
 		
 		
 		
