@@ -1,10 +1,12 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.imageio.ImageIO;
 import javax.print.event.PrintJobListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -23,6 +28,9 @@ import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
 import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
 import org.knowm.xchart.style.Styler.LegendPosition;
+
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import controller.AuthenticationController;
 import controller.OrderController;
@@ -48,6 +56,8 @@ import model.Loan;
 import model.Order;
 
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -104,6 +114,9 @@ public class Dashboard extends JFrame {
 
 	private JLabel noOrdersLabel;
 	private JLabel label;
+	private JButton btnDarkLight;
+	
+	private boolean darkMode = false;
 
 	/**
 	 * Create the frame.
@@ -127,9 +140,9 @@ public class Dashboard extends JFrame {
 			
 			// ***** TOP PANEL *****
 			GridBagLayout gbl_topPanel = new GridBagLayout();
-			gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0};
+			gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0, 0};
 			gbl_topPanel.rowHeights = new int[]{0, 0, 0};
-			gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+			gbl_topPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 			gbl_topPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 			topPanel.setLayout(gbl_topPanel);
 		
@@ -140,12 +153,23 @@ public class Dashboard extends JFrame {
 				gbc_lblGreeting.gridx = 0;
 				gbc_lblGreeting.gridy = 0;
 				topPanel.add(lblGreeting, gbc_lblGreeting);
+				
+				btnDarkLight = new JButton(new ImageIcon(new ImageIcon("images/lamp.png").getImage().getScaledInstance(16, 16,  java.awt.Image.SCALE_SMOOTH)));
+				btnDarkLight.setBorderPainted(false);
+				btnDarkLight.setFocusPainted(false);
+				btnDarkLight.setContentAreaFilled(false);
+				btnDarkLight.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				GridBagConstraints gbc_btnDarkLight = new GridBagConstraints();
+				gbc_btnDarkLight.insets = new Insets(0, 0, 5, 5);
+				gbc_btnDarkLight.gridx = 2;
+				gbc_btnDarkLight.gridy = 0;
+				topPanel.add(btnDarkLight, gbc_btnDarkLight);
 		
 				// // ***** Log out button *****
 				btnLogout = new JLink("Log out");
 				GridBagConstraints gbc_lblLogout = new GridBagConstraints();
 				gbc_lblLogout.insets = new Insets(0, 0, 5, 0);
-				gbc_lblLogout.gridx = 2;
+				gbc_lblLogout.gridx = 3;
 				gbc_lblLogout.gridy = 0;
 				topPanel.add(btnLogout, gbc_lblLogout);
 		
@@ -524,6 +548,17 @@ public class Dashboard extends JFrame {
 	 */
 	
 	public void addEventHandlers() {
+		
+		// Toggle dark/light mode
+		btnDarkLight.addActionListener(e -> {
+    		try {
+				UIManager.setLookAndFeel(this.darkMode ? new FlatLightLaf() : new FlatDarkLaf());
+			} catch (UnsupportedLookAndFeelException e1) {
+				e1.printStackTrace();
+			}
+    		this.darkMode = !this.darkMode;
+    		SwingUtilities.updateComponentTreeUI(this);
+		});
 		
 		// ***** Log out button *****
 		btnLogout.addActionListener(e -> {
