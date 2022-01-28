@@ -90,7 +90,7 @@ public class CRUDLoans extends JPanel {
 		txtSearch.setColumns(10);
 			
 		// ***** button: Add customer type  *****
-		btnAddLoan = new JButton("Add Loans");
+		btnAddLoan = new JButton("Add Loan");
 		GridBagConstraints gbc_btnAddLoan = new GridBagConstraints();
 		gbc_btnAddLoan.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAddLoan.gridx = 2;
