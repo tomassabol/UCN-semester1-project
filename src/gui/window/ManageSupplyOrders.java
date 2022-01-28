@@ -2,25 +2,25 @@ package gui.window;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
 import controller.SupplyController;
+import gui.JButtonPrimary;
 import gui.panel.CRUDSupplyOrders;
 import gui.panels.tableModel.SupplyOrderTableModel;
 import gui.windows.model.StockSupplyOrderUI;
 import model.Product;
 import model.SupplyOrder;
-
-import java.awt.Insets;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 
 /**
  * @author Daniels Kanepe
@@ -39,7 +39,7 @@ public class ManageSupplyOrders extends JDialog {
 	private JButton btnChooseProduct;
 	private JTextField txtProductDisplay;
 	private JButton btnClear;
-	private JButton btnPutIntoStock;
+	private JButtonPrimary btnPutIntoStock;
 
 	/**
 	 * Create the dialog.
@@ -104,7 +104,7 @@ public class ManageSupplyOrders extends JDialog {
 		gbc_CRUDPanel.gridy = 2;
 		getContentPane().add(CRUDPanel, gbc_CRUDPanel);
 		
-		btnPutIntoStock = new JButton("Put into stock");
+		btnPutIntoStock = new JButtonPrimary("Put into stock");
 		GridBagConstraints gbc_btnPutIntoStock = new GridBagConstraints();
 		gbc_btnPutIntoStock.anchor = GridBagConstraints.EAST;
 		gbc_btnPutIntoStock.gridwidth = 3;

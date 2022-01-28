@@ -42,11 +42,11 @@ public class GenerateDataController {
         ProductController productCtrl = new ProductController();
         Product product1 = productCtrl.createProduct("Shovel", "A big, steel shovel", 70, 100, true);
         Product product2 = productCtrl.createProduct("Hammer", "A small, steel hammer", 20, 55, true);
-        Product product3 = productCtrl.createProduct("Kitchen", "A designed kitchen with all needed forniture", 0, 30, true);
+        Product product3 = productCtrl.createProduct("Kitchen", "A designed kitchen with all needed forniture", 5, 30, true);
         Product product4 = productCtrl.createProduct("Chair", ", gaming chair", 10, 50, true);
         Product product5 = productCtrl.createProduct("Table", "Adjustable Table", 10, 100, true);
         Product product6 = productCtrl.createProduct("Diswasher", "T2021 with 5 function", 25, 48, true);
-        Product product7 = productCtrl.createProduct("Refrigerator", "A big Refrigerator wit freezer", 0, 100, true);
+        Product product7 = productCtrl.createProduct("Refrigerator", "A big Refrigerator wit freezer", 4, 100, true);
         Product product8 = productCtrl.createProduct("Laundry basket", "for used clothes", 40, 90, true);
         Product product9 = productCtrl.createProduct("Bookcase", "store books", 50, 100, true);
         Product product10 = productCtrl.createProduct("Table top", "Design wood table top", 10, 28, true);
@@ -116,7 +116,21 @@ public class GenerateDataController {
         SupplyOffer supplyOffer1 = supplyCtrl.createSupplyOffer(product1, contractor1, BigDecimal.valueOf(4), 2);
         
         StockBatch stockBatch = new StockBatch(product1, 10, LocalDateTime.now());
+        StockBatch stockBatch2 = new StockBatch(product2, 5, LocalDateTime.now());
+        StockBatch stockBatch3 = new StockBatch(product3, 5, LocalDateTime.now());
+        StockBatch stockBatch4 = new StockBatch(product4, 8, LocalDateTime.now());
+        StockBatch stockBatch5 = new StockBatch(product5, 7, LocalDateTime.now());
+        StockBatch stockBatch6 = new StockBatch(product6, 2, LocalDateTime.now());
+        StockBatch stockBatch7 = new StockBatch(product7, 5, LocalDateTime.now());
+        StockBatch stockBatch8 = new StockBatch(product8, 12, LocalDateTime.now());
+        StockBatch stockBatch9 = new StockBatch(product9, 50, LocalDateTime.now());
+        StockBatch stockBatch10 = new StockBatch(product10, 5, LocalDateTime.now());
+        StockBatch stockBatch11 = new StockBatch(product11, 2, LocalDateTime.now());
+        StockBatch stockBatch12 = new StockBatch(product12, 3, LocalDateTime.now());
+        
         shelf1.addStockBatch(product1, stockBatch);
+        shelf1.addStockBatch(product2, stockBatch);
+        shelf1.addStockBatch(product3, stockBatch);
         supplyCtrl.createSupplyOrder(supplyOffer1.getProduct(), 
         		5, supplyOffer1.getPricePerItem(), supplyOffer1.getContractor(), LocalDateTime.now());
         supplyCtrl.createSupplyOrder(supplyOffer1.getProduct(), 
