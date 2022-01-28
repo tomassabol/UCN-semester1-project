@@ -641,6 +641,7 @@ public class Dashboard extends JFrame {
 					}
 				}
 			}
+
 		});
 		
 		btnViewQuotes.addActionListener(e -> {
