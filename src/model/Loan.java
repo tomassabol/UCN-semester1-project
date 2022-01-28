@@ -42,7 +42,7 @@ public class Loan {
 		long minutes = Duration.between(this.CREATION_DATE, this.proposedReturnDate).toMinutes();
 		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
 		// return with customer discount applied
-		return subtotal.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100.0));
+		return subtotal.multiply(BigDecimal.valueOf((100 - this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE) / 100.0));
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public class Loan {
 		long minutes = Duration.between(this.returnDate, this.proposedReturnDate).toMinutes();
 		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
 		// return with customer discount applied
-		return subtotal.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100.0));
+		return subtotal.multiply(BigDecimal.valueOf((100 - this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE) / 100.0));
 	}
 	
 	/**
