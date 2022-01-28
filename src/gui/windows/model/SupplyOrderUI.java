@@ -25,11 +25,15 @@ import gui.JButtonPrimary;
 import gui.Messages;
 import gui.window.ChooseContractor;
 import gui.window.ChooseProduct;
+import gui.window.ChooseSupplyOffers;
 import model.Contractor;
 import model.PrimaryKey;
 import model.Product;
+import model.SupplyOffer;
 import model.SupplyOrder;
 import javax.swing.JRadioButton;
+import javax.swing.Box;
+import javax.swing.JSeparator;
 
 /**
  * @author Daniels Kanepe
@@ -71,6 +75,8 @@ public class SupplyOrderUI extends JDialog {
 	private JPanel orderDatePanel;
 	private JTextField txtOrderDate;
 	private JButton btnAutoFillOrderDate;
+	private JLabel lblAutoFillData;
+	private JButton btnFillWithSupplyOffer;
 
 
 	/**
@@ -99,16 +105,32 @@ public class SupplyOrderUI extends JDialog {
 		this.supplyOrder = supplyOrder;
 		
 		setModal(true);
-		setBounds(100, 100, 450, 341);
+		setBounds(100, 100, 450, 396);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPanel);
+		
+		lblAutoFillData = new JLabel("Fill with Supply Offer");
+		GridBagConstraints gbc_lblAutoFillData = new GridBagConstraints();
+		gbc_lblAutoFillData.anchor = GridBagConstraints.EAST;
+		gbc_lblAutoFillData.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAutoFillData.gridx = 0;
+		gbc_lblAutoFillData.gridy = 0;
+		contentPane.add(lblAutoFillData, gbc_lblAutoFillData);
+		
+		btnFillWithSupplyOffer = new JButton("Choose...");
+		GridBagConstraints gbc_btnFillWithSupplyOffer = new GridBagConstraints();
+		gbc_btnFillWithSupplyOffer.anchor = GridBagConstraints.WEST;
+		gbc_btnFillWithSupplyOffer.insets = new Insets(0, 0, 5, 0);
+		gbc_btnFillWithSupplyOffer.gridx = 1;
+		gbc_btnFillWithSupplyOffer.gridy = 0;
+		contentPane.add(btnFillWithSupplyOffer, gbc_btnFillWithSupplyOffer);
 		
 		JLabel lblID = new JLabel("ID");
 		GridBagConstraints gbc_lblID = new GridBagConstraints();
@@ -116,7 +138,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblID.insets = new Insets(0, 0, 5, 5);
 		gbc_lblID.gridx = 0;
-		gbc_lblID.gridy = 0;
+		gbc_lblID.gridy = 2;
 		contentPane.add(lblID, gbc_lblID);
 		
 		
@@ -126,7 +148,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblProduct.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblProduct.insets = new Insets(0, 0, 5, 0);
 		gbc_lblProduct.gridx = 1;
-		gbc_lblProduct.gridy = 0;
+		gbc_lblProduct.gridy = 2;
 		contentPane.add(lblProduct, gbc_lblProduct);
 		
 		
@@ -136,7 +158,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_txtID.insets = new Insets(0, 0, 5, 5);
 		gbc_txtID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtID.gridx = 0;
-		gbc_txtID.gridy = 1;
+		gbc_txtID.gridy = 3;
 		contentPane.add(txtID, gbc_txtID);
 		txtID.setColumns(10);
 		
@@ -146,7 +168,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_productPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_productPanel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_productPanel.gridx = 1;
-		gbc_productPanel.gridy = 1;
+		gbc_productPanel.gridy = 3;
 		contentPane.add(productPanel, gbc_productPanel);
 		GridBagLayout gbl_productPanel = new GridBagLayout();
 		gbl_productPanel.columnWidths = new int[]{0, 0, 0};
@@ -179,7 +201,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblPricePerItem.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblPricePerItem.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPricePerItem.gridx = 0;
-		gbc_lblPricePerItem.gridy = 2;
+		gbc_lblPricePerItem.gridy = 4;
 		contentPane.add(lblPricePerItem, gbc_lblPricePerItem);
 		
 		
@@ -189,7 +211,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblQuantity.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblQuantity.insets = new Insets(0, 0, 5, 0);
 		gbc_lblQuantity.gridx = 1;
-		gbc_lblQuantity.gridy = 2;
+		gbc_lblQuantity.gridy = 4;
 		contentPane.add(lblQuantity, gbc_lblQuantity);
 		
 		
@@ -198,7 +220,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_txtPricePerItem.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPricePerItem.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtPricePerItem.gridx = 0;
-		gbc_txtPricePerItem.gridy = 3;
+		gbc_txtPricePerItem.gridy = 5;
 		contentPane.add(txtPricePerItem, gbc_txtPricePerItem);
 		txtPricePerItem.setColumns(10);
 		
@@ -208,7 +230,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_txtQuantity.insets = new Insets(0, 0, 5, 0);
 		gbc_txtQuantity.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtQuantity.gridx = 1;
-		gbc_txtQuantity.gridy = 3;
+		gbc_txtQuantity.gridy = 5;
 		contentPane.add(txtQuantity, gbc_txtQuantity);
 		txtQuantity.setColumns(10);
 		
@@ -219,7 +241,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblContractor.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblContractor.insets = new Insets(0, 0, 5, 5);
 		gbc_lblContractor.gridx = 0;
-		gbc_lblContractor.gridy = 4;
+		gbc_lblContractor.gridy = 6;
 		contentPane.add(lblContractor, gbc_lblContractor);
 		
 		lblStocked = new JLabel("Has been stocked?");
@@ -227,7 +249,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblStocked.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblStocked.insets = new Insets(0, 0, 5, 0);
 		gbc_lblStocked.gridx = 1;
-		gbc_lblStocked.gridy = 4;
+		gbc_lblStocked.gridy = 6;
 		contentPane.add(lblStocked, gbc_lblStocked);
 		
 		contractorPanel = new JPanel();
@@ -235,7 +257,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_contractorPanel.insets = new Insets(0, 0, 5, 5);
 		gbc_contractorPanel.fill = GridBagConstraints.BOTH;
 		gbc_contractorPanel.gridx = 0;
-		gbc_contractorPanel.gridy = 5;
+		gbc_contractorPanel.gridy = 7;
 		contentPane.add(contractorPanel, gbc_contractorPanel);
 		GridBagLayout gbl_contractorPanel = new GridBagLayout();
 		gbl_contractorPanel.columnWidths = new int[]{0, 0, 0};
@@ -267,7 +289,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_stockedPanel.anchor = GridBagConstraints.NORTH;
 		gbc_stockedPanel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_stockedPanel.gridx = 1;
-		gbc_stockedPanel.gridy = 5;
+		gbc_stockedPanel.gridy = 7;
 		contentPane.add(stockedPanel, gbc_stockedPanel);
 		GridBagLayout gbl_stockedPanel = new GridBagLayout();
 		gbl_stockedPanel.columnWidths = new int[]{0, 0, 0};
@@ -301,7 +323,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblDate.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDate.insets = new Insets(0, 0, 5, 0);
 		gbc_lblDate.gridx = 0;
-		gbc_lblDate.gridy = 6;
+		gbc_lblDate.gridy = 8;
 		contentPane.add(lblDate, gbc_lblDate);
 		
 		orderDatePanel = new JPanel();
@@ -310,7 +332,7 @@ public class SupplyOrderUI extends JDialog {
 		gbc_orderDatePanel.insets = new Insets(0, 0, 5, 0);
 		gbc_orderDatePanel.fill = GridBagConstraints.BOTH;
 		gbc_orderDatePanel.gridx = 0;
-		gbc_orderDatePanel.gridy = 7;
+		gbc_orderDatePanel.gridy = 9;
 		contentPane.add(orderDatePanel, gbc_orderDatePanel);
 		GridBagLayout gbl_orderDatePanel = new GridBagLayout();
 		gbl_orderDatePanel.columnWidths = new int[]{0, 0, 0};
@@ -339,7 +361,7 @@ public class SupplyOrderUI extends JDialog {
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
 		gbc_btnOk.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnOk.gridx = 1;
-		gbc_btnOk.gridy = 8;
+		gbc_btnOk.gridy = 10;
 		contentPane.add(btnSubmit, gbc_btnOk);
 		
 		switch (mode) {
@@ -557,9 +579,26 @@ public class SupplyOrderUI extends JDialog {
 			}
 		});
 		
-		// Autofill order date button
+		// Auto-fill order date button
 		btnAutoFillOrderDate.addActionListener(e -> {
 			txtOrderDate.setText(Common.datetimeToString(LocalDateTime.now()));
+		});
+		
+		// Auto-fill data after choosing a supply offer
+		btnFillWithSupplyOffer.addActionListener(e -> {
+			ChooseSupplyOffers frame = new ChooseSupplyOffers(auth);
+			frame.setVisible(true);
+			if (frame.getSelectedSupplyOffer() != null) {
+				SupplyOffer supplyOffer = frame.getSelectedSupplyOffer();
+				// fill data
+				this.txtContractorDisplay.setText(supplyOffer.getContractor().getCompanyName());
+				this.contractor = supplyOffer.getContractor();
+				this.txtID.setText(String.valueOf(supplyOffer.getID()));
+				this.txtPricePerItem.setText(String.valueOf(supplyOffer.getPricePerItem()));
+				this.txtProductDisplay.setText(supplyOffer.getProduct().getName());
+				this.product = supplyOffer.getProduct();
+				this.txtQuantity.setText(String.valueOf(supplyOffer.getMinQuantity()));
+			}
 		});
 	}
 }
