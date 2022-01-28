@@ -28,7 +28,7 @@ import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModel.LoansTableModel;
-import gui.windows.model.LoanUI;
+import gui.windows.model.LoanCreateUI;
 
 public class CRUDLoans extends JPanel {
 	
@@ -224,7 +224,7 @@ public class CRUDLoans extends JPanel {
 		btnView.addActionListener(e -> {
 			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Loan loan = tableModel.getObj(row);
-			LoanUI frame = new LoanUI(auth, loan, customer, LoanUI.Mode.VIEW);
+			LoanCreateUI frame = new LoanCreateUI(auth, loan, customer, LoanCreateUI.Mode.VIEW);
 			frame.setVisible(true);
 		});
 
@@ -232,7 +232,7 @@ public class CRUDLoans extends JPanel {
 		btnEdit.addActionListener(e -> {
 			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Loan loan = tableModel.getObj(row);
-			LoanUI frame = new LoanUI(auth, loan, customer, LoanUI.Mode.EDIT);
+			LoanCreateUI frame = new LoanCreateUI(auth, loan, customer, LoanCreateUI.Mode.EDIT);
 			frame.setVisible(true);
 			tableModel.fireTableRowsUpdated(row, row);
 			setTableModel(tableModel);
@@ -251,7 +251,7 @@ public class CRUDLoans extends JPanel {
 
 		// Add loan
 		btnAddLoan.addActionListener(e -> {
-			LoanUI frame = new LoanUI(auth, customer, LoanUI.Mode.CREATE);
+			LoanCreateUI frame = new LoanCreateUI(auth, customer, LoanCreateUI.Mode.CREATE);
 			frame.setVisible(true);
 			if (frame.getLoan() != null) {
 				tableModel.addLoan(frame.getLoan());

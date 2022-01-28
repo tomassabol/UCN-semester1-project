@@ -42,7 +42,7 @@ import gui.window.ManageShoppingCarts;
 import gui.window.ManageStorageLocations;
 import gui.window.ManageSupplyOffers;
 import gui.window.ManageSupplyOrders;
-import gui.windows.model.LoanUI;
+import gui.windows.model.LoanCreateUI;
 import model.Customer;
 import model.Order;
 
@@ -683,18 +683,6 @@ public class Dashboard extends JFrame {
 			}
 		});
 		
-		btnReturnLoan.addActionListener(e -> {
-			if (this.customer == null) {
-				Messages.info(this, "Please choose a customer", "Choose a customer");
-			} else {
-				ChooseLoan frame = new ChooseLoan(auth, customer);
-				frame.setVisible(true);
-				if (frame.getSelectedLoan() != null) {
-					LoanUI loanFrame = new LoanUI(auth, frame.getSelectedLoan(), customer, LoanUI.Mode.RETURN);
-					loanFrame.setVisible(true);
-				}
-			}
-		});
 		///////////////////////////////////////////////////////
 		////////////////     Inventory     //////////////////
 		/////////////////////////////////////////////////////
