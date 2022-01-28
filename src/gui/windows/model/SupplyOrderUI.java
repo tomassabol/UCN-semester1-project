@@ -63,12 +63,14 @@ public class SupplyOrderUI extends JDialog {
 	
 	private Contractor contractor;
 	private Product product;
-	private JTextField txtOrderDate;
 	private JLabel lblDate;
 	private JLabel lblStocked;
 	private JPanel stockedPanel;
 	private JRadioButton rdbtnYes;
 	private JRadioButton rdbtnNo;
+	private JPanel orderDatePanel;
+	private JTextField txtOrderDate;
+	private JButton btnAutoFillOrderDate;
 
 
 	/**
@@ -103,9 +105,9 @@ public class SupplyOrderUI extends JDialog {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPanel);
 		
 		JLabel lblID = new JLabel("ID");
@@ -220,13 +222,13 @@ public class SupplyOrderUI extends JDialog {
 		gbc_lblContractor.gridy = 4;
 		contentPane.add(lblContractor, gbc_lblContractor);
 		
-		lblDate = new JLabel("Order Date (" + Common.getDateTimeFormat() + ") *");
-		GridBagConstraints gbc_lblDate = new GridBagConstraints();
-		gbc_lblDate.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_lblDate.insets = new Insets(0, 0, 5, 0);
-		gbc_lblDate.gridx = 1;
-		gbc_lblDate.gridy = 4;
-		contentPane.add(lblDate, gbc_lblDate);
+		lblStocked = new JLabel("Has been stocked?");
+		GridBagConstraints gbc_lblStocked = new GridBagConstraints();
+		gbc_lblStocked.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblStocked.insets = new Insets(0, 0, 5, 0);
+		gbc_lblStocked.gridx = 1;
+		gbc_lblStocked.gridy = 4;
+		contentPane.add(lblStocked, gbc_lblStocked);
 		
 		contractorPanel = new JPanel();
 		GridBagConstraints gbc_contractorPanel = new GridBagConstraints();
@@ -259,31 +261,13 @@ public class SupplyOrderUI extends JDialog {
 		gbc_btnChooseContractor.gridy = 0;
 		contractorPanel.add(btnChooseContractor, gbc_btnChooseContractor);
 		
-		txtOrderDate = new JTextField();
-		GridBagConstraints gbc_txtOrderDate = new GridBagConstraints();
-		gbc_txtOrderDate.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtOrderDate.anchor = GridBagConstraints.NORTH;
-		gbc_txtOrderDate.insets = new Insets(0, 0, 5, 0);
-		gbc_txtOrderDate.gridx = 1;
-		gbc_txtOrderDate.gridy = 5;
-		contentPane.add(txtOrderDate, gbc_txtOrderDate);
-		txtOrderDate.setColumns(10);
-		
-		lblStocked = new JLabel("Has been stocked?");
-		GridBagConstraints gbc_lblStocked = new GridBagConstraints();
-		gbc_lblStocked.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_lblStocked.insets = new Insets(0, 0, 5, 5);
-		gbc_lblStocked.gridx = 0;
-		gbc_lblStocked.gridy = 6;
-		contentPane.add(lblStocked, gbc_lblStocked);
-		
 		stockedPanel = new JPanel();
 		GridBagConstraints gbc_stockedPanel = new GridBagConstraints();
+		gbc_stockedPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_stockedPanel.anchor = GridBagConstraints.NORTH;
-		gbc_stockedPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_stockedPanel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_stockedPanel.gridx = 0;
-		gbc_stockedPanel.gridy = 7;
+		gbc_stockedPanel.gridx = 1;
+		gbc_stockedPanel.gridy = 5;
 		contentPane.add(stockedPanel, gbc_stockedPanel);
 		GridBagLayout gbl_stockedPanel = new GridBagLayout();
 		gbl_stockedPanel.columnWidths = new int[]{0, 0, 0};
@@ -307,12 +291,55 @@ public class SupplyOrderUI extends JDialog {
 		gbc_rdbtnNo.gridy = 0;
 		stockedPanel.add(rdbtnNo, gbc_rdbtnNo);
 		
+		// Do not allow changing 'stocked' as it is done with a different UI
+		rdbtnYes.setEnabled(false);
+		rdbtnNo.setEnabled(false);
+		
+		lblDate = new JLabel("Order Date (" + Common.getDateTimeFormat() + ") *");
+		GridBagConstraints gbc_lblDate = new GridBagConstraints();
+		gbc_lblDate.gridwidth = 2;
+		gbc_lblDate.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblDate.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDate.gridx = 0;
+		gbc_lblDate.gridy = 6;
+		contentPane.add(lblDate, gbc_lblDate);
+		
+		orderDatePanel = new JPanel();
+		GridBagConstraints gbc_orderDatePanel = new GridBagConstraints();
+		gbc_orderDatePanel.gridwidth = 2;
+		gbc_orderDatePanel.insets = new Insets(0, 0, 5, 0);
+		gbc_orderDatePanel.fill = GridBagConstraints.BOTH;
+		gbc_orderDatePanel.gridx = 0;
+		gbc_orderDatePanel.gridy = 7;
+		contentPane.add(orderDatePanel, gbc_orderDatePanel);
+		GridBagLayout gbl_orderDatePanel = new GridBagLayout();
+		gbl_orderDatePanel.columnWidths = new int[]{0, 0, 0};
+		gbl_orderDatePanel.rowHeights = new int[]{0, 0};
+		gbl_orderDatePanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_orderDatePanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		orderDatePanel.setLayout(gbl_orderDatePanel);
+		
+		txtOrderDate = new JTextField();
+		GridBagConstraints gbc_txtOrderDate = new GridBagConstraints();
+		gbc_txtOrderDate.insets = new Insets(0, 0, 0, 5);
+		gbc_txtOrderDate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtOrderDate.gridx = 0;
+		gbc_txtOrderDate.gridy = 0;
+		orderDatePanel.add(txtOrderDate, gbc_txtOrderDate);
+		txtOrderDate.setColumns(10);
+		
+		btnAutoFillOrderDate = new JButton("Auto fill");
+		GridBagConstraints gbc_btnAutoFillOrderDate = new GridBagConstraints();
+		gbc_btnAutoFillOrderDate.gridx = 1;
+		gbc_btnAutoFillOrderDate.gridy = 0;
+		orderDatePanel.add(btnAutoFillOrderDate, gbc_btnAutoFillOrderDate);
+		
 		
 		btnSubmit = new JButtonPrimary("Submit");
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
-		gbc_btnOk.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnOk.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnOk.gridx = 1;
-		gbc_btnOk.gridy = 7;
+		gbc_btnOk.gridy = 8;
 		contentPane.add(btnSubmit, gbc_btnOk);
 		
 		switch (mode) {
@@ -351,10 +378,6 @@ public class SupplyOrderUI extends JDialog {
 				// Set 'stocked' to false
 				rdbtnNo.setSelected(true);
 		}
-		
-		// Do not allow changing 'stocked' as it is done with a different UI
-		rdbtnYes.setEnabled(false);
-		rdbtnNo.setEnabled(false);
 
 		addEventHandlers();
 	
@@ -532,6 +555,11 @@ public class SupplyOrderUI extends JDialog {
 				this.contractor = frame.getSelectedContractor();
 				txtContractorDisplay.setText(contractor.getCompanyName());
 			}
+		});
+		
+		// Autofill order date button
+		btnAutoFillOrderDate.addActionListener(e -> {
+			txtOrderDate.setText(Common.datetimeToString(LocalDateTime.now()));
 		});
 	}
 }
