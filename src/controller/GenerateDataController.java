@@ -30,18 +30,53 @@ public class GenerateDataController {
         CustomerController ctrl = new CustomerController();
         Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", customerType, LocalDate.now());
         System.out.println("Generated customer data!");
+        Customer customer2 = ctrl.createCustomer("Tomi", "Toth", "Rundvej 8", "+45 154893", customerType, LocalDate.now());
+        System.out.println("Generated customer data!");
+        Customer customer3 = ctrl.createCustomer("Ferenc", "Mant", "Gade 44", "+45 234523", customerType, LocalDate.now());
+        System.out.println("Generated customer data!");
+        Customer customer4 = ctrl.createCustomer("Julie", "Bron", "Hosebro 81", "+45 154893", customerType, LocalDate.now());
+        System.out.println("Generated customer data!");
+        Customer customer5 = ctrl.createCustomer("Daniel", "Knap", "Hosebro 33", "+45 956883", customerType, LocalDate.now());
+        System.out.println("Generated customer data!");
         // Create products
         ProductController productCtrl = new ProductController();
-        Product product1 = productCtrl.createProduct("Shovel", "A big, steel shovel", 0, 100, true);
+        Product product1 = productCtrl.createProduct("Shovel", "A big, steel shovel", 70, 100, true);
+        Product product2 = productCtrl.createProduct("Hammer", "A small, steel hammer", 20, 55, true);
+        Product product3 = productCtrl.createProduct("Kitchen", "A designed kitchen with all needed forniture", 0, 30, true);
+        Product product4 = productCtrl.createProduct("Chair", ", gaming chair", 10, 50, true);
+        Product product5 = productCtrl.createProduct("Table", "Adjustable Table", 10, 100, true);
+        Product product6 = productCtrl.createProduct("Diswasher", "T2021 with 5 function", 25, 48, true);
+        Product product7 = productCtrl.createProduct("Refrigerator", "A big Refrigerator wit freezer", 0, 100, true);
+        Product product8 = productCtrl.createProduct("Laundry basket", "for used clothes", 40, 90, true);
+        Product product9 = productCtrl.createProduct("Bookcase", "store books", 50, 100, true);
+        Product product10 = productCtrl.createProduct("Table top", "Design wood table top", 10, 28, true);
+        Product product11 = productCtrl.createProduct("Lawn mower", "Cut the grass", 10, 28, true);
+        Product product12 = productCtrl.createProduct("Chain saw", "for wood cut", 10, 28, true);
         LoaningPrice loaningPrice = productCtrl.createLoaningPrice(BigDecimal.valueOf(25), product1);
+        LoaningPrice loaningPrice2 = productCtrl.createLoaningPrice(BigDecimal.valueOf(50), product11);
+        LoaningPrice loaningPrice3 = productCtrl.createLoaningPrice(BigDecimal.valueOf(30), product12);
         // add bulk discount to product
         BulkDiscount bulkDiscount = new BulkDiscount(2, 20);
         product1.addBulkDiscount(bulkDiscount);
         // Add purchase price to the product
         productCtrl.createSellingPrice(BigDecimal.valueOf(95), product1);
-        
+        productCtrl.createSellingPrice(BigDecimal.valueOf(30), product2);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(1400), product3);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(50), product4);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(80), product5);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(800), product6);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(500), product7);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(20), product8);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(120), product9);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(100), product10);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(1600), product11);
+        productCtrl.createSellingPrice(BigDecimal.valueOf(700), product12);
         // Add contractor
-        Contractor contractor1 = contractorCtrl.createContractor("Some supply company");
+        Contractor contractor1 = contractorCtrl.createContractor("Some supply A/S");
+        Contractor contractor2 = contractorCtrl.createContractor("Timber A/S");
+        Contractor contractor3 = contractorCtrl.createContractor("Praktiker A/S");
+        Contractor contractor4 = contractorCtrl.createContractor("Hikerma A/S");
+        Contractor contractor5 = contractorCtrl.createContractor("Trandmas A/S");
         
         // NOTE: Not using a controller to skip stock check!
         // Create items
@@ -64,11 +99,15 @@ public class GenerateDataController {
         StockController stockCtrl = new StockController();
         StorageLocation storageLocation1 = stockCtrl.createStorageLocation("DIY", "Rundvej 11A", true);
         StorageLocation storageLocation2 = stockCtrl.createStorageLocation("Timber", "Melvej 4 ", true);
+        StorageLocation storageLocation3 = stockCtrl.createStorageLocation("Kitchen", "Melvej 4 ", true);
+        StorageLocation storageLocation4 = stockCtrl.createStorageLocation("DIY", "Rundvej 11A", true);
         
         Shelf shelf1 = stockCtrl.createShelf("A1", storageLocation1);
         stockCtrl.createShelf("A5", storageLocation1);
-        stockCtrl.createShelf("C1", storageLocation2);
+        stockCtrl.createShelf("D1", storageLocation2);
         stockCtrl.createShelf("C22", storageLocation2);
+        stockCtrl.createShelf("C26", storageLocation3);
+        stockCtrl.createShelf("B1", storageLocation4);
         
         SupplyController supplyCtrl = new SupplyController();
         SupplyOffer supplyOffer1 = supplyCtrl.createSupplyOffer(product1, contractor1, BigDecimal.valueOf(4), 2);
