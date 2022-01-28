@@ -18,7 +18,7 @@ public class Loan {
     private LocalDateTime returnDate;
 	
 	public Loan(int id, LocalDateTime proposedReturnDate, IFCustomer customer, IFEmployee employee, TrackableItem item){
-        this.ID = id;
+		this.ID = id;
         this.CREATION_DATE = LocalDateTime.now();
         this.proposedReturnDate = proposedReturnDate;
         this.CUSTOMER = customer;
@@ -28,7 +28,6 @@ public class Loan {
         this.CUSTOMER_TYPE = customer.getCustomerType().getName();
         this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE = customer.getCustomerType().getDiscountPercentage();
         this.LOANING_PRICE_PER_HOUR = item.getProduct().getLatestLoaningPrice();
-        
         this.returnDate = null;
     }
 	
