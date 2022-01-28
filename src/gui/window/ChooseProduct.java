@@ -61,8 +61,10 @@ public class ChooseProduct extends JDialog {
 		switch (mode) {
 			case BUYABLE:
 				CRUDPanel = new CRUDProducts(auth, CRUDProducts.Mode.BUYABLE);
+				break;
 			case LOANABLE:
 				CRUDPanel = new CRUDProducts(auth, CRUDProducts.Mode.LOANABLE);
+				break;
 			default:
 				CRUDPanel = new CRUDProducts(auth, CRUDProducts.Mode.ALL);
 		}
