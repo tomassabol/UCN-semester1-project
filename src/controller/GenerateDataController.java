@@ -36,7 +36,7 @@ public class GenerateDataController {
         System.out.println("Generated customer data!");
         Customer customer4 = ctrl.createCustomer("Julie", "Bron", "Hosebro 81", "+45 154893", customerType, LocalDate.now());
         System.out.println("Generated customer data!");
-        Customer customer5 = ctrl.createCustomer("Daniel", "Knap", "Hosebro 33", "+45 956883", customerType, LocalDate.now());
+        Customer customer5 = ctrl.createCustomer("Daniel", "Kanepe", "Hosebro 33", "+45 956883", customerType, LocalDate.now());
         System.out.println("Generated customer data!");
         // Create products
         ProductController productCtrl = new ProductController();
@@ -89,6 +89,9 @@ public class GenerateDataController {
         IFEmployee employee = null;
 		try {
 			employee = employeeCtrl.createEmployee("080600-1111", "daniels@abc.com", "1234", "Daniels", "Kanepe", "Rundvej 8", "+45 11114567", LocalDate.now());
+			employee = employeeCtrl.createEmployee("035556-3366", "attila@outlook.com", "1234", "Attila", "Kanepe", "Gade 81", "+45 433114567", LocalDate.now());
+			employee = employeeCtrl.createEmployee("038986-4433", "tomi@gmail.com", "1234", "Tomi", "Toth", "Handgade 11", "+45 883433167", LocalDate.now());
+			employee = employeeCtrl.createEmployee("137656-3854", "dereck@yahoo.com", "1234", "Dereck", "Morr", "Gade 44", "+45 99834567", LocalDate.now());
 		} catch (EmailNotUniqueException e1) {
 			e1.printStackTrace();
 		}
