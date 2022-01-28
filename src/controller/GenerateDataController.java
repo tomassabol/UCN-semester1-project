@@ -29,15 +29,10 @@ public class GenerateDataController {
         // Create customers
         CustomerController ctrl = new CustomerController();
         Customer customer1 = ctrl.createCustomer("Attila", "Bako", "Rundvej 4", "+45 734123", customerType, LocalDate.now());
-        System.out.println("Generated customer data!");
         Customer customer2 = ctrl.createCustomer("Tomi", "Toth", "Rundvej 8", "+45 154893", customerType, LocalDate.now());
-        System.out.println("Generated customer data!");
         Customer customer3 = ctrl.createCustomer("Ferenc", "Mant", "Gade 44", "+45 234523", customerType, LocalDate.now());
-        System.out.println("Generated customer data!");
         Customer customer4 = ctrl.createCustomer("Julie", "Bron", "Hosebro 81", "+45 154893", customerType, LocalDate.now());
-        System.out.println("Generated customer data!");
         Customer customer5 = ctrl.createCustomer("Daniel", "Kanepe", "Hosebro 33", "+45 956883", customerType, LocalDate.now());
-        System.out.println("Generated customer data!");
         // Create products
         ProductController productCtrl = new ProductController();
         Product product1 = productCtrl.createProduct("Shovel", "A big, steel shovel", 70, 100, true);
