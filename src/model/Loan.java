@@ -1,6 +1,7 @@
 package model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -37,7 +38,7 @@ public class Loan {
 	 * @return the proposed price
 	 */
 	public BigDecimal getProposedPrice() {
-		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60));
+		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60), RoundingMode.HALF_UP);
 		long minutes = Duration.between(this.CREATION_DATE, this.proposedReturnDate).toMinutes();
 		return pricePerMinute.multiply(BigDecimal.valueOf(minutes));
 	}
@@ -51,7 +52,7 @@ public class Loan {
 		if (returnDate == null) {
 			return null;
 		}
-		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60));
+		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60), RoundingMode.HALF_UP);
 		long minutes = Duration.between(this.returnDate, this.proposedReturnDate).toMinutes();
 		return pricePerMinute.multiply(BigDecimal.valueOf(minutes));
 	}

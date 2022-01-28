@@ -110,7 +110,7 @@ public class LoanCreateUI extends JDialog {
 		contentPane.add(txtID, gbc_txtID);
 		txtID.setColumns(10);
 
-		lblProposedReturnDate = new JLabel("Return date");
+		lblProposedReturnDate = new JLabel("Return date (" + Common.getDateTimeFormat() + " )");
 		GridBagConstraints gbc_lblProposedReturnDate = new GridBagConstraints();
 		gbc_lblProposedReturnDate.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblProposedReturnDate.insets = new Insets(0, 0, 5, 5);

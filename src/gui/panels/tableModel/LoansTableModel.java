@@ -64,7 +64,7 @@ public class LoansTableModel extends AbstractTableModel {
             		loan.getCustomer().getFirstName(),
             		loan.getCustomer().getLastName());
             case 2: return Common.datetimeToString(loan.getCreationDate());
-            case 3: return Common.datetimeToString(loan.getReturnDate());
+            case 3: return Common.datetimeToString(loan.getProposedReturnDate());
             case 4: return String.format("(%s) %s", 
             		loan.getItem().getProduct().ID,
             		loan.getItem().getProduct().getName());
