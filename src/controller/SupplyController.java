@@ -198,12 +198,15 @@ public class SupplyController {
 	 * 
 	 * @throws IllegalModificationException when already put into stock
 	 */
-	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, LocalDateTime deliveredDate, boolean trackable) throws IllegalModificationException {
+	public void StockAndMarkDelivered(SupplyOrder supplyOrder, Shelf shelf, LocalDateTime deliveredDate, boolean trackable, TrackableItem.TRACKABLE_ITEM_TYPE type) throws IllegalModificationException {
 		if (supplyOrder.isStocked()) {
 			throw new IllegalModificationException("This supply order has already been put in stock!");
 		}
 		if (deliveredDate.isBefore(supplyOrder.getDateOrdered())) {
 			throw new IllegalArgumentException("Delivery date must be after order date!");
+		}
+		if (trackable == false && type == TrackableItem.TRACKABLE_ITEM_TYPE.LOANABLE) {
+			throw new IllegalArgumentException("Only trackable items (with serial numbers) can be loanable!");
 		}
 		
 		// For trackable items - auto generate serial number
@@ -215,7 +218,7 @@ public class SupplyController {
 			Set<TrackableItem> trackableItems = new HashSet<>();
 			for (int i = 0; i < supplyOrder.getQuantity(); i++) {
 				trackableItems.add(new TrackableItem(PrimaryKey.getID(PrimaryKey.Keys.ITEM), 
-						TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE,
+						type,
 						product));
 			}
 			// insert trackable items in a stockBatch

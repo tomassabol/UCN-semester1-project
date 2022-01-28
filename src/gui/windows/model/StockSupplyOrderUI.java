@@ -13,6 +13,7 @@ import gui.Messages;
 import gui.window.ChooseShelf;
 import model.Shelf;
 import model.SupplyOrder;
+import model.TrackableItem;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -41,7 +42,7 @@ public class StockSupplyOrderUI extends JDialog {
     SupplyController supplyCtrl;
 	private JLabel lblShelf;
 	private JLabel lblTrackable;
-	private JPanel isTrackable;
+	private JPanel isTrackablePanel;
 	private JRadioButton rdbtnTrackableYes;
 	private JRadioButton rdbtnTrackableNo;
 	private JPanel shelfPanel;
@@ -53,6 +54,11 @@ public class StockSupplyOrderUI extends JDialog {
     private JLabel lblDeliveryDate;
     private JTextField txtDeliveryDate;
     private JButton btnAutofill;
+    private JLabel lblItemType;
+    private JPanel itemTypePanel;
+    private JRadioButton rdbtnTypeLoanable;
+    private JRadioButton rdbtnTypeBuyable;
+    private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 
 	/**
 	 * @param auth the auth
@@ -72,9 +78,9 @@ public class StockSupplyOrderUI extends JDialog {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{273, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPanel);
 		
 		JLabel lblTitle = new JLabel("Stock a supply order *");
@@ -151,29 +157,29 @@ public class StockSupplyOrderUI extends JDialog {
 		gbc_lblTrackable.gridy = 5;
 		contentPane.add(lblTrackable, gbc_lblTrackable);
 		
-		isTrackable = new JPanel();
-		GridBagConstraints gbc_isTrackable = new GridBagConstraints();
-		gbc_isTrackable.gridwidth = 2;
-		gbc_isTrackable.insets = new Insets(0, 0, 5, 0);
-		gbc_isTrackable.fill = GridBagConstraints.BOTH;
-		gbc_isTrackable.gridx = 0;
-		gbc_isTrackable.gridy = 6;
-		contentPane.add(isTrackable, gbc_isTrackable);
-		GridBagLayout gbl_isTrackable = new GridBagLayout();
-		gbl_isTrackable.columnWidths = new int[]{0, 0, 0};
-		gbl_isTrackable.rowHeights = new int[]{0, 0};
-		gbl_isTrackable.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_isTrackable.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		isTrackable.setLayout(gbl_isTrackable);
+		isTrackablePanel = new JPanel();
+		GridBagConstraints gbc_isTrackablePanel = new GridBagConstraints();
+		gbc_isTrackablePanel.gridwidth = 2;
+		gbc_isTrackablePanel.insets = new Insets(0, 0, 5, 0);
+		gbc_isTrackablePanel.fill = GridBagConstraints.BOTH;
+		gbc_isTrackablePanel.gridx = 0;
+		gbc_isTrackablePanel.gridy = 6;
+		contentPane.add(isTrackablePanel, gbc_isTrackablePanel);
+		GridBagLayout gbl_isTrackablePanel = new GridBagLayout();
+		gbl_isTrackablePanel.columnWidths = new int[]{0, 0, 0};
+		gbl_isTrackablePanel.rowHeights = new int[]{0, 0};
+		gbl_isTrackablePanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_isTrackablePanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		isTrackablePanel.setLayout(gbl_isTrackablePanel);
 		
-		rdbtnTrackableYes = new JRadioButton("Yes");
+		rdbtnTrackableYes = new JRadioButton("Yes (auto-generate)");
 		buttonGroup.add(rdbtnTrackableYes);
 		GridBagConstraints gbc_rdbtnTrackableYes = new GridBagConstraints();
 		gbc_rdbtnTrackableYes.anchor = GridBagConstraints.WEST;
 		gbc_rdbtnTrackableYes.insets = new Insets(0, 0, 0, 5);
 		gbc_rdbtnTrackableYes.gridx = 0;
 		gbc_rdbtnTrackableYes.gridy = 0;
-		isTrackable.add(rdbtnTrackableYes, gbc_rdbtnTrackableYes);
+		isTrackablePanel.add(rdbtnTrackableYes, gbc_rdbtnTrackableYes);
 		
 		rdbtnTrackableNo = new JRadioButton("No");
 		buttonGroup.add(rdbtnTrackableNo);
@@ -181,19 +187,56 @@ public class StockSupplyOrderUI extends JDialog {
 		gbc_rdbtnTrackableNo.anchor = GridBagConstraints.WEST;
 		gbc_rdbtnTrackableNo.gridx = 1;
 		gbc_rdbtnTrackableNo.gridy = 0;
-		isTrackable.add(rdbtnTrackableNo, gbc_rdbtnTrackableNo);
+		isTrackablePanel.add(rdbtnTrackableNo, gbc_rdbtnTrackableNo);
+		
+		lblItemType = new JLabel("Item type:");
+		GridBagConstraints gbc_lblItemType = new GridBagConstraints();
+		gbc_lblItemType.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblItemType.insets = new Insets(0, 0, 5, 5);
+		gbc_lblItemType.gridx = 0;
+		gbc_lblItemType.gridy = 7;
+		contentPane.add(lblItemType, gbc_lblItemType);
+		
+		itemTypePanel = new JPanel();
+		GridBagConstraints gbc_itemTypePanel = new GridBagConstraints();
+		gbc_itemTypePanel.insets = new Insets(0, 0, 5, 5);
+		gbc_itemTypePanel.fill = GridBagConstraints.BOTH;
+		gbc_itemTypePanel.gridx = 0;
+		gbc_itemTypePanel.gridy = 8;
+		contentPane.add(itemTypePanel, gbc_itemTypePanel);
+		GridBagLayout gbl_itemTypePanel = new GridBagLayout();
+		gbl_itemTypePanel.columnWidths = new int[]{0, 0, 0};
+		gbl_itemTypePanel.rowHeights = new int[]{0, 0};
+		gbl_itemTypePanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_itemTypePanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		itemTypePanel.setLayout(gbl_itemTypePanel);
+		
+		rdbtnTypeLoanable = new JRadioButton("Loanable");
+		buttonGroup_1.add(rdbtnTypeLoanable);
+		rdbtnTypeLoanable.setEnabled(false);
+		GridBagConstraints gbc_rdbtnTypeLoanable = new GridBagConstraints();
+		gbc_rdbtnTypeLoanable.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnTypeLoanable.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnTypeLoanable.gridx = 0;
+		gbc_rdbtnTypeLoanable.gridy = 0;
+		itemTypePanel.add(rdbtnTypeLoanable, gbc_rdbtnTypeLoanable);
+		
+		rdbtnTypeBuyable = new JRadioButton("Buyable");
+		buttonGroup_1.add(rdbtnTypeBuyable);
+		rdbtnTypeBuyable.setSelected(true);
+		GridBagConstraints gbc_rdbtnTypeBuyable = new GridBagConstraints();
+		gbc_rdbtnTypeBuyable.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnTypeBuyable.gridx = 1;
+		gbc_rdbtnTypeBuyable.gridy = 0;
+		itemTypePanel.add(rdbtnTypeBuyable, gbc_rdbtnTypeBuyable);
 		
 		
 		btnSubmit = new JButtonPrimary("Put Into Stock");
 		GridBagConstraints gbc_btnOK = new GridBagConstraints();
 		gbc_btnOK.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnOK.gridx = 1;
-		gbc_btnOK.gridy = 7;
+		gbc_btnOK.gridy = 9;
 		contentPane.add(btnSubmit, gbc_btnOK);
-		
-		// custom serial numbers is disabled for now. 
-		// Todo : low priority - Implement custom serials option
-		rdbtnTrackableYes.setEnabled(false);
 		rdbtnTrackableNo.setSelected(true);
 		
 		addEventHandlers();
@@ -212,6 +255,15 @@ public class StockSupplyOrderUI extends JDialog {
 	 * *******************************************************
 	 */
 	private void addEventHandlers() {
+		
+		// If trackable == no, the items cannot be loanable.
+		rdbtnTrackableNo.addActionListener(e -> {
+			rdbtnTypeBuyable.setSelected(true);
+			rdbtnTypeLoanable.setEnabled(false);
+		});
+		rdbtnTrackableYes.addActionListener(e -> {
+			rdbtnTypeLoanable.setEnabled(true);
+		});
 		
 		// Choose shelf button
 		btnChooseShelf.addActionListener(e -> {
@@ -261,7 +313,10 @@ public class StockSupplyOrderUI extends JDialog {
 				boolean trackable = rdbtnTrackableYes.isSelected() ? true : false;
 				
 				try {
-					supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, deliveryDate, trackable);
+					TrackableItem.TRACKABLE_ITEM_TYPE type;
+					type = rdbtnTypeBuyable.isSelected() ?
+							TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE : TrackableItem.TRACKABLE_ITEM_TYPE.LOANABLE;
+					supplyCtrl.StockAndMarkDelivered(supplyOrder, shelf, deliveryDate, trackable, type);
 				} catch (IllegalModificationException e1) {
 					Messages.error(this, "You cannot stock a supply order that has already been stocked!");
 				}
