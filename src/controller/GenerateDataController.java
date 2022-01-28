@@ -147,7 +147,7 @@ public class GenerateDataController {
         customer1.getShoppingCart().add(itemLine1);
 
         try{
-            Loan loan1 = loanCtrl.createLoan(customer1, employee, product1, Common.stringToDate("25/02/2022")) ;
+            Loan loan1 = loanCtrl.createLoan(customer1, employee, product1, LocalDateTime.now().plusDays(3));
 		} catch (OutOfStockException e) {
 			e.printStackTrace();
 		}

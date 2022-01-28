@@ -274,8 +274,6 @@ public class StockContainer {
 
     	}
     	
-    	
-    	
     	if (removedTotalquantity <= 0) {
     		return null;
     	}
@@ -284,9 +282,29 @@ public class StockContainer {
     			removedTrackableBuyableItems, product.getLatestSellingPrice(), 
     			product.getBestBulkDiscount(quantity));
     	
-
- 
     }
+    
+	/**
+	 * Gets a loanable item from the stock (and removes it from there)
+	 *
+	 * @return the loanable item
+	 */
+	public TrackableItem getLoanableItem(Product product) {
+		Set<TrackableItem> removedTrackableLoanableItems = new HashSet<>();
+		
+    	for (Shelf shelf: this.getShelves()) {
+    		Iterator<StockBatch> stockBatchIt = shelf.getStockBatches(product).iterator();
+    		while (stockBatchIt.hasNext()) {
+    			StockBatch stockBatch = stockBatchIt.next();
+    			
+    			removedTrackableLoanableItems.addAll(stockBatch.popTrackableLoanableItems(1));
+    			if (removedTrackableLoanableItems.size() == 1) {
+    				return removedTrackableLoanableItems.iterator().next();
+    			}
+    		}
+    	}
+    	return null;
+	}
     
     public boolean quoteIsInStock(Quote quote) {
     	for(QuoteItemLine itemLine: quote.getItemLines()) {

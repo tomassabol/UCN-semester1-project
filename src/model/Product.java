@@ -125,9 +125,9 @@ public class Product {
 
 
 	/**
-	 * Gets the current loaning price
+	 * Gets the current loaning price / hour
 	 *
-	 * @return the current loaning price
+	 * @return the current loaning price / hour
 	 */
 	public BigDecimal getLatestLoaningPrice() {
 		if (this.loaningPrices.isEmpty()) {

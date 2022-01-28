@@ -244,6 +244,29 @@ public class StockBatch {
     	}
     }
     
+    /**
+     * Pop n amount of trackable, loanable items
+     * NOTE: if poppable quantity > quantity in stock batch, stock batch quantity of items will be popped
+     *
+     * @param quantity the quantity of items to pop
+     * @return the items
+     */
+    public ArrayList<TrackableItem> popTrackableLoanableItems(int quantity) {
+    	
+    	ArrayList<TrackableItem> trackableItems = new ArrayList<>();
+    	int i = 0;
+    	Iterator<TrackableItem> iter = this.trackableItems.iterator();
+    	while (i < quantity  && iter.hasNext()) {
+    	 TrackableItem trackableItem = iter.next();
+    	 if (trackableItem.getTrackableItemType() == TrackableItem.TRACKABLE_ITEM_TYPE.LOANABLE) {
+        	 trackableItems.add(trackableItem);
+        	 iter.remove();
+        	 i++;
+    	 }
+    	}
+    	return trackableItems;
+    }
+    
 	/**
 	 * Calculates the price for this stock batch.
 	 *

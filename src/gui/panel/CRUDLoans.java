@@ -28,7 +28,7 @@ import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
 import gui.panels.tableModel.LoansTableModel;
-import gui.windows.model.LoanUI;
+import gui.windows.model.LoanCreateUI;
 
 public class CRUDLoans extends JPanel {
 	
@@ -38,8 +38,6 @@ public class CRUDLoans extends JPanel {
 	
 	private JTable tableMain;
 	private LoansTableModel tableModel;
-	private JLink btnView;
-	private JLink btnEdit;
 	private JLink btnDisable;
 	private JTextField txtSearch;
 	private TableRowSorter<TableModel> rowSorter;
@@ -118,22 +116,6 @@ public class CRUDLoans extends JPanel {
 		gbl_bottomPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
-			
-		// ***** View button *****
-		btnView = new JLink("View", COLORS.GREEN);
-		GridBagConstraints gbc_btnView = new GridBagConstraints();
-		gbc_btnView.insets = new Insets(0, 0, 0, 5);
-		gbc_btnView.gridx = 1;
-		gbc_btnView.gridy = 0;
-		bottomPanel.add(btnView, gbc_btnView);
-		
-		// ***** Edit button *****
-		btnEdit = new JLink("Edit", COLORS.INDIGO);
-		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
-		gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
-		gbc_btnEdit.gridx = 2;
-		gbc_btnEdit.gridy = 0;
-		bottomPanel.add(btnEdit, gbc_btnEdit);
 				
 		// ***** Disable button *****
 		btnDisable = new JLink("Delete", COLORS.RED);
@@ -141,10 +123,6 @@ public class CRUDLoans extends JPanel {
 		gbc_btnDisable.gridx = 3;
 		gbc_btnDisable.gridy = 0;
 		bottomPanel.add(btnDisable, gbc_btnDisable);
-		
-		// By default: all selection buttons disabled
-		btnView.setEnabled(false);
-		btnEdit.setEnabled(false);
 		btnDisable.setEnabled(false);
 		
 		// Attach event handler
@@ -204,38 +182,14 @@ public class CRUDLoans extends JPanel {
 		tableMain.getSelectionModel().addListSelectionListener(e -> {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				// Not selected
-				btnView.setEnabled(false);
-				btnEdit.setEnabled(false);
 				btnDisable.setEnabled(false);
 			} else if (tableMain.getSelectionModel().isSelectionEmpty() == false && returnLoan == true) {
 				// Selected but choose mode
-				btnView.setEnabled(true);
-				btnEdit.setEnabled(false);
 				btnDisable.setEnabled(false);
 			} else {
 				// Selected
-				btnView.setEnabled(true);
-				btnEdit.setEnabled(true);
 				btnDisable.setEnabled(true);
 			}
-		});
-
-		// View loan
-		btnView.addActionListener(e -> {
-			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
-			Loan loan = tableModel.getObj(row);
-			LoanUI frame = new LoanUI(auth, loan, customer, LoanUI.Mode.VIEW);
-			frame.setVisible(true);
-		});
-
-		// Edit loan
-		btnEdit.addActionListener(e -> {
-			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
-			Loan loan = tableModel.getObj(row);
-			LoanUI frame = new LoanUI(auth, loan, customer, LoanUI.Mode.EDIT);
-			frame.setVisible(true);
-			tableModel.fireTableRowsUpdated(row, row);
-			setTableModel(tableModel);
 		});
 
 		// Delete loan
@@ -251,7 +205,7 @@ public class CRUDLoans extends JPanel {
 
 		// Add loan
 		btnAddLoan.addActionListener(e -> {
-			LoanUI frame = new LoanUI(auth, customer, LoanUI.Mode.CREATE);
+			LoanCreateUI frame = new LoanCreateUI(auth, customer);
 			frame.setVisible(true);
 			if (frame.getLoan() != null) {
 				tableModel.addLoan(frame.getLoan());

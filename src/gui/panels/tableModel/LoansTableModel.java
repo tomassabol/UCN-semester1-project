@@ -14,10 +14,8 @@ public class LoansTableModel extends AbstractTableModel {
 
     LoanController loanCtrl;
 
-    //private static final String DATE_FORMAT = "yyyy-MM-dd";
-
 	protected static final String COLUMN_NAMES[] = {
-        "ID", "Created", "Return date", "Product", "Customer","customer discount", "Period", "Price /day", "Total Price", "Returned"
+        "ID", "Customer", "From", "To", "Product","Discount", "Price", "Returned"
     };
 
     private List<Loan> loans;
@@ -27,8 +25,7 @@ public class LoansTableModel extends AbstractTableModel {
      * Constructor
      */
     public LoansTableModel(List<Loan> loans) {
-        // Copying due to accidental mutation (theoretically all fields are constants),
-    	//but also consistent order
+        // Copying due to accidental mutation & consistent order
         this.loans = new ArrayList<Loan>(loans);
         
         loanCtrl = new LoanController();
@@ -62,17 +59,20 @@ public class LoansTableModel extends AbstractTableModel {
     	Loan loan = loans.get(rowIndex);
         switch (columnIndex) {
             case 0: return "#" + loan.ID;
-            case 1: return Common.datetimeToString(loan.getCreationDate());
-            case 2: return Common.dateToString(loan.getReturnDate());
-            case 3: return loan.getProduct().getName();
-            case 4: return String.format("ID: %d", loan.getCustomer().getID());
+            case 1: return String.format("(%s) %s %s", 
+            		loan.getCustomer().getID(),
+            		loan.getCustomer().getFirstName(),
+            		loan.getCustomer().getLastName());
+            case 2: return Common.datetimeToString(loan.getCreationDate());
+            case 3: return Common.datetimeToString(loan.getReturnDate());
+            case 4: return String.format("(%s) %s", 
+            		loan.getItem().getProduct().ID,
+            		loan.getItem().getProduct().getName());
             case 5: return String.format("%s: -%d%%", 
                     loan.getCustomerType(),
                     loan.getCustomerTypeDiscountPercentage());
-            case 6: return String.format("%d days", loanCtrl.getDaysOfLoan(loan));     
-            case 7: return String.format("%.2f DKK", loan.getLoaningPrice());
-            case 8: return String.format("%.2f DKK", loanCtrl.totalPrice(loan));
-            case 9: return loan.isReturned();
+            case 6: return String.format("%.2f DKK", loan.getPrice());     
+            case 7: return loan.isReturned() ? loan.getReturnDate() : "-";
             default: return null;
         }
     }
