@@ -187,7 +187,7 @@ public class ProductUI extends JDialog {
 		gbc_txtSelling.gridy = 7;
 		contentPane.add(txtSelling, gbc_txtSelling);
 		
-		JLabel lblLoaning = new JLabel("Loaning Price");
+		JLabel lblLoaning = new JLabel("Loaning Price /h");
 		GridBagConstraints gbc_lblLoaning = new GridBagConstraints();
 		gbc_lblLoaning.anchor = GridBagConstraints.WEST;
 		gbc_lblLoaning.insets = new Insets(0, 0, 5, 0);
