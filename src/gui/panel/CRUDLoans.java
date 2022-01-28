@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -21,6 +22,9 @@ import model.Employee;
 import model.Loan;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -127,6 +131,10 @@ public class CRUDLoans extends JPanel {
 		bottomPanel.add(btnDisable, gbc_btnDisable);
 		btnDisable.setEnabled(false);
 		
+		// Add filtering
+		rowSorter = new TableRowSorter<>(tableModel);
+		tableMain.setRowSorter(rowSorter);
+		
 		// Attach event handler
 		this.addEventHandlers();
 	}
@@ -213,6 +221,32 @@ public class CRUDLoans extends JPanel {
 				tableModel.addLoan(frame.getLoan());
 				setTableModel(tableModel);
 			}
+		});
+		
+		// Search implementation
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+			
+			private void search() {
+				String text = txtSearch.getText();
+				if(text.trim().length() == 0) {
+					rowSorter.setRowFilter(null);
+				} else {
+					rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(text)));
+				}
+			}
+													
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				search();
+			}
+										
+			@Override
+			public void  removeUpdate(DocumentEvent e) {
+				search();
+			}
+													
+			@Override
+			public void changedUpdate(DocumentEvent e) { /* Empty due to interface */ }
 		});
 	}
 }

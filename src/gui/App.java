@@ -33,7 +33,6 @@ public class App {
 		try {
 			new EmployeeController().createEmployee("080600-1111", "admin@admin.com", "password", "Admin", "Admin", "Admin street 4", "991", LocalDate.now());
 		} catch (EmailNotUniqueException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
