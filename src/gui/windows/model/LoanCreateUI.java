@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -50,7 +51,6 @@ public class LoanCreateUI extends JDialog {
 	private JLabel lblProduct;
 	private JTextField txtProductDisplay;
 	private JButton btnChooseProduct;
-	private JLabel lblPrice;
 
 	/**
 	 * Constructor
@@ -152,14 +152,6 @@ public class LoanCreateUI extends JDialog {
 		gbc_btnChooseProduct.gridy = 5;
 		contentPane.add(btnChooseProduct, gbc_btnChooseProduct);
 
-		lblPrice = new JLabel("Price: ");
-		GridBagConstraints gbc_lblPrice = new GridBagConstraints();
-		gbc_lblPrice.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_lblPrice.insets = new Insets(0, 0, 0, 5);
-		gbc_lblPrice.gridx = 0;
-		gbc_lblPrice.gridy = 6;
-		contentPane.add(lblPrice, gbc_lblPrice);
-
 		btnSubmit = new JButton("Create");
 		GridBagConstraints gbc_btnOK = new GridBagConstraints();
 		gbc_btnOK.anchor = GridBagConstraints.SOUTHEAST;
@@ -230,7 +222,9 @@ public class LoanCreateUI extends JDialog {
 				}
 				
 				// Confirmation message
-				if (Messages.confirm(LoanCreateUI.this, "This loan will cost _ DKK. Create loan?")) {
+				BigDecimal price = loanCtrl.getPrice(product, customer, LocalDateTime.now(), proposedReturnDate);
+				String msg = String.format("The loan will cost %.2f DKK. Create loan?", price);
+				if (Messages.confirm(LoanCreateUI.this, msg)) {
 
 					try {
 						this.loan = loanCtrl.createLoan(customer, auth.getLoggedInUser(), product, proposedReturnDate);

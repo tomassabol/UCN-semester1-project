@@ -1,5 +1,8 @@
 package controller;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -112,5 +115,16 @@ public class LoanController {
 
 	public boolean returnDateIsValid(LocalDateTime returnDate) {
 		return returnDate.isAfter(returnDate);
+	}
+	
+	/**
+	 * Calculates a price for yet to be loan
+	 */
+	public BigDecimal getPrice(Product product, Customer customer, LocalDateTime from, LocalDateTime to) {
+		BigDecimal pricePerMinute = product.getLatestLoaningPrice().divide(BigDecimal.valueOf(60), 10, RoundingMode.HALF_UP);
+		long minutes = Duration.between(from, to).toMinutes();
+		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
+		// return with customer discount applied
+		return subtotal.multiply(BigDecimal.valueOf((100 - customer.getCustomerType().getDiscountPercentage()) / 100.0));
 	}
 }
