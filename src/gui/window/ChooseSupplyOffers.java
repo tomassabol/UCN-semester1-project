@@ -27,15 +27,13 @@ public class ChooseSupplyOffers extends JDialog {
 	private SupplyOffer selectedSupplyOffer = null;
 	
 	AuthenticationController auth;
-    Product product;
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public ChooseSupplyOffers(AuthenticationController auth, Product product) {
+	public ChooseSupplyOffers(AuthenticationController auth) {
 		this.auth = auth;
-        this.product =product;
 		this.setTitle("Choose Supply Offer...");
 		setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
