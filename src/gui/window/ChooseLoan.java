@@ -53,7 +53,7 @@ public class ChooseLoan extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		CRUDPanel = new CRUDLoans(auth, customer, true);
+		CRUDPanel = new CRUDLoans(auth, customer);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
