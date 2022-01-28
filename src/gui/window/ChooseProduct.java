@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AuthenticationController;
+import controller.StockController;
 import gui.JButtonPrimary;
 import gui.panel.CRUDProducts;
 import gui.panels.tableModel.ProductTableModel;
@@ -109,10 +110,28 @@ public class ChooseProduct extends JDialog {
 	private void addEventHandlers() {
 		CRUDPanel.getTable().getSelectionModel().addListSelectionListener(e -> {
 			JTable table = CRUDPanel.getTable();
+			// Toggle 'choose' button
 			if (table.getSelectionModel().isSelectionEmpty()) {
+				// ** not selected **
 				btnChoose.setEnabled(false);
 			} else {
-				btnChoose.setEnabled(true);
+				//** selected**
+				
+				// get product
+				int row = table.convertRowIndexToModel(table.getSelectedRow());
+				Product product = CRUDPanel.getTableModel().getObj(row);
+				
+				// get quantity in stock
+				int quantityInStock = Integer.MAX_VALUE;
+				if (this.mode == Mode.BUYABLE) {
+					quantityInStock = new StockController().getBuyableQuantityInStock(product);
+				} else if (this.mode == Mode.LOANABLE) {
+					quantityInStock = new StockController().getLoanableQuantityInStock(product);
+				}
+				// enable choose button only if stock > 0 && product is enabled
+				if (quantityInStock > 0 && product.isEnabled()) {
+					btnChoose.setEnabled(true);
+				}
 			}
 			
 		});
