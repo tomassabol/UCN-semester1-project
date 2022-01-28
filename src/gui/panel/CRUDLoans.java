@@ -30,6 +30,10 @@ import gui.JLink.COLORS;
 import gui.panels.tableModel.LoansTableModel;
 import gui.windows.model.LoanCreateUI;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class CRUDLoans extends JPanel {
 	
 	

@@ -16,6 +16,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTable;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class ChooseLoan extends JDialog {
 	
 	private final JPanel contentPane;

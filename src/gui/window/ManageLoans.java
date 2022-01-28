@@ -12,6 +12,10 @@ import model.Employee;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class ManageLoans extends JDialog {
 
 	private static final long serialVersionUID = 2968937622159813565L;

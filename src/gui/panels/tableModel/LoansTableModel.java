@@ -10,6 +10,10 @@ import controller.LoanController;
 import gui.Common;
 import model.Loan;
 
+/**
+ * @author Daniels Kanepe
+ *
+ */
 public class LoansTableModel extends AbstractTableModel {
 
     LoanController loanCtrl;

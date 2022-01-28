@@ -17,18 +17,24 @@ import model.TrackableItem;
 import models.container.LoanContainer;
 import models.container.StockContainer;
 
+/**
+ * The Class LoanController.
+ */
 public class LoanController {
 
+	/** The stock ctrl. */
 	StockController stockCtrl;
 
 	/**
-	 * Public constructor class LoanController
+	 * Public constructor class LoanController.
 	 */
 	public LoanController() {
 		stockCtrl = new StockController();
 	}
 
 	/**
+	 * Gets the loans.
+	 *
 	 * @return list of all loans in the system
 	 */
 	public List<Loan> getLoans() {
@@ -36,7 +42,8 @@ public class LoanController {
 	}
 
 	/**
-	 * /**
+	 * /**.
+	 *
 	 * @param customer - specific customer
 	 * @return list of all loans of the given customer
 	 */
@@ -45,6 +52,8 @@ public class LoanController {
 	}
 
 	/**
+	 * Find loan by id.
+	 *
 	 * @param loanId - id of a loan
 	 * @return loan with this ID
 	 */
@@ -53,6 +62,8 @@ public class LoanController {
 	}
 
 	/**
+	 * Find loan by id for customer.
+	 *
 	 * @param loanId - id of a loan
 	 * @param customer - specific customer
 	 * @return loan with this ID linked to the customer
@@ -65,6 +76,16 @@ public class LoanController {
 		return null;
 	}
 
+	/**
+	 * Creates the loan.
+	 *
+	 * @param customer the customer
+	 * @param employee the employee
+	 * @param product the product
+	 * @param proposedReturnDate the proposed return date
+	 * @return the loan
+	 * @throws OutOfStockException the out of stock exception
+	 */
 	public Loan createLoan(IFCustomer customer, IFEmployee employee,
 			Product product, LocalDateTime proposedReturnDate) throws OutOfStockException {
 		if (proposedReturnDate.isBefore(LocalDateTime.now())) {
@@ -87,6 +108,8 @@ public class LoanController {
 	}
 
 	/**
+	 * Removes the loan.
+	 *
 	 * @param loan - loan to be removed
 	 */
 	public void removeLoan(Loan loan) {
@@ -94,8 +117,8 @@ public class LoanController {
 	}
 
 	/**
-	 *  Update the datetime that the item was returned at
-	 * 
+	 *  Update the datetime that the item was returned at.
+	 *
 	 * @param loan - loan to be updated
 	 * @param returnDate - new return date
 	 */
@@ -104,8 +127,8 @@ public class LoanController {
 	}
 
 	/**
-	 *  Update the datetime that the item is supposed to be returned at
-	 * 
+	 *  Update the datetime that the item is supposed to be returned at.
+	 *
 	 * @param loan - loan to be updated
 	 * @param proposedReturnDate - the new proposed return date
 	 */
@@ -113,12 +136,24 @@ public class LoanController {
 		loan.setProposedReturnDate(proposedReturnDate);
 	}
 
+	/**
+	 * Return date is valid.
+	 *
+	 * @param returnDate the return date
+	 * @return true, if successful
+	 */
 	public boolean returnDateIsValid(LocalDateTime returnDate) {
 		return returnDate.isAfter(returnDate);
 	}
 	
 	/**
-	 * Calculates a price for yet to be loan
+	 * Calculates a price for yet to be loan.
+	 *
+	 * @param product the product
+	 * @param customer the customer
+	 * @param from the from
+	 * @param to the to
+	 * @return the price
 	 */
 	public BigDecimal getPrice(Product product, Customer customer, LocalDateTime from, LocalDateTime to) {
 		BigDecimal pricePerMinute = product.getLatestLoaningPrice().divide(BigDecimal.valueOf(60), 10, RoundingMode.HALF_UP);
