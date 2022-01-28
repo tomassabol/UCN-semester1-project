@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import exception.DisabledStateException;
 import exception.EmailNotUniqueException;
+import exception.IllegalModificationException;
+import exception.NullPriceException;
 import exception.OutOfStockException;
 import gui.Common;
 import model.*;
@@ -14,12 +17,18 @@ public class GenerateDataController {
     private EmployeeController employeeCtrl;
     ContractorController contractorCtrl;
     LoanController loanCtrl;
+    ShoppingCartController shoppingCartCtrl;
+    StockController stockCtrl;
+    SupplyController supplyCtrl;
 
     public GenerateDataController() {
         orderCtrl = new QuoteController();
         employeeCtrl = new EmployeeController();
         contractorCtrl = new ContractorController();
         loanCtrl = new LoanController();
+        shoppingCartCtrl = new ShoppingCartController();
+        stockCtrl = new StockController();
+        supplyCtrl = new SupplyController();
     }
 
     public void generateData() {
@@ -33,6 +42,7 @@ public class GenerateDataController {
         Customer customer3 = ctrl.createCustomer("Ferenc", "Mant", "Gade 44", "+45 234523", customerType, LocalDate.now());
         Customer customer4 = ctrl.createCustomer("Julie", "Bron", "Hosebro 81", "+45 154893", customerType, LocalDate.now());
         Customer customer5 = ctrl.createCustomer("Daniel", "Kanepe", "Hosebro 33", "+45 956883", customerType, LocalDate.now());
+        
         // Create products
         ProductController productCtrl = new ProductController();
         Product product1 = productCtrl.createProduct("Shovel", "A big, steel shovel", 70, 100, true);
@@ -47,13 +57,21 @@ public class GenerateDataController {
         Product product10 = productCtrl.createProduct("Table top", "Design wood table top", 10, 28, true);
         Product product11 = productCtrl.createProduct("Lawn mower", "Cut the grass", 10, 28, true);
         Product product12 = productCtrl.createProduct("Chain saw", "for wood cut", 10, 28, true);
+        
+        // Add 'loaning' prices to some products
         LoaningPrice loaningPrice = productCtrl.createLoaningPrice(BigDecimal.valueOf(25), product1);
         LoaningPrice loaningPrice2 = productCtrl.createLoaningPrice(BigDecimal.valueOf(50), product11);
         LoaningPrice loaningPrice3 = productCtrl.createLoaningPrice(BigDecimal.valueOf(30), product12);
-        // add bulk discount to product
-        BulkDiscount bulkDiscount = new BulkDiscount(2, 20);
-        product1.addBulkDiscount(bulkDiscount);
-        // Add purchase price to the product
+        
+        // add bulk discount to some products
+        BulkDiscount bulkDiscount1 = new BulkDiscount(3, 5);
+        BulkDiscount bulkDiscount2 = new BulkDiscount(5, 10);
+        BulkDiscount bulkDiscount3 = new BulkDiscount(7, 15);
+        product1.addBulkDiscount(bulkDiscount1);
+        product1.addBulkDiscount(bulkDiscount2);
+        product1.addBulkDiscount(bulkDiscount3);
+        
+        // Add purchase price to the products
         productCtrl.createSellingPrice(BigDecimal.valueOf(95), product1);
         productCtrl.createSellingPrice(BigDecimal.valueOf(30), product2);
         productCtrl.createSellingPrice(BigDecimal.valueOf(1400), product3);
@@ -66,19 +84,13 @@ public class GenerateDataController {
         productCtrl.createSellingPrice(BigDecimal.valueOf(100), product10);
         productCtrl.createSellingPrice(BigDecimal.valueOf(1600), product11);
         productCtrl.createSellingPrice(BigDecimal.valueOf(700), product12);
-        // Add contractor
+        
+        // Create contractors
         Contractor contractor1 = contractorCtrl.createContractor("Some supply A/S");
         Contractor contractor2 = contractorCtrl.createContractor("Timber A/S");
         Contractor contractor3 = contractorCtrl.createContractor("Praktiker A/S");
         Contractor contractor4 = contractorCtrl.createContractor("Hikerma A/S");
         Contractor contractor5 = contractorCtrl.createContractor("Trandmas A/S");
-        
-        // NOTE: Not using a controller to skip stock check!
-        // Create items
-        ShoppingItemLine itemLine1 = new ShoppingItemLine(product1, 4);
-        ShoppingItemLine itemLine2 = new ShoppingItemLine(product1, 3);
-        // Add itemline to shopping cart
-        customer1.getShoppingCart().add(itemLine1);
         
         // Create employees
         IFEmployee employee = null;
@@ -90,59 +102,72 @@ public class GenerateDataController {
 		} catch (EmailNotUniqueException e1) {
 			e1.printStackTrace();
 		}
- 
         
-        customer1.getShoppingCart().add(itemLine2);
-        
-        StockController stockCtrl = new StockController();
+        // Create storage locations
         StorageLocation storageLocation1 = stockCtrl.createStorageLocation("DIY", "Rundvej 11A", true);
         StorageLocation storageLocation2 = stockCtrl.createStorageLocation("Timber", "Melvej 4 ", true);
         StorageLocation storageLocation3 = stockCtrl.createStorageLocation("Kitchen", "Melvej 4 ", true);
         StorageLocation storageLocation4 = stockCtrl.createStorageLocation("DIY", "Rundvej 11A", true);
         
+        // Create shelves
         Shelf shelf1 = stockCtrl.createShelf("A1", storageLocation1);
-        stockCtrl.createShelf("A5", storageLocation1);
-        stockCtrl.createShelf("D1", storageLocation2);
-        stockCtrl.createShelf("C22", storageLocation2);
-        stockCtrl.createShelf("C26", storageLocation3);
-        stockCtrl.createShelf("B1", storageLocation4);
+        Shelf shelf2 = stockCtrl.createShelf("A5", storageLocation1);
+        Shelf shelf3 = stockCtrl.createShelf("D1", storageLocation2);
+        Shelf shelf4 = stockCtrl.createShelf("C22", storageLocation2);
+        Shelf shelf5 = stockCtrl.createShelf("C26", storageLocation3);
+        Shelf shelf6 = stockCtrl.createShelf("B1", storageLocation4);
         
-        SupplyController supplyCtrl = new SupplyController();
+        // Create supply offers
         SupplyOffer supplyOffer1 = supplyCtrl.createSupplyOffer(product1, contractor1, BigDecimal.valueOf(4), 2);
         
-        StockBatch stockBatch = new StockBatch(product1, 10, LocalDateTime.now());
-        StockBatch stockBatch2 = new StockBatch(product2, 5, LocalDateTime.now());
-        StockBatch stockBatch3 = new StockBatch(product3, 5, LocalDateTime.now());
-        StockBatch stockBatch4 = new StockBatch(product4, 8, LocalDateTime.now());
-        StockBatch stockBatch5 = new StockBatch(product5, 7, LocalDateTime.now());
-        StockBatch stockBatch6 = new StockBatch(product6, 2, LocalDateTime.now());
-        StockBatch stockBatch7 = new StockBatch(product7, 5, LocalDateTime.now());
-        StockBatch stockBatch8 = new StockBatch(product8, 12, LocalDateTime.now());
-        StockBatch stockBatch9 = new StockBatch(product9, 50, LocalDateTime.now());
-        StockBatch stockBatch10 = new StockBatch(product10, 5, LocalDateTime.now());
-        StockBatch stockBatch11 = new StockBatch(product11, 2, LocalDateTime.now());
-        StockBatch stockBatch12 = new StockBatch(product12, 3, LocalDateTime.now());
+        // Create supply orders
+        SupplyOrder supplyOrder1 = supplyCtrl.createSupplyOrder(product1, 15, BigDecimal.valueOf(20), contractor1, LocalDateTime.now().minusDays(2));
+        SupplyOrder supplyOrder2 = supplyCtrl.createSupplyOrder(product2, 5, BigDecimal.valueOf(25), contractor1, LocalDateTime.now().minusDays(1));
+        SupplyOrder supplyOrder3 = supplyCtrl.createSupplyOrder(product3, 10, BigDecimal.valueOf(30), contractor1, LocalDateTime.now().minusDays(3));
+        SupplyOrder supplyOrder4 = supplyCtrl.createSupplyOrder(product5, 33, BigDecimal.valueOf(15), contractor1, LocalDateTime.now().minusDays(5));
+        SupplyOrder supplyOrder5 = supplyCtrl.createSupplyOrder(product6, 2, BigDecimal.valueOf(40), contractor1, LocalDateTime.now().minusDays(8));
+        SupplyOrder supplyOrder6 = supplyCtrl.createSupplyOrder(product1, 15, BigDecimal.valueOf(20), contractor1, LocalDateTime.now().minusDays(15));
+        SupplyOrder supplyOrder7 = supplyCtrl.createSupplyOrder(product1, 15, BigDecimal.valueOf(20), contractor1, LocalDateTime.now().minusDays(15));
         
-        shelf1.addStockBatch(product1, stockBatch);
-        shelf1.addStockBatch(product2, stockBatch);
-        shelf1.addStockBatch(product3, stockBatch);
-        supplyCtrl.createSupplyOrder(supplyOffer1.getProduct(), 
-        		5, supplyOffer1.getPricePerItem(), supplyOffer1.getContractor(), LocalDateTime.now());
-        supplyCtrl.createSupplyOrder(supplyOffer1.getProduct(), 
-        		2, supplyOffer1.getPricePerItem(), supplyOffer1.getContractor(), LocalDateTime.now());
+        // Put some supply orders into stock
+        try {
+        	supplyCtrl.StockAndMarkDelivered(supplyOrder1, shelf1, LocalDateTime.now(), false, TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE);
+			supplyCtrl.StockAndMarkDelivered(supplyOrder2, shelf2, LocalDateTime.now(), false, TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE);
+	        supplyCtrl.StockAndMarkDelivered(supplyOrder3, shelf3, LocalDateTime.now(), true, TrackableItem.TRACKABLE_ITEM_TYPE.LOANABLE);
+	        supplyCtrl.StockAndMarkDelivered(supplyOrder4, shelf2, LocalDateTime.now(), true, TrackableItem.TRACKABLE_ITEM_TYPE.LOANABLE);
+	        supplyCtrl.StockAndMarkDelivered(supplyOrder5, shelf4, LocalDateTime.now(), true, TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE);
+	        supplyCtrl.StockAndMarkDelivered(supplyOrder6, shelf1, LocalDateTime.now(), false, TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE);
+		} catch (IllegalModificationException e2) {
+			e2.printStackTrace();
+		}
+
+        // Add items to cart
+        try {
+			shoppingCartCtrl.addProduct(customer1.getShoppingCart(), product2, 3);
+	        shoppingCartCtrl.addProduct(customer1.getShoppingCart(), product1, 3);
+		} catch (OutOfStockException | NullPriceException | DisabledStateException e1) {
+			e1.printStackTrace();
+		}
         
-        // Add orders to customer1
+        // Create quote
         try {
 			orderCtrl.createQuote(customer1, employee);
 		} catch (OutOfStockException e) {
 			e.printStackTrace();
 		}
         
-        // Add itemline to shopping cart
-        customer1.getShoppingCart().add(itemLine1);
+        
+        
+        // Add items to cart, again
+        try {
+			shoppingCartCtrl.addProduct(customer2.getShoppingCart(), product2, 2);
+	        shoppingCartCtrl.addProduct(customer1.getShoppingCart(), product1, 1);
+		} catch (OutOfStockException | NullPriceException | DisabledStateException e1) {
+			e1.printStackTrace();
+		}
 
         try{
-            Loan loan1 = loanCtrl.createLoan(customer1, employee, product1, LocalDateTime.now().plusDays(3));
+            Loan loan1 = loanCtrl.createLoan(customer1, employee, product3, LocalDateTime.now().plusDays(3));
 		} catch (OutOfStockException e) {
 			e.printStackTrace();
 		}
