@@ -48,7 +48,7 @@ public class ManageLoans extends JDialog {
 		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		loansTable = new CRUDLoans(auth, customer, false);
+		loansTable = new CRUDLoans(auth, customer);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;

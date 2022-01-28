@@ -46,21 +46,19 @@ public class CRUDLoans extends JPanel {
 	private JTextField txtSearch;
 	private TableRowSorter<TableModel> rowSorter;
 	AuthenticationController auth;
-	Employee employee;
 	Customer customer;
 	boolean returnLoan;
 
 	/**
 	 * Constructor class CRUDLoans
 	 */
-	public CRUDLoans(AuthenticationController auth, Customer customer, boolean returnLoan) {
+	public CRUDLoans(AuthenticationController auth, Customer customer) {
 		this.auth = auth;
 		this.customer = customer;
-		this.returnLoan = returnLoan;
 		
 		loanCtrl = new LoanController();
 		setLayout(new BorderLayout(0, 0));
-		tableModel = new LoansTableModel(loanCtrl.getLoans());
+		tableModel = new LoansTableModel(loanCtrl.getLoans(customer));
 		
 		// ***** TOP PANEL *****
 		JPanel topPanel = new JPanel();
