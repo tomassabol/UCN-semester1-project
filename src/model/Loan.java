@@ -100,7 +100,7 @@ public class Loan {
 	}
 
 
-	public int getCustomerTypeDiscocuntPercentage() {
+	public int getCustomerTypeDiscountPercentage() {
 		return CUSTOMER_TYPE_DISCOUNT_PERCENTAGE;
 	}
 
