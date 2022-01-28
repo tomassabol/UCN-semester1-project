@@ -60,7 +60,7 @@ public class GenerateDataController {
         
         // Add 'loaning' prices to some products
         LoaningPrice loaningPrice = productCtrl.createLoaningPrice(BigDecimal.valueOf(25), product1);
-        LoaningPrice loaningPrice2 = productCtrl.createLoaningPrice(BigDecimal.valueOf(50), product11);
+        LoaningPrice loaningPrice2 = productCtrl.createLoaningPrice(BigDecimal.valueOf(50), product3);
         LoaningPrice loaningPrice3 = productCtrl.createLoaningPrice(BigDecimal.valueOf(30), product12);
         
         // add bulk discount to some products
