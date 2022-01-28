@@ -32,12 +32,22 @@ public class Loan {
         this.returnDate = null;
     }
 	
+	/**
+	 * Gets the proposed price.
+	 *
+	 * @return the proposed price
+	 */
 	public BigDecimal getProposedPrice() {
 		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60));
 		long minutes = Duration.between(this.CREATION_DATE, this.proposedReturnDate).toMinutes();
 		return pricePerMinute.multiply(BigDecimal.valueOf(minutes));
 	}
 	
+	/**
+	 * Gets the price after the item has ben returned
+	 *
+	 * @return the actual price
+	 */
 	public BigDecimal getActualPrice() {
 		if (returnDate == null) {
 			return null;
@@ -45,6 +55,19 @@ public class Loan {
 		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60));
 		long minutes = Duration.between(this.returnDate, this.proposedReturnDate).toMinutes();
 		return pricePerMinute.multiply(BigDecimal.valueOf(minutes));
+	}
+	
+	/**
+	 * Gets the proposed price or actual price if returned
+	 *
+	 * @return the price
+	 */
+	public BigDecimal getPrice() {
+		if (returnDate == null) {
+			return this.getProposedPrice();
+		} else {
+			return this.getActualPrice();
+		}
 	}
 	
 	public boolean isReturned() {
