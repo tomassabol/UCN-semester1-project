@@ -128,9 +128,11 @@ public class ChooseProduct extends JDialog {
 				} else if (this.mode == Mode.LOANABLE) {
 					quantityInStock = new StockController().getLoanableQuantityInStock(product);
 				}
-				// enable choose button only if stock > 0 && product is enabled
-				if (quantityInStock > 0 && product.isEnabled()) {
+				// enable choose button only if stock > 0, product is enabled & has a loan price
+				if (quantityInStock > 0 && product.isEnabled() && product.getLatestSellingPrice() != null) {
 					btnChoose.setEnabled(true);
+				} else {
+					btnChoose.setEnabled(false);
 				}
 			}
 			

@@ -40,11 +40,9 @@ public class Loan {
 	public BigDecimal getProposedPrice() {
 		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60), 10, RoundingMode.HALF_UP);
 		long minutes = Duration.between(this.CREATION_DATE, this.proposedReturnDate).toMinutes();
-		System.out.println("price per hour: " + this.LOANING_PRICE_PER_HOUR);
-		System.out.println("price per minute: " + pricePerMinute);
-		System.out.println("minutes: " + minutes);
-		System.out.println("price: " + pricePerMinute.multiply(BigDecimal.valueOf(minutes)));
-		return pricePerMinute.multiply(BigDecimal.valueOf(minutes));
+		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
+		// return with customer discount applied
+		return subtotal.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100.0));
 	}
 	
 	/**
@@ -58,7 +56,9 @@ public class Loan {
 		}
 		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60), RoundingMode.HALF_UP);
 		long minutes = Duration.between(this.returnDate, this.proposedReturnDate).toMinutes();
-		return pricePerMinute.multiply(BigDecimal.valueOf(minutes));
+		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
+		// return with customer discount applied
+		return subtotal.multiply(BigDecimal.valueOf((100 - CUSTOMER.getCustomerType().getDiscountPercentage()) / 100.0));
 	}
 	
 	/**
