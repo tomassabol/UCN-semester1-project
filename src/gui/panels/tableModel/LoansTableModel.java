@@ -76,7 +76,7 @@ public class LoansTableModel extends AbstractTableModel {
                     loan.getCustomerType(),
                     loan.getCustomerTypeDiscountPercentage());
             case 6: return String.format("%.2f DKK", loan.getPrice());     
-            case 7: return loan.isReturned() ? loan.getReturnDate() : "-";
+            case 7: return loan.isReturned() ? Common.datetimeToString(loan.getReturnDate() ): "-";
             default: return null;
         }
     }
