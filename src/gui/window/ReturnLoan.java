@@ -256,7 +256,8 @@ public class ReturnLoan extends JDialog {
 			String msg;
 			if (returnDate.isAfter(loan.getProposedReturnDate())) {
 				BigDecimal fees = loanCtrl.getOverduePrice(loan, returnDate);
-				msg = "The customer has to pay an extra " + fees + " DKK for this return. Return loan?";
+				msg = String.format("The customer has to pay an extra %.2f DKK for this return. Return loan?",
+						fees);
 			} else {
 				msg = "There is nothing extra to pay. Return loan?";
 			}
