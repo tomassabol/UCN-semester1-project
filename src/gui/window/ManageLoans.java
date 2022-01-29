@@ -64,6 +64,7 @@ public class ManageLoans extends JDialog {
 		getContentPane().add(CRUDPanel, gbc_panel);
 		
 		btnReturn = new JButtonPrimary("Return");
+		btnReturn.setEnabled(false);
 		GridBagConstraints gbc_btnReturn = new GridBagConstraints();
 		gbc_btnReturn.anchor = GridBagConstraints.EAST;
 		gbc_btnReturn.gridx = 0;
@@ -72,6 +73,7 @@ public class ManageLoans extends JDialog {
 		
 		// Attach event handlers
 		this.addEventHandlers();
+		
 	}
 	/*
 	 * *******************************************************
