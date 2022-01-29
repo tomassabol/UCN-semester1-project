@@ -115,7 +115,6 @@ public class ManageLoans extends JDialog {
 			JTable table = CRUDPanel.getTable();
 			// Get selected loan
 			int row = table.getSelectedRow();
-			System.out.println("row: " + row);
 			Loan loan = CRUDPanel.getTableModel().getObj(row);
 			ReturnLoan frame = new ReturnLoan(auth, loan);
 			frame.setVisible(true);

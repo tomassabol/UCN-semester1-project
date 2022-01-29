@@ -46,7 +46,7 @@ public class Loan {
 	}
 	
 	/**
-	 * Gets the price after the item has ben returned
+	 * Gets the price after the item has been returned
 	 *
 	 * @return the actual price
 	 */
@@ -58,7 +58,7 @@ public class Loan {
 		if (this.returnDate.isBefore(this.proposedReturnDate)) {
 			return this.getProposedPrice();
 		}
-		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60), RoundingMode.HALF_UP);
+		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60), 10, RoundingMode.HALF_UP);
 		long minutes = Duration.between(this.CREATION_DATE, this.returnDate).toMinutes();
 		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
 		// return with customer discount applied

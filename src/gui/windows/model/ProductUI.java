@@ -377,7 +377,6 @@ public class ProductUI extends JDialog {
 				if (stringLoanPrice.isEmpty()) {
 					loanPrice = null;
 				} else {
-					System.out.println("Loan price: " + stringLoanPrice);
 					try {
 						loanPrice = new BigDecimal(stringLoanPrice);
 					} catch (NumberFormatException e1) {
