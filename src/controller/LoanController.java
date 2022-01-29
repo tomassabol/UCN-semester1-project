@@ -192,6 +192,10 @@ public class LoanController {
 	 * @return the price
 	 */
 	public BigDecimal getOverduePrice(Loan loan, LocalDateTime returnDate) {
-		return loan.getProposedPrice().subtract(this.getPrice(loan, returnDate));
+		if (returnDate.isBefore(loan.getProposedReturnDate())) {
+			return new BigDecimal(0);
+		} else {
+			return this.getPrice(loan, returnDate).subtract(loan.getProposedPrice());
+		}
 	}
 }
