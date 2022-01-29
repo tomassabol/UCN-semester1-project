@@ -54,6 +54,10 @@ public class Loan {
 		if (returnDate == null) {
 			return null;
 		}
+		// If return date < proposedReturn date, return proposed return date's cost
+		if (this.returnDate.isBefore(this.proposedReturnDate)) {
+			return this.getProposedPrice();
+		}
 		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60), RoundingMode.HALF_UP);
 		long minutes = Duration.between(this.CREATION_DATE, this.returnDate).toMinutes();
 		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));

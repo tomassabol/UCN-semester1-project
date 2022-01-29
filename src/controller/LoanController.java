@@ -175,6 +175,10 @@ public class LoanController {
 	 * @return the price
 	 */
 	public BigDecimal getPrice(Loan loan, LocalDateTime returnDate) {
+		// If return date is before proposed return date, return proposed price
+		if (returnDate.isBefore(loan.getProposedReturnDate())) {
+			return loan.getProposedPrice();
+		}
 		BigDecimal pricePerMinute = loan.getLoaningPricePerHour().divide(BigDecimal.valueOf(60), 10, RoundingMode.HALF_UP);
 		long minutes = Duration.between(loan.getCreationDate(), returnDate).toMinutes();
 		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
