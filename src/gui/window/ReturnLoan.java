@@ -264,10 +264,11 @@ public class ReturnLoan extends JDialog {
 			if (Messages.confirm(ReturnLoan.this, msg)) {
 				
 				loanCtrl.returnLoan(loan, returnDate, shelf);
+				
+				// Dispose of the window
+				this.dispose();
 
 			}
-			// Dispose of the window
-			this.dispose();
 		});
         
 	}
