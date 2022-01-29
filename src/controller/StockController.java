@@ -1,6 +1,9 @@
 package controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +13,7 @@ import model.Quote;
 import model.Shelf;
 import model.StockBatch;
 import model.StorageLocation;
+import model.TrackableItem;
 import models.container.StockContainer;
 
 public class StockController {
@@ -114,23 +118,16 @@ public class StockController {
     }
 
     /**
-     * Returns the Loanable item quantity for a product
-     *
-     * @param product the product
-     * @return increases lonoablestock quantity of the product by +1
+     * Put a trackable item in a shelf
+     * 
+     * @param item
+     * @param shelf
      */
-    public int addLoanableToStock(Product product) {
-    	return StockContainer.getInstance().addLoanableToStock(product);
-    }
-
-    /**
-     * Returns the Loanable item quantity for a product
-     *
-     * @param product the product
-     * @return decreases lonoablestock quantity of the product by -1
-     */
-    public int removeLoanableFromStock(Product product) {
-    	return StockContainer.getInstance().removeLoanableFromStock(product);
+    public void putItem(TrackableItem item, Shelf shelf) {
+    	// Create stock batch with current time
+    	StockBatch stockBatch = new StockBatch(new HashSet<>(Arrays.asList(item)), LocalDateTime.now());
+    	// Put into shelf
+    	shelf.addStockBatch(item.getProduct(), stockBatch);
     }
     
     

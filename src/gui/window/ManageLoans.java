@@ -109,6 +109,17 @@ public class ManageLoans extends JDialog {
 			
 		});
 		
+		btnReturn.addActionListener(e -> {
+			JTable table = CRUDPanel.getTable();
+			// Get selected loan
+			int row = table.getSelectedRow();
+			Loan loan = CRUDPanel.getTableModel().getObj(row);
+			ReturnLoan frame = new ReturnLoan(auth, loan);
+			frame.setVisible(true);
+			// Update rendered table
+			CRUDPanel.getTableModel().fireTableRowsUpdated(row, row);
+		});
+		
 	}
 	
 }

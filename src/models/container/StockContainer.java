@@ -216,9 +216,6 @@ public class StockContainer {
     	return getLoanableQuantityInStock(product) + 1;
     }
 
-    public int removeLoanableFromStock(Product product) {
-    	return getLoanableQuantityInStock(product) - 1;
-    }
     /**
      * Gets All stock batches for a particular product
      *

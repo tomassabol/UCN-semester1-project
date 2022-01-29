@@ -13,6 +13,7 @@ import model.IFEmployee;
 import model.Loan;
 import model.PrimaryKey;
 import model.Product;
+import model.Shelf;
 import model.TrackableItem;
 import models.container.LoanContainer;
 import models.container.StockContainer;
@@ -117,13 +118,16 @@ public class LoanController {
 	}
 
 	/**
-	 *  Update the datetime that the item was returned at.
+	 * Returns a loan
 	 *
-	 * @param loan - loan to be updated
+	 * @param loan - loan to be returned
 	 * @param returnDate - new return date
 	 */
-	public void updateReturnDate(Loan loan, LocalDateTime returnDate) {
+	public void returnLoan(Loan loan, LocalDateTime returnDate, Shelf shelf) {
+		// Set return date
 		loan.setReturnDate(returnDate);
+		// Put back into stock (a shelf)
+		stockCtrl.putItem(loan.getItem(), shelf);
 	}
 
 	/**
@@ -147,7 +151,7 @@ public class LoanController {
 	}
 	
 	/**
-	 * Calculates a price for yet to be loan.
+	 * Calculates the current price for yet to be loan.
 	 *
 	 * @param product the product
 	 * @param customer the customer
@@ -161,5 +165,29 @@ public class LoanController {
 		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
 		// return with customer discount applied
 		return subtotal.multiply(BigDecimal.valueOf((100 - customer.getCustomerType().getDiscountPercentage()) / 100.0));
+	}
+	
+	/**
+	 * Calculates the price for a loan with a specific return date
+	 * 
+	 * @param loan
+	 * @param returnDate
+	 * @return the price
+	 */
+	public BigDecimal getPrice(Loan loan, LocalDateTime returnDate) {
+		BigDecimal pricePerMinute = loan.getLoaningPricePerHour().divide(BigDecimal.valueOf(60), 10, RoundingMode.HALF_UP);
+		long minutes = Duration.between(loan.getCreationDate(), returnDate).toMinutes();
+		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
+		// return with customer discount applied
+		return subtotal.multiply(BigDecimal.valueOf((100 - loan.getCustomerTypeDiscountPercentage()) / 100.0));
+	}
+	
+	/**
+	 * Gets the difference between proposed price and actual (with the actual return date)
+	 * 
+	 * @return the price
+	 */
+	public BigDecimal getOverduePrice(Loan loan, LocalDateTime returnDate) {
+		return loan.getProposedPrice().add(this.getPrice(loan, returnDate)).negate();
 	}
 }
