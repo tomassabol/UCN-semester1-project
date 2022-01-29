@@ -55,7 +55,7 @@ public class Loan {
 			return null;
 		}
 		BigDecimal pricePerMinute = this.LOANING_PRICE_PER_HOUR.divide(BigDecimal.valueOf(60), RoundingMode.HALF_UP);
-		long minutes = Duration.between(this.returnDate, this.proposedReturnDate).toMinutes();
+		long minutes = Duration.between(this.CREATION_DATE, this.returnDate).toMinutes();
 		BigDecimal subtotal = pricePerMinute.multiply(BigDecimal.valueOf(minutes));
 		// return with customer discount applied
 		return subtotal.multiply(BigDecimal.valueOf((100 - this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE) / 100.0));
