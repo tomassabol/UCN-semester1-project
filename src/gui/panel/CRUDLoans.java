@@ -46,7 +46,7 @@ public class CRUDLoans extends JPanel {
 	
 	private JTable tableMain;
 	private LoansTableModel tableModel;
-	private JLink btnDisable;
+	private JLink btnDelete;
 	private JTextField txtSearch;
 	private TableRowSorter<TableModel> rowSorter;
 	AuthenticationController auth;
@@ -124,12 +124,12 @@ public class CRUDLoans extends JPanel {
 		bottomPanel.setLayout(gbl_bottomPanel);
 				
 		// ***** Disable button *****
-		btnDisable = new JLink("Delete", COLORS.RED);
-		GridBagConstraints gbc_btnDisable = new GridBagConstraints();
-		gbc_btnDisable.gridx = 3;
-		gbc_btnDisable.gridy = 0;
-		bottomPanel.add(btnDisable, gbc_btnDisable);
-		btnDisable.setEnabled(false);
+		btnDelete = new JLink("Delete", COLORS.RED);
+		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
+		gbc_btnDelete.gridx = 3;
+		gbc_btnDelete.gridy = 0;
+		bottomPanel.add(btnDelete, gbc_btnDelete);
+		btnDelete.setEnabled(false);
 		
 		// Add filtering
 		rowSorter = new TableRowSorter<>(tableModel);
@@ -192,18 +192,22 @@ public class CRUDLoans extends JPanel {
 		tableMain.getSelectionModel().addListSelectionListener(e -> {
 			if (tableMain.getSelectionModel().isSelectionEmpty()) {
 				// Not selected
-				btnDisable.setEnabled(false);
-			} else if (tableMain.getSelectionModel().isSelectionEmpty() == false && returnLoan == true) {
-				// Selected but choose mode
-				btnDisable.setEnabled(false);
+				btnDelete.setEnabled(false);
 			} else {
-				// Selected
-				btnDisable.setEnabled(true);
+				int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
+				Loan loan = tableModel.getObj(row);
+				if (loan.isReturned()) {
+					// Selected and returned
+					btnDelete.setEnabled(true);
+				} else {
+					// selected and NOT returned
+					btnDelete.setEnabled(false);
+				}
 			}
 		});
 
 		// Delete loan
-		btnDisable.addActionListener(e -> {
+		btnDelete.addActionListener(e -> {
 			int row = tableMain.convertRowIndexToModel(tableMain.getSelectedRow());
 			Loan loan = tableModel.getObj(row);
 			if (Messages.confirm(this, String.format("Are you sure you wish to delete the loan '%s'?", loan.getID()))) {
