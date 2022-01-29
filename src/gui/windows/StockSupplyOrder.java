@@ -1,4 +1,4 @@
-package gui.windows.model;
+package gui.windows;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -32,7 +32,7 @@ import javax.swing.ButtonGroup;
  * @author Daniels Kanepe
  *
  */
-public class StockSupplyOrderUI extends JDialog {
+public class StockSupplyOrder extends JDialog {
 
     private JPanel contentPane;
 	private JButton btnSubmit;
@@ -65,7 +65,7 @@ public class StockSupplyOrderUI extends JDialog {
 	 * @param supplyOrder the supplyOrder
      * @wbp.parser.constructor
 	 */
-	public StockSupplyOrderUI(AuthenticationController auth, SupplyOrder supplyOrder) {
+	public StockSupplyOrder(AuthenticationController auth, SupplyOrder supplyOrder) {
 		this.supplyOrder = supplyOrder;
 		this.auth = auth;
 
@@ -83,7 +83,7 @@ public class StockSupplyOrderUI extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPanel);
 		
-		JLabel lblTitle = new JLabel("Stock a supply order *");
+		JLabel lblTitle = new JLabel("Stock a supply order");
 		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 		gbc_lblTitle.gridwidth = 2;
 		gbc_lblTitle.anchor = GridBagConstraints.SOUTH;
@@ -282,7 +282,7 @@ public class StockSupplyOrderUI extends JDialog {
 		
 		// 'Submit' button - put the supply order into stock
 		btnSubmit.addActionListener(e -> {
-			if (Messages.confirm(StockSupplyOrderUI.this, "Stock this supply order?")) {
+			if (Messages.confirm(StockSupplyOrder.this, "Stock this supply order?")) {
 				
 				// Validate shelf: a shelf has been chosen
 				if (this.shelf == null) {

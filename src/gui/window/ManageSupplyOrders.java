@@ -18,7 +18,7 @@ import controller.SupplyController;
 import gui.JButtonPrimary;
 import gui.panel.CRUDSupplyOrders;
 import gui.panels.tableModel.SupplyOrderTableModel;
-import gui.windows.model.StockSupplyOrderUI;
+import gui.windows.StockSupplyOrder;
 import model.Product;
 import model.SupplyOrder;
 
@@ -179,7 +179,7 @@ public class ManageSupplyOrders extends JDialog {
 			int row = table.convertRowIndexToModel(table.getSelectedRow());
 			SupplyOrder supplyOrder = CRUDPanel.getTableModel().getObj(row);
 			// Show UI
-			StockSupplyOrderUI frame = new StockSupplyOrderUI(auth, supplyOrder);
+			StockSupplyOrder frame = new StockSupplyOrder(auth, supplyOrder);
 			frame.setVisible(true);
 			// Update row in case there were changes (delivered field might be true now)
 			CRUDPanel.getTableModel().fireTableRowsUpdated(row, row);
