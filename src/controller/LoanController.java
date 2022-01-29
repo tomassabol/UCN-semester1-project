@@ -192,6 +192,6 @@ public class LoanController {
 	 * @return the price
 	 */
 	public BigDecimal getOverduePrice(Loan loan, LocalDateTime returnDate) {
-		return loan.getProposedPrice().add(this.getPrice(loan, returnDate)).negate();
+		return loan.getProposedPrice().subtract(this.getPrice(loan, returnDate));
 	}
 }
