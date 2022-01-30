@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.Insets;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -94,7 +95,7 @@ public class Login extends JFrame {
 		gbc_lblPassword.gridy = 3;
 		contentPane.add(lblPassword, gbc_lblPassword);
 		
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField();
 		txtPassword.setToolTipText("");
 		txtPassword.setColumns(10);
 		GridBagConstraints gbc_txtPassword = new GridBagConstraints();
