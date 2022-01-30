@@ -10,7 +10,7 @@ import models.LoaningPrice;
 import models.PrimaryKey;
 import models.Product;
 import models.SellingPrice;
-import models.container.ProductContainer;
+import models.containers.ProductContainer;
 
 public class ProductController {
 

@@ -26,7 +26,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import controller.AuthenticationController;
 import controller.OrderController;
-import gui.statistics.chart.OrdersChart;
+import gui.statistics.charts.OrdersChart;
 import gui.windows.ChooseCustomer;
 import gui.windows.ChooseLoan;
 import gui.windows.ManageContractors;

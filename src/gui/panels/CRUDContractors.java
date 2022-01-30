@@ -24,7 +24,7 @@ import controller.ContractorController;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModel.ContractorTableModel;
+import gui.panels.tableModels.ContractorTableModel;
 import gui.windows.model.ContractorUI;
 import models.Contractor;
 

@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import controller.SupplyController;
 import gui.panels.CRUDSupplyOffers;
-import gui.panels.tableModel.SupplyOfferTableModel;
+import gui.panels.tableModels.SupplyOfferTableModel;
 import models.Product;
 
 import java.awt.Insets;

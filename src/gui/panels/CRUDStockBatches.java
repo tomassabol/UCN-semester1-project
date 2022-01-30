@@ -9,7 +9,7 @@ import javax.swing.ListSelectionModel;
 
 import controller.AuthenticationController;
 import controller.StockController;
-import gui.panels.tableModel.ShelfTableModel;
+import gui.panels.tableModels.ShelfTableModel;
 import models.Shelf;
 
 /**

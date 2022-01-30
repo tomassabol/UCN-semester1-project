@@ -14,7 +14,7 @@ import models.Shelf;
 import models.StockBatch;
 import models.StorageLocation;
 import models.TrackableItem;
-import models.container.StockContainer;
+import models.containers.StockContainer;
 
 public class StockController {
 

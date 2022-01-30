@@ -28,7 +28,7 @@ import exception.OutOfStockException;
 import gui.JButtonPrimary;
 import gui.JLink;
 import gui.Messages;
-import gui.panels.tableModel.ShoppingCartTableModel;
+import gui.panels.tableModels.ShoppingCartTableModel;
 import models.Customer;
 import models.Product;
 import models.Quote;

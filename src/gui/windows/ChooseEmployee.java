@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import gui.JButtonPrimary;
 import gui.panels.CRUDEmployees;
-import gui.panels.tableModel.EmployeeTableModel;
+import gui.panels.tableModels.EmployeeTableModel;
 import models.IFEmployee;
 
 /**

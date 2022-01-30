@@ -10,7 +10,7 @@ import controller.AuthenticationController;
 import controller.StockController;
 import gui.panels.CRUDProducts;
 import gui.panels.CRUDProducts.Mode;
-import gui.panels.tableModel.ProductTableModel;
+import gui.panels.tableModels.ProductTableModel;
 import models.Customer;
 import models.Product;
 

@@ -18,8 +18,8 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.JPanel;
 import controller.AuthenticationController;
 import controller.OrderController;
-import gui.panels.tableModel.OrdersItemTableModel;
-import gui.panels.tableModel.OrdersTableModel;
+import gui.panels.tableModels.OrdersItemTableModel;
+import gui.panels.tableModels.OrdersTableModel;
 import models.Customer;
 import models.Order;
 

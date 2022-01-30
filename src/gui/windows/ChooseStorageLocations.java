@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import gui.JButtonPrimary;
 import gui.panels.CRUDStorageLocations;
-import gui.panels.tableModel.StorageLocationTableModel;
+import gui.panels.tableModels.StorageLocationTableModel;
 import models.StorageLocation;
 
 import java.awt.GridBagLayout;

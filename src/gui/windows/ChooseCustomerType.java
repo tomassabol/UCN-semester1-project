@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import gui.JButtonPrimary;
 import gui.panels.CRUDCustomerTypes;
-import gui.panels.tableModel.CustomerTypeTableModel;
+import gui.panels.tableModels.CustomerTypeTableModel;
 import models.CustomerType;
 
 import java.awt.GridBagLayout;

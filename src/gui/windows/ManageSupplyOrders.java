@@ -17,7 +17,7 @@ import controller.AuthenticationController;
 import controller.SupplyController;
 import gui.JButtonPrimary;
 import gui.panels.CRUDSupplyOrders;
-import gui.panels.tableModel.SupplyOrderTableModel;
+import gui.panels.tableModels.SupplyOrderTableModel;
 import models.Product;
 import models.SupplyOrder;
 

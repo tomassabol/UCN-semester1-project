@@ -15,8 +15,8 @@ import models.StockBatch;
 import models.SupplyOffer;
 import models.SupplyOrder;
 import models.TrackableItem;
-import models.container.SupplyOfferContainer;
-import models.container.SupplyOrderContainer;
+import models.containers.SupplyOfferContainer;
+import models.containers.SupplyOrderContainer;
 
 public class SupplyController {
 

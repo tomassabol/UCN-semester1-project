@@ -24,7 +24,7 @@ import controller.EmployeeController;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModel.EmployeeTableModel;
+import gui.panels.tableModels.EmployeeTableModel;
 import gui.windows.model.EmployeeUI;
 import models.Employee;
 import models.IFEmployee;

@@ -8,7 +8,7 @@ import controller.AuthenticationController;
 import controller.StockController;
 import gui.JButtonPrimary;
 import gui.panels.CRUDProducts;
-import gui.panels.tableModel.ProductTableModel;
+import gui.panels.tableModels.ProductTableModel;
 import models.Product;
 
 import java.awt.GridBagLayout;

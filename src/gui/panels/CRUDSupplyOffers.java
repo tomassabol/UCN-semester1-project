@@ -22,7 +22,7 @@ import controller.SupplyController;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModel.SupplyOfferTableModel;
+import gui.panels.tableModels.SupplyOfferTableModel;
 import gui.windows.model.SupplyOfferUI;
 import models.SupplyOffer;
 

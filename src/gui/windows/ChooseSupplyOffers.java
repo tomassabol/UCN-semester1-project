@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import gui.JButtonPrimary;
 import gui.panels.CRUDSupplyOffers;
-import gui.panels.tableModel.SupplyOfferTableModel;
+import gui.panels.tableModels.SupplyOfferTableModel;
 import models.Product;
 import models.SupplyOffer;
 

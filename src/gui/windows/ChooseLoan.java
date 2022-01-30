@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import gui.JButtonPrimary;
 import gui.panels.CRUDLoans;
-import gui.panels.tableModel.LoansTableModel;
+import gui.panels.tableModels.LoansTableModel;
 import models.Customer;
 import models.Loan;
 

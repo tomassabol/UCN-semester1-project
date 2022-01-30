@@ -28,7 +28,7 @@ import javax.swing.table.TableRowSorter;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModel.LoansTableModel;
+import gui.panels.tableModels.LoansTableModel;
 import gui.windows.model.LoanCreateUI;
 import models.Customer;
 import models.Employee;

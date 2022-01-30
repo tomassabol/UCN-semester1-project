@@ -28,8 +28,8 @@ import javax.swing.table.TableRowSorter;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModel.ProductTableModel;
-import gui.panels.tableModel.ProductTableModel.Column;
+import gui.panels.tableModels.ProductTableModel;
+import gui.panels.tableModels.ProductTableModel.Column;
 import gui.windows.model.ProductUI;
 import models.Product;
 

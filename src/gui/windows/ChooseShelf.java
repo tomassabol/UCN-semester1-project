@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import gui.JButtonPrimary;
 import gui.panels.CRUDShelves;
-import gui.panels.tableModel.ShelfTableModel;
+import gui.panels.tableModels.ShelfTableModel;
 import models.Shelf;
 
 import java.awt.GridBagLayout;

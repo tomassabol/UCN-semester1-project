@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import gui.JButtonPrimary;
 import gui.panels.CRUDContractors;
-import gui.panels.tableModel.ContractorTableModel;
+import gui.panels.tableModels.ContractorTableModel;
 import models.Contractor;
 
 import java.awt.GridBagLayout;

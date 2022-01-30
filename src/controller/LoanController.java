@@ -15,8 +15,8 @@ import models.PrimaryKey;
 import models.Product;
 import models.Shelf;
 import models.TrackableItem;
-import models.container.LoanContainer;
-import models.container.StockContainer;
+import models.containers.LoanContainer;
+import models.containers.StockContainer;
 
 /**
  * The Class LoanController.

@@ -27,7 +27,7 @@ import javax.swing.table.TableRowSorter;
 import gui.JLink;
 import gui.Messages;
 import gui.JLink.COLORS;
-import gui.panels.tableModel.SupplyOrderTableModel;
+import gui.panels.tableModels.SupplyOrderTableModel;
 import gui.windows.model.SupplyOrderUI;
 import models.SupplyOrder;
 

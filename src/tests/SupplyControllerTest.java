@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import models.Product;
 import models.SupplyOffer;
-import models.container.ProductContainer;
-import models.container.SupplyOfferContainer;
+import models.containers.ProductContainer;
+import models.containers.SupplyOfferContainer;
 
 class SupplyControllerTest {
 private SupplyOfferContainer supplyCon;
