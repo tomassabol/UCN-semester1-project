@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.Customer;
+import models.Customer;
 import models.container.CustomerContainer;
 
 class CustomerControllerTest {

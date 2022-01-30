@@ -10,8 +10,8 @@ import javax.swing.text.NumberFormatter;
 import controller.AuthenticationController;
 import controller.CustomerController;
 import gui.Messages;
-import model.CustomerType;
-import model.PrimaryKey;
+import models.CustomerType;
+import models.PrimaryKey;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;

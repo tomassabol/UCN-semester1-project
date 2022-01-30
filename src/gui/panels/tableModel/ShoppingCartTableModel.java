@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.ShoppingItemLine;
+import models.ShoppingItemLine;
 
 /**
  * @author Daniels Kanepe
@@ -29,7 +29,7 @@ public class ShoppingCartTableModel extends AbstractTableModel {
      *
      * @param itemLines the item lines
      */
-    public ShoppingCartTableModel(model.ShoppingCart shoppingCart) {
+    public ShoppingCartTableModel(models.ShoppingCart shoppingCart) {
         // Prevent possible external mutation
         this.itemLines = new ArrayList<>(shoppingCart.getItemLines());
     }

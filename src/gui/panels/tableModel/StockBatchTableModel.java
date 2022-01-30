@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import gui.Common;
-import model.StockBatch;
+import models.StockBatch;
 
 /**
  * @author Daniels Kanepe

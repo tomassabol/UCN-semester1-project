@@ -9,9 +9,9 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.OrderLine;
-import model.Product;
-import model.TrackableItem;
+import models.OrderLine;
+import models.Product;
+import models.TrackableItem;
 
 class OrderLineTest {
 private OrderLine orderLine1;

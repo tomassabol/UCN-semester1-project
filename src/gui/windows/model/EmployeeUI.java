@@ -11,8 +11,8 @@ import controller.EmployeeController;
 import exception.EmailNotUniqueException;
 import gui.Common;
 import gui.Messages;
-import model.IFEmployee;
-import model.PrimaryKey;
+import models.IFEmployee;
+import models.PrimaryKey;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;

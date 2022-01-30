@@ -3,7 +3,7 @@ package models.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.CustomerType;
+import models.CustomerType;
 
 public class CustomerTypeContainer {
     private static CustomerTypeContainer instance;

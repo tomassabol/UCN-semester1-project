@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.Contractor;
+import models.Contractor;
 
 /**
  * @author Daniels Kanepe

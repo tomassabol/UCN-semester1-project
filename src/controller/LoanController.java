@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import exception.OutOfStockException;
-import model.Customer;
-import model.IFCustomer;
-import model.IFEmployee;
-import model.Loan;
-import model.PrimaryKey;
-import model.Product;
-import model.Shelf;
-import model.TrackableItem;
+import models.Customer;
+import models.IFCustomer;
+import models.IFEmployee;
+import models.Loan;
+import models.PrimaryKey;
+import models.Product;
+import models.Shelf;
+import models.TrackableItem;
 import models.container.LoanContainer;
 import models.container.StockContainer;
 

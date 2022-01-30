@@ -7,13 +7,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import model.PrimaryKey;
-import model.Product;
-import model.Quote;
-import model.Shelf;
-import model.StockBatch;
-import model.StorageLocation;
-import model.TrackableItem;
+import models.PrimaryKey;
+import models.Product;
+import models.Quote;
+import models.Shelf;
+import models.StockBatch;
+import models.StorageLocation;
+import models.TrackableItem;
 import models.container.StockContainer;
 
 public class StockController {

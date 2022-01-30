@@ -11,8 +11,7 @@ import org.junit.jupiter.api.AfterEach;
 
 import org.junit.jupiter.api.Test;
 
-
-import model.SellingPrice;
+import models.SellingPrice;
 
 
 class SellingPriceTest {

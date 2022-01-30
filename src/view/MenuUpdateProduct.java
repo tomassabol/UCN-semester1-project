@@ -1,7 +1,7 @@
 package view;
 
-import model.Product;
 import controller.ProductController;
+import models.Product;
 
 public class MenuUpdateProduct extends GenericMenuInterface{
     private Product product;

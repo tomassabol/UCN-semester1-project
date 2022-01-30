@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 
 import controller.StockController;
 import gui.Common;
-import model.Product;
+import models.Product;
 
 /**
  * @author Daniels Kanepe

@@ -7,14 +7,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import model.OrderLine;
-import model.Product;
-import model.Quote;
-import model.QuoteItemLine;
-import model.Shelf;
-import model.StockBatch;
-import model.StorageLocation;
-import model.TrackableItem;
+import models.OrderLine;
+import models.Product;
+import models.Quote;
+import models.QuoteItemLine;
+import models.Shelf;
+import models.StockBatch;
+import models.StorageLocation;
+import models.TrackableItem;
 
 /**
  * The Class StorageContainer.

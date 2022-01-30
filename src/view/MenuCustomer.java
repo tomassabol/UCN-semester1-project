@@ -3,8 +3,8 @@ package view;
 import java.time.LocalDate;
 
 import controller.CustomerController;
-import model.Customer;
-import model.CustomerType;
+import models.Customer;
+import models.CustomerType;
 
 public class MenuCustomer extends GenericMenuInterface{
 

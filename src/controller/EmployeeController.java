@@ -6,9 +6,9 @@ import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 
 import exception.EmailNotUniqueException;
-import model.Employee;
-import model.IFEmployee;
-import model.PrimaryKey;
+import models.Employee;
+import models.IFEmployee;
+import models.PrimaryKey;
 import models.container.EmployeeContainer;
 
 public class EmployeeController {

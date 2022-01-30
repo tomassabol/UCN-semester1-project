@@ -10,10 +10,10 @@ import controller.AuthenticationController;
 import controller.CustomerController;
 import gui.Common;
 import gui.Messages;
-import gui.window.ChooseCustomerType;
-import model.Customer;
-import model.CustomerType;
-import model.PrimaryKey;
+import gui.windows.ChooseCustomerType;
+import models.Customer;
+import models.CustomerType;
+import models.PrimaryKey;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;

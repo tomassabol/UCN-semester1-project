@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.StorageLocation;
+import models.StorageLocation;
 
 // TODO: Auto-generated Javadoc
 /**

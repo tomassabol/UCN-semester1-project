@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.Quote;
+import models.Quote;
 
 /**
  * @author Daniels Kanepe

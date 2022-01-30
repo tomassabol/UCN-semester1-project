@@ -2,10 +2,10 @@ package view;
 
 import controller.StockController;
 import controller.SupplyController;
-import model.Product;
-import model.Shelf;
-import model.StorageLocation;
-import model.SupplyOrder;
+import models.Product;
+import models.Shelf;
+import models.StorageLocation;
+import models.SupplyOrder;
 
 public class MenuStock extends GenericMenuInterface {
 

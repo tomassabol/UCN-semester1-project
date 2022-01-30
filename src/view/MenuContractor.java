@@ -1,7 +1,7 @@
 package view;
 
 import controller.ContractorController;
-import model.Contractor;
+import models.Contractor;
 
 public class MenuContractor extends GenericMenuInterface{
 

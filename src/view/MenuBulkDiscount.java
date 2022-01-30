@@ -1,8 +1,8 @@
 package view;
 
 import controller.ProductController;
-import model.BulkDiscount;
-import model.Product;
+import models.BulkDiscount;
+import models.Product;
 
 public class MenuBulkDiscount extends GenericMenuInterface {
 	

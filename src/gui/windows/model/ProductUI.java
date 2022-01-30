@@ -9,8 +9,8 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import controller.ProductController;
 import gui.Messages;
-import model.PrimaryKey;
-import model.Product;
+import models.PrimaryKey;
+import models.Product;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;

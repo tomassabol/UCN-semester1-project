@@ -3,8 +3,8 @@ package models.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Customer;
-import model.Quote;
+import models.Customer;
+import models.Quote;
 
 public class QuoteContainer {
 	

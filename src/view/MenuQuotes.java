@@ -2,10 +2,10 @@ package view;
 
 import controller.EmployeeController;
 import controller.QuoteController;
-import model.Authentication;
-import model.Customer;
-import model.IFEmployee;
-import model.Quote;
+import models.Authentication;
+import models.Customer;
+import models.IFEmployee;
+import models.Quote;
 
 public class MenuQuotes extends GenericMenuInterface {
   private static MenuQuotes instance;

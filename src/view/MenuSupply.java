@@ -3,7 +3,7 @@ package view;
 import java.math.BigDecimal;
 
 import controller.*;
-import model.*;
+import models.*;
 
 public class MenuSupply extends GenericMenuInterface {
     

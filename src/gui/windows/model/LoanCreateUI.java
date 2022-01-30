@@ -12,12 +12,12 @@ import controller.StockController;
 import exception.OutOfStockException;
 import gui.Common;
 import gui.Messages;
-import gui.window.ChooseProduct;
-import model.Customer;
-import model.Employee;
-import model.Loan;
-import model.PrimaryKey;
-import model.Product;
+import gui.windows.ChooseProduct;
+import models.Customer;
+import models.Employee;
+import models.Loan;
+import models.PrimaryKey;
+import models.Product;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;

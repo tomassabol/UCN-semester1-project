@@ -3,7 +3,7 @@ package models.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.UntrackableStock;
+import models.UntrackableStock;
 
 public class UntrackableStockContainer {
     private static UntrackableStockContainer instance;

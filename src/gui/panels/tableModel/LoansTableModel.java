@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 
 import controller.LoanController;
 import gui.Common;
-import model.Loan;
+import models.Loan;
 
 /**
  * @author Daniels Kanepe

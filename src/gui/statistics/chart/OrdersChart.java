@@ -14,7 +14,7 @@ import org.knowm.xchart.XYChartBuilder;
 import org.knowm.xchart.style.Styler.LegendPosition;
 
 import gui.Common;
-import model.Order;
+import models.Order;
 
 /**
  * @author Daniels Kanepe

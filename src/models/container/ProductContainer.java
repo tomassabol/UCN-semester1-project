@@ -2,7 +2,7 @@ package models.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Product;
+import models.Product;
 
 /**
  * @authors tomassabol, danielskenepe, tamastoth, attilabako

@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import gui.Common;
-import model.Customer;
+import models.Customer;
 
 /**
  * @author Daniels Kanepe

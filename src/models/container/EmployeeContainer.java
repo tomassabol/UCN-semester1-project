@@ -3,7 +3,7 @@ package models.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.IFEmployee;
+import models.IFEmployee;
 
 public class EmployeeContainer {
     private static EmployeeContainer instance;

@@ -1,8 +1,8 @@
 package view;
 
-import model.*;
 import controller.*;
 import exception.OutOfStockException;
+import models.*;
 public class MenuShoppingCart extends GenericMenuInterface{
     private Customer customer;
 

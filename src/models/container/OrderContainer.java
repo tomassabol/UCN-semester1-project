@@ -3,9 +3,9 @@ package models.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Customer;
-import model.Order;
-import model.OrderLine;
+import models.Customer;
+import models.Order;
+import models.OrderLine;
 
 public class OrderContainer {
 	

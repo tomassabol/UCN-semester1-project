@@ -12,8 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import controller.ProductController;
-import model.LoaningPrice;
-import model.Product;
+import models.LoaningPrice;
+import models.Product;
 import models.container.ProductContainer;
 
 class ProductControllerTest {

@@ -1,7 +1,7 @@
 package controller;
 
-import model.Authentication;
-import model.IFEmployee;
+import models.Authentication;
+import models.IFEmployee;
 
 public class AuthenticationController {
 	

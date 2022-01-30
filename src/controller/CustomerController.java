@@ -3,10 +3,10 @@ package controller;
 import java.time.LocalDate;
 import java.util.List;
 
-import model.Customer;
-import model.CustomerType;
-import model.IFCustomer;
-import model.PrimaryKey;
+import models.Customer;
+import models.CustomerType;
+import models.IFCustomer;
+import models.PrimaryKey;
 import models.container.CustomerContainer;
 import models.container.CustomerTypeContainer;
 

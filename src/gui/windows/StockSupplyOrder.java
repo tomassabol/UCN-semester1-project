@@ -10,10 +10,9 @@ import exception.IllegalModificationException;
 import gui.Common;
 import gui.JButtonPrimary;
 import gui.Messages;
-import gui.window.ChooseShelf;
-import model.Shelf;
-import model.SupplyOrder;
-import model.TrackableItem;
+import models.Shelf;
+import models.SupplyOrder;
+import models.TrackableItem;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;

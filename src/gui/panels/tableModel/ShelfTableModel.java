@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import controller.ProductController;
-import model.Shelf;
+import models.Shelf;
 
 /**
  * @author Daniels Kanepe

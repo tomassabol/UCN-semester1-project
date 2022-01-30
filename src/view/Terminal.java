@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import controller.*;
-import model.*;
+import models.*;
 import models.container.StockContainer;
 
 /**

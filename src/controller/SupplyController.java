@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Set;
 
 import exception.IllegalModificationException;
-import model.Contractor;
-import model.PrimaryKey;
-import model.Product;
-import model.Shelf;
-import model.StockBatch;
-import model.SupplyOffer;
-import model.SupplyOrder;
-import model.TrackableItem;
+import models.Contractor;
+import models.PrimaryKey;
+import models.Product;
+import models.Shelf;
+import models.StockBatch;
+import models.SupplyOffer;
+import models.SupplyOrder;
+import models.TrackableItem;
 import models.container.SupplyOfferContainer;
 import models.container.SupplyOrderContainer;
 

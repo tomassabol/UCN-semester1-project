@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
-import model.CustomerType;
+
+import models.CustomerType;
 
 /**
  * @author Daniels Kanepe

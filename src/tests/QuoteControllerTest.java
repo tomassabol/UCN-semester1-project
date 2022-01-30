@@ -8,11 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import controller.QuoteController;
-import model.Customer;
-import model.CustomerType;
-import model.Employee;
-import model.PrimaryKey;
-import model.Quote;
+import models.Customer;
+import models.CustomerType;
+import models.Employee;
+import models.PrimaryKey;
+import models.Quote;
 import models.container.QuoteContainer;
 
 class QuoteControllerTest {

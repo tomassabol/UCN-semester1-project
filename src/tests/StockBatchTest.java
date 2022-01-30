@@ -10,9 +10,9 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.Product;
-import model.StockBatch;
-import model.TrackableItem;
+import models.Product;
+import models.StockBatch;
+import models.TrackableItem;
 
 class StockBatchTest {
 private StockBatch stockBatch1;

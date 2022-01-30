@@ -9,12 +9,12 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import controller.SupplyController;
 import gui.Messages;
-import gui.window.ChooseContractor;
-import gui.window.ChooseProduct;
-import model.Contractor;
-import model.PrimaryKey;
-import model.Product;
-import model.SupplyOffer;
+import gui.windows.ChooseContractor;
+import gui.windows.ChooseProduct;
+import models.Contractor;
+import models.PrimaryKey;
+import models.Product;
+import models.SupplyOffer;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;

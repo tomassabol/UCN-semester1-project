@@ -2,7 +2,7 @@ package view;
 
 import controller.OrderController;
 import controller.StockController;
-import model.*;
+import models.*;
 
 public class MenuQuotesAndOrders extends GenericMenuInterface {
 	

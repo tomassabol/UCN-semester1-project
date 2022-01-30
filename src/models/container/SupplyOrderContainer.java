@@ -3,8 +3,8 @@ package models.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Product;
-import model.SupplyOrder;
+import models.Product;
+import models.SupplyOrder;
 
 public class SupplyOrderContainer {
 	

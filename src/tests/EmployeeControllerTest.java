@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.Employee;
+import models.Employee;
 import models.container.EmployeeContainer;
 
 class EmployeeControllerTest {

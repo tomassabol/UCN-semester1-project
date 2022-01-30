@@ -2,11 +2,9 @@ package controller;
 
 import java.util.List;
 
-
-
-import model.PrimaryKey;
+import models.Contractor;
+import models.PrimaryKey;
 import models.container.ContractorContainer;
-import model.Contractor;
 
 
 

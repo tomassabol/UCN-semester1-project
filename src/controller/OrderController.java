@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.OutOfStockException;
-import model.*;
+import models.*;
 import models.container.OrderContainer;
 import models.container.StockContainer;
 
@@ -56,7 +56,7 @@ public class OrderController {
 	 */
 	public Order payForQuote(Quote quote) throws OutOfStockException {
 		// Check if each item line is in stock
-		for (model.QuoteItemLine itemLine: quote.getItemLines()) {
+		for (models.QuoteItemLine itemLine: quote.getItemLines()) {
 			int buyableQuantity = new StockController().getBuyableQuantityInStock(itemLine.getPRODUCT());
 			if (itemLine.getQuantity() > buyableQuantity) {
 				throw new OutOfStockException("Some of the items in this item line are out of stock!");
@@ -66,7 +66,7 @@ public class OrderController {
 		IFCustomer customer = quote.getCustomer();
 		IFEmployee employee = quote.getEmployee();
 		ArrayList<OrderLine> orderLines = new ArrayList<>();
-		for (model.QuoteItemLine itemLine: quote.getItemLines()) {
+		for (models.QuoteItemLine itemLine: quote.getItemLines()) {
 			
 			orderLines.add(StockContainer.getInstance().stockToOrderlineBuyable(itemLine.getPRODUCT(), itemLine.getQuantity()));
 		}

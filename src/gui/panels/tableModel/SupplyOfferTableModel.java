@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.SupplyOffer;
+import models.SupplyOffer;
 
 public class SupplyOfferTableModel  extends AbstractTableModel {
 

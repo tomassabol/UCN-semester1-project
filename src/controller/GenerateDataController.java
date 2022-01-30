@@ -10,7 +10,7 @@ import exception.IllegalModificationException;
 import exception.NullPriceException;
 import exception.OutOfStockException;
 import gui.Common;
-import model.*;
+import models.*;
 
 public class GenerateDataController {
     private QuoteController orderCtrl;

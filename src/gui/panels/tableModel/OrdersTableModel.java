@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import gui.Common;
-import model.Order;
+import models.Order;
 
 /**
  * @author Daniels Kanepe

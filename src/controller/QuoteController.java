@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.OutOfStockException;
-import model.*;
+import models.*;
 import models.container.QuoteContainer;
 import models.container.StockContainer;
 

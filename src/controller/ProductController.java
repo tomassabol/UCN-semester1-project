@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.BulkDiscount;
-import model.LoaningPrice;
-import model.PrimaryKey;
-import model.Product;
-import model.SellingPrice;
+import models.BulkDiscount;
+import models.LoaningPrice;
+import models.PrimaryKey;
+import models.Product;
+import models.SellingPrice;
 import models.container.ProductContainer;
 
 public class ProductController {

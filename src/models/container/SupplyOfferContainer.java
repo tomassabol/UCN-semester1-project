@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import model.Product;
-import model.SupplyOffer;
+import models.Product;
+import models.SupplyOffer;
 
 public class SupplyOfferContainer {
 	private static SupplyOfferContainer instance;

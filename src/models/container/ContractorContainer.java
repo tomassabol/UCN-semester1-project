@@ -3,7 +3,7 @@ package models.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Contractor;
+import models.Contractor;
 
 public class ContractorContainer {
     private static ContractorContainer instance;

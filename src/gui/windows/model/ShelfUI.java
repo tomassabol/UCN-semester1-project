@@ -9,10 +9,10 @@ import javax.swing.border.EmptyBorder;
 import controller.AuthenticationController;
 import controller.StockController;
 import gui.Messages;
-import gui.window.ChooseStorageLocations;
-import model.PrimaryKey;
-import model.Shelf;
-import model.StorageLocation;
+import gui.windows.ChooseStorageLocations;
+import models.PrimaryKey;
+import models.Shelf;
+import models.StorageLocation;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;

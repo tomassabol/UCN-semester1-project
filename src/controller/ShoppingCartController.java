@@ -7,9 +7,9 @@ import java.util.List;
 import exception.DisabledStateException;
 import exception.NullPriceException;
 import exception.OutOfStockException;
-import model.Product;
-import model.ShoppingCart;
-import model.ShoppingItemLine;
+import models.Product;
+import models.ShoppingCart;
+import models.ShoppingItemLine;
 import models.container.StockContainer;
 
 public class ShoppingCartController {

@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Test;
 
 import controller.ShoppingCartController;
 import exception.OutOfStockException;
-import model.Customer;
-import model.IFCustomer;
-import model.Product;
-import model.SellingPrice;
-import model.Shelf;
-import model.ShoppingCart;
-import model.StockBatch;
-import model.StorageLocation;
-import model.TrackableItem;
+import models.Customer;
+import models.IFCustomer;
+import models.Product;
+import models.SellingPrice;
+import models.Shelf;
+import models.ShoppingCart;
+import models.StockBatch;
+import models.StorageLocation;
+import models.TrackableItem;
 import models.container.StockContainer;
 
 class ShoppingCartControllerTest {

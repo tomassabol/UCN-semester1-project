@@ -6,8 +6,8 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import gui.Common;
-import model.Employee;
-import model.IFEmployee;
+import models.Employee;
+import models.IFEmployee;
 
 /**
  * @author Daniels Kanepe
