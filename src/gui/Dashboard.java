@@ -346,13 +346,6 @@ public class Dashboard extends JFrame {
 		gbc_btnManageLoans.gridx = 0;
 		gbc_btnManageLoans.gridy = 4;
 		loanPanel.add(btnManageLoans, gbc_btnManageLoans);
-		
-		btnReturnLoan = new JButton("Return Loan");
-		GridBagConstraints gbc_btnReturnLoan = new GridBagConstraints();
-		gbc_btnReturnLoan.insets = new Insets(0, 0, 5, 0);
-		gbc_btnReturnLoan.gridx = 0;
-		gbc_btnReturnLoan.gridy = 5;
-		loanPanel.add(btnReturnLoan, gbc_btnReturnLoan);
 	}
 
 	/*
