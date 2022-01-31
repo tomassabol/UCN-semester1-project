@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class OrderController {
 	 * @return Order
 	 * @throws OutOfStockException
 	 */
-	public Order payForQuote(Quote quote) throws OutOfStockException {
+	public Order payForQuote(Quote quote, LocalDateTime creationDate) throws OutOfStockException {
 		// Check if each item line is in stock
 		for (models.QuoteItemLine itemLine: quote.getItemLines()) {
 			int buyableQuantity = new StockController().getBuyableQuantityInStock(itemLine.getPRODUCT());
@@ -70,11 +71,14 @@ public class OrderController {
 			
 			orderLines.add(StockContainer.getInstance().stockToOrderlineBuyable(itemLine.getPRODUCT(), itemLine.getQuantity()));
 		}
-		Order order = new Order(PrimaryKey.getID(PrimaryKey.Keys.ORDER), 
+		Order order = new Order(PrimaryKey.getID(PrimaryKey.Keys.ORDER), creationDate,
 				customer, employee, orderLines);
 		new QuoteController().removeQuote(quote);
 		OrderContainer.getInstance().addOrder(order);
 		return order;
+	}
+	public Order payForQuote(Quote quote) throws OutOfStockException {
+		return this.payForQuote(quote, LocalDateTime.now());
 	}
 
 	/**

@@ -174,7 +174,7 @@ public class GenerateDataController {
         try {
 			Quote quote2 = quoteCtrl.createQuote(customer2, employee);
             // create order
-            orderCtrl.payForQuote(quote2);
+            orderCtrl.payForQuote(quote2, LocalDateTime.now().minusDays(5));
 		} catch (OutOfStockException e) {
 			e.printStackTrace();
 		}
@@ -183,7 +183,7 @@ public class GenerateDataController {
         
         // Add items to cart
         try {
-			shoppingCartCtrl.addProduct(customer3.getShoppingCart(), product2, 1);
+			shoppingCartCtrl.addProduct(customer3.getShoppingCart(), product2, 2);
 	        shoppingCartCtrl.addProduct(customer3.getShoppingCart(), product1, 1);
 		} catch (OutOfStockException | NullPriceException | DisabledStateException e1) {
 			e1.printStackTrace();
@@ -192,7 +192,7 @@ public class GenerateDataController {
         try {
 			Quote quote3 = quoteCtrl.createQuote(customer3, employee);
             // create order
-            orderCtrl.payForQuote(quote3);
+            orderCtrl.payForQuote(quote3, LocalDateTime.now().minusDays(3));
 		} catch (OutOfStockException e) {
 			e.printStackTrace();
 		}

@@ -27,14 +27,14 @@ public class Order {
 	/*
 	 * Constructor
 	 */
-	public Order(int id, IFCustomer customer, IFEmployee employee, ArrayList<OrderLine> itemLines) {
+	public Order(int id, LocalDateTime creationDate, IFCustomer customer, IFEmployee employee, ArrayList<OrderLine> itemLines) {
 		this.ID = id;
 		this.CUSTOMER = customer;
 		this.ITEM_LINES = itemLines;
 		this.EMPLOYEE = employee;
 		
 		this.status = OrderStatus.PAID;
-		this.CREATION_DATE = LocalDateTime.now();
+		this.CREATION_DATE = creationDate;
 		this.CUSTOMER_TYPE = customer.getCustomerType().getName();
 		this.CUSTOMER_TYPE_DISCOUNT_PERCENTAGE = customer.getCustomerType().getDiscountPercentage();
 		this.SUBTOTAL_PRICE = this.calculateSubtotal();
