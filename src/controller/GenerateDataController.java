@@ -124,8 +124,8 @@ public class GenerateDataController {
         
         // Create supply orders
         SupplyOrder supplyOrder1 = supplyCtrl.createSupplyOrder(product1, 15, BigDecimal.valueOf(20), contractor1, LocalDateTime.now().minusDays(2));
-        SupplyOrder supplyOrder2 = supplyCtrl.createSupplyOrder(product2, 5, BigDecimal.valueOf(25), contractor1, LocalDateTime.now().minusDays(1));
-        SupplyOrder supplyOrder3 = supplyCtrl.createSupplyOrder(product3, 10, BigDecimal.valueOf(30), contractor1, LocalDateTime.now().minusDays(3));
+        SupplyOrder supplyOrder2 = supplyCtrl.createSupplyOrder(product2, 25, BigDecimal.valueOf(25), contractor1, LocalDateTime.now().minusDays(1));
+        SupplyOrder supplyOrder3 = supplyCtrl.createSupplyOrder(product3, 15, BigDecimal.valueOf(30), contractor1, LocalDateTime.now().minusDays(3));
         SupplyOrder supplyOrder4 = supplyCtrl.createSupplyOrder(product5, 33, BigDecimal.valueOf(15), contractor1, LocalDateTime.now().minusDays(5));
         SupplyOrder supplyOrder5 = supplyCtrl.createSupplyOrder(product6, 2, BigDecimal.valueOf(40), contractor1, LocalDateTime.now().minusDays(8));
         SupplyOrder supplyOrder6 = supplyCtrl.createSupplyOrder(product1, 15, BigDecimal.valueOf(20), contractor1, LocalDateTime.now().minusDays(15));
@@ -142,7 +142,9 @@ public class GenerateDataController {
 		} catch (IllegalModificationException e2) {
 			e2.printStackTrace();
 		}
-
+        
+        // ** customer1 **
+        
         // Add items to cart
         try {
 			shoppingCartCtrl.addProduct(customer1.getShoppingCart(), product2, 3);
@@ -150,9 +152,7 @@ public class GenerateDataController {
 		} catch (OutOfStockException | NullPriceException | DisabledStateException e1) {
 			e1.printStackTrace();
 		}
-        
-        // customer1 quotes & orders
-        // Create quote
+        // Create quote & then order
         try {
 			Quote quote1 = quoteCtrl.createQuote(customer1, employee);
             // create order
@@ -161,56 +161,44 @@ public class GenerateDataController {
 			e.printStackTrace();
 		}
 
+        // ** customer2 **
+        
+        // Add items to cart
         try {
-			quoteCtrl.createQuote(customer1, employee);
+			shoppingCartCtrl.addProduct(customer2.getShoppingCart(), product2, 1);
+	        shoppingCartCtrl.addProduct(customer2.getShoppingCart(), product1, 1);
+		} catch (OutOfStockException | NullPriceException | DisabledStateException e1) {
+			e1.printStackTrace();
+		}
+        // Create quote & then order
+        try {
+			Quote quote2 = quoteCtrl.createQuote(customer2, employee);
+            // create order
+            orderCtrl.payForQuote(quote2);
 		} catch (OutOfStockException e) {
 			e.printStackTrace();
 		}
-
-        // customer 2 quote
-        // create quote
+        
+        // ** customer3 **
+        
+        // Add items to cart
         try {
-			Quote quote3 = quoteCtrl.createQuote(customer2, employee);
+			shoppingCartCtrl.addProduct(customer3.getShoppingCart(), product2, 1);
+	        shoppingCartCtrl.addProduct(customer3.getShoppingCart(), product1, 1);
+		} catch (OutOfStockException | NullPriceException | DisabledStateException e1) {
+			e1.printStackTrace();
+		}
+        // Create quote & then order
+        try {
+			Quote quote3 = quoteCtrl.createQuote(customer3, employee);
             // create order
             orderCtrl.payForQuote(quote3);
 		} catch (OutOfStockException e) {
 			e.printStackTrace();
 		}
 
-        // customer3 quotes & orders
-        // create quote
-        try {
-			quoteCtrl.createQuote(customer3, employee);
-		} catch (OutOfStockException e) {
-			e.printStackTrace();
-		}
         
-        try {
-			Quote quote4 = quoteCtrl.createQuote(customer3, employee);
-             // create order
-             orderCtrl.payForQuote(quote4);
-		} catch (OutOfStockException e) {
-			e.printStackTrace();
-		}
-
-        // customer 4 quote
-        try {
-			quoteCtrl.createQuote(customer4, employee);
-		} catch (OutOfStockException e) {
-			e.printStackTrace();
-		}
-
-        // customer 5 order
-        try {
-			Quote quote5 = quoteCtrl.createQuote(customer5, employee);
-             // create order
-             orderCtrl.payForQuote(quote5);
-		} catch (OutOfStockException e) {
-			e.printStackTrace();
-		}
-        
-        
-        // Add items to cart, again
+        // Add items to cart for customer1, again
         try {
 			shoppingCartCtrl.addProduct(customer2.getShoppingCart(), product2, 2);
 	        shoppingCartCtrl.addProduct(customer1.getShoppingCart(), product1, 1);
