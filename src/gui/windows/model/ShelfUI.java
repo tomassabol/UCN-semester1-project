@@ -79,7 +79,7 @@ public class ShelfUI extends JDialog {
         this.storageLocation = storageLocation != null ? shelf.getStorageLocation() : null;
 		
 		setModal(true);
-		setBounds(100, 100, 450, 341);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);

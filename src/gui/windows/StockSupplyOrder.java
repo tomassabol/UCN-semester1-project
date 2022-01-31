@@ -71,7 +71,7 @@ public class StockSupplyOrder extends JDialog {
         supplyCtrl = new SupplyController();
 		
 		setModal(true);
-		setBounds(100, 100, 450, 341);
+		setBounds(100, 100, 600, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);

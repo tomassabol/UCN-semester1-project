@@ -112,7 +112,7 @@ public class Dashboard extends JFrame {
 		
 		// Window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 350);
+		setBounds(100, 100, 800, 550);
 		// *Content pane
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));

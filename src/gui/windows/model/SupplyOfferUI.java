@@ -84,7 +84,7 @@ public class SupplyOfferUI extends JDialog {
 		this.supplyOffer = supplyOffer;
 		
 		setModal(true);
-		setBounds(100, 100, 450, 341);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
