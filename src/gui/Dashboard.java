@@ -28,7 +28,6 @@ import controller.AuthenticationController;
 import controller.OrderController;
 import gui.statistics.charts.OrdersChart;
 import gui.windows.ChooseCustomer;
-import gui.windows.ChooseLoan;
 import gui.windows.ManageContractors;
 import gui.windows.ManageCustomerTypes;
 import gui.windows.ManageCustomers;
@@ -42,13 +41,10 @@ import gui.windows.ManageShoppingCarts;
 import gui.windows.ManageStorageLocations;
 import gui.windows.ManageSupplyOffers;
 import gui.windows.ManageSupplyOrders;
-import gui.windows.model.LoanCreateUI;
 import models.Customer;
 import models.Order;
 
 import java.util.List;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Daniels Kanepe

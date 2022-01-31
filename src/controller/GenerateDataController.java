@@ -13,8 +13,9 @@ import gui.Common;
 import models.*;
 
 public class GenerateDataController {
-    private QuoteController orderCtrl;
-    private EmployeeController employeeCtrl;
+    OrderController orderCtrl;
+    QuoteController quoteCtrl;
+    EmployeeController employeeCtrl;
     ContractorController contractorCtrl;
     LoanController loanCtrl;
     ShoppingCartController shoppingCartCtrl;
@@ -22,7 +23,8 @@ public class GenerateDataController {
     SupplyController supplyCtrl;
 
     public GenerateDataController() {
-        orderCtrl = new QuoteController();
+        orderCtrl = new OrderController();
+        quoteCtrl = new QuoteController();
         employeeCtrl = new EmployeeController();
         contractorCtrl = new ContractorController();
         loanCtrl = new LoanController();
@@ -149,13 +151,63 @@ public class GenerateDataController {
 			e1.printStackTrace();
 		}
         
+        // customer1 quotes & orders
         // Create quote
         try {
-			orderCtrl.createQuote(customer1, employee);
+			Quote quote1 = quoteCtrl.createQuote(customer1, employee);
+            // create order
+            orderCtrl.payForQuote(quote1);
+		} catch (OutOfStockException e) {
+			e.printStackTrace();
+		}
+
+        try {
+			quoteCtrl.createQuote(customer1, employee);
+		} catch (OutOfStockException e) {
+			e.printStackTrace();
+		}
+
+        // customer 2 quote
+        // create quote
+        try {
+			Quote quote3 = quoteCtrl.createQuote(customer2, employee);
+            // create order
+            orderCtrl.payForQuote(quote3);
+		} catch (OutOfStockException e) {
+			e.printStackTrace();
+		}
+
+        // customer3 quotes & orders
+        // create quote
+        try {
+			quoteCtrl.createQuote(customer3, employee);
 		} catch (OutOfStockException e) {
 			e.printStackTrace();
 		}
         
+        try {
+			Quote quote4 = quoteCtrl.createQuote(customer3, employee);
+             // create order
+             orderCtrl.payForQuote(quote4);
+		} catch (OutOfStockException e) {
+			e.printStackTrace();
+		}
+
+        // customer 4 quote
+        try {
+			quoteCtrl.createQuote(customer4, employee);
+		} catch (OutOfStockException e) {
+			e.printStackTrace();
+		}
+
+        // customer 5 order
+        try {
+			Quote quote5 = quoteCtrl.createQuote(customer5, employee);
+             // create order
+             orderCtrl.payForQuote(quote5);
+		} catch (OutOfStockException e) {
+			e.printStackTrace();
+		}
         
         
         // Add items to cart, again
