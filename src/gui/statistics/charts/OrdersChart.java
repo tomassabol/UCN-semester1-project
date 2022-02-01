@@ -3,6 +3,8 @@ package gui.statistics.charts;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -48,14 +50,17 @@ public class OrdersChart {
 	}
 	public XChartPanel<XYChart> getChart() {
 		// extract dates with orders
-		Set<LocalDate> orderDates = new HashSet<>();
+		List<LocalDate> orderDates = new ArrayList<>();
 		for (Order order: orders) {
 			orderDates.add(order.getCreationDate().toLocalDate());
 		}
+		// Sort the dates
+		List<LocalDate> orderDatesSorted = new ArrayList<>(orderDates);
+		Collections.sort(orderDatesSorted);
 		// For each date, sum up the total revenue and plot it
         List<Date> xData = new ArrayList<Date>();
         List<Double> yData = new ArrayList<Double>();
-		for (LocalDate orderDate: orderDates) {
+		for (LocalDate orderDate: orderDatesSorted) {
 			BigDecimal orderDateSum = new BigDecimal(0);
 			for (Order order: orders) {
 				if (orderDate.equals(order.getCreationDate().toLocalDate())) {
