@@ -9,7 +9,6 @@ import exception.EmailNotUniqueException;
 import exception.IllegalModificationException;
 import exception.NullPriceException;
 import exception.OutOfStockException;
-import gui.Common;
 import models.*;
 
 public class GenerateDataController {
@@ -49,7 +48,7 @@ public class GenerateDataController {
         ProductController productCtrl = new ProductController();
         Product product1 = productCtrl.createProduct("Shovel", "A big, steel shovel", 70, 100, true);
         Product product2 = productCtrl.createProduct("Hammer", "A small, steel hammer", 20, 55, true);
-        Product product3 = productCtrl.createProduct("Kitchen", "A designed kitchen with all needed forniture", 5, 30, true);
+        Product product3 = productCtrl.createProduct("Tractor", "A big expensive tractor ", 2, 5, true);
         Product product4 = productCtrl.createProduct("Chair", ", gaming chair", 10, 50, true);
         Product product5 = productCtrl.createProduct("Table", "Adjustable Table", 10, 100, true);
         Product product6 = productCtrl.createProduct("Diswasher", "T2021 with 5 function", 25, 48, true);
@@ -61,9 +60,9 @@ public class GenerateDataController {
         Product product12 = productCtrl.createProduct("Chain saw", "for wood cut", 10, 28, true);
         
         // Add 'loaning' prices to some products
-        LoaningPrice loaningPrice = productCtrl.createLoaningPrice(BigDecimal.valueOf(25), product1);
+        LoaningPrice loaningPrice = productCtrl.createLoaningPrice(BigDecimal.valueOf(5), product1);
         LoaningPrice loaningPrice2 = productCtrl.createLoaningPrice(BigDecimal.valueOf(50), product3);
-        LoaningPrice loaningPrice3 = productCtrl.createLoaningPrice(BigDecimal.valueOf(30), product12);
+        LoaningPrice loaningPrice3 = productCtrl.createLoaningPrice(BigDecimal.valueOf(10), product12);
         
         // add bulk discount to some products
         BulkDiscount bulkDiscount1 = new BulkDiscount(3, 5);
@@ -106,18 +105,16 @@ public class GenerateDataController {
 		}
         
         // Create storage locations
-        StorageLocation storageLocation1 = stockCtrl.createStorageLocation("DIY", "Rundvej 11A", true);
-        StorageLocation storageLocation2 = stockCtrl.createStorageLocation("Timber", "Melvej 4 ", true);
-        StorageLocation storageLocation3 = stockCtrl.createStorageLocation("Kitchen", "Melvej 4 ", true);
-        StorageLocation storageLocation4 = stockCtrl.createStorageLocation("DIY", "Rundvej 11A", true);
+        StorageLocation storageLocation1 = stockCtrl.createStorageLocation("Timber", "Melvej 4 ", true);
+        StorageLocation storageLocation2 = stockCtrl.createStorageLocation("DIY", "Rundvej 11A", true);
         
         // Create shelves
         Shelf shelf1 = stockCtrl.createShelf("A1", storageLocation1);
         Shelf shelf2 = stockCtrl.createShelf("A5", storageLocation1);
         Shelf shelf3 = stockCtrl.createShelf("D1", storageLocation2);
         Shelf shelf4 = stockCtrl.createShelf("C22", storageLocation2);
-        Shelf shelf5 = stockCtrl.createShelf("C26", storageLocation3);
-        Shelf shelf6 = stockCtrl.createShelf("B1", storageLocation4);
+        Shelf shelf5 = stockCtrl.createShelf("C26", storageLocation2);
+        Shelf shelf6 = stockCtrl.createShelf("B1", storageLocation1);
         
         // Create supply offers
         SupplyOffer supplyOffer1 = supplyCtrl.createSupplyOffer(product1, contractor1, BigDecimal.valueOf(4), 2);
@@ -125,11 +122,12 @@ public class GenerateDataController {
         // Create supply orders
         SupplyOrder supplyOrder1 = supplyCtrl.createSupplyOrder(product1, 15, BigDecimal.valueOf(20), contractor1, LocalDateTime.now().minusDays(2));
         SupplyOrder supplyOrder2 = supplyCtrl.createSupplyOrder(product2, 25, BigDecimal.valueOf(25), contractor1, LocalDateTime.now().minusDays(1));
-        SupplyOrder supplyOrder3 = supplyCtrl.createSupplyOrder(product3, 15, BigDecimal.valueOf(30), contractor1, LocalDateTime.now().minusDays(3));
-        SupplyOrder supplyOrder4 = supplyCtrl.createSupplyOrder(product5, 33, BigDecimal.valueOf(15), contractor1, LocalDateTime.now().minusDays(5));
+        SupplyOrder supplyOrder3 = supplyCtrl.createSupplyOrder(product5, 15, BigDecimal.valueOf(30), contractor1, LocalDateTime.now().minusDays(3));
+        SupplyOrder supplyOrder4 = supplyCtrl.createSupplyOrder(product3, 33, BigDecimal.valueOf(15), contractor1, LocalDateTime.now().minusDays(5));
         SupplyOrder supplyOrder5 = supplyCtrl.createSupplyOrder(product6, 2, BigDecimal.valueOf(40), contractor1, LocalDateTime.now().minusDays(8));
         SupplyOrder supplyOrder6 = supplyCtrl.createSupplyOrder(product1, 15, BigDecimal.valueOf(20), contractor1, LocalDateTime.now().minusDays(15));
         SupplyOrder supplyOrder7 = supplyCtrl.createSupplyOrder(product1, 15, BigDecimal.valueOf(20), contractor1, LocalDateTime.now().minusDays(15));
+        SupplyOrder supplyOrder8 = supplyCtrl.createSupplyOrder(product12, 10, BigDecimal.valueOf(15), contractor1, LocalDateTime.now().minusDays(5));
         
         // Put some supply orders into stock
         try {
@@ -137,8 +135,10 @@ public class GenerateDataController {
 			supplyCtrl.StockAndMarkDelivered(supplyOrder2, shelf2, LocalDateTime.now(), false, TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE);
 	        supplyCtrl.StockAndMarkDelivered(supplyOrder3, shelf3, LocalDateTime.now(), true, TrackableItem.TRACKABLE_ITEM_TYPE.LOANABLE);
 	        supplyCtrl.StockAndMarkDelivered(supplyOrder4, shelf2, LocalDateTime.now(), true, TrackableItem.TRACKABLE_ITEM_TYPE.LOANABLE);
+            supplyCtrl.StockAndMarkDelivered(supplyOrder8, shelf2, LocalDateTime.now(), true, TrackableItem.TRACKABLE_ITEM_TYPE.LOANABLE);
+
 	        supplyCtrl.StockAndMarkDelivered(supplyOrder5, shelf4, LocalDateTime.now(), true, TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE);
-	        supplyCtrl.StockAndMarkDelivered(supplyOrder6, shelf1, LocalDateTime.now(), false, TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE);
+	        supplyCtrl.StockAndMarkDelivered(supplyOrder6, shelf1, LocalDateTime.now(), false, TrackableItem.TRACKABLE_ITEM_TYPE.BUYABLE);  // 1 3
 		} catch (IllegalModificationException e2) {
 			e2.printStackTrace();
 		}
