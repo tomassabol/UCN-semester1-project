@@ -185,7 +185,7 @@ public class ReturnLoan extends JDialog {
 		contentPane.add(btnAutofill, gbc_btnAutofill);
 		
 		
-		btnSubmit = new JButtonPrimary("Put Into Stock");
+		btnSubmit = new JButtonPrimary("Return");
 		GridBagConstraints gbc_btnOK = new GridBagConstraints();
 		gbc_btnOK.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnOK.gridx = 1;
