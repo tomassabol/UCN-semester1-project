@@ -1,8 +1,10 @@
 <h1 align="center">👋 Welcome to Semester 1 Project - UCN Computer Science 👋</h1>
 <p>Business plan, Design and Development of a basic system for Vestbjerg Byggecenter.</p>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-2.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="" target="_blank">
+  <a href="" target="https://github.com/tomassabol/UCN-semester1-project/releases/tag/2.0">
+    <img alt="Version" src="https://img.shields.io/badge/version-2.0.0-blue.svg?cacheSeconds=2592000" />
+  </a>
+  <a href="" target="https://tomassabol.github.io/UCN-semester1-project/">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>  
 </p>
